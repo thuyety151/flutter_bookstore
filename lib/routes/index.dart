@@ -2,7 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/components/image/view_full_screen.dart';
 import 'package:flutter_folder/screens/address/address_screen.dart';
+import 'package:flutter_folder/screens/book_detail/book_detail_screen.dart';
 import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:flutter_folder/screens/login/login_screen.dart';
 import 'package:flutter_folder/screens/profile/change_password_screen.dart';
@@ -29,8 +31,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => LoginScreen());
       case ROUTE_HOME_PAGE:
         return MaterialPageRoute(builder: (context) => HomeScreen());
-      // case ROUTE_PRODUCT_DETAIL:
-      //   return MaterialPageRoute(builder: (context) => ProductDetailPage());
+      case ROUTE_PRODUCT_DETAIL:
+        return MaterialPageRoute(builder: (context) => BookDetailScreen());
       case ROUTE_PROFILE:
         return MaterialPageRoute(builder: (context) => ProfileScreen());
       case ROUTE_PROFILE_DETAIL:
@@ -43,8 +45,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => ChangePasswordScreen());
       // case ROUTE_DEMO:
       //   return MaterialPageRoute(builder: (context) => Layout());
-      // case ROUTE_IMAGES_DETAIL:
-      //   return MaterialPageRoute(builder: (context) => ViewImageFullScreen());
+      case ROUTE_IMAGES_DETAIL:
+        return MaterialPageRoute(builder: (context) => ViewImageFullScreen());
       // case ROUTE_WISH_LIST:
       //   return MaterialPageRoute(builder: (context) => WishListScreen());
       default:
