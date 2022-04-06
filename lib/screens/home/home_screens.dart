@@ -9,14 +9,14 @@ import 'package:flutter_folder/screens/home/components/home_page_header.dart';
 
 List<String> categories = ["Paperback", "Hardcover", "Kindlebook"];
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   final List<BestSellingModel> bestselling = listBestselling;
 
   void onViewDetail() {

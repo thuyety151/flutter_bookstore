@@ -2,6 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/screens/home/home_screens.dart';
+import 'package:flutter_folder/screens/login/login_screen.dart';
 
 class RouteManager {
   static const String ROUTE_LOGIN = "/login";
@@ -18,10 +20,10 @@ class RouteManager {
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      // case ROUTE_LOGIN:
-      //   return MaterialPageRoute(builder: (context) => LoginPage());
-      // case ROUTE_HOME_PAGE:
-      //   return MaterialPageRoute(builder: (context) => HomePage());
+      case ROUTE_LOGIN:
+        return MaterialPageRoute(builder: (context) => LoginScreen());
+      case ROUTE_HOME_PAGE:
+        return MaterialPageRoute(builder: (context) => HomeScreen());
       // case ROUTE_PRODUCT_DETAIL:
       //   return MaterialPageRoute(builder: (context) => ProductDetailPage());
       // case ROUTE_PROFILE:

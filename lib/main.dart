@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/screens/home/home_screens.dart';
+import 'package:flutter_folder/screens/login/login_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -14,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      onGenerateRoute: RouteManager.generateRoute,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: GoogleFonts.inter().fontFamily,
       ),
-      home: const HomePage(),
+      home: const LoginScreen(),
     );
   }
 }

@@ -45,7 +45,7 @@ final otpInputDecoration = InputDecoration(
 
 OutlineInputBorder outlineInputBorder() {
   return OutlineInputBorder(
-    borderRadius: BorderRadius.circular(getProportionateScreenWidth(15)),
+    borderRadius: BorderRadius.all(Radius.circular(8)),
     borderSide: BorderSide(color: kTextColor),
   );
 }
