@@ -11,20 +11,26 @@ class HomePageHeader extends StatelessWidget {
 
   Widget _listCategory() {
     return Scrollbar(
-      isAlwaysShown: true,
-      child: ListView.builder(
-          shrinkWrap: true,
+        isAlwaysShown: true,
+        // child: ListView.builder(
+        //     shrinkWrap: true,
+        //     scrollDirection: Axis.horizontal,
+        //     itemCount: 10,
+        //     itemBuilder: (_, index) {
+        //       return;
+        //     }),
+        child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          itemCount: 10,
-          itemBuilder: (_, index) {
-            return Padding(
-              padding: EdgeInsets.all(8),
-              child: CardCategoryCircle(
-                category: listCategory[index],
-              ),
-            );
-          }),
-    );
+          child: Row(
+              children: List.generate(
+                  listCategory.length,
+                  (index) => Padding(
+                        padding: EdgeInsets.all(8),
+                        child: CardCategoryCircle(
+                          category: listCategory[index],
+                        ),
+                      ))),
+        ));
   }
 
   OutlineInputBorder searchBorder() {
