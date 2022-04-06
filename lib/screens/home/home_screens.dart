@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/book/book_card.dart';
 import 'package:flutter_folder/components/book/deal_of_week.dart';
+import 'package:flutter_folder/components/coustom_bottom_nav_bar.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
+import 'package:flutter_folder/enums.dart';
 import 'package:flutter_folder/mocks/models/Author.dart';
 import 'package:flutter_folder/mocks/models/BestSelling.dart';
 import 'package:flutter_folder/routes/index.dart';
@@ -155,7 +157,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.kBgGgrey,
-        // bottomNavigationBar: AppBottomNavigationBar(),
+        bottomNavigationBar: CustomBottomNavBar(
+          selectedMenu: MenuState.home,
+        ),
         body: SafeArea(
             child: SingleChildScrollView(
           child: Padding(
