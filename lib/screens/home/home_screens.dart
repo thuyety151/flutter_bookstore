@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_folder/components/book/book_card.dart';
 import 'package:flutter_folder/components/book/deal_of_week.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
@@ -33,7 +31,8 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20, letterSpacing: 1),
           ),
           Image(
             image: AssetImage("assets/icons/icon-view-all.png"),
@@ -44,7 +43,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _section(String title, Widget child, double height) {
-    // need to improve to dynamic height, fit content
     return Column(
       children: [
         _title(title),

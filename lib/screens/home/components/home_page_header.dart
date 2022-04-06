@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/category/category_circle.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/mocks/models/Category.dart';
 import 'package:flutter_folder/screens/home/components/app_banner.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomePageHeader extends StatelessWidget {
   const HomePageHeader({Key? key}) : super(key: key);
@@ -12,13 +10,6 @@ class HomePageHeader extends StatelessWidget {
   Widget _listCategory() {
     return Scrollbar(
         isAlwaysShown: true,
-        // child: ListView.builder(
-        //     shrinkWrap: true,
-        //     scrollDirection: Axis.horizontal,
-        //     itemCount: 10,
-        //     itemBuilder: (_, index) {
-        //       return;
-        //     }),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -34,20 +25,20 @@ class HomePageHeader extends StatelessWidget {
   }
 
   OutlineInputBorder searchBorder() {
-    return OutlineInputBorder(
+    return const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)),
-      borderSide: BorderSide(color: Colors.black26, width: 1),
+      borderSide: BorderSide(color: Colors.transparent, width: 1),
     );
   }
 
   Widget _search() {
     return Container(
-        height: 34,
+        height: 38,
         width: 360,
         padding: EdgeInsets.only(left: 8),
         child: TextField(
             decoration: InputDecoration(
-                fillColor: AppColors.kBgGgrey,
+                fillColor: Color.fromARGB(255, 248, 248, 248),
                 filled: true,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 10, vertical: 0),
@@ -65,7 +56,6 @@ class HomePageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(16),
@@ -82,8 +72,8 @@ class HomePageHeader extends StatelessWidget {
               FlatButton(
                   onPressed: () {},
                   color: AppColors.kPrimary,
-                  height: 34,
-                  minWidth: 34,
+                  height: 38,
+                  minWidth: 38,
                   padding: EdgeInsets.symmetric(horizontal: 0),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8))),
