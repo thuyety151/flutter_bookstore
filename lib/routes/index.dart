@@ -2,8 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/screens/address/address_screen.dart';
 import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:flutter_folder/screens/login/login_screen.dart';
+import 'package:flutter_folder/screens/profile/change_password_screen.dart';
+import 'package:flutter_folder/screens/profile/profile_detail_screen.dart';
+import 'package:flutter_folder/screens/profile/profile_edit_screen.dart';
+import 'package:flutter_folder/screens/profile/profile_screen.dart';
 
 class RouteManager {
   static const String ROUTE_LOGIN = "/login";
@@ -26,16 +31,16 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => HomeScreen());
       // case ROUTE_PRODUCT_DETAIL:
       //   return MaterialPageRoute(builder: (context) => ProductDetailPage());
-      // case ROUTE_PROFILE:
-      //   return MaterialPageRoute(builder: (context) => ProfileScreen());
-      // case ROUTE_PROFILE_DETAIL:
-      //   return MaterialPageRoute(builder: (context) => ProfileDetailScreen());
-      // case ROUTE_PROFILE_EDIT:
-      //   return MaterialPageRoute(builder: (context) => EditProfile());
-      // case ROUTE_ADDRESSES:
-      //   return MaterialPageRoute(builder: (context) => AddressScreen());
-      // case ROUTE_CHANGE_PASSWORD:
-      //   return MaterialPageRoute(builder: (context) => ChangePasswordScreen());
+      case ROUTE_PROFILE:
+        return MaterialPageRoute(builder: (context) => ProfileScreen());
+      case ROUTE_PROFILE_DETAIL:
+        return MaterialPageRoute(builder: (context) => ProfileDetailScreen());
+      case ROUTE_PROFILE_EDIT:
+        return MaterialPageRoute(builder: (context) => EditProfile());
+      case ROUTE_ADDRESSES:
+        return MaterialPageRoute(builder: (context) => AddressScreen());
+      case ROUTE_CHANGE_PASSWORD:
+        return MaterialPageRoute(builder: (context) => ChangePasswordScreen());
       // case ROUTE_DEMO:
       //   return MaterialPageRoute(builder: (context) => Layout());
       // case ROUTE_IMAGES_DETAIL:
