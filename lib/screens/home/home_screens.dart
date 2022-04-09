@@ -44,13 +44,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _section(String title, Widget child, double height) {
+  Widget _section(String title, Widget child) {
     return Column(
       children: [
         _title(title),
         SizedBox(
             child: Container(
-                height: height,
                 child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal, child: child))),
       ],
@@ -97,14 +96,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: List.generate(listBestselling.length,
                     (index) => BookCard(book: listBestselling[index])),
               ),
-              300,
             ),
             _section(
               "Deals of week",
               Wrap(
                   spacing: 12,
                   children: List.generate(3, (index) => DealOfWeekCard())),
-              128,
             ),
             _title("New release"),
             _newReCategories(),
@@ -146,7 +143,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ]),
                         )),
               ),
-              300,
             ),
           ]),
         ));
