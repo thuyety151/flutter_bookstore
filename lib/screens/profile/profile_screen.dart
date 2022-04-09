@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/avatar.dart';
+import 'package:flutter_folder/models/profile.dart';
+import 'package:flutter_folder/provider/profile/profile_state.dart';
 import 'package:flutter_folder/screens/profile/components/profile_menu.dart';
+import 'package:provider/provider.dart';
 
 import '../../routes/index.dart';
 import 'components/stats_card.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
-  @override
-  _ProfileScreenState createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  Widget _menus() {
+  Widget _menus(BuildContext context) {
     void onPress(String type) {
       switch (type) {
         case "address":
@@ -80,6 +78,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Profile profile = Provider.of<ProfileState>(context).profile;
+
     return Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
@@ -97,14 +97,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   alignment: Alignment.center,
                   child: Avatar(),
                 ),
-                Container(
-                  child: Text(
-                    "thuyet15",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 22,
-                        letterSpacing: 2),
-                  ),
+                Consumer<ProfileState>(
+                  builder: (context, profile, child) {
+                    return Container(
+                      child: Text(
+                        profile.profile.email,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 22,
+                            letterSpacing: 2),
+                      ),
+                    );
+                  },
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
@@ -112,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: _menus(),
+                  child: _menus(context),
                 )
               ],
             ),

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/button/primary_button.dart';
 import 'package:flutter_folder/configs/constants.dart';
-import 'package:flutter_folder/models/Login.dart';
+import 'package:flutter_folder/models/login.dart';
 import 'package:flutter_folder/routes/index.dart';
 
 class LoginScreen extends StatefulWidget {
