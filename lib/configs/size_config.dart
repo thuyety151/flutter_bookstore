@@ -29,7 +29,7 @@ double getProportionateScreenWidth(double inputWidth) {
   return (inputWidth / 375.0) * screenWidth;
 }
 
-// TODO: Implement soecific size for images
+// TODO: Implement specific size for images
 // book card in home_screen
 // book detail
 // add to cart form

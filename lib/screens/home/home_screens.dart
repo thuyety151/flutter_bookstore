@@ -71,14 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         color:
                             index == 0 ? AppColors.kPrimary : Colors.black38),
                     backgroundColor:
-                        index == 0 ? AppColors.kBgPrimary : Colors.white),
+                        index == 0 ? AppColors.kPrimary : Colors.white),
                 onPressed: () {},
                 child: Text(
                   categories[index],
                   style: TextStyle(
-                      color: index == 0
-                          ? AppColors.kPrimary
-                          : AppColors.kTextGrey),
+                      color: index == 0 ? Colors.white : AppColors.kTextGrey),
                 ),
               ))),
     );

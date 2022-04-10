@@ -57,3 +57,12 @@ class AppTextStyles {
       fontSize: 14, color: AppColors.kPrimary, fontWeight: FontWeight.bold);
   static const attribute = TextStyle(fontSize: 12, color: AppColors.kPrimary);
 }
+
+BoxDecoration showBottomSheetStyle() {
+  return BoxDecoration(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      ),
+      color: Colors.white);
+}
