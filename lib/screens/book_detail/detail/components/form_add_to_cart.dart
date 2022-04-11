@@ -13,7 +13,7 @@ class _FormAddToCartState extends State<FormAddToCart> {
 
   Widget _quantity() {
     return SizedBox(
-      width: 5,
+      // width: 5,
       child: TextField(
         // onChanged: (input)=>loginRequestModel.password=input,
         keyboardType: TextInputType.number,

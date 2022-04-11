@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Rate extends StatefulWidget {
-  const Rate({Key? key}) : super(key: key);
+  const Rate({Key? key, this.size, this.rate}) : super(key: key);
+  final double? size;
+  final int? rate;
 
   @override
   _RateState createState() => _RateState();
@@ -17,9 +19,11 @@ class _RateState extends State<Rate> {
       children: List.generate(
           5,
           (index) => Icon(
-                Icons.star,
+                index + 1 > (widget.rate ?? 5)
+                    ? Icons.star_outline
+                    : Icons.star,
                 color: Colors.amber[300],
-                size: 12,
+                size: widget.size ?? 12,
               )),
     ));
   }
