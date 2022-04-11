@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/book/book_card.dart';
 import 'package:flutter_folder/components/coustom_bottom_nav_bar.dart';
@@ -47,23 +46,27 @@ class BooksForSaleScreen extends StatelessWidget {
         context: context,
         backgroundColor: Colors.transparent,
         builder: (BuildContext context) {
-          return SingleChildScrollView(
-            child: Container(
-                decoration: showBottomSheetStyle(),
-                padding: EdgeInsets.only(bottom: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // TODO: make header is sticky when scroll
-                    _filterHeader(),
-                    Divider(
-                      thickness: 1,
-                      color: Color.fromARGB(100, 158, 158, 158),
+          return Container(
+              decoration: showBottomSheetStyle(),
+              child: Column(
+                children: [
+                  Container(
+                    child: Column(children: [
+                      _filterHeader(),
+                      Divider(
+                        thickness: 1,
+                        color: Color.fromARGB(100, 158, 158, 158),
+                      ),
+                    ]),
+                  ),
+                  Expanded(
+                      child: SingleChildScrollView(
+                    child: Wrap(
+                      children: [FilterForm()],
                     ),
-                    FilterForm()
-                  ],
-                )),
-          );
+                  ))
+                ],
+              ));
         });
   }
 
@@ -126,25 +129,27 @@ class BooksForSaleScreen extends StatelessWidget {
         backgroundColor: AppColors.kBgGgrey,
         bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
         body: SafeArea(
-          child: SingleChildScrollView(
-              child: Column(
-            children: [
-              _stickySearch(context),
-              Container(
-                  child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Wrap(
-                    spacing: 24,
-                    // TODO: Implement load more and hot reload
-                    children: List.generate(
-                        newRelease.length,
-                        (index) => Container(
-                              padding: EdgeInsets.only(bottom: 16),
-                              child: BookCard(book: newRelease[index]),
-                            ))),
-              ))
-            ],
-          )),
-        ));
+            child: Column(
+          children: [
+            Container(
+              child: _stickySearch(context),
+            ),
+            Expanded(
+                child: Container(
+                    padding: EdgeInsets.only(top: 16),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Wrap(
+                          spacing: 24,
+                          // TODO: Implement load more and hot reload
+                          children: List.generate(
+                              newRelease.length,
+                              (index) => Container(
+                                    padding: EdgeInsets.only(bottom: 16),
+                                    child: BookCard(book: newRelease[index]),
+                                  ))),
+                    )))
+          ],
+        )));
   }
 }
