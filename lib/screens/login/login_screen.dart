@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 4),

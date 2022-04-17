@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/configs/constants.dart';
 
+import '../../configs/size_config.dart';
 import '../../routes/index.dart';
 import 'components/register_form.dart';
 
 class RegisterScreen extends StatelessWidget {
-
-  void selectContinue(BuildContext context){
+  void selectContinue(BuildContext context) {
     // Navigator.of(context).push(
     //   MaterialPageRoute(
     //     builder: (_) {
@@ -13,65 +14,88 @@ class RegisterScreen extends StatelessWidget {
     //     }
     //   )
     // );
-
-    Navigator.of(context).pushNamed(RouteManager.ROUTE_HOME_PAGE);
   }
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
-      body: Container(
-        child: SizedBox(
-          width: double.infinity,
+      appBar: AppBar(
+        title: Text("Sign Up"),
+      ),
+      body: SafeArea(
+          child: SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 10),
-                Text("Register Account",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.black
-                ),
-                ),
-                SizedBox(height: 10),
-                RegisterForm(),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.facebook),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.apple),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.flutter_dash),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.red,
-                    onPrimary: Colors.white,
-                  
+            child: Column(children: [
+              SizedBox(height: SizeConfig.screenHeight * 0.04),
+              Text("Register Account", style: headingStyle),
+              
+              SizedBox(height: SizeConfig.screenHeight * 0.04),
+              RegisterForm(),
+
+              SizedBox(height: SizeConfig.screenHeight * 0.04),
+               Container(
+                  margin: EdgeInsets.only(top: 16, bottom: 16),
+                  child: Row(
+                    children: <Widget>[
+                      const Expanded(
+                        child: Divider(
+                          thickness: 1,
+                          color: Color.fromARGB(100, 158, 158, 158),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 8, right: 8),
+                        child: const Text(
+                          "OR",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                      const Expanded(
+                        child: Divider(
+                          thickness: 1,
+                          color: Color.fromARGB(100, 158, 158, 158),
+                        ),
+                      )
+                    ],
                   ),
-                  onPressed: () => selectContinue(context),
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(fontSize: 18),
+                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 4),
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      ),
+                      onPressed: () {},
+                      child: Image(
+                        image: AssetImage("assets/images/google.png"),
+                        height: 30,
+                      ),
+                    ),
                   ),
-                )
-              ],
-            ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 4),
+                    child: FlatButton(
+                      onPressed: () {},
+                      child: Image(
+                        image: AssetImage("assets/images/facebook.jpg"),
+                        height: 30,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ]),
           ),
         ),
-      ),
-          
+      )),
     );
   }
 }

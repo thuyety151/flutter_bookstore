@@ -28,6 +28,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         case "wishlist":
           Navigator.of(context).pushNamed(RouteManager.ROUTE_WISH_LIST);
           break;
+        case "login":
+          Navigator.of(context).pushNamed(RouteManager.ROUTE_LOGIN);
+          break;
         default:
           Navigator.of(context).pushNamed(RouteManager.ROUTE_PROFILE_EDIT);
       }
@@ -60,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ProfileMenu(
             text: "Logout",
             iconAssetUrl: "assets/icons/icon-logout.png",
-            onPress: () => onPress)
+            onPress: () => onPress("login"))
       ],
     );
   }
