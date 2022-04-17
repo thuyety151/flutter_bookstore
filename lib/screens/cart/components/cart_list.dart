@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_folder/screens/cart/components/item.dart';
-
-import '../../../mocks/models/cart.dart';
-
-class ListItem extends StatefulWidget {
+import 'package:flutter_folder/screens/cart/components/cart_item.dart';
+import '../../../mocks/models/cart_item.dart';
+class CartList  extends StatefulWidget {
   @override
-  State<ListItem> createState() => _ListItemState();
+  State<CartList> createState() => _CartListState();
 }
 
-class _ListItemState extends State<ListItem> {
+class _CartListState extends State<CartList> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 500,
-      child: ListView.builder(
-        itemCount: carts.length,
-        itemBuilder: (context, index) => Padding(
+    return ListView.builder(
+      shrinkWrap: true,
+      primary: false,
+      itemBuilder: (context, index) => Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Dismissible(
-            key: Key(carts[index].book.id.toString()),
+            key: Key(cartItems[index].book.id.toString()),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
               setState(() {
-                carts.removeAt(index);
+                cartItems.removeAt(index);
               });
             },
             background: Container(
@@ -41,10 +38,11 @@ class _ListItemState extends State<ListItem> {
                 ],
               ),
             ),
-            child: Item(cart: carts[index]),
+            child: CartItem(cartItem: cartItems[index]),
           ),
         ),
-      ),
+      itemCount: cartItems.length,
+      
     );
   }
 }

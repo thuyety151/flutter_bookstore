@@ -1,24 +1,24 @@
 import 'book.dart';
 
-class Cart {
+class CartItemModel {
   final Book book;
   final int quantity;
 
-  Cart({required this.book, required this.quantity});
+  CartItemModel({required this.book, required this.quantity});
 
 }
 
-List<Cart> carts = [
-    Cart(
+List<CartItemModel> cartItems = [
+    CartItemModel(
       book: books[0], quantity: 2,
     ),
-    Cart(
+    CartItemModel(
       book: books[1], quantity: 3,
     ),
-    Cart(
+    CartItemModel(
       book: books[2], quantity: 1,
     ),
-     Cart(
+     CartItemModel(
       book: books[3], quantity: 5,
     ),
   ];

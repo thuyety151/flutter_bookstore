@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_folder/screens/cart/components/check_out_cart.dart';
-import 'package:flutter_folder/screens/cart/components/list_item.dart';
+import 'package:flutter_folder/screens/cart/components/cart_list.dart';
 
-import '../../mocks/models/cart.dart';
+import '../../mocks/models/cart_item.dart';
+import 'components/cart_check_out.dart';
 
 class CartScreen extends StatelessWidget {
   static String routeName = '/cart';
@@ -12,14 +12,14 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
           title: Column(
         children: [
-          Text('Your cart'),
-          Text("${carts.length} items"),
+          Text('Your cart 2'),
+          Text("${cartItems.length} items"),
         ],
       )),
       body: Column(
         children: [
-          ListItem(),
-          CheckOutCart(),
+          CartList(),
+          CartCheckOut(),
         ],
       ),
     );
