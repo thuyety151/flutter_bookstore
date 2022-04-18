@@ -22,9 +22,9 @@ class _CartCheckOutState extends State<CartCheckOut> {
   }
 
   void onCheckout() {
-    setState(() {
-      isLoading = true;
-    });
+    // setState(() {
+    //   isLoading = true;
+    // });
     Navigator.of(context).pushNamed(RouteManager.ROUTE_CHECKOUT);
   }
 

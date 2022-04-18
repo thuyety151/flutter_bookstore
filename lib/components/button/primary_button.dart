@@ -41,7 +41,7 @@ class PrimaryButton extends StatelessWidget {
         height: buttonHeight,
         decoration: BoxDecoration(
             color: filled ?? false ? AppColors.kPrimary : buttonColor,
-            borderRadius: BorderRadius.all(Radius.circular(5))),
+            borderRadius: BorderRadius.all(Radius.circular(50))),
         child: FlatButton(
           onPressed: onTap,
           child: loading == true
