@@ -38,7 +38,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           title: Text("Check out"),
         ),
         body: Container(
-          margin: EdgeInsets.only(left:5),
+          margin: EdgeInsets.only(left:10),
           child: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

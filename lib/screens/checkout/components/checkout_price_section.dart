@@ -22,29 +22,8 @@ class CheckoutPriceSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(
-                height: 4,
-              ),
-              Text(
-                "CART TOTALS",
-                style: CustomTextStyle.textFormFieldMedium.copyWith(
-                    fontSize: 12,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600),
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              Container(
-                width: double.infinity,
-                height: 0.5,
-                margin: EdgeInsets.symmetric(vertical: 4),
-                color: Colors.grey.shade400,
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              createPriceItem("Subtotal", "\$22.58",
+             
+              createPriceItem("Sub total", "\$22.58",
                   Colors.grey.shade700),
               createPriceItem("Shipping", "\$6.74",
                   Colors.teal.shade300),

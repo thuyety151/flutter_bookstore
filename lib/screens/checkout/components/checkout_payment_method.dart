@@ -10,7 +10,8 @@ class CheckoutPayment extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(4)),
           border:
               Border.all(color: Colors.tealAccent.withOpacity(0.4), width: 1),
-          color: Colors.tealAccent.withOpacity(0.2)),
+          color: Colors.tealAccent.withOpacity(0.2),
+          ),
       margin: EdgeInsets.all(8),
       child: Column(
         children: [
@@ -24,7 +25,7 @@ class CheckoutPayment extends StatelessWidget {
             Text(
               "Cash on delivery",
               style: CustomTextStyle.textFormFieldMedium.copyWith(
-                  color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
+                  color: Colors.black, fontSize: 13, fontWeight: FontWeight.w600),
             ),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -37,7 +38,7 @@ class CheckoutPayment extends StatelessWidget {
             Text(
               "MoMo",
               style: CustomTextStyle.textFormFieldMedium.copyWith(
-                  color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
+                  color: Colors.black, fontSize: 13, fontWeight: FontWeight.w600),
             ),
           ]),
         ],
