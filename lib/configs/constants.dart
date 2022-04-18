@@ -66,3 +66,6 @@ BoxDecoration showBottomSheetStyle() {
       ),
       color: Colors.white);
 }
+
+String GHNEndpoint =
+    'https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/';
