@@ -38,7 +38,7 @@ class HomePageHeader extends StatelessWidget {
         padding: EdgeInsets.only(left: 8),
         child: TextField(
             decoration: InputDecoration(
-                fillColor: Color.fromARGB(255, 248, 248, 248),
+                fillColor: AppColors.kBgGgrey,
                 filled: true,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 10, vertical: 0),

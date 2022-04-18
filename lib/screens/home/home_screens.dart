@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/book/book_card.dart';
 import 'package:flutter_folder/components/book/deal_of_week.dart';
 import 'package:flutter_folder/components/coustom_bottom_nav_bar.dart';
+import 'package:flutter_folder/components/list_book_section.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/enums.dart';
 import 'package:flutter_folder/mocks/models/Author.dart';
@@ -44,13 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _section(String title, Widget child, double height) {
+  Widget _section(String title, Widget child) {
     return Column(
       children: [
         _title(title),
         SizedBox(
             child: Container(
-                height: height,
                 child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal, child: child))),
       ],
@@ -71,14 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         color:
                             index == 0 ? AppColors.kPrimary : Colors.black38),
                     backgroundColor:
-                        index == 0 ? AppColors.kBgPrimary : Colors.white),
+                        index == 0 ? AppColors.kPrimary : Colors.white),
                 onPressed: () {},
                 child: Text(
                   categories[index],
                   style: TextStyle(
-                      color: index == 0
-                          ? AppColors.kPrimary
-                          : AppColors.kTextGrey),
+                      color: index == 0 ? Colors.white : AppColors.kTextGrey),
                 ),
               ))),
     );
@@ -90,37 +88,39 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            _section(
-              "Best selling",
-              Wrap(
+            ListBookSession(
+              title: "Best selling",
+              child: Wrap(
                 spacing: 12,
                 children: List.generate(listBestselling.length,
                     (index) => BookCard(book: listBestselling[index])),
               ),
-              300,
             ),
-            _section(
-              "Deals of week",
-              Wrap(
-                  spacing: 12,
-                  children: List.generate(3, (index) => DealOfWeekCard())),
-              128,
-            ),
-            _title("New release"),
-            _newReCategories(),
-            SizedBox(
-              height: 12,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
+            ListBookSession(
+              title: "Deals of week",
               child: Wrap(
                   spacing: 12,
-                  children: List.generate(
-                      3, (index) => BookCard(book: newRelease[index]))),
+                  children: List.generate(3, (index) => DealOfWeekCard())),
             ),
-            _section(
-              "Authors",
-              Wrap(
+            ListBookSession(
+              title: "New release",
+              header: Column(children: [
+                _newReCategories(),
+                SizedBox(
+                  height: 12,
+                ),
+              ]),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Wrap(
+                    spacing: 12,
+                    children: List.generate(
+                        3, (index) => BookCard(book: newRelease[index]))),
+              ),
+            ),
+            ListBookSession(
+              title: "Authors",
+              child: Wrap(
                 spacing: 12,
                 children: List.generate(
                     authors.length,
@@ -146,7 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ]),
                         )),
               ),
-              300,
             ),
           ]),
         ));

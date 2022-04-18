@@ -4,8 +4,8 @@ class AppColors {
   static const kPrimary = Color.fromARGB(255, 255, 102, 74);
   static const kSecondary = Color.fromARGB(255, 255, 156, 21);
   static const kGrey = Color.fromARGB(255, 102, 102, 102);
-  static const kDarkGrey = Color.fromARGB(255, 68, 68, 68);
-  static const kBgGgrey = Color.fromARGB(255, 248, 248, 248);
+  static const kDarkGrey = Color.fromARGB(255, 196, 196, 196);
+  static const kBgGgrey = Color.fromARGB(255, 241, 243, 247);
   static const kTextGrey = Color.fromARGB(255, 141, 141, 148);
   static const kBgPrimary = Color.fromARGB(255, 255, 246, 243);
   static const kNegative = Color.fromARGB(255, 255, 29, 72);

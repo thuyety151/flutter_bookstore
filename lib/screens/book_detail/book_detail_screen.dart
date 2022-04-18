@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/components/book/book_card.dart';
+import 'package:flutter_folder/components/list_book_section.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/mocks/bookList.dart';
+import 'package:flutter_folder/mocks/models/BestSelling.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_detail_bottom.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_list_image.dart';
 import 'package:flutter_folder/screens/book_detail/review/components/session_title.dart';
@@ -181,7 +184,6 @@ class BookDetailScreen extends StatelessWidget {
               children: List.generate(
                   bookDetails.length,
                   (index) => Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
                             padding: EdgeInsets.only(bottom: 4),
@@ -196,6 +198,21 @@ class BookDetailScreen extends StatelessWidget {
                       )),
             ))
       ],
+    );
+  }
+
+  Widget _releatedSection() {
+    return Container(
+      color: AppColors.kBgGgrey,
+      child: ListBookSession(
+        title: "Related Book",
+        child: Wrap(
+          spacing: 12,
+          // TODO: replace data
+          children: List.generate(listBestselling.length,
+              (index) => BookCard(book: listBestselling[index])),
+        ),
+      ),
     );
   }
 
@@ -235,7 +252,8 @@ class BookDetailScreen extends StatelessWidget {
                   color: Colors.black12,
                 ),
               ),
-              ReviewContainer()
+              ReviewContainer(),
+              _releatedSection()
             ]),
       ))),
     );

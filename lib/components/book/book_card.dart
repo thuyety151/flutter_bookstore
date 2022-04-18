@@ -4,6 +4,7 @@ import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/mocks/models/BestSelling.dart';
 import 'package:flutter_folder/routes/index.dart';
+import 'package:readmore/readmore.dart';
 import '../rate.dart';
 
 class BookCard extends StatelessWidget {
@@ -46,9 +47,15 @@ class BookCard extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            Text(
-              book.name,
-              style: AppTextStyles.title,
+            Container(
+              height: 32,
+              child: ReadMoreText(
+                book.name,
+                trimLines: 2,
+                trimMode: TrimMode.Line,
+                trimCollapsedText: " ",
+                style: AppTextStyles.title,
+              ),
             ),
             SizedBox(
               height: 8,
@@ -81,7 +88,10 @@ class BookCard extends StatelessWidget {
                 ),
                 Image(image: AssetImage("assets/icons/icon-cart-primary.png"))
               ],
-            )
+            ),
+            SizedBox(
+              height: 12,
+            ),
           ]),
         ));
   }
