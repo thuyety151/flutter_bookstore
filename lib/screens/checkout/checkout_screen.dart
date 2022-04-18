@@ -28,7 +28,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     // setState(() {
     //   isLoading = true;
     // });
-    Navigator.of(context).pushNamed(RouteManager.ROUTE_CHECKOUT);
+    Navigator.of(context).pushNamed(RouteManager.ROUTE_ORDER_SUCCESS);
   }
 
   @override
