@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_folder/configs/apiGHNUri.dart';
-import 'package:flutter_folder/models/ApiResponse.dart';
+import 'package:flutter_folder/configs/api_uri.dart';
+import 'package:flutter_folder/models/api_response_model.dart';
 import 'package:flutter_folder/models/core/address/District.dart';
 
 class DistrictApi {

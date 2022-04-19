@@ -18,7 +18,7 @@ class _AddressPickerState extends State<AddressPicker> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    DistrictApi districtApi = new DistrictApi();
+    DistrictApi districtApi = DistrictApi();
     districtApi.getDistricts().then((value) {
       if (value != null) {
         districts = value.data ?? [];
