@@ -9,7 +9,8 @@ class OutlinedInput extends StatefulWidget {
       this.prefixIcon,
       this.placeholder,
       this.obscureText,
-      this.enabled})
+      this.enabled,
+      this.maxLines})
       : super(key: key);
 
   final String? label;
@@ -17,6 +18,7 @@ class OutlinedInput extends StatefulWidget {
   final String? placeholder;
   final bool? obscureText;
   final bool? enabled;
+  final int? maxLines;
 
   @override
   _OutlinedInputState createState() => _OutlinedInputState();
@@ -44,6 +46,7 @@ class _OutlinedInputState extends State<OutlinedInput> {
               )
             ],
             TextField(
+              maxLines: widget.maxLines ?? 1,
               // onChanged: (input)=>loginRequestModel.password=input,
               obscureText: widget.obscureText ?? false,
               enabled: widget.enabled ?? true,

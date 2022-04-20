@@ -2,8 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/button/primary_button.dart';
 import 'package:flutter_folder/configs/constants.dart';
-import 'package:flutter_folder/models/Login.dart';
+import 'package:flutter_folder/provider/account_model.dart';
 import 'package:flutter_folder/routes/index.dart';
+import 'package:flutter_folder/services/authentication_service.dart';
+import 'package:provider/provider.dart';
+
+class Temp {
+  String email;
+  String password;
+  Temp({required this.email, required this.password});
+}
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -13,42 +21,29 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late LoginRequestModel loginRequestModel;
   late bool isLoading;
+  late LoginRequestModel formValue;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    loginRequestModel = new LoginRequestModel();
     isLoading = false;
   }
 
-  void onLogin() {
+  Future<void> onLogin() async {
     setState(() {
       isLoading = true;
     });
 
-    Navigator.of(context).pushNamed(RouteManager.ROUTE_HOME_PAGE);
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(builder: (_) => ProfileScreen()),
-    // );
-
-    // APIService apiService = new APIService();
-    // apiService.login(loginRequestModel).then((value) {
-    //   if (value != null) {
-    //     if (value.token?.isNotEmpty ?? false) {
-    //       setState(() {
-    //         isLoading = true;
-    //       });
-    //       Navigator.of(context).pushNamed(RouteManager.ROUTE_HOME_PAGE);
-    //       // final snackBar = SnackBar(
-    //       //     content: Text("Login Successful"));
-    //     } else {
-    //       final snackBar = SnackBar(content: Text(value.error ?? ""));
-    //     }
-    //   }
-    // });
+    AccountModel accountModel =
+        Provider.of<AccountModel>(context, listen: false);
+    var success = await accountModel.login(LoginRequestModel(
+        email: "customer@gmail.com", password: "KhungLongXanh@123"));
+    if (success == true) {
+      // TODO: SHow popup ; check conditional with status code instead of token
+      Navigator.of(context).pushNamed(RouteManager.ROUTE_HOME_PAGE);
+    }
   }
 
   @override
@@ -73,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: TextField(
-                    onChanged: (input) => loginRequestModel.email = input,
+                    onChanged: (input) => formValue.email = input,
                     decoration: InputDecoration(
                       hintText: "Enter your email",
                       prefixIcon: Icon(Icons.mail_outline,
@@ -86,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: TextField(
-                    onChanged: (input) => loginRequestModel.password = input,
+                    onChanged: (input) => formValue.password = input,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Enter your password",

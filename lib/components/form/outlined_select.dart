@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 
@@ -22,7 +21,7 @@ class OutlinedSelect extends StatefulWidget {
   }) : super(key: key);
 
   final String? label;
-  final List<SelectOption>? items;
+  final List<DropdownMenuItem<String>>? items;
 
   @override
   _OutlinedSelectState createState() => _OutlinedSelectState();
@@ -55,13 +54,16 @@ class _OutlinedSelectState extends State<OutlinedSelect> {
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
                 child: DropdownButton<String>(
-                  value: "thai",
-                  items: sampleData
-                      .map((e) => DropdownMenuItem(
-                            child: Text(e.label),
-                            value: e.value,
-                          ))
-                      .toList(),
+                  value: widget.items == null
+                      ? null
+                      : widget.items?.elementAt(0).value,
+                  items: widget.items ??
+                      sampleData
+                          .map((e) => DropdownMenuItem(
+                                child: Text(e.label),
+                                value: e.value,
+                              ))
+                          .toList(),
                   onChanged: (String? newValue) {
                     print("hi");
                   },
