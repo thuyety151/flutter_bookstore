@@ -3,14 +3,9 @@ import 'package:flutter_folder/components/button/primary_button.dart';
 import 'package:flutter_folder/components/form/address_picker.dart';
 import 'package:flutter_folder/components/form/outlined_input.dart';
 
-class EditProfileForm extends StatefulWidget {
+class EditProfileForm extends StatelessWidget {
   const EditProfileForm({Key? key}) : super(key: key);
 
-  @override
-  _EditProfileFormState createState() => _EditProfileFormState();
-}
-
-class _EditProfileFormState extends State<EditProfileForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
