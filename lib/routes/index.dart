@@ -12,6 +12,7 @@ import 'package:flutter_folder/screens/profile/change_password_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_detail_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_edit_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_screen.dart';
+import 'package:flutter_folder/screens/review/review_screen.dart';
 
 class RouteManager {
   static const String ROUTE_LOGIN = "/login";
@@ -26,6 +27,7 @@ class RouteManager {
   static const String ROUTE_IMAGES_DETAIL = "/view-image";
   static const String ROUTE_WISH_LIST = "/wish-list";
   static const String ROUTE_BOOKS_FOR_SALE = "/books-for-sale";
+  static const String ROUTE_REVIEW = "/review";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -53,6 +55,8 @@ class RouteManager {
       //   return MaterialPageRoute(builder: (context) => WishListScreen());
       case ROUTE_BOOKS_FOR_SALE:
         return MaterialPageRoute(builder: (context) => BooksForSaleScreen());
+      case ROUTE_REVIEW:
+        return MaterialPageRoute(builder: (context) => ReviewScreen());
       default:
         throw FormatException("ROute not found! Check routes again");
     }
