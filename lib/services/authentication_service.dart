@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter_folder/configs/api_uri.dart';
-import 'package:flutter_folder/models/api_response_model.dart';
-import 'package:flutter_folder/models/core/Account.dart';
+import 'package:flutter_folder/models/account.dart';
+import 'package:flutter_folder/services/api_response_model.dart';
+import 'package:flutter_folder/services/api_base.dart';
 import 'package:http/http.dart' as http;
 
 class LoginRequestModel {
@@ -20,17 +20,19 @@ class LoginRequestModel {
   }
 }
 
-class AccountApi {
-  Future<AuthenResponse> login(LoginRequestModel data) async {
-    try {
-      http.Request request =
-          await getUri("/account/login", "post", data.toJson());
+class Authentication {
+  final Api _api = Api();
 
+  Future<AuthenResponse> login(LoginRequestModel data) async {
+    var request = _api.post("/account/login", data.toJson());
+    try {
       var response = await http.Response.fromStream(await request.send());
+      print("response");
       print(response.body);
       return AuthenResponse.fromJson(
           json.decode(response.body), Account.fromJsonModel);
     } catch (e) {
+      // TODO: Implement error handler to show popup automactically
       throw Exception(e);
     }
   }

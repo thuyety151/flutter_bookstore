@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/button/primary_button.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/models/login.dart';
-import 'package:flutter_folder/models/services/AccountApi.dart';
-import 'package:flutter_folder/models/services/address/DistrictApi.dart';
 import 'package:flutter_folder/routes/index.dart';
+import 'package:flutter_folder/services/authentication_service.dart';
 
 class Temp {
   String email;
@@ -31,7 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
     // TODO: implement initState
     super.initState();
     isLoading = false;
-    formValue = LoginRequestModel(email: "", password: "");
   }
 
   Future<void> onLogin() async {
@@ -39,8 +37,10 @@ class _LoginScreenState extends State<LoginScreen> {
       isLoading = true;
     });
 
-    AccountApi accountApi = new AccountApi();
-    var response = await accountApi.login(formValue);
+    Authentication accountApi = Authentication();
+    var response = await accountApi.login(LoginRequestModel(
+        email: "customer@gmail.com", password: "KhungLongXanh@123"));
+    print(formValue);
     if (response.token != null) {
       // TODO: SHow popup ; check conditional with status code instead of token
       Navigator.of(context).pushNamed(RouteManager.ROUTE_HOME_PAGE);

@@ -12,10 +12,10 @@ class Account {
 
   factory Account.fromJson(Map<String, dynamic> json) {
     return Account(
-        id: json["id"],
-        firstName: json["firstName"],
-        lastName: json["lastName"],
-        email: json["email"]);
+        id: json["id"] ?? "",
+        firstName: json["firstName"] ?? "",
+        lastName: json["lastName"] ?? "",
+        email: json["email"] ?? "");
   }
 
   static Account fromJsonModel(Map<String, dynamic> json) =>
