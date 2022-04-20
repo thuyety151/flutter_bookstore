@@ -1,14 +1,22 @@
+import 'package:flutter_folder/services/api_response_model.dart';
+
 class Account {
-  String id;
-  String firstName;
-  String lastName;
-  String email;
+  late String id;
+  late String firstName;
+  late String lastName;
+  late String email;
 
   Account(
       {required this.id,
       required this.firstName,
       required this.lastName,
       required this.email});
+
+  Account.fromAuthen(AuthenResponse auth) {
+    email = auth.email;
+    firstName = auth.firstName ?? "";
+    lastName = auth.lastName ?? "";
+  }
 
   factory Account.fromJson(Map<String, dynamic> json) {
     return Account(

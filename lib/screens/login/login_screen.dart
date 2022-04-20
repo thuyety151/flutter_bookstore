@@ -1,12 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/button/primary_button.dart';
 import 'package:flutter_folder/configs/constants.dart';
-import 'package:flutter_folder/models/login.dart';
+import 'package:flutter_folder/provider/account_model.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/services/authentication_service.dart';
+import 'package:provider/provider.dart';
 
 class Temp {
   String email;
@@ -37,11 +36,11 @@ class _LoginScreenState extends State<LoginScreen> {
       isLoading = true;
     });
 
-    Authentication accountApi = Authentication();
-    var response = await accountApi.login(LoginRequestModel(
+    AccountModel accountModel =
+        Provider.of<AccountModel>(context, listen: false);
+    var success = await accountModel.login(LoginRequestModel(
         email: "customer@gmail.com", password: "KhungLongXanh@123"));
-    print(formValue);
-    if (response.token != null) {
+    if (success == true) {
       // TODO: SHow popup ; check conditional with status code instead of token
       Navigator.of(context).pushNamed(RouteManager.ROUTE_HOME_PAGE);
     }

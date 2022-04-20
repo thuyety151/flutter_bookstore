@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/avatar.dart';
-import 'package:flutter_folder/models/profile.dart';
-import 'package:flutter_folder/provider/profile/profile_state.dart';
+import 'package:flutter_folder/provider/account_model.dart';
 import 'package:flutter_folder/screens/profile/components/profile_menu.dart';
 import 'package:provider/provider.dart';
 
@@ -78,8 +77,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Profile profile = Provider.of<ProfileState>(context).profile;
-
     return Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
@@ -97,19 +94,14 @@ class ProfileScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Avatar(),
                 ),
-                Consumer<ProfileState>(
-                  builder: (context, profile, child) {
-                    return Container(
-                      child: Text(
-                        profile.profile.email,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 22,
-                            letterSpacing: 2),
-                      ),
-                    );
-                  },
-                ),
+                Consumer<AccountModel>(
+                    builder: (context, model, child) => Text(
+                          model.email,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 22,
+                              letterSpacing: 2),
+                        )),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: _statsCard(),

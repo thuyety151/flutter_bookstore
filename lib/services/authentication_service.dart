@@ -27,13 +27,11 @@ class Authentication {
     var request = _api.post("/account/login", data.toJson());
     try {
       var response = await http.Response.fromStream(await request.send());
-      print("response");
-      print(response.body);
       return AuthenResponse.fromJson(
           json.decode(response.body), Account.fromJsonModel);
     } catch (e) {
       // TODO: Implement error handler to show popup automactically
-      throw Exception(e);
+      rethrow;
     }
   }
 }
