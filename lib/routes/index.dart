@@ -16,6 +16,7 @@ import 'package:flutter_folder/screens/profile/profile_edit_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_screen.dart';
 import 'package:flutter_folder/screens/checkout/checkout_screen.dart';
 
+import '../screens/manage_order/manage_order_screen.dart';
 import '../screens/register/register_screen.dart';
 
 class RouteManager {
@@ -34,7 +35,8 @@ class RouteManager {
   static const String ROUTE_CART = "/cart";
   static const String ROUTE_REGISTER = "/register";
   static const String ROUTE_CHECKOUT ="/checkout";
-    static const String ROUTE_ORDER_SUCCESS ="/order-success";
+  static const String ROUTE_ORDER_SUCCESS ="/order-success";
+  static const String ROUTE_MANAGE_ORDER = "/manage-order";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -68,8 +70,10 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => RegisterScreen());
       case ROUTE_CHECKOUT:
         return MaterialPageRoute(builder: (context) => CheckoutScreen());
-        case ROUTE_ORDER_SUCCESS:
+      case ROUTE_ORDER_SUCCESS:
         return MaterialPageRoute(builder: (context) => OrderSuccess());
+      case ROUTE_MANAGE_ORDER:
+        return MaterialPageRoute(builder: (context) => ManageOrderScreen());
       default:
         throw FormatException("ROute not found! Check routes again");
     }

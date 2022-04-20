@@ -31,6 +31,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         case "login":
           Navigator.of(context).pushNamed(RouteManager.ROUTE_LOGIN);
           break;
+        case "manage-order":
+          Navigator.of(context).pushNamed(RouteManager.ROUTE_MANAGE_ORDER);
+          break;
         default:
           Navigator.of(context).pushNamed(RouteManager.ROUTE_PROFILE_EDIT);
       }
@@ -51,7 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ProfileMenu(
             text: "My Orders",
             iconAssetUrl: "assets/icons/icon-cart.png",
-            onPress: () => onPress),
+            onPress: () => onPress("manage-order")),
         ProfileMenu(
             text: "Addresses",
             iconAssetUrl: "assets/icons/icon-location.png",
