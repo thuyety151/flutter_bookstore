@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/mocks/models/BestSelling.dart';
+import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:readmore/readmore.dart';
 import '../rate.dart';
 
 class BookCard extends StatelessWidget {
   const BookCard({Key? key, required this.book}) : super(key: key);
-  final BestSellingModel book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class BookCard extends StatelessWidget {
               height: 8,
             ),
             Text(
-              book.authorName,
+              book.authorName ?? "--",
               style: AppTextStyles.caption,
             ),
             SizedBox(

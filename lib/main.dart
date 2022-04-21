@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/provider/account_model.dart';
+import 'package:flutter_folder/provider/author_model.dart';
+import 'package:flutter_folder/provider/book_model.dart';
+import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/screens/login/login_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +21,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AccountModel()),
-        // ChangeNotifierProvider(create: (context) => ProfileState())
+        ChangeNotifierProvider(create: (context) => BookModel()),
+        ChangeNotifierProvider(create: (context) => AuthorModel()),
+        ChangeNotifierProvider(create: (context) => CategoryModel())
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

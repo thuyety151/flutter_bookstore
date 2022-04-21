@@ -18,20 +18,20 @@ class Api {
     return Uri.parse(bookstoreEnpoint + requestUrl);
   }
 
-  http.Request get(String requestUrl, String? body) {
+  http.Request get(String requestUrl, {String body = ""}) {
     Uri url = Uri.parse(bookstoreEnpoint + requestUrl);
     http.Request request = http.Request("get", url);
     request.headers.addAll({"content-type": "application/json; charset=utf-8"});
-    request.body = body ?? "";
+    request.body = body;
     return request;
   }
 
-  http.Request post(String requestUrl, String? body) {
+  http.Request post(String requestUrl, {String body = ""}) {
     Uri url = Uri.parse(bookstoreEnpoint + requestUrl);
     http.Request request = http.Request("post", url);
     print(body);
     request.headers.addAll({"content-type": "application/json; charset=utf-8"});
-    request.body = body ?? "";
+    request.body = body;
     return request;
   }
 }

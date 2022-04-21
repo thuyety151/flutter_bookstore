@@ -24,7 +24,7 @@ class Authentication {
   final Api _api = Api();
 
   Future<AuthenResponse> login(LoginRequestModel data) async {
-    var request = _api.post("/account/login", data.toJson());
+    var request = _api.post("/account/login", body: data.toJson());
     try {
       var response = await http.Response.fromStream(await request.send());
       return AuthenResponse.fromJson(

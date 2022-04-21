@@ -50,6 +50,7 @@ class ListBookSession extends StatelessWidget {
         ],
         SizedBox(
             child: Container(
+                alignment: Alignment.topLeft,
                 child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal, child: child))),
       ],

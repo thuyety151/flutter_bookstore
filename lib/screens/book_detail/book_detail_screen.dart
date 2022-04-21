@@ -204,15 +204,15 @@ class BookDetailScreen extends StatelessWidget {
   Widget _releatedSection() {
     return Container(
       color: AppColors.kBgGgrey,
-      child: ListBookSession(
-        title: "Related Book",
-        child: Wrap(
-          spacing: 12,
-          // TODO: replace data
-          children: List.generate(listBestselling.length,
-              (index) => BookCard(book: listBestselling[index])),
-        ),
-      ),
+      // child: ListBookSession(
+      //   title: "Related Book",
+      //   child: Wrap(
+      //     spacing: 12,
+      //     // TODO: replace data
+      //     children: List.generate(listBestselling.length,
+      //         (index) => BookCard(book: listBestselling[index])),
+      //   ),
+      // ),
     );
   }
 

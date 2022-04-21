@@ -136,19 +136,20 @@ class BooksForSaleScreen extends StatelessWidget {
             ),
             Expanded(
                 child: Container(
-                    padding: EdgeInsets.only(top: 16),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Wrap(
-                          spacing: 24,
-                          // TODO: Implement load more and hot reload
-                          children: List.generate(
-                              newRelease.length,
-                              (index) => Container(
-                                    padding: EdgeInsets.only(bottom: 16),
-                                    child: BookCard(book: newRelease[index]),
-                                  ))),
-                    )))
+              padding: EdgeInsets.only(top: 16),
+              // child: SingleChildScrollView(
+              //   scrollDirection: Axis.vertical,
+              //   child: Wrap(
+              //       spacing: 24,
+              //       // TODO: Implement load more and hot reload
+              //       children: List.generate(
+              //           newRelease.length,
+              //           (index) => Container(
+              //                 padding: EdgeInsets.only(bottom: 16),
+              //                 child: BookCard(book: newRelease[index]),
+              //               ))),
+              // )
+            ))
           ],
         )));
   }

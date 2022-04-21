@@ -5,10 +5,13 @@ import 'package:flutter_folder/components/coustom_bottom_nav_bar.dart';
 import 'package:flutter_folder/components/list_book_section.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/enums.dart';
-import 'package:flutter_folder/mocks/models/Author.dart';
 import 'package:flutter_folder/mocks/models/BestSelling.dart';
+import 'package:flutter_folder/models/newrelease.dart';
+import 'package:flutter_folder/provider/author_model.dart';
+import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/screens/home/components/home_page_header.dart';
+import 'package:provider/provider.dart';
 
 List<String> categories = ["Paperback", "Hardcover", "Kindlebook"];
 
@@ -20,6 +23,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<BookModel>(context, listen: false).getListNewRelease();
+    Provider.of<BookModel>(context, listen: false)
+        .getListBookForSale("deal-of-week");
+    Provider.of<AuthorModel>(context, listen: false).getListAuthor();
+  }
+
   final List<BestSellingModel> bestselling = listBestselling;
 
   void onViewDetail() {
@@ -57,29 +70,57 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _newReCategories() {
-    return Wrap(
-      direction: Axis.horizontal,
-      spacing: 4,
-      children: List.generate(
-          categories.length,
-          (index) => Container(
-                  child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                    side: BorderSide(
-                        width: 1.0,
-                        color:
-                            index == 0 ? AppColors.kPrimary : Colors.black38),
-                    backgroundColor:
-                        index == 0 ? AppColors.kPrimary : Colors.white),
-                onPressed: () {},
-                child: Text(
-                  categories[index],
-                  style: TextStyle(
-                      color: index == 0 ? Colors.white : AppColors.kTextGrey),
+  Widget _newReCategories(List<NewReleaseModel> model) {
+    return Container(
+        alignment: Alignment.topLeft,
+        child: Wrap(
+          direction: Axis.horizontal,
+          spacing: 8,
+          children: List.generate(
+              model.length,
+              (index) => Container(
+                      child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                        side: BorderSide(
+                            width: 1.0,
+                            color: index == 0
+                                ? AppColors.kPrimary
+                                : Colors.black38),
+                        backgroundColor:
+                            index == 0 ? AppColors.kPrimary : Colors.white),
+                    onPressed: () {},
+                    child: Text(
+                      model[index].categoryName,
+                      style: TextStyle(
+                          color:
+                              index == 0 ? Colors.white : AppColors.kTextGrey),
+                    ),
+                  ))),
+        ));
+  }
+
+  Widget _newRelease(BuildContext _context) {
+    return Consumer<BookModel>(
+        builder: (context, value, child) => ListBookSession(
+              title: "New release",
+              header: Column(children: [
+                _newReCategories(value.listNewRelease),
+                SizedBox(
+                  height: 12,
                 ),
-              ))),
-    );
+              ]),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Wrap(
+                    spacing: 12,
+                    children: value.listNewRelease.isNotEmpty
+                        ? List.generate(
+                            value.listNewRelease[0].books.length,
+                            (index) => BookCard(
+                                book: value.listNewRelease[0].books[index]))
+                        : []),
+              ),
+            ));
   }
 
   Widget _body() {
@@ -90,62 +131,58 @@ class _HomeScreenState extends State<HomeScreen> {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             ListBookSession(
               title: "Best selling",
-              child: Wrap(
-                spacing: 12,
-                children: List.generate(listBestselling.length,
-                    (index) => BookCard(book: listBestselling[index])),
-              ),
+              child: Consumer<BookModel>(
+                  builder: ((context, value, child) => Wrap(
+                        spacing: 12,
+                        children: List.generate(
+                            value.listBestSelling.length,
+                            (index) =>
+                                BookCard(book: value.listBestSelling[index])),
+                      ))),
             ),
             ListBookSession(
               title: "Deals of week",
-              child: Wrap(
-                  spacing: 12,
-                  children: List.generate(3, (index) => DealOfWeekCard())),
+              child: Consumer<BookModel>(
+                  builder: (context, value, child) => Wrap(
+                      spacing: 12,
+                      children: List.generate(
+                          value.listDeal.length,
+                          (index) => DealOfWeekCard(
+                                model: value.listDeal[index],
+                              )))),
             ),
-            ListBookSession(
-              title: "New release",
-              header: Column(children: [
-                _newReCategories(),
-                SizedBox(
-                  height: 12,
-                ),
-              ]),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Wrap(
-                    spacing: 12,
-                    children: List.generate(
-                        3, (index) => BookCard(book: newRelease[index]))),
-              ),
-            ),
+            _newRelease(context),
             ListBookSession(
               title: "Authors",
-              child: Wrap(
-                spacing: 12,
-                children: List.generate(
-                    authors.length,
-                    (index) => Container(
-                          height: 100,
-                          padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: Column(children: [
-                            ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                              child: Image(
-                                image: NetworkImage(authors[index].imgUrl),
-                                height: 50,
-                                width: 50,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              authors[index].name,
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            )
-                          ]),
-                        )),
-              ),
+              child: Consumer<AuthorModel>(
+                  builder: (context, value, child) => Wrap(
+                        spacing: 12,
+                        children: List.generate(
+                            value.listAuthor.length,
+                            (index) => Container(
+                                  height: 100,
+                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                  child: Column(children: [
+                                    ClipRRect(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                      child: Image(
+                                        image: NetworkImage(
+                                            value.listAuthor[index].imageUrl),
+                                        height: 50,
+                                        width: 50,
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      value.listAuthor[index].name,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ]),
+                                )),
+                      )),
             ),
           ]),
         ));
@@ -153,6 +190,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<BookModel>(context, listen: false).getListBestSelling();
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.kBgGgrey,

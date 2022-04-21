@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
+import 'package:flutter_folder/models/book.dart';
 
 class DealOfWeekCard extends StatefulWidget {
-  const DealOfWeekCard({Key? key}) : super(key: key);
+  const DealOfWeekCard({Key? key, required this.model}) : super(key: key);
+
+  final Book model;
 
   @override
   _DealOfWeekCardState createState() => _DealOfWeekCardState();
@@ -23,8 +26,8 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image(
-            image: NetworkImage(
-                "https://vcdn.tikicdn.com/media/catalog/product/i/m/img893_3.jpg"),
+            image: NetworkImage(widget.model.pictureUrl),
+            // "https://vcdn.tikicdn.com/media/catalog/product/i/m/img893_3.jpg"),
             height: 102,
             width: 66,
             fit: BoxFit.fitHeight,
@@ -39,24 +42,25 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "paperback".toUpperCase(),
+                widget.model.attributeName.toUpperCase(),
                 style: AppTextStyles.attribute,
               ),
               Text(
-                "Harry Potter and the Philosopher's Stone",
+                widget.model.name,
                 style: AppTextStyles.title,
               ),
               SizedBox(
                 width: 8,
               ),
               Text(
-                "J.K.Rowling",
+                widget.model.attributeName,
                 style: AppTextStyles.caption,
               ),
               SizedBox(
                 height: 8,
               ),
-              Text("\$200", style: AppTextStyles.price),
+              Text("\$" + widget.model.price.toString(),
+                  style: AppTextStyles.price),
               SizedBox(
                 height: 8,
               ),

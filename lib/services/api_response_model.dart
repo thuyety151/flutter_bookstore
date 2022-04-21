@@ -7,13 +7,14 @@ class ApiResponse<T> {
 
   factory ApiResponse.fromJson(
       Map<String, dynamic> json, Function fromJsonModel) {
-    final listData = json['data'].cast<Map<String, dynamic>>();
+    final listData = json['data'] != null
+        ? json['data'].cast<Map<String, dynamic>>()
+        : json['value'].cast<Map<String, dynamic>>();
 
     return ApiResponse(
-      error: json["error"],
-      data: List<T>.from(listData.map((e) => fromJsonModel(e))),
-      message: json["message"],
-    );
+        error: json["error"] ?? "",
+        data: List<T>.from(listData.map((e) => fromJsonModel(e))),
+        message: json["message"]);
   }
 }
 

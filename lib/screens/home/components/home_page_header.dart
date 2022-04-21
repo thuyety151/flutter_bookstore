@@ -2,26 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/category/category_circle.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/mocks/models/Category.dart';
+import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/screens/home/components/app_banner.dart';
+import 'package:provider/provider.dart';
 
 class HomePageHeader extends StatelessWidget {
   const HomePageHeader({Key? key}) : super(key: key);
 
-  Widget _listCategory() {
+  Widget _listCategory(BuildContext context) {
     return Scrollbar(
         isAlwaysShown: true,
         child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-              children: List.generate(
-                  listCategory.length,
-                  (index) => Padding(
-                        padding: EdgeInsets.all(8),
-                        child: CardCategoryCircle(
-                          category: listCategory[index],
-                        ),
-                      ))),
-        ));
+            scrollDirection: Axis.horizontal,
+            child: Consumer<CategoryModel>(
+              builder: (context, value, child) => Row(
+                  children: List.generate(
+                      value.categoryHomescreen.length,
+                      (index) => Padding(
+                            padding: EdgeInsets.all(8),
+                            child: CardCategoryCircle(
+                              category: value.categoryHomescreen[index],
+                            ),
+                          ))),
+            )));
   }
 
   OutlineInputBorder searchBorder() {
@@ -55,6 +58,9 @@ class HomePageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<CategoryModel>(context, listen: false)
+        .getCategoriesHomescreen();
+
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -90,7 +96,7 @@ class HomePageHeader extends StatelessWidget {
           AppBanner(),
           Container(
             height: 100,
-            child: SizedBox(child: _listCategory()),
+            child: SizedBox(child: _listCategory(context)),
           ),
           SizedBox(
             height: 8,

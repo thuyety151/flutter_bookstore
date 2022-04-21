@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
-import 'package:flutter_folder/mocks/models/Category.dart';
+import 'package:flutter_folder/models/category.dart';
 
 class CardCategoryCircle extends StatelessWidget {
   const CardCategoryCircle({Key? key, required this.category})
@@ -17,7 +17,8 @@ class CardCategoryCircle extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(50)),
           child: Image(
-            image: NetworkImage(category.imgUrl),
+            image: NetworkImage(category.media?.url ??
+                "https://cdn.popsww.com/blog/sites/2/2022/01/kaito-kid.jpg"),
             height: 50,
             width: 50,
           ),
