@@ -25,6 +25,12 @@ class ProfileScreen extends StatelessWidget {
         case "wishlist":
           Navigator.of(context).pushNamed(RouteManager.ROUTE_WISH_LIST);
           break;
+        case "login":
+          Navigator.of(context).pushNamed(RouteManager.ROUTE_LOGIN);
+          break;
+        case "manage-order":
+          Navigator.of(context).pushNamed(RouteManager.ROUTE_MANAGE_ORDER);
+          break;
         default:
           Navigator.of(context).pushNamed(RouteManager.ROUTE_PROFILE_EDIT);
       }
@@ -45,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
         ProfileMenu(
             text: "My Orders",
             iconAssetUrl: "assets/icons/icon-cart.png",
-            onPress: () => onPress),
+            onPress: () => onPress("manage-order")),
         ProfileMenu(
             text: "Addresses",
             iconAssetUrl: "assets/icons/icon-location.png",
@@ -57,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
         ProfileMenu(
             text: "Logout",
             iconAssetUrl: "assets/icons/icon-logout.png",
-            onPress: () => onPress)
+            onPress: () => onPress("login"))
       ],
     );
   }
