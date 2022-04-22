@@ -5,7 +5,9 @@ import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/enums.dart';
 import 'package:flutter_folder/mocks/models/BestSelling.dart';
+import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/screens/books_for_sale/components/filter_form.dart';
+import 'package:provider/provider.dart';
 
 class BooksForSaleScreen extends StatelessWidget {
   const BooksForSaleScreen({Key? key}) : super(key: key);
@@ -136,20 +138,21 @@ class BooksForSaleScreen extends StatelessWidget {
             ),
             Expanded(
                 child: Container(
-              padding: EdgeInsets.only(top: 16),
-              // child: SingleChildScrollView(
-              //   scrollDirection: Axis.vertical,
-              //   child: Wrap(
-              //       spacing: 24,
-              //       // TODO: Implement load more and hot reload
-              //       children: List.generate(
-              //           newRelease.length,
-              //           (index) => Container(
-              //                 padding: EdgeInsets.only(bottom: 16),
-              //                 child: BookCard(book: newRelease[index]),
-              //               ))),
-              // )
-            ))
+                    padding: EdgeInsets.only(top: 16),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Consumer<BookModel>(
+                          builder: (context, value, child) => Wrap(
+                              spacing: 24,
+                              // TODO: Implement load more and hot reload
+                              children: List.generate(
+                                  value.listBestSelling.length,
+                                  (index) => Container(
+                                        padding: EdgeInsets.only(bottom: 16),
+                                        child: BookCard(
+                                            book: value.listBestSelling[index]),
+                                      )))),
+                    )))
           ],
         )));
   }

@@ -40,6 +40,8 @@ class NewRelease extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<BookModel>(context, listen: false).getListNewRelease();
+
     return Consumer<BookModel>(
         builder: (context, value, child) => ListBookSession(
               title: "New release",

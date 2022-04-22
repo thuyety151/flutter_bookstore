@@ -118,8 +118,9 @@ class Book {
         totalStock: json["totalStock"],
         isPublic: json["isPublic"],
         updateDate: json["updateDate"],
-        categoryIds:
-            List<String>.from(listCategoryId.map((e) => e.toString())));
+        categoryIds: []
+        // List<String>.from(listCategoryId.map((e) => e.toString()))
+        );
   }
 
   List<InfoModel> getBookInfo() {
