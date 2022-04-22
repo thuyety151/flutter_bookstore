@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 4),
@@ -167,14 +167,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.only(top: 8, bottom: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
                           "Don't have an account ?",
                           style: TextStyle(color: Colors.grey),
                         ),
-                        Text(
-                          " Register",
-                          style: TextStyle(fontWeight: FontWeight.w800),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(RouteManager.ROUTE_REGISTER);
+                          },
+                          child: Text(
+                            " Register",
+                            style: const TextStyle(fontWeight: FontWeight.w800),
+                          ),
                         )
                       ],
                     ))

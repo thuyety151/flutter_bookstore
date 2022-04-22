@@ -6,12 +6,18 @@ import 'package:flutter_folder/components/image/view_full_screen.dart';
 import 'package:flutter_folder/screens/address/address_screen.dart';
 import 'package:flutter_folder/screens/book_detail/book_detail_screen.dart';
 import 'package:flutter_folder/screens/books_for_sale/books_for_sale_screen.dart';
+import 'package:flutter_folder/screens/cart/cart_screen.dart';
 import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:flutter_folder/screens/login/login_screen.dart';
+import 'package:flutter_folder/screens/order_success/order_success_screen.dart';
 import 'package:flutter_folder/screens/profile/change_password_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_detail_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_edit_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_screen.dart';
+import 'package:flutter_folder/screens/checkout/checkout_screen.dart';
+
+import '../screens/manage_order/manage_order_screen.dart';
+import '../screens/register/register_screen.dart';
 import 'package:flutter_folder/screens/review/review_screen.dart';
 
 class RouteManager {
@@ -27,6 +33,11 @@ class RouteManager {
   static const String ROUTE_IMAGES_DETAIL = "/view-image";
   static const String ROUTE_WISH_LIST = "/wish-list";
   static const String ROUTE_BOOKS_FOR_SALE = "/books-for-sale";
+  static const String ROUTE_CART = "/cart";
+  static const String ROUTE_REGISTER = "/register";
+  static const String ROUTE_CHECKOUT ="/checkout";
+  static const String ROUTE_ORDER_SUCCESS ="/order-success";
+  static const String ROUTE_MANAGE_ORDER = "/manage-order";
   static const String ROUTE_REVIEW = "/review";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -55,6 +66,16 @@ class RouteManager {
       //   return MaterialPageRoute(builder: (context) => WishListScreen());
       case ROUTE_BOOKS_FOR_SALE:
         return MaterialPageRoute(builder: (context) => BooksForSaleScreen());
+      case ROUTE_CART:
+        return MaterialPageRoute(builder: (context) => CartScreen());
+      case ROUTE_REGISTER:
+        return MaterialPageRoute(builder: (context) => RegisterScreen());
+      case ROUTE_CHECKOUT:
+        return MaterialPageRoute(builder: (context) => CheckoutScreen());
+      case ROUTE_ORDER_SUCCESS:
+        return MaterialPageRoute(builder: (context) => OrderSuccess());
+      case ROUTE_MANAGE_ORDER:
+        return MaterialPageRoute(builder: (context) => ManageOrderScreen());
       case ROUTE_REVIEW:
         return MaterialPageRoute(builder: (context) => ReviewScreen());
       default:
