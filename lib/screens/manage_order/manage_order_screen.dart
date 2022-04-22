@@ -13,8 +13,8 @@ class ManageOrderScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text("My Order"),
             bottom: TabBar(
-              indicator: BoxDecoration(borderRadius: BorderRadius.circular(10),
-              color: Colors.pink),
+              //indicator: BoxDecoration(borderRadius: BorderRadius.circular(10),
+              //color: Colors.pink),
               tabs: [
               Tab(
                 text: "Ready to pick",
