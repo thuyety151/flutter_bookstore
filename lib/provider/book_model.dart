@@ -10,6 +10,7 @@ class BookModel extends ChangeNotifier {
   List<Book> listBestSelling = [];
   List<NewReleaseModel> listNewRelease = [];
   List<Book> listDeal = [];
+  Book? detail;
 
   void getListBestSelling() async {
     var response = await _api.bestSelling();
@@ -27,6 +28,15 @@ class BookModel extends ChangeNotifier {
     var response = await _api.getBookForSales(predicate);
     print("delas");
     listDeal = response.data as List<Book>;
+    notifyListeners();
+  }
+
+  Future<void> getDetail(String id) async {
+    var response = await _api.getBookDetail(id);
+
+    detail = response;
+    print("=============");
+    print(detail?.attributes);
     notifyListeners();
   }
 }

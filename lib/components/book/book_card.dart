@@ -5,6 +5,7 @@ import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/mocks/models/BestSelling.dart';
 import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/routes/index.dart';
+import 'package:flutter_folder/screens/book_detail/book_detail_screen.dart';
 import 'package:readmore/readmore.dart';
 import '../rate.dart';
 
@@ -15,8 +16,9 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () =>
-            Navigator.of(context).pushNamed(RouteManager.ROUTE_PRODUCT_DETAIL),
+        onTap: () => Navigator.of(context).pushNamed(
+            RouteManager.ROUTE_PRODUCT_DETAIL,
+            arguments: BookDetailArgs(id: book.id)),
         child: Container(
           color: Colors.white,
           width: 170,
@@ -26,7 +28,7 @@ class BookCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image(
-                image: NetworkImage(book.pictureUrl),
+                image: NetworkImage(book.pictureUrl ?? ""),
                 height: 194,
                 width: 146,
                 fit: BoxFit.fitHeight,
@@ -39,7 +41,7 @@ class BookCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  book.attributeName.toUpperCase(),
+                  book.attributeName!.toUpperCase(),
                   style: AppTextStyles.attribute,
                 ),
                 Rate()

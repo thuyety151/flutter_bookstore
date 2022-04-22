@@ -34,7 +34,8 @@ class RouteManager {
       case ROUTE_HOME_PAGE:
         return MaterialPageRoute(builder: (context) => HomeScreen());
       case ROUTE_PRODUCT_DETAIL:
-        return MaterialPageRoute(builder: (context) => BookDetailScreen());
+        return MaterialPageRoute(
+            builder: (context) => BookDetailScreen(), settings: settings);
       case ROUTE_PROFILE:
         return MaterialPageRoute(builder: (context) => ProfileScreen());
       case ROUTE_PROFILE_DETAIL:

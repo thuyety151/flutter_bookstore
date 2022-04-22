@@ -9,7 +9,7 @@ class BestSelling extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<BookModel>(context).getListBestSelling();
+    Provider.of<BookModel>(context, listen: false).getListBestSelling();
 
     return ListBookSession(
       title: "Best selling",

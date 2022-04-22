@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
@@ -26,7 +25,7 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image(
-            image: NetworkImage(widget.model.pictureUrl),
+            image: NetworkImage(widget.model.pictureUrl ?? ""),
             // "https://vcdn.tikicdn.com/media/catalog/product/i/m/img893_3.jpg"),
             height: 102,
             width: 66,
@@ -42,7 +41,7 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.model.attributeName.toUpperCase(),
+                widget.model.attributeName!.toUpperCase(),
                 style: AppTextStyles.attribute,
               ),
               Text(
@@ -53,7 +52,7 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
                 width: 8,
               ),
               Text(
-                widget.model.attributeName,
+                widget.model.attributeName ?? "",
                 style: AppTextStyles.caption,
               ),
               SizedBox(

@@ -9,7 +9,8 @@ class DealOfWeek extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<BookModel>(context).getListBookForSale("deal-of-week");
+    Provider.of<BookModel>(context, listen: false)
+        .getListBookForSale("deal-of-week");
 
     return ListBookSession(
       title: "Deals of week",

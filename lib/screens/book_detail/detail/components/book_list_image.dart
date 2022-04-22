@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/models/media.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:getwidget/components/carousel/gf_carousel.dart';
 
@@ -11,7 +12,8 @@ List<String> imgUrls = [
 ];
 
 class BookListImage extends StatefulWidget {
-  const BookListImage({Key? key}) : super(key: key);
+  const BookListImage({Key? key, required this.listMedia}) : super(key: key);
+  final List<Media> listMedia;
 
   @override
   _BookListImageState createState() => _BookListImageState();
@@ -40,13 +42,13 @@ class _BookListImageState extends State<BookListImage> {
           viewportFraction: 1.0,
           aspectRatio: 2,
           onPageChanged: (int value) => {setState(() => currentIndex = value)},
-          items: imgUrls.map((url) {
+          items: widget.listMedia.map((media) {
             return Container(
               margin: EdgeInsets.all(8.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 child: Image.network(
-                  url,
+                  media.url,
                   fit: BoxFit.cover,
                   // width: 1000.0,
                   height: double.infinity,
@@ -65,7 +67,7 @@ class _BookListImageState extends State<BookListImage> {
               color: Colors.black26,
             ),
             child: Text(
-              (currentIndex + 1).toString() + "/${imgUrls.length}",
+              (currentIndex + 1).toString() + "/${widget.listMedia.length}",
               style: TextStyle(color: Colors.white, fontSize: 14),
             ),
           ),

@@ -15,6 +15,13 @@ import 'package:provider/provider.dart';
 
 List<String> categories = ["Paperback", "Hardcover", "Kindlebook"];
 
+class ScreenArguments {
+  final String title;
+  final String message;
+
+  ScreenArguments(this.title, this.message);
+}
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -31,10 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<BestSellingModel> bestselling = listBestselling;
 
-  void onViewDetail() {
-    Navigator.of(context).pushNamed(RouteManager.ROUTE_PRODUCT_DETAIL);
-  }
-
   Widget _body() {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 16),
@@ -47,8 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<BookModel>(context, listen: false).getListBestSelling();
-
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.kBgGgrey,
