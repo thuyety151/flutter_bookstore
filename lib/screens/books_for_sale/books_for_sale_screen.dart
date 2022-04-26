@@ -1,10 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/book/book_card.dart';
 import 'package:flutter_folder/components/coustom_bottom_nav_bar.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/enums.dart';
-import 'package:flutter_folder/mocks/models/BestSelling.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/screens/books_for_sale/components/filter_form.dart';
 import 'package:provider/provider.dart';
@@ -25,17 +26,17 @@ class BooksForSaleScreen extends StatelessWidget {
       children: [
         FlatButton(
             onPressed: () {},
-            child: Text(
+            child: const Text(
               "Clear",
               style: TextStyle(fontSize: 12),
             )),
-        Text(
+        const Text(
           "Filters",
           style: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 2),
         ),
         FlatButton(
             onPressed: () {},
-            child: Text(
+            child: const Text(
               "Save",
               style: TextStyle(fontSize: 12),
             )),
@@ -52,19 +53,17 @@ class BooksForSaleScreen extends StatelessWidget {
               decoration: showBottomSheetStyle(),
               child: Column(
                 children: [
-                  Container(
-                    child: Column(children: [
-                      _filterHeader(),
-                      Divider(
-                        thickness: 1,
-                        color: Color.fromARGB(100, 158, 158, 158),
-                      ),
-                    ]),
-                  ),
+                  Column(children: [
+                    _filterHeader(),
+                    const Divider(
+                      thickness: 1,
+                      color: Color.fromARGB(100, 158, 158, 158),
+                    ),
+                  ]),
                   Expanded(
                       child: SingleChildScrollView(
                     child: Wrap(
-                      children: [FilterForm()],
+                      children: const [FilterForm()],
                     ),
                   ))
                 ],
@@ -78,7 +77,7 @@ class BooksForSaleScreen extends StatelessWidget {
         right: 16,
         child: Container(
           height: 38,
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           width: MediaQuery.of(context).size.width,
           child: Row(children: [
             Expanded(
@@ -86,32 +85,32 @@ class BooksForSaleScreen extends StatelessWidget {
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 0),
                         border: searchBorder(),
                         focusedBorder: searchBorder(),
                         enabledBorder: searchBorder(),
                         hintText: "Search book",
-                        hintStyle:
-                            TextStyle(color: AppColors.kTextGrey, fontSize: 14),
-                        prefixIcon: Icon(
+                        hintStyle: const TextStyle(
+                            color: AppColors.kTextGrey, fontSize: 14),
+                        prefixIcon: const Icon(
                           Icons.search,
                           color: AppColors.kTextGrey,
                         )))),
-            SizedBox(
+            const SizedBox(
               width: 8,
             ),
-            Container(
+            SizedBox(
               width: 38,
               child: Expanded(
                 child: FlatButton(
                     onPressed: () => _filter(context),
                     color: AppColors.kPrimary,
                     height: 38,
-                    padding: EdgeInsets.symmetric(horizontal: 0),
-                    shape: RoundedRectangleBorder(
+                    padding: const EdgeInsets.symmetric(horizontal: 0),
+                    shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: Image(
+                    child: const Image(
                       image: AssetImage(
                         "assets/icons/icon-filter-2.png",
                       ),
@@ -129,7 +128,8 @@ class BooksForSaleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.kBgGgrey,
-        bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
+        bottomNavigationBar:
+            const CustomBottomNavBar(selectedMenu: MenuState.home),
         body: SafeArea(
             child: Column(
           children: [
@@ -138,7 +138,7 @@ class BooksForSaleScreen extends StatelessWidget {
             ),
             Expanded(
                 child: Container(
-                    padding: EdgeInsets.only(top: 16),
+                    padding: const EdgeInsets.only(top: 16),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Consumer<BookModel>(
@@ -148,7 +148,8 @@ class BooksForSaleScreen extends StatelessWidget {
                               children: List.generate(
                                   value.listBestSelling.length,
                                   (index) => Container(
-                                        padding: EdgeInsets.only(bottom: 16),
+                                        padding:
+                                            const EdgeInsets.only(bottom: 16),
                                         child: BookCard(
                                             book: value.listBestSelling[index]),
                                       )))),

@@ -10,7 +10,6 @@ class CategoryModel extends ChangeNotifier {
   Future<void> getCategoriesHomescreen() async {
     var response = await _api.getTopCategory();
     categoryHomescreen = response.data as List<Category>;
-    print(categoryHomescreen);
     notifyListeners();
   }
 }

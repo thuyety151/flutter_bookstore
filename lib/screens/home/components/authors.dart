@@ -19,11 +19,11 @@ class Authors extends StatelessWidget {
                     value.listAuthor.length,
                     (index) => Container(
                           height: 100,
-                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: Column(children: [
                             ClipRRect(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                                  const BorderRadius.all(Radius.circular(50)),
                               child: Image(
                                 image: NetworkImage(
                                     value.listAuthor[index].imageUrl),
@@ -31,10 +31,10 @@ class Authors extends StatelessWidget {
                                 width: 50,
                               ),
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Text(
                               value.listAuthor[index].name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 12, fontWeight: FontWeight.bold),
                             )
                           ]),

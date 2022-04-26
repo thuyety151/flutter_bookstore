@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CustomTextStyle {
-  static var textFormFieldRegular = TextStyle(
+  static var textFormFieldRegular = const TextStyle(
       fontSize: 16,
       fontFamily: "Helvetica",
       color: Colors.black,
       fontWeight: FontWeight.w400);
 
+// TODO: move global style to this file
   static var textFormFieldLight =
       textFormFieldRegular.copyWith(fontWeight: FontWeight.w200);
 

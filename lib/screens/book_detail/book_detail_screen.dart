@@ -1,11 +1,7 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
-import 'package:flutter_folder/components/book/book_card.dart';
-import 'package:flutter_folder/components/list_book_section.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
-import 'package:flutter_folder/mocks/bookList.dart';
-import 'package:flutter_folder/mocks/models/BestSelling.dart';
-import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_detail_bottom.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_list_image.dart';
@@ -21,11 +17,11 @@ class BookDetailScreen extends StatelessWidget {
 
   Widget _tagCategory() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
           color: Colors.pink[50]),
-      child: Text("Fiction"),
+      child: const Text("Fiction"),
     );
   }
 
@@ -33,11 +29,11 @@ class BookDetailScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SessionTitle(
+        const SessionTitle(
           title: "Description",
           padding: EdgeInsets.only(top: 4, bottom: 10),
         ),
-        SizedBox(
+        const SizedBox(
           height: 4,
         ),
         Consumer<BookModel>(
@@ -48,9 +44,9 @@ class BookDetailScreen extends StatelessWidget {
             trimMode: TrimMode.Line,
             trimCollapsedText: 'Show more',
             trimExpandedText: 'Show less',
-            moreStyle: TextStyle(
+            moreStyle: const TextStyle(
                 fontSize: 14, fontWeight: FontWeight.bold, color: Colors.pink),
-            style: TextStyle(color: Colors.black),
+            style:const  TextStyle(color: Colors.black),
           ),
         )
       ],
@@ -59,9 +55,9 @@ class BookDetailScreen extends StatelessWidget {
 
   Widget _attributes() {
     return Container(
-      padding: EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        SessionTitle(
+        const SessionTitle(
           title: "Attributes",
           padding: EdgeInsets.only(bottom: 8),
         ),
@@ -71,8 +67,7 @@ class BookDetailScreen extends StatelessWidget {
             spacing: 4,
             children: List.generate(
                 value.detail?.attributes?.length ?? 0,
-                (index) => Container(
-                        child: OutlinedButton(
+                (index) => OutlinedButton(
                       style: OutlinedButton.styleFrom(
                           side: BorderSide(
                               width: 1.0,
@@ -89,7 +84,7 @@ class BookDetailScreen extends StatelessWidget {
                                 ? AppColors.kPrimary
                                 : AppColors.kTextGrey),
                       ),
-                    ))),
+                    )),
           ),
         )
       ]),
@@ -98,13 +93,12 @@ class BookDetailScreen extends StatelessWidget {
 
   Widget _header() {
     return Consumer<BookModel>(
-        builder: ((context, value, child) => Container(
-                child: Column(
+        builder: ((context, value, child) => Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _tagCategory(),
-                SizedBox(
+                const SizedBox(
                   height: 6,
                 ),
                 Row(
@@ -113,13 +107,13 @@ class BookDetailScreen extends StatelessWidget {
                     Consumer<BookModel>(
                         builder: (context, value, child) => Text(
                               value.detail?.name ?? "--",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 18),
                             )),
                     FlatButton(
                         minWidth: 28,
                         onPressed: () {},
-                        child: Icon(
+                        child:const  Icon(
                           Icons.favorite_outline,
                           color: AppColors.kPrimary,
                         ))
@@ -128,47 +122,45 @@ class BookDetailScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      child: Row(children: [
-                        Text(
-                          '\$${value.detail?.salePrice}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              color: AppColors.kPrimary),
-                        ),
-                        SizedBox(width: 6),
-                        Text(
-                          '\$${value.detail?.price}',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.kTextGrey,
-                              decoration: TextDecoration.lineThrough),
-                        ),
-                        SizedBox(width: 6),
-                        Text(
-                          "50% off",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.kPrimary,
-                              fontWeight: FontWeight.w600),
-                        )
-                      ]),
-                    ),
+                    Row(children: [
+                      Text(
+                        '\$${value.detail?.salePrice}',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                            color: AppColors.kPrimary),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        '\$${value.detail?.price}',
+                        style: const TextStyle(
+                            fontSize: 14,
+                            color: AppColors.kTextGrey,
+                            decoration: TextDecoration.lineThrough),
+                      ),
+                      const SizedBox(width: 6),
+                      const Text(
+                        "50% off",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.kPrimary,
+                            fontWeight: FontWeight.w600),
+                      )
+                    ]),
                     Row(
                       children: [
                         Icon(
                           Icons.star,
                           color: Colors.amber[300],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 4,
                         ),
-                        Text("4.5"),
-                        SizedBox(
+                        const Text("4.5"),
+                        const SizedBox(
                           width: 4,
                         ),
-                        Text(
+                        const Text(
                           "(128 Reviews)",
                           style: TextStyle(color: AppColors.kTextGrey),
                         ),
@@ -177,19 +169,19 @@ class BookDetailScreen extends StatelessWidget {
                   ],
                 ),
               ],
-            ))));
+            )));
   }
 
   Widget _detail() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SessionTitle(
+        const SessionTitle(
           title: "Details",
           padding: EdgeInsets.only(top: 16, bottom: 8),
         ),
         Container(
-            padding: EdgeInsets.only(top: 8),
+            padding: const EdgeInsets.only(top: 8),
             child: Consumer<BookModel>(builder: (context, value, child) {
               final info = value.detail?.getBookInfo();
               return Column(
@@ -198,11 +190,12 @@ class BookDetailScreen extends StatelessWidget {
                     (index) => Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.only(bottom: 4),
+                              padding: const EdgeInsets.only(bottom: 4),
                               width: 180,
                               child: Text(
                                 info?[index].label ?? "",
-                                style: TextStyle(color: AppColors.kTextGrey),
+                                style:
+                                    const TextStyle(color: AppColors.kTextGrey),
                               ),
                             ),
                             Text(info?[index].value ?? "")
@@ -237,14 +230,14 @@ class BookDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Stack & Positioned Widget'),
+        title: const Text('Stack & Positioned Widget'),
         centerTitle: true,
       ),
-      bottomNavigationBar: BookDetailBottom(),
+      bottomNavigationBar: const BookDetailBottom(),
       body: SafeArea(
           child: SingleChildScrollView(
               child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Consumer<BookModel>(
                     builder: (context, value, child) => Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -252,7 +245,7 @@ class BookDetailScreen extends StatelessWidget {
                         children: [
                           BookListImage(listMedia: value.detail!.media ?? []),
                           _header(),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Divider(
                               thickness: 1,
@@ -262,14 +255,14 @@ class BookDetailScreen extends StatelessWidget {
                           _attributes(),
                           _shortDescription(),
                           _detail(),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(vertical: 16),
                             child: Divider(
                               thickness: 1,
                               color: Colors.black12,
                             ),
                           ),
-                          ReviewContainer(),
+                          const ReviewContainer(),
                           _releatedSection()
                         ]),
                   )))),

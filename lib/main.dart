@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             fontFamily: GoogleFonts.inter().fontFamily,
           ),
-          home: LoginScreen()),
+          home: const LoginScreen()),
     );
   }
 }

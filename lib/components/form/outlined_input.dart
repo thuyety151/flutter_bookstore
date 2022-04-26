@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 
@@ -35,10 +34,10 @@ class _OutlinedInputState extends State<OutlinedInput> {
           children: [
             if (widget.label != null) ...[
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
                   widget.label?.toUpperCase() ?? "",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
                       color: AppColors.kTextGrey),
@@ -55,16 +54,16 @@ class _OutlinedInputState extends State<OutlinedInput> {
                   border: InputBorder.none,
                   prefixIcon: widget.prefixIcon,
                   // Icon(Icons.lock_outline, size: 20, color: Colors.grey),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder:const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       borderSide: BorderSide(
                           color: Color.fromARGB(100, 158, 158, 158))),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder:const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       borderSide: BorderSide(
                           color: Color.fromARGB(100, 158, 158, 158))),
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 8, horizontal: 16)),
+                     const EdgeInsets.symmetric(vertical: 8, horizontal: 16)),
             ),
           ],
         ));

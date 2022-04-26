@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/form/list_button_options.dart';
 import 'package:flutter_folder/components/form/multiple_select.dart';
@@ -27,10 +26,10 @@ class _FilterFormState extends State<FilterForm> {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: const [
             Text(
               "Pricing",
-              style: const TextStyle(
+              style: TextStyle(
                   fontWeight: FontWeight.w600, fontSize: 14, letterSpacing: 2),
             ),
             SizedBox(
@@ -48,21 +47,19 @@ class _FilterFormState extends State<FilterForm> {
                 trackHeight: 3,
                 thumbShape: SliderComponentShape.noThumb,
                 trackShape: const RoundedRectSliderTrackShape()),
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width - 42,
               child: RangeSlider(
                 activeColor: AppColors.kPrimary,
                 inactiveColor: AppColors.kGrayE5,
                 max: 100,
                 divisions: 5,
-                labels: RangeLabels(
+                labels: const RangeLabels(
                   "50",
                   "100",
                 ),
-                values: RangeValues(50, 100),
-                onChanged: (double) {
-                  print(double);
-                },
+                values: const RangeValues(50, 100),
+                onChanged: (RangeValues value) {},
               ),
             ))
       ],
@@ -79,11 +76,11 @@ class _FilterFormState extends State<FilterForm> {
         _pricing(context),
         _title("Authors"),
         // TODO: change props of MultipleSelect
-        MultipleSelect(),
+        const MultipleSelect(),
         _title("Format"),
-        MultipleSelect(),
+        const MultipleSelect(),
         _title("Review"),
-        OptionsReview()
+        const OptionsReview()
       ]),
     );
   }

@@ -46,8 +46,6 @@ class BookApi {
       var request = _api.get("/books?id=$id");
 
       var response = await http.Response.fromStream(await request.send());
-      print("=============");
-      print(json.decode(response.body)["value"]);
       return Book.detailFromJson(json.decode(response.body)["value"]);
     } catch (e) {
       rethrow;

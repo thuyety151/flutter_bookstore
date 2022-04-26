@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_folder/mocks/bookList.dart';
+import 'package:flutter_folder/mocks/book_list.dart';
 import 'package:flutter_folder/models/attribute.dart';
 import 'package:flutter_folder/models/media.dart';
-import 'package:provider/provider.dart';
-import 'dart:convert';
 
 class Book {
   String id;
@@ -87,12 +84,7 @@ class Book {
   }
 
   factory Book.detailFromJson(Map<String, dynamic> json) {
-    print("jsonnnnnnnnnnnn");
-    print(json["attributes"]);
-
     final listAttrs = json["attributes"].cast<Map<String, dynamic>>() ?? [];
-    final listCategoryId =
-        json["categoryIds"].cast<Map<String, dynamic>>() ?? [];
     final listMedia = json["media"].cast<Map<String, dynamic>>() ?? [];
 
     return Book.detail(

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 
 AppBarTheme appBarTheme() {
-  return AppBarTheme(
+  return const AppBarTheme(
     color: Colors.white,
     elevation: 0,
-    brightness: Brightness.light,
+    // brightness: Brightness.light,
     iconTheme: IconThemeData(color: Colors.black),
-    textTheme: TextTheme(
-      headline6: TextStyle(color: Color(0XFF8B8B8B), fontSize: 18),
-    ),
+    // textTheme: TextTheme(
+    //   headline6: TextStyle(color: Color(0XFF8B8B8B), fontSize: 18),
+    // ),
   );
 }
 
@@ -26,7 +26,7 @@ ThemeData theme() {
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(28),
-    borderSide: BorderSide(color: AppColors.kTextColor),
+    borderSide: const BorderSide(color: AppColors.kTextColor),
     gapPadding: 10,
   );
   return InputDecorationTheme(
@@ -34,7 +34,7 @@ InputDecorationTheme inputDecorationTheme() {
     // if you r using flutter less then 1.20.* then maybe this is not working properly
     // if we are define our floatingLabelBehavior in our theme then it's not applayed
     floatingLabelBehavior: FloatingLabelBehavior.always,
-    contentPadding: EdgeInsets.symmetric(horizontal: 42, vertical: 20),
+    contentPadding:const EdgeInsets.symmetric(horizontal: 42, vertical: 20),
     enabledBorder: outlineInputBorder,
     focusedBorder: outlineInputBorder,
     border: outlineInputBorder,

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 
 class ProfileMenu extends StatelessWidget {
@@ -18,15 +18,15 @@ class ProfileMenu extends StatelessWidget {
     return FlatButton(
         key: key,
         onPressed: onPress,
-        padding: EdgeInsets.symmetric(vertical: 0),
-        child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 0),
+        child: SizedBox(
           height: 60,
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Row(
               children: [
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    padding:const EdgeInsets.symmetric(horizontal: 8),
                     child: Image(
                       image: AssetImage(iconAssetUrl),
                       height: 38,
@@ -35,9 +35,9 @@ class ProfileMenu extends StatelessWidget {
               ],
             ),
             IconButton(
-              icon: new Icon(Icons.chevron_right),
+              icon: const Icon(Icons.chevron_right),
               onPressed: () {},
-              padding: EdgeInsets.all(4),
+              padding:const EdgeInsets.all(4),
             )
           ]),
         ));

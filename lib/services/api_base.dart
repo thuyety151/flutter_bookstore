@@ -29,7 +29,6 @@ class Api {
   http.Request post(String requestUrl, {String body = ""}) {
     Uri url = Uri.parse(bookstoreEnpoint + requestUrl);
     http.Request request = http.Request("post", url);
-    print(body);
     request.headers.addAll({"content-type": "application/json; charset=utf-8"});
     request.body = body;
     return request;

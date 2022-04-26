@@ -12,10 +12,10 @@ class CardCategoryCircle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 100,
-      padding: EdgeInsets.symmetric(horizontal: 8),
+      padding:const EdgeInsets.symmetric(horizontal: 8),
       child: Column(children: [
         ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: const BorderRadius.all(Radius.circular(50)),
           child: Image(
             image: NetworkImage(category.media?.url ??
                 "https://cdn.popsww.com/blog/sites/2/2022/01/kaito-kid.jpg"),
@@ -23,10 +23,10 @@ class CardCategoryCircle extends StatelessWidget {
             width: 50,
           ),
         ),
-        SizedBox(height: 8),
+       const SizedBox(height: 8),
         Text(
           category.name,
-          style: TextStyle(color: AppColors.kTextGrey, fontSize: 12),
+          style:const TextStyle(color: AppColors.kTextGrey, fontSize: 12),
         )
       ]),
     );

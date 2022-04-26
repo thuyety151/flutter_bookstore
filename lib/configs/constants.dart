@@ -46,7 +46,7 @@ final otpInputDecoration = InputDecoration(
 );
 
 OutlineInputBorder outlineInputBorder() {
-  return OutlineInputBorder(
+  return const OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(8)),
     borderSide: BorderSide(color: kTextColor),
   );
@@ -61,7 +61,7 @@ class AppTextStyles {
 }
 
 BoxDecoration showBottomSheetStyle() {
-  return BoxDecoration(
+  return const BoxDecoration(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(16),
         topRight: Radius.circular(16),

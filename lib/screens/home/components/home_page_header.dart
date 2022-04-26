@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/category/category_circle.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
@@ -20,7 +22,7 @@ class HomePageHeader extends StatelessWidget {
               children: List.generate(
                   value.categoryHomescreen.length,
                   (index) => Padding(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         child: CardCategoryCircle(
                           category: value.categoryHomescreen[index],
                         ),
@@ -39,19 +41,20 @@ class HomePageHeader extends StatelessWidget {
     return Container(
         height: 38,
         width: 300,
-        padding: EdgeInsets.only(left: 8),
+        padding: const EdgeInsets.only(left: 8),
         child: TextField(
             decoration: InputDecoration(
                 fillColor: AppColors.kBgGgrey,
                 filled: true,
                 contentPadding:
-                    EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 border: searchBorder(),
                 focusedBorder: searchBorder(),
                 enabledBorder: searchBorder(),
                 hintText: "Search book",
-                hintStyle: TextStyle(color: AppColors.kTextGrey, fontSize: 14),
-                prefixIcon: Icon(
+                hintStyle:
+                    const TextStyle(color: AppColors.kTextGrey, fontSize: 14),
+                prefixIcon: const Icon(
                   Icons.search,
                   color: AppColors.kTextGrey,
                 ))));
@@ -63,7 +66,7 @@ class HomePageHeader extends StatelessWidget {
         .getCategoriesHomescreen();
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(16),
             bottomRight: Radius.circular(16),
@@ -83,10 +86,10 @@ class HomePageHeader extends StatelessWidget {
                 color: AppColors.kPrimary,
                 height: 30,
                 minWidth: 30,
-                padding: EdgeInsets.symmetric(horizontal: 0),
-                shape: RoundedRectangleBorder(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+                shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Image(
+                child: const Image(
                   image: AssetImage(
                     "assets/icons/icon-add-cart.png",
                   ),
@@ -100,10 +103,10 @@ class HomePageHeader extends StatelessWidget {
                 color: AppColors.kPrimary,
                 height: 30,
                 minWidth: 30,
-                padding: EdgeInsets.symmetric(horizontal: 0),
-                shape: RoundedRectangleBorder(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+                shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Image(
+                child: const Image(
                   image: AssetImage(
                     "assets/icons/icon-filter-2.png",
                   ),
@@ -114,12 +117,12 @@ class HomePageHeader extends StatelessWidget {
               ),
             ],
           ),
-          AppBanner(),
-          Container(
+          const AppBanner(),
+          SizedBox(
             height: 100,
             child: SizedBox(child: _listCategory()),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           )
         ],

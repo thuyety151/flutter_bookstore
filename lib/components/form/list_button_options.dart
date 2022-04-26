@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
-import 'package:flutter_folder/mocks/models/Author.dart';
+import 'package:flutter_folder/mocks/models/author.dart';
 
 class ListButtonOptions extends StatelessWidget {
   const ListButtonOptions({Key? key}) : super(key: key);
@@ -13,8 +12,7 @@ class ListButtonOptions extends StatelessWidget {
       spacing: 4,
       children: List.generate(
           categories.length,
-          (index) => Container(
-                  child: OutlinedButton(
+          (index) => OutlinedButton(
                 style: OutlinedButton.styleFrom(
                     side: BorderSide(
                         width: 1.0,
@@ -28,7 +26,7 @@ class ListButtonOptions extends StatelessWidget {
                   style: TextStyle(
                       color: index == 0 ? Colors.white : AppColors.kTextGrey),
                 ),
-              ))),
+              )),
     );
   }
 }

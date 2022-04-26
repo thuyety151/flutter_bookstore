@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/button/primary_button.dart';
 import 'package:flutter_folder/configs/constants.dart';
@@ -26,7 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     isLoading = false;
   }
@@ -52,26 +52,26 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         alignment: Alignment.center,
         child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   alignment: Alignment.center,
-                  margin: EdgeInsets.only(bottom: 32),
+                  margin: const EdgeInsets.only(bottom: 32),
                   child: const Image(
                     image: AssetImage("assets/images/app_logo.png"),
                     height: 80,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: TextField(
                     onChanged: (input) => formValue.email = input,
                     decoration: InputDecoration(
                       hintText: "Enter your email",
-                      prefixIcon: Icon(Icons.mail_outline,
+                      prefixIcon: const Icon(Icons.mail_outline,
                           size: 20, color: Colors.grey),
                       enabledBorder: outlineInputBorder(),
                       focusedBorder: outlineInputBorder(),
@@ -79,14 +79,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: TextField(
                     onChanged: (input) => formValue.password = input,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Enter your password",
                       border: InputBorder.none,
-                      prefixIcon: Icon(Icons.lock_outline,
+                      prefixIcon: const Icon(Icons.lock_outline,
                           size: 20, color: Colors.grey),
                       enabledBorder: outlineInputBorder(),
                       focusedBorder: outlineInputBorder(),
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 8, bottom: 8),
+                  margin: const EdgeInsets.only(top: 8, bottom: 8),
                   alignment: Alignment.centerRight,
                   child: const Text(
                     "Forgot password",
@@ -105,12 +105,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 PrimaryButton(
                     onTap: onLogin,
                     buttonText: "Sign in",
-                    buttonColor: Color.fromARGB(255, 249, 82, 69),
+                    buttonColor: const Color.fromARGB(255, 249, 82, 69),
                     textColor: Colors.white,
                     buttonWidth: double.infinity,
                     loading: isLoading),
                 Container(
-                  margin: EdgeInsets.only(top: 16, bottom: 16),
+                  margin: const EdgeInsets.only(top: 16, bottom: 16),
                   child: Row(
                     children: <Widget>[
                       const Expanded(
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: 8, right: 8),
+                        margin: const EdgeInsets.only(left: 8, right: 8),
                         child: const Text(
                           "OR",
                           style: TextStyle(color: Colors.grey),
@@ -136,26 +136,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4),
+                      padding: const EdgeInsets.symmetric(vertical: 4),
                       child: FlatButton(
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8.0)),
                         ),
                         onPressed: () {},
-                        child: Image(
+                        child: const Image(
                           image: AssetImage("assets/images/google.png"),
                           height: 30,
                         ),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4),
+                      padding: const EdgeInsets.symmetric(vertical: 4),
                       child: FlatButton(
                         onPressed: () {},
-                        child: Image(
+                        child: const Image(
                           image: AssetImage("assets/images/facebook.jpg"),
                           height: 30,
                         ),
@@ -164,11 +164,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 Padding(
-                    padding: EdgeInsets.only(top: 8, bottom: 8),
+                    padding: const EdgeInsets.only(top: 8, bottom: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "Don't have an account ?",
                           style: TextStyle(color: Colors.grey),
                         ),
@@ -177,9 +177,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.of(context)
                                 .pushNamed(RouteManager.ROUTE_REGISTER);
                           },
-                          child: Text(
+                          child: const Text(
                             " Register",
-                            style: const TextStyle(fontWeight: FontWeight.w800),
+                            style: TextStyle(fontWeight: FontWeight.w800),
                           ),
                         )
                       ],

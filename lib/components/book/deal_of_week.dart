@@ -17,8 +17,8 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
   Widget build(BuildContext context) {
     return Container(
       width: 312,
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(8),
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(16)),
           color: Colors.white),
       child: Row(children: [
@@ -32,10 +32,10 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
             fit: BoxFit.fitHeight,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 8,
         ),
-        Container(
+        SizedBox(
           width: 203,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,24 +48,24 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
                 widget.model.name,
                 style: AppTextStyles.title,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Text(
                 widget.model.attributeName ?? "",
                 style: AppTextStyles.caption,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Text("\$" + widget.model.price.toString(),
                   style: AppTextStyles.price),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text(
                     "Already sold: 14",
                     style: AppTextStyles.caption,
@@ -76,7 +76,7 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               SliderTheme(
@@ -84,14 +84,15 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
                       overlayShape: SliderComponentShape.noOverlay,
                       trackHeight: 3,
                       thumbShape: SliderComponentShape.noThumb,
-                      trackShape: RoundedRectSliderTrackShape()),
+                      trackShape: const RoundedRectSliderTrackShape()),
                   child: Slider(
                       activeColor: AppColors.kPrimary,
                       inactiveColor: AppColors.kGrayE5,
                       value: 15,
                       max: 100,
-                      onChanged: (double) {
-                        print(double);
+                      onChanged: (double x) {
+                        // ignore: avoid_print
+                        print(x);
                       }))
             ],
           ),

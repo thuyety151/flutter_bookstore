@@ -1,6 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/image/view_full_screen.dart';
 import 'package:flutter_folder/screens/address/address_screen.dart';
@@ -35,52 +34,56 @@ class RouteManager {
   static const String ROUTE_BOOKS_FOR_SALE = "/books-for-sale";
   static const String ROUTE_CART = "/cart";
   static const String ROUTE_REGISTER = "/register";
-  static const String ROUTE_CHECKOUT ="/checkout";
-  static const String ROUTE_ORDER_SUCCESS ="/order-success";
+  static const String ROUTE_CHECKOUT = "/checkout";
+  static const String ROUTE_ORDER_SUCCESS = "/order-success";
   static const String ROUTE_MANAGE_ORDER = "/manage-order";
   static const String ROUTE_REVIEW = "/review";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case ROUTE_LOGIN:
-        return MaterialPageRoute(builder: (context) => LoginScreen());
+        return MaterialPageRoute(builder: (context) => const LoginScreen());
       case ROUTE_HOME_PAGE:
-        return MaterialPageRoute(builder: (context) => HomeScreen());
+        return MaterialPageRoute(builder: (context) => const HomeScreen());
       case ROUTE_PRODUCT_DETAIL:
         return MaterialPageRoute(
-            builder: (context) => BookDetailScreen(), settings: settings);
+            builder: (context) => const BookDetailScreen(), settings: settings);
       case ROUTE_PROFILE:
-        return MaterialPageRoute(builder: (context) => ProfileScreen());
+        return MaterialPageRoute(builder: (context) => const ProfileScreen());
       case ROUTE_PROFILE_DETAIL:
-        return MaterialPageRoute(builder: (context) => ProfileDetailScreen());
+        return MaterialPageRoute(
+            builder: (context) => const ProfileDetailScreen());
       case ROUTE_PROFILE_EDIT:
-        return MaterialPageRoute(builder: (context) => EditProfile());
+        return MaterialPageRoute(builder: (context) => const EditProfile());
       case ROUTE_ADDRESSES:
-        return MaterialPageRoute(builder: (context) => AddressScreen());
+        return MaterialPageRoute(builder: (context) => const AddressScreen());
       case ROUTE_CHANGE_PASSWORD:
-        return MaterialPageRoute(builder: (context) => ChangePasswordScreen());
+        return MaterialPageRoute(
+            builder: (context) => const ChangePasswordScreen());
       // case ROUTE_DEMO:
       //   return MaterialPageRoute(builder: (context) => Layout());
       case ROUTE_IMAGES_DETAIL:
-        return MaterialPageRoute(builder: (context) => ViewImageFullScreen());
+        return MaterialPageRoute(
+            builder: (context) => const ViewImageFullScreen());
       // case ROUTE_WISH_LIST:
       //   return MaterialPageRoute(builder: (context) => WishListScreen());
       case ROUTE_BOOKS_FOR_SALE:
-        return MaterialPageRoute(builder: (context) => BooksForSaleScreen());
+        return MaterialPageRoute(
+            builder: (context) => const BooksForSaleScreen());
       case ROUTE_CART:
-        return MaterialPageRoute(builder: (context) => CartScreen());
+        return MaterialPageRoute(builder: (context) => const CartScreen());
       case ROUTE_REGISTER:
-        return MaterialPageRoute(builder: (context) => RegisterScreen());
+        return MaterialPageRoute(builder: (context) =>const  RegisterScreen());
       case ROUTE_CHECKOUT:
-        return MaterialPageRoute(builder: (context) => CheckoutScreen());
+        return MaterialPageRoute(builder: (context) =>const  CheckoutScreen());
       case ROUTE_ORDER_SUCCESS:
-        return MaterialPageRoute(builder: (context) => OrderSuccess());
+        return MaterialPageRoute(builder: (context) =>const  OrderSuccess());
       case ROUTE_MANAGE_ORDER:
-        return MaterialPageRoute(builder: (context) => ManageOrderScreen());
+        return MaterialPageRoute(builder: (context) => const ManageOrderScreen());
       case ROUTE_REVIEW:
-        return MaterialPageRoute(builder: (context) => ReviewScreen());
+        return MaterialPageRoute(builder: (context) =>const ReviewScreen());
       default:
-        throw FormatException("ROute not found! Check routes again");
+        throw const FormatException("ROute not found! Check routes again");
     }
   }
 }

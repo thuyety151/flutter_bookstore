@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/models/media.dart';
 import 'package:flutter_folder/routes/index.dart';
@@ -23,7 +22,6 @@ class _BookListImageState extends State<BookListImage> {
   late int currentIndex;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {
       currentIndex = 0;
@@ -35,8 +33,7 @@ class _BookListImageState extends State<BookListImage> {
   }
 
   Widget _slider() {
-    return Container(
-        child: Stack(
+    return Stack(
       children: [
         GFCarousel(
           viewportFraction: 1.0,
@@ -44,9 +41,9 @@ class _BookListImageState extends State<BookListImage> {
           onPageChanged: (int value) => {setState(() => currentIndex = value)},
           items: widget.listMedia.map((media) {
             return Container(
-              margin: EdgeInsets.all(8.0),
+              margin: const EdgeInsets.all(8.0),
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                 child: Image.network(
                   media.url,
                   fit: BoxFit.cover,
@@ -61,14 +58,14 @@ class _BookListImageState extends State<BookListImage> {
           bottom: 8,
           right: 16,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(16)),
               color: Colors.black26,
             ),
             child: Text(
               (currentIndex + 1).toString() + "/${widget.listMedia.length}",
-              style: TextStyle(color: Colors.white, fontSize: 14),
+              style: const TextStyle(color: Colors.white, fontSize: 14),
             ),
           ),
         ),
@@ -79,19 +76,19 @@ class _BookListImageState extends State<BookListImage> {
               alignment: Alignment.center,
               child: Container(
                 height: 28,
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                   color: Colors.black54,
                 ),
-                child: Text(
+                child: const Text(
                   "Out of stock",
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
               )),
         )
       ],
-    ));
+    );
   }
 
   @override
@@ -99,7 +96,7 @@ class _BookListImageState extends State<BookListImage> {
     return GestureDetector(
       onTap: _viewDetail,
       child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [_slider()],
           )),

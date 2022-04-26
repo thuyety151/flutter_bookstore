@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/models/newrelease.dart';
 import 'package:flutter_folder/services/book_api.dart';
-import 'package:provider/provider.dart';
 
 class BookModel extends ChangeNotifier {
   final BookApi _api = BookApi();
@@ -26,7 +25,6 @@ class BookModel extends ChangeNotifier {
 
   void getListBookForSale(String predicate) async {
     var response = await _api.getBookForSales(predicate);
-    print("delas");
     listDeal = response.data as List<Book>;
     notifyListeners();
   }
@@ -35,8 +33,6 @@ class BookModel extends ChangeNotifier {
     var response = await _api.getBookDetail(id);
 
     detail = response;
-    print("=============");
-    print(detail?.attributes);
     notifyListeners();
   }
 }

@@ -22,9 +22,9 @@ class AppBanner extends StatelessWidget {
       aspectRatio: 2,
       items: imageList.map((url) {
         return Container(
-          margin: EdgeInsets.all(8.0),
+          margin: const EdgeInsets.all(8.0),
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
             child: Image.network(url, fit: BoxFit.cover, width: 1000.0),
           ),
         );

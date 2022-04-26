@@ -17,8 +17,7 @@ class NewRelease extends StatelessWidget {
           spacing: 8,
           children: List.generate(
               model.length,
-              (index) => Container(
-                      child: OutlinedButton(
+              (index) => OutlinedButton(
                     style: OutlinedButton.styleFrom(
                         side: BorderSide(
                             width: 1.0,
@@ -34,7 +33,7 @@ class NewRelease extends StatelessWidget {
                           color:
                               index == 0 ? Colors.white : AppColors.kTextGrey),
                     ),
-                  ))),
+                  )),
         ));
   }
 
@@ -47,7 +46,7 @@ class NewRelease extends StatelessWidget {
               title: "New release",
               header: Column(children: [
                 _newReCategories(value.listNewRelease),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
               ]),

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/routes/index.dart';
 
@@ -42,7 +41,7 @@ class ListImagesReviewState extends State<ListImagesReview> {
                 fit: BoxFit.fitHeight,
               ),
             ),
-            Align(
+            const Align(
               alignment: Alignment.center,
               child: Icon(
                 Icons.add,
@@ -56,8 +55,7 @@ class ListImagesReviewState extends State<ListImagesReview> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Wrap(direction: Axis.horizontal, spacing: 4, children: [
+    return Wrap(direction: Axis.horizontal, spacing: 4, children: [
       ...List.generate(
           sampleData.length > 4 ? 3 : 4,
           (index) => GestureDetector(
@@ -73,6 +71,6 @@ class ListImagesReviewState extends State<ListImagesReview> {
                         height: 100,
                       ))))),
       if (sampleData.length > 4) ...[_moreImages()]
-    ]));
+    ]);
   }
 }

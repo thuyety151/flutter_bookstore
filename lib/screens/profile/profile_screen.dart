@@ -71,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
   Widget _statsCard() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+      children: const [
         StatsCard(),
         SizedBox(width: 8),
         StatsCard(),
@@ -91,29 +91,29 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 32),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.symmetric(vertical: 32),
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                     image: AssetImage("assets/images/bg_cur.png"),
                     fit: BoxFit.cover,
                   )),
                   alignment: Alignment.center,
-                  child: Avatar(),
+                  child: const Avatar(),
                 ),
                 Consumer<AccountModel>(
                     builder: (context, model, child) => Text(
                           model.email,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 22,
                               letterSpacing: 2),
                         )),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: _statsCard(),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: _menus(context),
                 )
               ],

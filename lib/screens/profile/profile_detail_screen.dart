@@ -21,34 +21,30 @@ class _ProfilDetaileScreenState extends State<ProfileDetailScreen> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 32),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.symmetric(vertical: 32),
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                     image: AssetImage("assets/images/bg_cur.png"),
                     fit: BoxFit.cover,
                   )),
                   alignment: Alignment.center,
-                  child: Avatar(),
+                  child: const Avatar(),
+                ),
+                const Text(
+                  "thuyet15",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 22,
+                      letterSpacing: 2),
+                ),
+                const Text(
+                  "thuyet15@gmail.com",
+                  style: TextStyle(color: AppColors.kTextGrey),
                 ),
                 Container(
-                  child: Text(
-                    "thuyet15",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 22,
-                        letterSpacing: 2),
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    "thuyet15@gmail.com",
-                    style: TextStyle(color: AppColors.kTextGrey),
-                  ),
-                ),
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     alignment: Alignment.centerLeft,
-                    child: Text(
+                    child: const Text(
                       "Personal Information",
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
@@ -56,8 +52,8 @@ class _ProfilDetaileScreenState extends State<ProfileDetailScreen> {
                       ),
                     )),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: PersonalInfoCard(),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: const PersonalInfoCard(),
                 ),
               ],
             ),
