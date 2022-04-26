@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
+import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_detail_bottom.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_list_image.dart';
@@ -46,7 +47,7 @@ class BookDetailScreen extends StatelessWidget {
             trimExpandedText: 'Show less',
             moreStyle: const TextStyle(
                 fontSize: 14, fontWeight: FontWeight.bold, color: Colors.pink),
-            style:const  TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
           ),
         )
       ],
@@ -113,7 +114,7 @@ class BookDetailScreen extends StatelessWidget {
                     FlatButton(
                         minWidth: 28,
                         onPressed: () {},
-                        child:const  Icon(
+                        child: const Icon(
                           Icons.favorite_outline,
                           color: AppColors.kPrimary,
                         ))
@@ -229,10 +230,7 @@ class BookDetailScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Stack & Positioned Widget'),
-        centerTitle: true,
-      ),
+      appBar: customAppBar("Book Detail", 0),
       bottomNavigationBar: const BookDetailBottom(),
       body: SafeArea(
           child: SingleChildScrollView(

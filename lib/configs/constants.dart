@@ -68,3 +68,16 @@ BoxDecoration showBottomSheetStyle() {
       ),
       color: Colors.white);
 }
+
+AppBar customAppBar(String title, [double elevation = 1]) {
+  return AppBar(
+    title: Text(
+      title,
+      style: const TextStyle(color: AppColors.kGrey, fontSize: 16),
+    ),
+    centerTitle: true,
+    backgroundColor: Colors.white,
+    foregroundColor: AppColors.kGrey,
+    elevation: elevation,
+  );
+}

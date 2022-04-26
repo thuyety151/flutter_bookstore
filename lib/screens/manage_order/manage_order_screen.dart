@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/configs/app_colors.dart';
 import 'components/manage_order_list_card.dart';
 
 class ManageOrderScreen extends StatelessWidget {
@@ -10,7 +11,13 @@ class ManageOrderScreen extends StatelessWidget {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("My Order"),
+            backgroundColor: Colors.white,
+            foregroundColor: AppColors.kGrey,
+            title: const Text(
+              "My Order",
+              style: TextStyle(color: AppColors.kGrey),
+            ),
+            centerTitle: true,
             bottom: TabBar(
                 indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),

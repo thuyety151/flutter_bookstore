@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/screens/profile/components/form_change_password.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -11,13 +12,14 @@ class ChangePasswordScreen extends StatefulWidget {
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: customAppBar("Change password"),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: SafeArea(
+      body: const SafeArea(
           child: SingleChildScrollView(
               child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8),
+        padding: EdgeInsets.symmetric(horizontal: 16),
         child: ChangePasswordForm(),
       ))),
     );
