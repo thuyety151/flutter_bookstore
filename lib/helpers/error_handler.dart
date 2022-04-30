@@ -7,8 +7,13 @@ class AlertDialogParams {
   final String? content;
   final String? txtConfirm;
   final String? txtCancel;
+  final bool? hasCancel;
   const AlertDialogParams(
-      {this.content, this.title, this.txtCancel, this.txtConfirm});
+      {this.content,
+      this.title,
+      this.txtCancel,
+      this.txtConfirm,
+      this.hasCancel});
 }
 
 void catchErrAndNotify(AlertDialogParams params, dynamic error) {
@@ -18,11 +23,15 @@ void catchErrAndNotify(AlertDialogParams params, dynamic error) {
             title: Text(params.title ?? ""),
             content: Text(params.content ?? ""),
             actions: <Widget>[
+              if (params.hasCancel != null && params.hasCancel == true) ...[
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  child: Text(params.txtCancel ?? "Cancel"),
+                ),
+              ],
               CupertinoDialogAction(
-                isDefaultAction: true,
-                child: Text(params.txtCancel ?? "Cancel"),
-              ),
-              CupertinoDialogAction(
+                onPressed: () =>
+                    Navigator.pop(navigatorKey.currentState!.overlay!.context),
                 child: Text(params.txtConfirm ?? "OK"),
               )
             ],
