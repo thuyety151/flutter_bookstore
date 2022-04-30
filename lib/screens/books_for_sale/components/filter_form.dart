@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/form/list_button_options.dart';
 import 'package:flutter_folder/components/form/multiple_select.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
+import 'package:flutter_folder/models/attribute.dart';
+import 'package:flutter_folder/models/author.dart';
+import 'package:flutter_folder/models/category.dart';
+import 'package:flutter_folder/provider/attribute_model.dart';
+import 'package:flutter_folder/provider/author_model.dart';
+import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/screens/books_for_sale/components/options_review.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:provider/provider.dart';
 
 class FilterForm extends StatefulWidget {
   const FilterForm({Key? key}) : super(key: key);
@@ -68,17 +76,38 @@ class _FilterFormState extends State<FilterForm> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<AttributeModel>(context, listen: false).getListAttribute();
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 21),
       child: Wrap(direction: Axis.vertical, spacing: 8, children: [
-        _title("Category"),
-        const ListButtonOptions(),
+        _title("Attributes"),
+        Consumer<AttributeModel>(
+          builder: (context, value, child) => ListButtonOptions(
+            listLabel: value.attributes.map((e) => e.name).toList(),
+            onPress: (index) {},
+          ),
+        ),
         _pricing(context),
         _title("Authors"),
         // TODO: change props of MultipleSelect
-        const MultipleSelect(),
-        _title("Format"),
-        const MultipleSelect(),
+        Consumer<AuthorModel>(
+          builder: (context, value, child) => MultipleSelect(
+              title: "Author",
+              placeholder: "Choose authors",
+              listItem: value.listAuthor
+                  .map((author) => MultiSelectItem<Author>(author, author.name))
+                  .toList()),
+        ),
+        _title("Category"),
+        Consumer<CategoryModel>(
+          builder: (context, value, child) => MultipleSelect(
+              title: "Category",
+              placeholder: "Choose categories",
+              listItem: value.categoryHomescreen
+                  .map((cate) => MultiSelectItem<Category>(cate, cate.name))
+                  .toList()),
+        ),
         _title("Review"),
         const OptionsReview()
       ]),

@@ -88,7 +88,8 @@ class BookCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Image(image: AssetImage("assets/icons/icon-cart-primary.png"))
+                const Image(
+                    image: AssetImage("assets/icons/icon-cart-primary.png"))
               ],
             ),
             const SizedBox(

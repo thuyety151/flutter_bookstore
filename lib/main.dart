@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/provider/account_model.dart';
+import 'package:flutter_folder/provider/attribute_model.dart';
 import 'package:flutter_folder/provider/author_model.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/provider/cart_model.dart';
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => BookModel()),
         ChangeNotifierProvider(create: (context) => AuthorModel()),
         ChangeNotifierProvider(create: (context) => CategoryModel()),
-        ChangeNotifierProvider(create: (context) => CartModel())
+        ChangeNotifierProvider(create: (context) => CartModel()),
+        ChangeNotifierProvider(create: (context) => AttributeModel())
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

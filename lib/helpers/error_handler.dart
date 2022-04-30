@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/constants.dart';
-import 'package:flutter_folder/helpers/show_dialog.dart';
 import 'package:flutter_folder/main.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/services/api_base.dart';
+import 'package:flutter_folder/services/api_response_model.dart';
 import 'package:http/http.dart' as http;
 
 class AlertDialogParams {
@@ -43,16 +43,15 @@ void catchErrAndNotify(AlertDialogParams params, dynamic error) {
           ));
 }
 
-Future withRestApiResponse(String url, Function(dynamic) handleData) async {
+Future withRestApiResponse(String url) async {
   try {
-    showLoading();
+    // showLoading();
     final Api _api = Api();
-    var request = await _api.get("/cart");
+    var request = await _api.get(url);
     var response = await http.Response.fromStream(await request.send());
-    Navigator.of(navigatorKey.currentState!.overlay!.context).pop();
+    Navigator.pop(navigatorKey.currentState!.overlay!.context);
     if (response.statusCode != 401) {
-      handleData(response.body);
-      return;
+      return response.body;
     }
     if (url.contains("login")) {
       throw kLoginFailed;
@@ -60,6 +59,7 @@ Future withRestApiResponse(String url, Function(dynamic) handleData) async {
       Navigator.of(navigatorKey.currentState!.overlay!.context)
           .pushNamed(RouteManager.ROUTE_LOGIN);
     }
+    return ApiResponse();
   } catch (e) {
     catchErrAndNotify(
         AlertDialogParams(title: "Login Error", content: e.toString()), e);

@@ -9,6 +9,6 @@ class CartModel extends ChangeNotifier {
 
   Future<void> getCart() async {
     var res = await _api.getCart();
-    print(res);
+    listItem = res.data as List<Item>;
   }
 }

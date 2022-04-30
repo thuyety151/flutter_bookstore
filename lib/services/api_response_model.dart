@@ -14,7 +14,7 @@ class ApiResponse<T> {
     return ApiResponse(
         error: json["error"] ?? "",
         data: List<T>.from(listData.map((e) => fromJsonModel(e))),
-        message: json["message"]);
+        message: json["message"] ?? "");
   }
 }
 
