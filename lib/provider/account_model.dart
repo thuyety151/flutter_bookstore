@@ -22,6 +22,7 @@ class AccountModel extends ChangeNotifier {
       notifyListeners();
       return true;
     }
+    
     return false;
   }
 }

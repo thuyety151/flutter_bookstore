@@ -73,7 +73,7 @@ class RouteManager {
       case ROUTE_CHECKOUT:
         return MaterialPageRoute(builder: (context) => CheckoutScreen());
       case ROUTE_ORDER_SUCCESS:
-        return MaterialPageRoute(builder: (context) => OrderSuccess());
+        return CupertinoPageRoute(builder: (context) => OrderSuccess());
       case ROUTE_MANAGE_ORDER:
         return MaterialPageRoute(builder: (context) => ManageOrderScreen());
       case ROUTE_REVIEW:
