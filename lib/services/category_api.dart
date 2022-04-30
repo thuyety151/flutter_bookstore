@@ -10,7 +10,7 @@ class CategoryApi {
 
   Future<ApiResponse<Category>> getTopCategory() async {
     try {
-      var request = _api.get("/categories");
+      var request = await _api.get("/categories");
       var response = await http.Response.fromStream(await request.send());
       return ApiResponse<Category>.fromJson(
           json.decode(response.body), Category.fromJsonModel);

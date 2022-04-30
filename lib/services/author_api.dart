@@ -10,7 +10,7 @@ class AuthorApi {
 
   Future<ApiResponse<Author>> getListAuthor() async {
     try {
-      var request = _api.get("/authors");
+      var request = await _api.get("/authors");
       var response = await http.Response.fromStream(await request.send());
       return ApiResponse<Author>.fromJson(
           json.decode(response.body), Author.fromJsonModel);

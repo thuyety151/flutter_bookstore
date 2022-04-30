@@ -20,18 +20,17 @@ class Api {
     return Uri.parse(bookstoreEnpoint + requestUrl);
   }
 
-  http.Request get(String requestUrl, {String body = ""}) {
-    var res = storage.read(key: "token").then((value) {
-      Uri url = Uri.parse(bookstoreEnpoint + requestUrl);
-      http.Request request = http.Request("get", url);
-      request.headers.addAll({
-        "content-type": "application/json; charset=utf-8",
-        "authorization": "Bearer $value"
-      });
-      request.body = body;
-      return request;
+  Future<http.Request> get(String requestUrl, {String body = ""}) async {
+    var res = await storage.read(key: "token");
+
+    Uri url = Uri.parse(bookstoreEnpoint + requestUrl);
+    http.Request request = http.Request("get", url);
+    request.headers.addAll({
+      "content-type": "application/json; charset=utf-8",
+      "authorization": res != null ? "Bearer $res" : ""
     });
-    return res as http.Request;
+    request.body = body;
+    return request;
   }
 
   Future<http.Request> post(String requestUrl, {String body = ""}) async {

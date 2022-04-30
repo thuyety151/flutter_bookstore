@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/provider/account_model.dart';
 import 'package:flutter_folder/provider/author_model.dart';
 import 'package:flutter_folder/provider/book_model.dart';
+import 'package:flutter_folder/provider/cart_model.dart';
 import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/routes/index.dart';
-import 'package:flutter_folder/screens/login/login_screen.dart';
+import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AccountModel()),
         ChangeNotifierProvider(create: (context) => BookModel()),
         ChangeNotifierProvider(create: (context) => AuthorModel()),
-        ChangeNotifierProvider(create: (context) => CategoryModel())
+        ChangeNotifierProvider(create: (context) => CategoryModel()),
+        ChangeNotifierProvider(create: (context) => CartModel())
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
             fontFamily: GoogleFonts.inter().fontFamily,
           ),
           navigatorKey: navigatorKey, // to get current context at anywhere
-          home: const LoginScreen()),
+          home: const HomeScreen()),
     );
   }
 }

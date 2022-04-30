@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/main.dart';
 
-Future showLoading(BuildContext context) {
+Future showLoading() {
   return showDialog(
-    context: context,
+    context: navigatorKey.currentState!.overlay!.context,
     builder: (context) => Center(
       child: Container(
           alignment: Alignment.center,

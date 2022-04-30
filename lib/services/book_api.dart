@@ -10,7 +10,7 @@ class BookApi {
 
   Future<ApiResponse> bestSelling() async {
     try {
-      var request = _api.get("/books/best-selling");
+      var request = await _api.get("/books/best-selling");
       var response = await http.Response.fromStream(await request.send());
       return ApiResponse<Book>.fromJson(
           json.decode(response.body), Book.fromJsonModel);
@@ -21,7 +21,7 @@ class BookApi {
 
   Future<ApiResponse> getListNewrelease() async {
     try {
-      var request = _api.get("/books/new-releases");
+      var request = await _api.get("/books/new-releases");
       var response = await http.Response.fromStream(await request.send());
       return ApiResponse<NewReleaseModel>.fromJson(
           json.decode(response.body), NewReleaseModel.fromJsonModel);
@@ -32,7 +32,8 @@ class BookApi {
 
   Future<ApiResponse<Book>> getBookForSales(String predicate) async {
     try {
-      var request = _api.get("/books/books-for-sale?predicate=$predicate");
+      var request =
+          await _api.get("/books/books-for-sale?predicate=$predicate");
       var response = await http.Response.fromStream(await request.send());
       return ApiResponse<Book>.fromJson(
           json.decode(response.body), Book.fromJsonModel);
@@ -43,7 +44,7 @@ class BookApi {
 
   Future<Book> getBookDetail(String id) async {
     try {
-      var request = _api.get("/books?id=$id");
+      var request = await _api.get("/books?id=$id");
 
       var response = await http.Response.fromStream(await request.send());
       return Book.detailFromJson(json.decode(response.body)["value"]);

@@ -3,11 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/category/category_circle.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
+import 'package:flutter_folder/provider/cart_model.dart';
 import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/screens/home/components/app_banner.dart';
 import 'package:provider/provider.dart';
-
-import '../../../routes/index.dart';
 
 class HomePageHeader extends StatelessWidget {
   const HomePageHeader({Key? key}) : super(key: key);
@@ -81,7 +80,8 @@ class HomePageHeader extends StatelessWidget {
               _search(),
               FlatButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(RouteManager.ROUTE_CART);
+                  Provider.of<CartModel>(context, listen: false).getCart();
+                  // Navigator.of(context).pushNamed(RouteManager.ROUTE_CART);
                 },
                 color: AppColors.kPrimary,
                 height: 30,
