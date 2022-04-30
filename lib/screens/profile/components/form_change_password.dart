@@ -12,11 +12,18 @@ class ChangePasswordForm extends StatefulWidget {
 class _ChangePasswordFormState extends State<ChangePasswordForm> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: const [
-      OutlinedInput(label: "Current Password", obscureText: true),
-      OutlinedInput(label: "New Password", obscureText: true),
-      OutlinedInput(label: "Confirm New Password", obscureText: true),
-      Padding(
+    return Column(children: [
+      OutlinedInput(
+          onUpdateValue: (value) {},
+          label: "Current Password",
+          obscureText: true),
+      OutlinedInput(
+          onUpdateValue: (value) {}, label: "New Password", obscureText: true),
+      OutlinedInput(
+          onUpdateValue: (value) {},
+          label: "Confirm New Password",
+          obscureText: true),
+      const Padding(
         padding: EdgeInsets.symmetric(vertical: 16),
         child: PrimaryButton(
           buttonText: "Submit",

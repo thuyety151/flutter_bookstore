@@ -36,6 +36,10 @@ const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
 const String kFirstNameNullError = "Please Enter your first name";
 const String kLastNameNullError = "Please Enter your last name";
+const String kNotNullError = "Please fill out this field";
+
+// Dialog  Error Message
+const String kLoginFailed="Email or Password is incorrect";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:
@@ -49,6 +53,13 @@ OutlineInputBorder outlineInputBorder() {
   return const OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(8)),
     borderSide: BorderSide(color: kTextColor),
+  );
+}
+
+OutlineInputBorder errorInputBorder() {
+  return const OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+    borderSide: BorderSide(color: Colors.red),
   );
 }
 

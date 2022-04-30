@@ -12,16 +12,21 @@ class EditProfileForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: const [
+    return Column(children: [
       OutlinedInput(
+        onUpdateValue: (value) {},
         label: "fullname",
       ),
-      OutlinedInput(label: "email"),
+      OutlinedInput(
+        label: "email",
+        onUpdateValue: (value) {},
+      ),
       OutlinedInput(
         label: "birthday",
+        onUpdateValue: (value) {},
       ),
-      AddressPicker(),
-      Padding(
+      const AddressPicker(),
+      const Padding(
         padding: EdgeInsets.symmetric(vertical: 16),
         child: PrimaryButton(
           buttonText: "Update",

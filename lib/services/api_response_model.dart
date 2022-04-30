@@ -35,11 +35,14 @@ class AuthenResponse {
   factory AuthenResponse.fromJson(
       Map<String, dynamic> json, Function fromJsonModel) {
     return AuthenResponse(
-      firstName: json["firstName"],
-      lastName: json["lastName"],
+      firstName: json["firstName"] ?? "",
+      lastName: json["lastName"] ?? "",
       token: json["token"],
       email: json["email"],
       role: json["role"],
     );
+  }
+  static int getStatusCode(Map<String, dynamic> json) {
+    return json["status"] ?? 0;
   }
 }

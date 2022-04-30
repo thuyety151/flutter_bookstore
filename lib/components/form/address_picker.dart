@@ -38,7 +38,10 @@ class _AddressPickerState extends State<AddressPicker> {
             .toList(),
       ),
       const OutlinedSelect(label: "Commune/Ward"),
-      const OutlinedInput(label: "Street")
+      OutlinedInput(
+        label: "Street",
+        onUpdateValue: (value) {},
+      )
     ]);
   }
 }

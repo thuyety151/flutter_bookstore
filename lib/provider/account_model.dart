@@ -13,12 +13,17 @@ class AccountModel extends ChangeNotifier {
 
   Future<bool> login(LoginRequestModel data) async {
     fetching = true;
-    var response = await _auth.login(data);
-    fetching = false;
-    _account = Account.fromAuthen(response);
-    const storage =  FlutterSecureStorage();
-    storage.write(key: "token", value: response.token);
-    notifyListeners();
-    return true;
+    try {
+      var response = await _auth.login(data);
+
+      fetching = false;
+      _account = Account.fromAuthen(response);
+      const storage = FlutterSecureStorage();
+      storage.write(key: "token", value: response.token);
+      notifyListeners();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

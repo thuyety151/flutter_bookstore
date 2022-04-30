@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
+import 'package:flutter_folder/configs/constants.dart';
+import 'package:flutter_folder/helpers/validation.dart';
 
 class OutlinedInput extends StatefulWidget {
   const OutlinedInput(
@@ -9,7 +11,11 @@ class OutlinedInput extends StatefulWidget {
       this.placeholder,
       this.obscureText,
       this.enabled,
-      this.maxLines})
+      this.maxLines,
+      this.ruleNames,
+      this.modelValue,
+      required this.onUpdateValue,
+      this.padding})
       : super(key: key);
 
   final String? label;
@@ -18,16 +24,48 @@ class OutlinedInput extends StatefulWidget {
   final bool? obscureText;
   final bool? enabled;
   final int? maxLines;
+  final List<ValidationName>? ruleNames;
+  final String? modelValue;
+  final ValueChanged<String> onUpdateValue;
+  final EdgeInsets? padding;
 
   @override
   _OutlinedInputState createState() => _OutlinedInputState();
 }
 
 class _OutlinedInputState extends State<OutlinedInput> {
+  late String? value;
+  final Validation validator = Validation(value: "");
+  late List<String?> errors = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      value = widget.modelValue;
+    });
+  }
+
+  void _getValidator() {
+    if (widget.ruleNames == null) {
+      return;
+    }
+    dynamic listError = widget.ruleNames!
+        .map((e) => validator.getValidatorByName(e, value))
+        .toList();
+
+    listError.removeWhere((element) => element == null);
+
+    setState(() {
+      errors = listError;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         key: widget.key,
+        padding: widget.padding,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,26 +82,29 @@ class _OutlinedInputState extends State<OutlinedInput> {
                 ),
               )
             ],
-            TextField(
+            TextFormField(
               maxLines: widget.maxLines ?? 1,
-              // onChanged: (input)=>loginRequestModel.password=input,
+              onChanged: (input) {
+                widget.onUpdateValue(input);
+                setState(() {
+                  value = input;
+                });
+              },
               obscureText: widget.obscureText ?? false,
               enabled: widget.enabled ?? true,
               decoration: InputDecoration(
                   hintText: widget.placeholder ?? "",
                   border: InputBorder.none,
                   prefixIcon: widget.prefixIcon,
-                  // Icon(Icons.lock_outline, size: 20, color: Colors.grey),
-                  enabledBorder:const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(100, 158, 158, 158))),
-                  focusedBorder:const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(100, 158, 158, 158))),
+                  enabledBorder: outlineInputBorder(),
+                  focusedBorder: outlineInputBorder(),
+                  errorBorder: errorInputBorder(),
                   contentPadding:
-                     const EdgeInsets.symmetric(vertical: 8, horizontal: 16)),
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16)),
+              validator: (value) {
+                _getValidator();
+                return errors.isNotEmpty ? errors.first : null;
+              },
             ),
           ],
         ));

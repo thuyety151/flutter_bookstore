@@ -51,8 +51,9 @@ class ReviewForm extends StatelessWidget {
           width: MediaQuery.of(context).size.width - 16 * 2,
           decoration: _containerStyles,
           alignment: Alignment.center,
-          child: const OutlinedInput(
+          child: OutlinedInput(
             maxLines: 5,
+            onUpdateValue: (value) {},
             placeholder: "Input your reviews",
           )),
       const Text("Upload photos or videos", style: AppTextStyles.title),
