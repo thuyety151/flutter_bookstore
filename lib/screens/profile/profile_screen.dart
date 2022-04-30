@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/avatar.dart';
 import 'package:flutter_folder/provider/account_model.dart';
 import 'package:flutter_folder/screens/profile/components/profile_menu.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 import '../../routes/index.dart';
@@ -26,6 +27,8 @@ class ProfileScreen extends StatelessWidget {
           Navigator.of(context).pushNamed(RouteManager.ROUTE_WISH_LIST);
           break;
         case "login":
+          const storage = FlutterSecureStorage();
+          storage.deleteAll();
           Navigator.of(context).pushNamed(RouteManager.ROUTE_LOGIN);
           break;
         case "manage-order":
