@@ -23,7 +23,7 @@ class CheckoutDelivery extends StatelessWidget {
             activeColor: Colors.tealAccent.shade400,
           ),
           Text(
-            "Bay",
+            "Giao hang nhanh",
             style: CustomTextStyle.textFormFieldMedium.copyWith(
                 color: Colors.black, fontSize: 12, fontWeight: FontWeight.w600),
           ),
@@ -35,7 +35,7 @@ class CheckoutDelivery extends StatelessWidget {
               activeColor: Colors.tealAccent.shade400,
             ),
             Text(
-              "Di bo",
+              "Shopee Express",
               style: CustomTextStyle.textFormFieldMedium.copyWith(
                   color: Colors.black, fontSize: 12, fontWeight: FontWeight.w600),
             ),

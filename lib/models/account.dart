@@ -17,6 +17,7 @@ class Account {
   }
 
   Account.fromAuthen(AuthenResponse auth) {
+    id = "1";
     email = auth.email;
     firstName = auth.firstName ?? "";
     lastName = auth.lastName ?? "";

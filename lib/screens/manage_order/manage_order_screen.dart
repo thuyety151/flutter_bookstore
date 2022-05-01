@@ -19,10 +19,9 @@ class ManageOrderScreen extends StatelessWidget {
             ),
             centerTitle: true,
             bottom: TabBar(
-                indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.pink),
-                tabs: const [
+                //indicator: BoxDecoration(borderRadius: BorderRadius.circular(10),
+                //color: Colors.pink),
+                tabs: [
                   Tab(
                     text: "Ready to pick",
                   ),
