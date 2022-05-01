@@ -15,35 +15,39 @@ class _ListButtonOptionsState extends State<ListButtonOptions> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      direction: Axis.horizontal,
-      spacing: 4,
-      children: List.generate(
-          widget.listLabel!.length,
-          (index) => OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                    side: BorderSide(
-                        width: 1.0,
-                        color: index == selectedIndex
-                            ? AppColors.kPrimary
-                            : Colors.black38),
-                    backgroundColor: index == selectedIndex
-                        ? AppColors.kPrimary
-                        : Colors.white),
-                onPressed: () {
-                  setState(() {
-                    selectedIndex = index;
-                    widget.onPress(index);
-                  });
-                },
-                child: Text(
-                  widget.listLabel![index],
-                  style: TextStyle(
+    return SizedBox(
+        height: 42,
+        width: MediaQuery.of(context).size.width - 2 * 21,
+        child: ListView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemCount: widget.listLabel!.length,
+          itemBuilder: (BuildContext context, int index) => Card(
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                  side: BorderSide(
+                      width: 1.0,
                       color: index == selectedIndex
-                          ? Colors.white
-                          : AppColors.kTextGrey),
-                ),
-              )),
-    );
+                          ? AppColors.kPrimary
+                          : Colors.black38),
+                  backgroundColor: index == selectedIndex
+                      ? AppColors.kPrimary
+                      : Colors.white),
+              onPressed: () {
+                setState(() {
+                  selectedIndex = index;
+                  widget.onPress(index);
+                });
+              },
+              child: Text(
+                widget.listLabel![index],
+                style: TextStyle(
+                    color: index == selectedIndex
+                        ? Colors.white
+                        : AppColors.kTextGrey),
+              ),
+            ),
+          ),
+        ));
   }
 }

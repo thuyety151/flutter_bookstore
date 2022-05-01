@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_folder/models/book.dart';
+import 'package:flutter_folder/models/filter.dart';
 import 'package:flutter_folder/models/newrelease.dart';
 import 'package:flutter_folder/services/book_api.dart';
 
@@ -10,6 +11,7 @@ class BookModel extends ChangeNotifier {
   List<NewReleaseModel> listNewRelease = [];
   List<Book> listDeal = [];
   Book? detail;
+  late Filter filterData;
 
   void getListBestSelling() async {
     var response = await _api.bestSelling();
@@ -33,6 +35,11 @@ class BookModel extends ChangeNotifier {
     var response = await _api.getBookDetail(id);
 
     detail = response;
+    notifyListeners();
+  }
+
+  void setFilterData(Filter data) {
+    filterData = data;
     notifyListeners();
   }
 }

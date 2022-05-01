@@ -49,7 +49,7 @@ Future withRestApiResponse(String url) async {
     final Api _api = Api();
     var request = await _api.get(url);
     var response = await http.Response.fromStream(await request.send());
-    Navigator.pop(navigatorKey.currentState!.overlay!.context);
+    // Navigator.pop(navigatorKey.currentState!.overlay!.context);
     if (response.statusCode != 401) {
       return response.body;
     }

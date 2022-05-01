@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/book/book_card.dart';
 import 'package:flutter_folder/components/coustom_bottom_nav_bar.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
-import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/enums.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/screens/books_for_sale/components/filter_form.dart';
@@ -20,54 +19,12 @@ class BooksForSaleScreen extends StatelessWidget {
     );
   }
 
-  Widget _filterHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        FlatButton(
-            onPressed: () {},
-            child: const Text(
-              "Clear",
-              style: TextStyle(fontSize: 12),
-            )),
-        const Text(
-          "Filters",
-          style: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 2),
-        ),
-        FlatButton(
-            onPressed: () {},
-            child: const Text(
-              "Save",
-              style: TextStyle(fontSize: 12),
-            )),
-      ],
-    );
-  }
-
   void _filter(BuildContext context) {
     showModalBottomSheet<void>(
         context: context,
         backgroundColor: Colors.transparent,
         builder: (BuildContext context) {
-          return Container(
-              decoration: showBottomSheetStyle(),
-              child: Column(
-                children: [
-                  Column(children: [
-                    _filterHeader(),
-                    const Divider(
-                      thickness: 1,
-                      color: Color.fromARGB(100, 158, 158, 158),
-                    ),
-                  ]),
-                  Expanded(
-                      child: SingleChildScrollView(
-                    child: Wrap(
-                      children: const [FilterForm()],
-                    ),
-                  ))
-                ],
-              ));
+          return const FilterForm();
         });
   }
 

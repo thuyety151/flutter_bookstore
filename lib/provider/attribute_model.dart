@@ -4,13 +4,11 @@ import 'package:flutter_folder/services/attribute_api.dart';
 
 class AttributeModel extends ChangeNotifier {
   final AttributeApi _api = AttributeApi();
-  List<Attribute> attributes = [];
+  late List<Attribute> attributes = [];
 
   Future<void> getListAttribute() async {
-    if (attributes.isEmpty) {
-      var res = await _api.getListAttribute();
-      attributes = res.data as List<Attribute>;
-    }
+    var res = await _api.getListAttribute();
+    attributes = res.data as List<Attribute>;
     notifyListeners();
   }
 }
