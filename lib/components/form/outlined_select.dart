@@ -30,10 +30,11 @@ class OutlinedSelect extends StatefulWidget {
 class _OutlinedSelectState extends State<OutlinedSelect> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    return  Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
           if (widget.label != null) ...[
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -49,9 +50,9 @@ class _OutlinedSelectState extends State<OutlinedSelect> {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               child: DropdownButton<String>(
-                value: widget.items!.isNotEmpty
-                    ? widget.items?.elementAt(0).value
-                    : null,
+                value: widget.items == null
+                    ? null
+                    : widget.items!.elementAt(0).value,
                 items: widget.items ??
                     sampleData
                         .map((e) => DropdownMenuItem(
@@ -59,15 +60,14 @@ class _OutlinedSelectState extends State<OutlinedSelect> {
                               value: e.value,
                             ))
                         .toList(),
-                onChanged: (String? newValue) {
-                },
+                onChanged: (String? newValue) {},
                 isExpanded: true,
-                underline:const SizedBox(),
+                underline: const SizedBox(),
               ),
               decoration: BoxDecoration(
-                  borderRadius:const BorderRadius.all(Radius.circular(8)),
-                  border:
-                      Border.all(color: const Color.fromARGB(100, 158, 158, 158))),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  border: Border.all(
+                      color: const Color.fromARGB(100, 158, 158, 158))),
             )
           ]
         ]);

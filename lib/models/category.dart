@@ -22,12 +22,12 @@ class Category {
     return Category(
         id: json["id"],
         name: json["name"],
-        media: Media.fromJson(json["media"]),
+        media: json["media"] != null ? Media.fromJson(json["media"]) : null,
         parentId: json["parentId"],
         slug: json["slug"],
         // TODO: Parse list sub category
         subCategories: [],
-        subTotal: json["subTotal"]);
+        subTotal: json["subTotal"] ?? 0);
   }
   static Category fromJsonModel(Map<String, dynamic> json) =>
       Category.fromJson(json);

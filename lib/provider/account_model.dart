@@ -7,7 +7,7 @@ class AccountModel extends ChangeNotifier {
   final Authentication _auth = Authentication();
   bool fetching = false;
 
-  late Account _account;
+  late Account _account = Account.empty();
 
   String get email => _account.email;
 

@@ -29,6 +29,7 @@ class _ViewImageFullScreenState extends State<ViewImageFullScreen> {
     return Container(
         alignment: Alignment.center,
         child: Stack(
+          clipBehavior: Clip.none,
           children: [
             PhotoViewGallery.builder(
                 itemCount: sampleData.length,
@@ -42,22 +43,23 @@ class _ViewImageFullScreenState extends State<ViewImageFullScreen> {
                     maxScale: PhotoViewComputedScale.covered * 2,
                   );
                 },
-                scrollPhysics:const BouncingScrollPhysics(),
-                backgroundDecoration:const BoxDecoration(
+                scrollPhysics: const BouncingScrollPhysics(),
+                backgroundDecoration: const BoxDecoration(
                   color: Colors.black,
                 )),
             Positioned(
                 bottom: 8,
                 right: 16,
                 child: Container(
-                  padding:const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration:const BoxDecoration(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                     color: Colors.black26,
                   ),
                   child: Text(
                     (currentIndex + 1).toString() + "/${imgUrls.length}",
-                    style:const TextStyle(color: Colors.white, fontSize: 14),
+                    style: const TextStyle(color: Colors.white, fontSize: 14),
                   ),
                 )),
             Positioned(
@@ -68,10 +70,11 @@ class _ViewImageFullScreenState extends State<ViewImageFullScreen> {
                   child: Container(
                       padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
-                        borderRadius:const BorderRadius.all(Radius.circular(100)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(100)),
                         color: Colors.white.withOpacity(0.5),
                       ),
-                      child:const Icon(
+                      child: const Icon(
                         Icons.close,
                         color: Colors.white,
                         size: 22,

@@ -3,18 +3,22 @@ import 'package:flutter_folder/components/rate.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 
 class OptionsReview extends StatefulWidget {
-  const OptionsReview({Key? key, required this.getRate}) : super(key: key);
+  const OptionsReview({Key? key, required this.getRate, required this.value})
+      : super(key: key);
   final Function(int) getRate;
+  final int? value;
 
   @override
   _OptionsReviewState createState() => _OptionsReviewState();
 }
 
 class _OptionsReviewState extends State<OptionsReview> {
-  late int selectedIndex = 0;
+  late int selectedIndex =
+      widget.value != null ? 5 - widget.value!.toInt() : -1;
   @override
   Widget build(BuildContext context) {
     return Wrap(
+        key: widget.key,
         direction: Axis.vertical,
         spacing: 8,
         children: List.generate(

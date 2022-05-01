@@ -15,7 +15,7 @@ class Validation {
   }
 
   String? ruleEmail(String? value, String? message) {
-    if (!emailValidatorRegExp.hasMatch(value!)) {
+    if (value != null && !emailValidatorRegExp.hasMatch(value)) {
       return message ?? kInvalidEmailError;
     }
     return null;

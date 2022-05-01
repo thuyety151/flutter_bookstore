@@ -11,7 +11,7 @@ class BookModel extends ChangeNotifier {
   List<NewReleaseModel> listNewRelease = [];
   List<Book> listDeal = [];
   Book? detail;
-  late Filter filterData;
+  late Filter filterData = Filter.empty();
 
   void getListBestSelling() async {
     var response = await _api.bestSelling();
@@ -40,6 +40,11 @@ class BookModel extends ChangeNotifier {
 
   void setFilterData(Filter data) {
     filterData = data;
+    notifyListeners();
+  }
+
+  void clearFilterData() {
+    filterData = Filter.empty();
     notifyListeners();
   }
 }

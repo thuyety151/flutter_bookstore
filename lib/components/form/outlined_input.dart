@@ -98,6 +98,7 @@ class _OutlinedInputState extends State<OutlinedInput> {
                   prefixIcon: widget.prefixIcon,
                   enabledBorder: outlineInputBorder(),
                   focusedBorder: outlineInputBorder(),
+                  focusedErrorBorder: errorInputBorder(),
                   errorBorder: errorInputBorder(),
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16)),

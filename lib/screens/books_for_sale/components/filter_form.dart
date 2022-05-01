@@ -2,18 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/form/list_button_options.dart';
-import 'package:flutter_folder/components/form/multiple_select.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
-import 'package:flutter_folder/models/author.dart';
-import 'package:flutter_folder/models/category.dart';
 import 'package:flutter_folder/models/filter.dart';
 import 'package:flutter_folder/provider/attribute_model.dart';
-import 'package:flutter_folder/provider/author_model.dart';
 import 'package:flutter_folder/provider/book_model.dart';
-import 'package:flutter_folder/provider/category_model.dart';
+import 'package:flutter_folder/screens/books_for_sale/components/author_select.dart';
+import 'package:flutter_folder/screens/books_for_sale/components/category_select.dart';
 import 'package:flutter_folder/screens/books_for_sale/components/options_review.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:provider/provider.dart';
 
 class FilterForm extends StatefulWidget {
@@ -24,10 +20,11 @@ class FilterForm extends StatefulWidget {
 }
 
 class _FilterFormState extends State<FilterForm> {
-  late Filter formValue = Filter.empty();
+  late Filter formValue;
 
   void saveData(BuildContext context) {
     Provider.of<BookModel>(context, listen: false).setFilterData(formValue);
+    Navigator.pop(context);
   }
 
   Widget _title(String title) {
@@ -43,7 +40,13 @@ class _FilterFormState extends State<FilterForm> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         FlatButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                formValue = Filter.empty();
+              });
+              Navigator.pop(context);
+              Provider.of<BookModel>(context, listen: false).clearFilterData();
+            },
             child: const Text(
               "Clear",
               style: TextStyle(fontSize: 12),
@@ -101,7 +104,7 @@ class _FilterFormState extends State<FilterForm> {
                 inactiveColor: AppColors.kGrayE5,
                 min: 0,
                 max: 100,
-                divisions: 2,
+                divisions: 100,
                 labels: RangeLabels(
                   formValue.minPrice.toString(),
                   formValue.maxPrice.toString(),
@@ -121,6 +124,7 @@ class _FilterFormState extends State<FilterForm> {
 
   @override
   Widget build(BuildContext context) {
+    formValue = Provider.of<BookModel>(context, listen: false).filterData;
     Provider.of<AttributeModel>(context, listen: false).getListAttribute();
     return Container(
         decoration: showBottomSheetStyle(),
@@ -144,8 +148,11 @@ class _FilterFormState extends State<FilterForm> {
                       _title("Attributes"),
                       Consumer<AttributeModel>(
                         builder: (context, value, child) => ListButtonOptions(
+                          key: Key(formValue.attributeId ?? ""),
                           listLabel:
                               value.attributes.map((e) => e.name).toList(),
+                          selectedIndex: value.attributes.indexWhere(
+                              (element) => element.id == formValue.attributeId),
                           onPress: (index) {
                             setState(() {
                               formValue.attributeId =
@@ -157,40 +164,62 @@ class _FilterFormState extends State<FilterForm> {
                       _pricing(context),
                       _title("Authors"),
                       // TODO: change props of MultipleSelect
-                      Consumer<AuthorModel>(
-                        builder: (context, value, child) => MultipleSelect(
-                            key: const Key("select-author"),
-                            title: "Author",
-                            placeholder: "Choose author",
-                            onConfirm: (values) {
-                              setState(() {
-                                formValue.authorId = values.first.id;
-                              });
-                            },
-                            listItem: value.listAuthor
-                                .map((author) => MultiSelectItem<Author>(
-                                    author, author.name))
-                                .toList()),
+                      // Consumer<AuthorModel>(
+                      //   builder: (context, value, child) => MultipleSelect(
+                      //       key: const Key("select-author"),
+                      //       title: "Author",
+                      //       placeholder: "Choose author",
+                      //       onConfirm: (values) {
+                      //         setState(() {
+                      //           formValue.authorId = values.first.id;
+                      //         });
+                      //       },
+                      //       listItem: value.listAuthor
+                      //           .map((author) => MultiSelectItem<Author>(
+                      //               author, author.name))
+                      //           .toList()),
+                      // ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 2 * 21,
+                        child: AuthorSelect(
+                          key: Key(formValue.authorId ?? ""),
+                          modelValue: formValue.authorId,
+                          onChange: (value) => setState(() {
+                            formValue.authorId = value;
+                          }),
+                        ),
                       ),
                       _title("Category"),
-                      Consumer<CategoryModel>(
-                        builder: (context, value, child) =>
-                            MultipleSelect<Category>(
-                                key: const Key("select-category"),
-                                title: "Category",
-                                placeholder: "Choose categories",
-                                onConfirm: (values) {
-                                  setState(() {
-                                    formValue.categoryId = values.first.id;
-                                  });
-                                },
-                                listItem: value.categoryHomescreen
-                                    .map((cate) => MultiSelectItem<Category>(
-                                        cate, cate.name))
-                                    .toList()),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 2 * 21,
+                        child: CategorySelect(
+                          key: Key(formValue.categoryId ?? ""),
+                          modelValue: formValue.categoryId,
+                          onChange: (value) => setState(() {
+                            formValue.categoryId = value;
+                          }),
+                        ),
                       ),
+                      // Consumer<CategoryModel>(
+                      //   builder: (context, value, child) =>
+                      //       MultipleSelect<Category>(
+                      //           key: const Key("select-category"),
+                      //           title: "Category",
+                      //           placeholder: "Choose categories",
+                      //           onConfirm: (values) {
+                      //             setState(() {
+                      //               formValue.categoryId = values.first.id;
+                      //             });
+                      //           },
+                      //           listItem: value.categoryHomescreen
+                      //               .map((cate) => MultiSelectItem<Category>(
+                      //                   cate, cate.name))
+                      //               .toList()),
+                      // ),
                       _title("Review"),
                       OptionsReview(
+                        key: Key(formValue.rate.toString()),
+                        value: formValue.rate,
                         getRate: (rate) {
                           setState(() {
                             formValue.rate = rate;

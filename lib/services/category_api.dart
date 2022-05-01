@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/category.dart';
 import 'package:flutter_folder/services/api_base.dart';
 import 'package:flutter_folder/services/api_response_model.dart';
@@ -14,6 +15,16 @@ class CategoryApi {
       var response = await http.Response.fromStream(await request.send());
       return ApiResponse<Category>.fromJson(
           json.decode(response.body), Category.fromJsonModel);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ApiResponse<Category>> getAllCategory() async {
+    try {
+      var res = await withRestApiResponse("/categories/all");
+      return ApiResponse<Category>.fromJson(
+          json.decode(res), Category.fromJsonModel);
     } catch (e) {
       rethrow;
     }

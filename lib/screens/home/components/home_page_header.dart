@@ -39,11 +39,11 @@ class HomePageHeader extends StatelessWidget {
   Widget _search() {
     return Container(
         height: 38,
-        width: 300,
+        width: 360,
         padding: const EdgeInsets.only(left: 8),
         child: TextField(
             decoration: InputDecoration(
-                fillColor: AppColors.kBgGgrey,
+                fillColor: Colors.white,
                 filled: true,
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
@@ -73,51 +73,44 @@ class HomePageHeader extends StatelessWidget {
           color: Colors.white),
       child: Column(
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Stack(
             children: [
-              _search(),
-              FlatButton(
-                onPressed: () {
-                  Provider.of<CartModel>(context, listen: false).getCart();
-                  // Navigator.of(context).pushNamed(RouteManager.ROUTE_CART);
-                },
-                color: AppColors.kPrimary,
-                height: 30,
-                minWidth: 30,
-                padding: const EdgeInsets.symmetric(horizontal: 0),
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: const Image(
-                  image: AssetImage(
-                    "assets/icons/icon-add-cart.png",
-                  ),
-                  height: 24,
-                  width: 24,
-                  fit: BoxFit.fill,
-                ),
+              const Positioned(
+                child: AppBanner(),
               ),
-              FlatButton(
-                onPressed: () {},
-                color: AppColors.kPrimary,
-                height: 30,
-                minWidth: 30,
-                padding: const EdgeInsets.symmetric(horizontal: 0),
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: const Image(
-                  image: AssetImage(
-                    "assets/icons/icon-filter-2.png",
-                  ),
-                  height: 18,
-                  width: 18,
-                  fit: BoxFit.fill,
+              Positioned(
+                top: 8,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _search(),
+                    FlatButton(
+                      onPressed: () {
+                        Provider.of<CartModel>(context, listen: false)
+                            .getCart();
+                        // Navigator.of(context).pushNamed(RouteManager.ROUTE_CART);
+                      },
+                      color: AppColors.kPrimary,
+                      height: 38,
+                      minWidth: 38,
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                      child: const Image(
+                        image: AssetImage(
+                          "assets/icons/icon-add-cart.png",
+                        ),
+                        height: 32,
+                        width: 32,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-          const AppBanner(),
           SizedBox(
             height: 100,
             child: SizedBox(child: _listCategory()),

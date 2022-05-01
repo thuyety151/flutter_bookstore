@@ -23,6 +23,7 @@ class BooksForSaleScreen extends StatelessWidget {
     showModalBottomSheet<void>(
         context: context,
         backgroundColor: Colors.transparent,
+        isDismissible: false,
         builder: (BuildContext context) {
           return const FilterForm();
         });
