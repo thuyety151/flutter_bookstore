@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/routes/index.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../enums.dart';
 
@@ -11,6 +12,16 @@ class CustomBottomNavBar extends StatelessWidget {
   }) : super(key: key);
 
   final MenuState selectedMenu;
+
+  void navProfile(BuildContext context) async {
+    const storage = FlutterSecureStorage();
+    var token = await storage.read(key: "token");
+    if (token == null) {
+      Navigator.of(context).pushNamed(RouteManager.ROUTE_LOGIN);
+    } else {
+      Navigator.of(context).pushNamed(RouteManager.ROUTE_PROFILE);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +66,13 @@ class CustomBottomNavBar extends StatelessWidget {
                 onPressed: () {},
               ),
               IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/User Icon.svg",
-                  color: MenuState.profile == selectedMenu
-                      ? AppColors.kPrimary
-                      : inActiveIconColor,
-                ),
-                onPressed: () =>
-                    Navigator.of(context).pushNamed(RouteManager.ROUTE_PROFILE),
-              ),
+                  icon: SvgPicture.asset(
+                    "assets/icons/User Icon.svg",
+                    color: MenuState.profile == selectedMenu
+                        ? AppColors.kPrimary
+                        : inActiveIconColor,
+                  ),
+                  onPressed: () => navProfile(context)),
             ],
           )),
     );
