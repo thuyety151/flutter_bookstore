@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class AccountModel extends ChangeNotifier {
   final Authentication _auth = Authentication();
   bool fetching = false;
+   bool _userLogedIn = false;
 
   late Account _account;
 
@@ -19,10 +20,17 @@ class AccountModel extends ChangeNotifier {
       _account = Account.fromAuthen(response);
       final storage = FlutterSecureStorage();
       storage.write(key: "token", value: response.token);
+       _userLogedIn = true;
       notifyListeners();
       return true;
     }
     
     return false;
   }
+
+    Account getUserLoginDetails() => _account;
+    bool getisUserLogedIn() {
+    return _userLogedIn;
+  }
+
 }

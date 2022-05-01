@@ -16,6 +16,7 @@ import 'package:flutter_folder/screens/profile/profile_edit_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_screen.dart';
 import 'package:flutter_folder/screens/checkout/checkout_screen.dart';
 
+import '../screens/chat/chat_screen.dart';
 import '../screens/manage_order/manage_order_screen.dart';
 import '../screens/register/register_screen.dart';
 import 'package:flutter_folder/screens/review/review_screen.dart';
@@ -39,6 +40,7 @@ class RouteManager {
   static const String ROUTE_ORDER_SUCCESS ="/order-success";
   static const String ROUTE_MANAGE_ORDER = "/manage-order";
   static const String ROUTE_REVIEW = "/review";
+  static const String ROUTE_CHAT = "/chat";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -78,8 +80,10 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => ManageOrderScreen());
       case ROUTE_REVIEW:
         return MaterialPageRoute(builder: (context) => ReviewScreen());
+      case ROUTE_CHAT:
+        return MaterialPageRoute(builder: (context) => ChatScreen());
       default:
-        throw FormatException("ROute not found! Check routes again");
+        throw FormatException("Route not found! Check routes again");
     }
   }
 }
