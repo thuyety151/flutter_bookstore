@@ -1,11 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/provider/account_model.dart';
+import 'package:flutter_folder/provider/chat_provider.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/screens/login/login_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+ class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
+
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 
@@ -18,6 +30,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AccountModel()),
+        ChangeNotifierProvider(create: (context) => ChatProvider())
         // ChangeNotifierProvider(create: (context) => ProfileState())
       ],
       child: MaterialApp(
@@ -40,3 +53,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

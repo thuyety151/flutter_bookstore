@@ -9,8 +9,8 @@ class CheckoutPayment extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(4)),
           border:
-              Border.all(color: Colors.tealAccent.withOpacity(0.4), width: 1),
-          color: Colors.tealAccent.withOpacity(0.2),
+              Border.all(color: Colors.orange.withOpacity(0.4), width: 1),
+          color: Colors.orange.withOpacity(0.2),
           ),
       margin: EdgeInsets.all(8),
       child: Column(
