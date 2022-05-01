@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/avatar.dart';
+import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/provider/account_model.dart';
 import 'package:flutter_folder/screens/profile/components/profile_menu.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -87,41 +88,43 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        resizeToAvoidBottomInset: false,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 32),
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                    image: AssetImage("assets/images/bg_cur.png"),
-                    fit: BoxFit.cover,
-                  )),
-                  alignment: Alignment.center,
-                  child: const Avatar(),
-                ),
-                Consumer<AccountModel>(
-                    builder: (context, model, child) => Text(
-                          model.email,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22,
-                              letterSpacing: 2),
-                        )),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: _statsCard(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: _menus(context),
-                )
-              ],
+      appBar: customAppBar("", 0, Colors.transparent),
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
+      extendBodyBehindAppBar: true,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(top: 28),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 32),
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                image: AssetImage("assets/images/bg_cur.png"),
+                fit: BoxFit.cover,
+              )),
+              alignment: Alignment.center,
+              child: const Avatar(),
             ),
-          ),
-        ));
+            Consumer<AccountModel>(
+                builder: (context, model, child) => Text(
+                      model.email,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
+                          letterSpacing: 2),
+                    )),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: _statsCard(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: _menus(context),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -39,7 +39,7 @@ const String kLastNameNullError = "Please Enter your last name";
 const String kNotNullError = "Please fill out this field";
 
 // Dialog  Error Message
-const String kLoginFailed="Email or Password is incorrect";
+const String kLoginFailed = "Email or Password is incorrect";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:
@@ -80,14 +80,15 @@ BoxDecoration showBottomSheetStyle() {
       color: Colors.white);
 }
 
-AppBar customAppBar(String title, [double elevation = 1]) {
+AppBar customAppBar(String title,
+    [double elevation = 1, Color bg = Colors.white]) {
   return AppBar(
     title: Text(
       title,
       style: const TextStyle(color: AppColors.kGrey, fontSize: 16),
     ),
     centerTitle: true,
-    backgroundColor: Colors.white,
+    backgroundColor: bg,
     foregroundColor: AppColors.kGrey,
     elevation: elevation,
   );
