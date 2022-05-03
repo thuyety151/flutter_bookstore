@@ -8,6 +8,10 @@ import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/screens/home/components/app_banner.dart';
 import 'package:provider/provider.dart';
 
+import '../../../components/badge.dart';
+import '../../../provider/cart.dart';
+import '../../../routes/index.dart';
+
 class HomePageHeader extends StatelessWidget {
   const HomePageHeader({Key? key}) : super(key: key);
 
@@ -85,25 +89,32 @@ class HomePageHeader extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _search(),
-                    FlatButton(
-                      onPressed: () {
-                        Provider.of<CartModel>(context, listen: false)
-                            .getCart();
-                        // Navigator.of(context).pushNamed(RouteManager.ROUTE_CART);
-                      },
-                      color: AppColors.kPrimary,
-                      height: 38,
-                      minWidth: 38,
-                      padding: const EdgeInsets.symmetric(horizontal: 0),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                      child: const Image(
-                        image: AssetImage(
-                          "assets/icons/icon-add-cart.png",
+                    Consumer<Cart>(
+                      builder: (_, cart, ch) => Badge(
+                        child: ch!,
+                        value: cart.itemCount.toString(),
+                      ),
+                      child: FlatButton(
+                        onPressed: () {
+                          Provider.of<CartModel>(context, listen: false)
+                              .getCart();
+                          Navigator.of(context)
+                              .pushNamed(RouteManager.ROUTE_CART);
+                        },
+                        color: AppColors.kPrimary,
+                        height: 38,
+                        minWidth: 38,
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                        child: const Image(
+                          image: AssetImage(
+                            "assets/icons/icon-add-cart.png",
+                          ),
+                          height: 32,
+                          width: 32,
+                          fit: BoxFit.fill,
                         ),
-                        height: 32,
-                        width: 32,
-                        fit: BoxFit.fill,
                       ),
                     ),
                   ],

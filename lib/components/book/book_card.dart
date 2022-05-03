@@ -4,7 +4,9 @@ import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/screens/book_detail/book_detail_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
+import '../../provider/cart.dart';
 import '../rate.dart';
 
 class BookCard extends StatelessWidget {
@@ -13,6 +15,7 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context, listen: false);
     return GestureDetector(
         onTap: () => Navigator.of(context).pushNamed(
             RouteManager.ROUTE_PRODUCT_DETAIL,
@@ -88,8 +91,13 @@ class BookCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Image(
-                    image: AssetImage("assets/icons/icon-cart-primary.png"))
+                IconButton(
+                  onPressed: () {cart.addItem(book.id, book.price, book.name);},
+                  icon: Image(
+                  image: AssetImage("assets/icons/icon-cart-primary.png")
+                  ),
+                ),
+                
               ],
             ),
             const SizedBox(
