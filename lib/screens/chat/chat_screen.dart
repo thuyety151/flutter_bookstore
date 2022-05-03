@@ -99,8 +99,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   itemCount: filtredMessages.length,
                   itemBuilder: (context, int index) {
                     double cWidth = MediaQuery.of(context).size.width * 0.8;
-                    if (filtredMessages[index].toId ==
-                        authstate.getUserLoginDetails().id) {
+                    if (filtredMessages[index].toId == "1")
+                    // authstate.getUserLoginDetails().id)
+                    {
                       return Container(
                           padding: const EdgeInsets.all(16.0),
                           width: cWidth,
