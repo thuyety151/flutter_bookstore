@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_folder/components/button/primary_button.dart';
 import 'package:flutter_folder/components/form/outlined_input.dart';
 import 'package:flutter_folder/components/rate.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
@@ -20,54 +18,52 @@ class ReviewForm extends StatelessWidget {
 
   Widget _listMedia(BuildContext context) {
     return SizedBox(
-        child: Container(
-            child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Wrap(
-                  spacing: 8,
-                  direction: Axis.horizontal,
-                  children: List.generate(
-                      imgUrls.length,
-                      (index) => Container(
-                              // TODO: create component uploader
-                              child: Image(
-                            height: MediaQuery.of(context).size.width / 3,
-                            image: NetworkImage(imgUrls[index]),
-                          ))),
-                ))));
+        child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Wrap(
+              spacing: 8,
+              direction: Axis.horizontal,
+              children: List.generate(
+                  imgUrls.length,
+                  (index) => Image(
+                        height: MediaQuery.of(context).size.width / 3,
+                        image: NetworkImage(imgUrls[index]),
+                      )),
+            )));
   }
 
   @override
   Widget build(BuildContext context) {
-    BoxDecoration _containerStyles = BoxDecoration(
+    BoxDecoration _containerStyles = const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(8)),
         color: Colors.white);
 
     return Wrap(direction: Axis.vertical, spacing: 18, children: [
-      Text("Rating", style: AppTextStyles.title),
+      const Text("Rating", style: AppTextStyles.title),
       Container(
-          padding: EdgeInsets.symmetric(vertical: 18),
+          padding: const EdgeInsets.symmetric(vertical: 18),
           width: MediaQuery.of(context).size.width - 16 * 2,
           decoration: _containerStyles,
           alignment: Alignment.center,
-          child: Rate(size: 24)),
-      Text("Write your reviews", style: AppTextStyles.title),
+          child: const Rate(size: 24)),
+      const Text("Write your reviews", style: AppTextStyles.title),
       Container(
           width: MediaQuery.of(context).size.width - 16 * 2,
           decoration: _containerStyles,
           alignment: Alignment.center,
           child: OutlinedInput(
             maxLines: 5,
+            onUpdateValue: (value) {},
             placeholder: "Input your reviews",
           )),
-      Text("Upload photos or videos", style: AppTextStyles.title),
+      const Text("Upload photos or videos", style: AppTextStyles.title),
       Container(
-          padding: EdgeInsets.symmetric(vertical: 24),
+          padding: const EdgeInsets.symmetric(vertical: 24),
           width: MediaQuery.of(context).size.width - 16 * 2,
           decoration: _containerStyles,
           alignment: Alignment.center,
           child: Column(
-            children: [
+            children: const [
               Icon(
                 Icons.cloud_upload_outlined,
                 color: AppColors.kTextGrey,
@@ -79,7 +75,7 @@ class ReviewForm extends StatelessWidget {
               )
             ],
           )),
-      Container(
+      SizedBox(
           width: MediaQuery.of(context).size.width,
           // padding: EdgeInsets.only(top: 16),
           child: _listMedia(context)),

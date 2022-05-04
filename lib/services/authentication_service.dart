@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_folder/configs/constants.dart';
+import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/account.dart';
 import 'package:flutter_folder/services/api_response_model.dart';
 import 'package:flutter_folder/services/api_base.dart';
@@ -24,13 +26,19 @@ class Authentication {
   final Api _api = Api();
 
   Future<AuthenResponse> login(LoginRequestModel data) async {
-    var request = _api.post("/account/login", data.toJson());
+    var request = await _api.post("/account/login", body: data.toJson());
     try {
       var response = await http.Response.fromStream(await request.send());
+
+      if (AuthenResponse.getStatusCode(json.decode(response.body)) == 401) {
+        throw kLoginFailed;
+      }
+
       return AuthenResponse.fromJson(
           json.decode(response.body), Account.fromJsonModel);
     } catch (e) {
-      // TODO: Implement error handler to show popup automactically
+      catchErrAndNotify(
+          AlertDialogParams(title: "Login Error", content: e.toString()), e);
       rethrow;
     }
   }

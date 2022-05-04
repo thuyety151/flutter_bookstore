@@ -2,17 +2,25 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/provider/account_model.dart';
+import 'package:flutter_folder/provider/attribute_model.dart';
+import 'package:flutter_folder/provider/author_model.dart';
+import 'package:flutter_folder/provider/book_model.dart';
+import 'package:flutter_folder/provider/cart_model.dart';
+import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/provider/chat_provider.dart';
 import 'package:flutter_folder/routes/index.dart';
-import 'package:flutter_folder/screens/login/login_screen.dart';
+import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
- class MyHttpOverrides extends HttpOverrides{
+final navigatorKey = GlobalKey<NavigatorState>();
+
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
 
@@ -30,6 +38,11 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AccountModel()),
+        ChangeNotifierProvider(create: (context) => BookModel()),
+        ChangeNotifierProvider(create: (context) => AuthorModel()),
+        ChangeNotifierProvider(create: (context) => CategoryModel()),
+        ChangeNotifierProvider(create: (context) => CartModel()),
+        ChangeNotifierProvider(create: (context) => AttributeModel()),
         ChangeNotifierProvider(create: (context) => ChatProvider())
         // ChangeNotifierProvider(create: (context) => ProfileState())
       ],
@@ -49,8 +62,8 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             fontFamily: GoogleFonts.inter().fontFamily,
           ),
-          home: LoginScreen()),
+          navigatorKey: navigatorKey, // to get current context at anywhere
+          home: const HomeScreen()),
     );
   }
 }
-

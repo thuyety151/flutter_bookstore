@@ -28,55 +28,48 @@ class OutlinedSelect extends StatefulWidget {
 }
 
 class _OutlinedSelectState extends State<OutlinedSelect> {
-  void _onChange() {
-    print("change");
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (widget.label != null) ...[
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
-                child: Text(
-                  widget.label?.toUpperCase() ?? "",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                      color: AppColors.kTextGrey),
-                ),
+    return  Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+          if (widget.label != null) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                widget.label?.toUpperCase() ?? "",
+                style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                    color: AppColors.kTextGrey),
               ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
-                child: DropdownButton<String>(
-                  value: widget.items == null
-                      ? null
-                      : widget.items?.elementAt(0).value,
-                  items: widget.items ??
-                      sampleData
-                          .map((e) => DropdownMenuItem(
-                                child: Text(e.label),
-                                value: e.value,
-                              ))
-                          .toList(),
-                  onChanged: (String? newValue) {
-                    print("hi");
-                  },
-                  isExpanded: true,
-                  underline: SizedBox(),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    border:
-                        Border.all(color: Color.fromARGB(100, 158, 158, 158))),
-              )
-            ]
-          ]),
-    );
+            ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+              child: DropdownButton<String>(
+                value: widget.items == null
+                    ? null
+                    : widget.items!.elementAt(0).value,
+                items: widget.items ??
+                    sampleData
+                        .map((e) => DropdownMenuItem(
+                              child: Text(e.label),
+                              value: e.value,
+                            ))
+                        .toList(),
+                onChanged: (String? newValue) {},
+                isExpanded: true,
+                underline: const SizedBox(),
+              ),
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  border: Border.all(
+                      color: const Color.fromARGB(100, 158, 158, 158))),
+            )
+          ]
+        ]);
   }
 }

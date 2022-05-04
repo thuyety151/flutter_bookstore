@@ -20,30 +20,28 @@ class _AddressPickerState extends State<AddressPicker> {
     super.initState();
     DistrictApi districtApi = DistrictApi();
     districtApi.getDistricts().then((value) {
-      print(value);
-      if (value != null) {
-        districts = value.data ?? [];
-      }
+      districts = value.data ?? [];
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(children: [
-        OutlinedSelect(label: "City"),
-        OutlinedSelect(
-          label: "District",
-          items: districts
-              .map((e) => DropdownMenuItem(
-                    child: Text(e.districtName),
-                    value: e.districtID.toString(),
-                  ))
-              .toList(),
-        ),
-        OutlinedSelect(label: "Commune/Ward"),
-        OutlinedInput(label: "Street")
-      ]),
-    );
+    return Column(children: [
+      const OutlinedSelect(label: "City"),
+      OutlinedSelect(
+        label: "District",
+        items: districts
+            .map((e) => DropdownMenuItem(
+                  child: Text(e.districtName),
+                  value: e.districtID.toString(),
+                ))
+            .toList(),
+      ),
+      const OutlinedSelect(label: "Commune/Ward"),
+      OutlinedInput(
+        label: "Street",
+        onUpdateValue: (value) {},
+      )
+    ]);
   }
 }

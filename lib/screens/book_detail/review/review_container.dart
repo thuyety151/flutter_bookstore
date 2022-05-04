@@ -12,20 +12,18 @@ class ReviewContainer extends StatefulWidget {
 class _ReviewContainerState extends State<ReviewContainer> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        SessionTitle(
-          title: "Reviews",
-          padding: EdgeInsets.only(bottom: 16),
-        ),
-        Wrap(
-            direction: Axis.vertical,
-            spacing: 20,
-            children: List.generate(
-              4,
-              (index) => ItemReview(),
-            ))
-      ]),
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      const SessionTitle(
+        title: "Reviews",
+        padding: EdgeInsets.only(bottom: 16),
+      ),
+      Wrap(
+          direction: Axis.vertical,
+          spacing: 20,
+          children: List.generate(
+            4,
+            (index) => const ItemReview(),
+          ))
+    ]);
   }
 }

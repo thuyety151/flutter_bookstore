@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SessionTitle extends StatelessWidget {
@@ -13,7 +12,7 @@ class SessionTitle extends StatelessWidget {
       padding: padding ?? EdgeInsets.zero,
       child: Text(
         title,
-        style: TextStyle(
+        style:const  TextStyle(
             fontWeight: FontWeight.w600, fontSize: 16, color: Colors.black54),
       ),
     );

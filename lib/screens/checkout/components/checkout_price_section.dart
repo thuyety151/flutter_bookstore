@@ -3,22 +3,24 @@ import 'package:flutter/material.dart';
 import '../../../components/custom_text_style.dart';
 
 class CheckoutPriceSection extends StatelessWidget {
+  const CheckoutPriceSection({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(4),
-      decoration: BoxDecoration(
+      margin:const EdgeInsets.all(4),
+      decoration:const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(
+        shape:const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4))),
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderRadius:const BorderRadius.all(Radius.circular(4)),
               border: Border.all(color: Colors.grey.shade200)),
-          padding: EdgeInsets.only(left: 12, top: 8, right: 12, bottom: 8),
+          padding:const EdgeInsets.only(left: 12, top: 8, right: 12, bottom: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -29,16 +31,16 @@ class CheckoutPriceSection extends StatelessWidget {
                   Colors.teal.shade300),
               createPriceItem(
                   "Discount", "-5", Colors.red.shade300),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Container(
                 width: double.infinity,
                 height: 0.5,
-                margin: EdgeInsets.symmetric(vertical: 4),
+                margin:const EdgeInsets.symmetric(vertical: 4),
                 color: Colors.grey.shade400,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Row(
@@ -67,7 +69,7 @@ class CheckoutPriceSection extends StatelessWidget {
 
 createPriceItem(String key, String value, Color color) {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 3),
+    padding:const EdgeInsets.symmetric(horizontal: 0, vertical: 3),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[

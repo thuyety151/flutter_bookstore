@@ -1,52 +1,54 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
-import 'package:flutter_folder/mocks/models/BestSelling.dart';
+import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/routes/index.dart';
+import 'package:flutter_folder/screens/book_detail/book_detail_screen.dart';
 import 'package:readmore/readmore.dart';
 import '../rate.dart';
 
 class BookCard extends StatelessWidget {
   const BookCard({Key? key, required this.book}) : super(key: key);
-  final BestSellingModel book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () =>
-            Navigator.of(context).pushNamed(RouteManager.ROUTE_PRODUCT_DETAIL),
+        onTap: () => Navigator.of(context).pushNamed(
+            RouteManager.ROUTE_PRODUCT_DETAIL,
+            arguments: BookDetailArgs(id: book.id)),
         child: Container(
           color: Colors.white,
           width: 170,
-          padding: EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image(
-                image: NetworkImage(book.pictureUrl),
+                image: NetworkImage(book.pictureUrl ?? ""),
                 height: 194,
                 width: 146,
                 fit: BoxFit.fitHeight,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  book.attributeName.toUpperCase(),
+                  book.attributeName!.toUpperCase(),
                   style: AppTextStyles.attribute,
                 ),
-                Rate()
+                const Rate()
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
+            // ignore: sized_box_for_whitespace
             Container(
               height: 32,
               child: ReadMoreText(
@@ -57,14 +59,14 @@ class BookCard extends StatelessWidget {
                 style: AppTextStyles.title,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(
-              book.authorName,
+              book.authorName ?? "--",
               style: AppTextStyles.caption,
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Row(
@@ -76,8 +78,8 @@ class BookCard extends StatelessWidget {
                       "\$${book.price}",
                       style: AppTextStyles.price,
                     ),
-                    SizedBox(width: 4),
-                    Text(
+                    const SizedBox(width: 4),
+                    const Text(
                       "\$201",
                       style: TextStyle(
                           color: AppColors.kTextGrey,
@@ -86,10 +88,11 @@ class BookCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Image(image: AssetImage("assets/icons/icon-cart-primary.png"))
+                const Image(
+                    image: AssetImage("assets/icons/icon-cart-primary.png"))
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
           ]),

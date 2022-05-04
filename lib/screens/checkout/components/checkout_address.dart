@@ -1,27 +1,31 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/custom_text_style.dart';
 
 class CheckoutAddress extends StatelessWidget {
+  const CheckoutAddress({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(4),
-      decoration: BoxDecoration(
+      margin:const EdgeInsets.all(4),
+      decoration:const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4))),
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderRadius: const BorderRadius.all(Radius.circular(4)),
               border: Border.all(color: Colors.grey.shade200)),
-          padding: EdgeInsets.only(left: 12, top: 8, right: 12),
+          padding: const EdgeInsets.only(left: 12, top: 8, right: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 6,
               ),
               Text(
@@ -30,13 +34,13 @@ class CheckoutAddress extends StatelessWidget {
                     .copyWith(fontSize: 14),
               ),
               Container(
-                  margin: EdgeInsets.only(top: 16),
+                  margin: const EdgeInsets.only(top: 16),
                   child: Text(
                     "54 Duong so 8, Linh Trung, Thu Duc, Ho Chi Minh",
                     style: CustomTextStyle.textFormFieldMedium
                         .copyWith(fontSize: 13, color: Colors.grey.shade800),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 6,
               ),
               RichText(
@@ -51,7 +55,7 @@ class CheckoutAddress extends StatelessWidget {
                           .copyWith(fontSize: 12, color: Colors.black)),
                 ]),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Container(
@@ -59,39 +63,37 @@ class CheckoutAddress extends StatelessWidget {
                 height: 1,
                 width: double.infinity,
               ),
-              Container(
-                child: Row(children: [
-                  Spacer(
-                    flex: 2,
+              Row(children: [
+                const Spacer(
+                  flex: 2,
+                ),
+                FlatButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Edit Address",
+                    style: CustomTextStyle.textFormFieldSemiBold
+                        .copyWith(fontSize: 12, color: Colors.indigo.shade700),
                   ),
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Edit Address",
+                ),
+                const Spacer(flex: 3),
+                Container(
+                  height: 20,
+                  width: 1,
+                  color: Colors.grey,
+                ),
+                const Spacer(
+                  flex: 3,
+                ),
+                FlatButton(
+                  onPressed: () {},
+                  child: Text("Add New Address",
                       style: CustomTextStyle.textFormFieldSemiBold.copyWith(
-                          fontSize: 12, color: Colors.indigo.shade700),
-                    ),
-                  ),
-                  Spacer(flex: 3),
-                  Container(
-                    height: 20,
-                    width: 1,
-                    color: Colors.grey,
-                  ),
-                  Spacer(
-                    flex: 3,
-                  ),
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text("Add New Address",
-                        style: CustomTextStyle.textFormFieldSemiBold.copyWith(
-                            fontSize: 12, color: Colors.indigo.shade700)),
-                  ),
-                  Spacer(
-                    flex: 2,
-                  ),
-                ]),
-              )
+                          fontSize: 12, color: Colors.indigo.shade700)),
+                ),
+                const Spacer(
+                  flex: 2,
+                ),
+              ])
             ],
           ),
         ),

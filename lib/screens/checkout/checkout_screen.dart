@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/custom_text_style.dart';
 import 'package:flutter_folder/screens/checkout/components/checkout_delivery.dart';
-import 'package:flutter_folder/screens/checkout/components/checkout_item.dart';
 import 'package:flutter_folder/screens/checkout/components/checkout_list_item.dart';
 import 'package:flutter_folder/screens/checkout/components/checkout_payment_method.dart';
 
@@ -11,6 +10,8 @@ import 'components/checkout_address.dart';
 import 'components/checkout_price_section.dart';
 
 class CheckoutScreen extends StatefulWidget {
+  const CheckoutScreen({Key? key}) : super(key: key);
+
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
 }
@@ -35,14 +36,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Check out"),
+          title: const Text("Check out"),
         ),
         body: Container(
-          margin: EdgeInsets.only(left:10),
+          margin: const EdgeInsets.only(left: 10),
           child: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 "Address",
                 style: CustomTextStyle.textFormFieldMedium.copyWith(
@@ -50,8 +51,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     color: Colors.black,
                     fontWeight: FontWeight.w600),
               ),
-              CheckoutAddress(),
-                SizedBox(height: 10),
+              const CheckoutAddress(),
+              const SizedBox(height: 10),
               Text(
                 "Shipping Method",
                 style: CustomTextStyle.textFormFieldMedium.copyWith(
@@ -59,8 +60,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     color: Colors.black,
                     fontWeight: FontWeight.w600),
               ),
-              CheckoutDelivery(),
-                SizedBox(height: 10),
+              const CheckoutDelivery(),
+              const SizedBox(height: 10),
               Text(
                 "Items",
                 style: CustomTextStyle.textFormFieldMedium.copyWith(
@@ -68,9 +69,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     color: Colors.black,
                     fontWeight: FontWeight.w600),
               ),
-              CheckoutList(),
-              CheckoutPriceSection(),
-                SizedBox(height: 10),
+              const CheckoutList(),
+              const CheckoutPriceSection(),
+              const SizedBox(height: 10),
               Text(
                 "Payment",
                 style: CustomTextStyle.textFormFieldMedium.copyWith(
@@ -78,20 +79,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     color: Colors.black,
                     fontWeight: FontWeight.w600),
               ),
-              CheckoutPayment(),
-              SizedBox(height: 10),
+              const CheckoutPayment(),
+              const SizedBox(height: 10),
               Container(
                 alignment: Alignment.center,
                 child: PrimaryButton(
                   onTap: onPlaceOrder,
                   buttonText: "Place Order",
-                  buttonColor: Color.fromARGB(255, 249, 82, 69),
+                  buttonColor: const Color.fromARGB(255, 249, 82, 69),
                   textColor: Colors.white,
                   buttonWidth: 200,
                   loading: isLoading,
                 ),
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
             ]),
           ),
         ));

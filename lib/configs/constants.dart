@@ -36,6 +36,10 @@ const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
 const String kFirstNameNullError = "Please Enter your first name";
 const String kLastNameNullError = "Please Enter your last name";
+const String kNotNullError = "Please fill out this field";
+
+// Dialog  Error Message
+const String kLoginFailed = "Email or Password is incorrect";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:
@@ -46,9 +50,16 @@ final otpInputDecoration = InputDecoration(
 );
 
 OutlineInputBorder outlineInputBorder() {
-  return OutlineInputBorder(
+  return const OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(8)),
     borderSide: BorderSide(color: kTextColor),
+  );
+}
+
+OutlineInputBorder errorInputBorder() {
+  return const OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+    borderSide: BorderSide(color: Colors.red),
   );
 }
 
@@ -61,10 +72,24 @@ class AppTextStyles {
 }
 
 BoxDecoration showBottomSheetStyle() {
-  return BoxDecoration(
+  return const BoxDecoration(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(16),
         topRight: Radius.circular(16),
       ),
       color: Colors.white);
+}
+
+AppBar customAppBar(String title,
+    [double elevation = 1, Color bg = Colors.white]) {
+  return AppBar(
+    title: Text(
+      title,
+      style: const TextStyle(color: AppColors.kGrey, fontSize: 16),
+    ),
+    centerTitle: true,
+    backgroundColor: bg,
+    foregroundColor: AppColors.kGrey,
+    elevation: elevation,
+  );
 }

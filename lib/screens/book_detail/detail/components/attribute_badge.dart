@@ -1,7 +1,10 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class AttributeBadge extends StatelessWidget{
+  const AttributeBadge({Key? key}) : super(key: key);
+
 
   // AttributeBadge({this.text})
   //
@@ -13,14 +16,14 @@ class AttributeBadge extends StatelessWidget{
     return InkWell(
       onTap: () {}, // Handle your callback
       child: Container(
-          margin: EdgeInsets.only(top: 16),
+          margin: const EdgeInsets.only(top: 16),
           // width: double.infinity,
-          decoration: BoxDecoration(
+          decoration:const  BoxDecoration(
               // color: buttonColorolor,
               borderRadius: BorderRadius.all(Radius.circular(5))),
           child: FlatButton(
             onPressed: (){},
-            child: Text("bi",
+            child:const  Text("bi",
                 style: TextStyle(
                   // color: textColor,
                 )),

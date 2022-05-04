@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Avatar extends StatelessWidget {
@@ -13,7 +12,7 @@ class Avatar extends StatelessWidget {
         backgroundColor: Colors.white,
         child: CircleAvatar(
           child: icon ?? false
-              ? Align(
+              ? const Align(
                   alignment: Alignment.bottomRight,
                   child: CircleAvatar(
                       backgroundColor: Colors.white,
@@ -26,7 +25,7 @@ class Avatar extends StatelessWidget {
                 )
               : null,
           radius: 76.0,
-          backgroundImage: NetworkImage(
+          backgroundImage: const NetworkImage(
               "https://fb-images.saostar.vn/wp700/pc/1646279258920/saostar-q5wjsb0usqn3savs.jpg"),
         ));
   }

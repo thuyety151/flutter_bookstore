@@ -1,12 +1,13 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import "package:http/http.dart" as http;
 
 class Api {
-  
   static const ghnEnpoint =
       'https://dev-online-gateway.ghn.vn/shiip/public-api/master-data';
+  static const storage = FlutterSecureStorage();
   //static const bookstoreEnpoint = "https://bookwormmm.herokuapp.com/api";
-    static const bookstoreEnpoint = "https://localhost:5001/api";
-
+  static const bookstoreEnpoint = "https://localhost:5001/api";
+  // static const bookstoreEnpoint = "https://10.0.2.2:5001/api";
   http.Request getGHN(String requestUrl) {
     Uri url = Uri.parse(ghnEnpoint + requestUrl);
     http.Request request = http.Request("get", url);
@@ -20,20 +21,29 @@ class Api {
     return Uri.parse(bookstoreEnpoint + requestUrl);
   }
 
-  http.Request get(String requestUrl, String? body) {
+  Future<http.Request> get(String requestUrl, {String body = ""}) async {
+    var res = await storage.read(key: "token");
+
     Uri url = Uri.parse(bookstoreEnpoint + requestUrl);
     http.Request request = http.Request("get", url);
-    request.headers.addAll({"content-type": "application/json; charset=utf-8"});
-    request.body = body ?? "";
+    request.headers.addAll({
+      "content-type": "application/json; charset=utf-8",
+      "authorization": res != null ? "Bearer $res" : ""
+    });
+    request.body = body;
     return request;
   }
 
-  http.Request post(String requestUrl, String? body) {
+  Future<http.Request> post(String requestUrl, {String body = ""}) async {
+    var res = await storage.read(key: "token");
+
     Uri url = Uri.parse(bookstoreEnpoint + requestUrl);
     http.Request request = http.Request("post", url);
-    print(body);
-    request.headers.addAll({"content-type": "application/json; charset=utf-8"});
-    request.body = body ?? "";
+    request.headers.addAll({
+      "content-type": "application/json; charset=utf-8",
+      "authorization": res != null ? "Bearer $res" : ""
+    });
+    request.body = body;
     return request;
   }
 }

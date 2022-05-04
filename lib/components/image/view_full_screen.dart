@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_list_image.dart';
 import 'package:flutter_folder/screens/book_detail/review/components/list_images_review.dart';
@@ -30,6 +29,7 @@ class _ViewImageFullScreenState extends State<ViewImageFullScreen> {
     return Container(
         alignment: Alignment.center,
         child: Stack(
+          clipBehavior: Clip.none,
           children: [
             PhotoViewGallery.builder(
                 itemCount: sampleData.length,
@@ -43,22 +43,23 @@ class _ViewImageFullScreenState extends State<ViewImageFullScreen> {
                     maxScale: PhotoViewComputedScale.covered * 2,
                   );
                 },
-                scrollPhysics: BouncingScrollPhysics(),
-                backgroundDecoration: BoxDecoration(
+                scrollPhysics: const BouncingScrollPhysics(),
+                backgroundDecoration: const BoxDecoration(
                   color: Colors.black,
                 )),
             Positioned(
                 bottom: 8,
                 right: 16,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                     color: Colors.black26,
                   ),
                   child: Text(
                     (currentIndex + 1).toString() + "/${imgUrls.length}",
-                    style: TextStyle(color: Colors.white, fontSize: 14),
+                    style: const TextStyle(color: Colors.white, fontSize: 14),
                   ),
                 )),
             Positioned(
@@ -67,12 +68,13 @@ class _ViewImageFullScreenState extends State<ViewImageFullScreen> {
                 child: GestureDetector(
                   onTap: _onClose,
                   child: Container(
-                      padding: EdgeInsets.all(2),
+                      padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(100)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(100)),
                         color: Colors.white.withOpacity(0.5),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.close,
                         color: Colors.white,
                         size: 22,

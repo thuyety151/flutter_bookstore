@@ -1,12 +1,12 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
-import 'package:flutter_folder/components/button/icon_counter_button.dart';
 import 'package:flutter_folder/components/category/category_circle.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
-import 'package:flutter_folder/mocks/models/Category.dart';
+import 'package:flutter_folder/provider/cart_model.dart';
+import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/screens/home/components/app_banner.dart';
-
-import '../../../routes/index.dart';
-import '../../cart/cart_screen.dart';
+import 'package:provider/provider.dart';
 
 class HomePageHeader extends StatelessWidget {
   const HomePageHeader({Key? key}) : super(key: key);
@@ -16,15 +16,16 @@ class HomePageHeader extends StatelessWidget {
         //isAlwaysShown: true,
         child: SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Row(
-          children: List.generate(
-              listCategory.length,
-              (index) => Padding(
-                    padding: EdgeInsets.all(8),
-                    child: CardCategoryCircle(
-                      category: listCategory[index],
-                    ),
-                  ))),
+      child: Consumer<CategoryModel>(
+          builder: (context, value, child) => Row(
+              children: List.generate(
+                  value.categoryHomescreen.length,
+                  (index) => Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: CardCategoryCircle(
+                          category: value.categoryHomescreen[index],
+                        ),
+                      )))),
     ));
   }
 
@@ -38,20 +39,21 @@ class HomePageHeader extends StatelessWidget {
   Widget _search() {
     return Container(
         height: 38,
-        width: 300,
-        padding: EdgeInsets.only(left: 8),
+        width: 360,
+        padding: const EdgeInsets.only(left: 8),
         child: TextField(
             decoration: InputDecoration(
-                fillColor: AppColors.kBgGgrey,
+                fillColor: Colors.white,
                 filled: true,
                 contentPadding:
-                    EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 border: searchBorder(),
                 focusedBorder: searchBorder(),
                 enabledBorder: searchBorder(),
                 hintText: "Search book",
-                hintStyle: TextStyle(color: AppColors.kTextGrey, fontSize: 14),
-                prefixIcon: Icon(
+                hintStyle:
+                    const TextStyle(color: AppColors.kTextGrey, fontSize: 14),
+                prefixIcon: const Icon(
                   Icons.search,
                   color: AppColors.kTextGrey,
                 ))));
@@ -59,8 +61,11 @@ class HomePageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<CategoryModel>(context, listen: false)
+        .getCategoriesHomescreen();
+
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(16),
             bottomRight: Radius.circular(16),
@@ -68,56 +73,49 @@ class HomePageHeader extends StatelessWidget {
           color: Colors.white),
       child: Column(
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Stack(
             children: [
-              _search(),
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(RouteManager.ROUTE_CART);
-                },
-                color: AppColors.kPrimary,
-                height: 30,
-                minWidth: 30,
-                padding: EdgeInsets.symmetric(horizontal: 0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Image(
-                  image: AssetImage(
-                    "assets/icons/icon-add-cart.png",
-                  ),
-                  height: 24,
-                  width: 24,
-                  fit: BoxFit.fill,
+              const Positioned(
+                child: AppBanner(),
+              ),
+              Positioned(
+                top: 8,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _search(),
+                    FlatButton(
+                      onPressed: () {
+                        Provider.of<CartModel>(context, listen: false)
+                            .getCart();
+                        // Navigator.of(context).pushNamed(RouteManager.ROUTE_CART);
+                      },
+                      color: AppColors.kPrimary,
+                      height: 38,
+                      minWidth: 38,
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                      child: const Image(
+                        image: AssetImage(
+                          "assets/icons/icon-add-cart.png",
+                        ),
+                        height: 32,
+                        width: 32,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              FlatButton(
-                onPressed: () {},
-                color: AppColors.kPrimary,
-                height: 30,
-                minWidth: 30,
-                padding: EdgeInsets.symmetric(horizontal: 0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Image(
-                  image: AssetImage(
-                    "assets/icons/icon-filter-2.png",
-                  ),
-                  height: 18,
-                  width: 18,
-                  fit: BoxFit.fill,
-                ),
-              ),
-              
             ],
           ),
-          AppBanner(),
-          Container(
+          SizedBox(
             height: 100,
             child: SizedBox(child: _listCategory()),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           )
         ],

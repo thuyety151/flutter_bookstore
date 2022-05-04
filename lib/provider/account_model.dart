@@ -6,31 +6,31 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class AccountModel extends ChangeNotifier {
   final Authentication _auth = Authentication();
   bool fetching = false;
-   bool _userLogedIn = false;
+  bool _userLogedIn = false;
 
-  late Account _account;
+  late Account _account = Account.empty();
 
   String get email => _account.email;
 
   Future<bool> login(LoginRequestModel data) async {
     fetching = true;
-    var response = await _auth.login(data);
-    fetching = false;
-    if (response.token != null) {
+    try {
+      var response = await _auth.login(data);
+
+      fetching = false;
       _account = Account.fromAuthen(response);
-      final storage = FlutterSecureStorage();
+      const storage = FlutterSecureStorage();
       storage.write(key: "token", value: response.token);
-       _userLogedIn = true;
+      _userLogedIn = true;
       notifyListeners();
       return true;
+    } catch (e) {
+      return false;
     }
-    
-    return false;
   }
 
-    Account getUserLoginDetails() => _account;
-    bool getisUserLogedIn() {
+  Account getUserLoginDetails() => _account;
+  bool getisUserLogedIn() {
     return _userLogedIn;
   }
-
 }

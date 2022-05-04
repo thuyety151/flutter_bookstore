@@ -1,10 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
+import 'package:flutter_folder/models/book.dart';
 
 class DealOfWeekCard extends StatefulWidget {
-  const DealOfWeekCard({Key? key}) : super(key: key);
+  const DealOfWeekCard({Key? key, required this.model}) : super(key: key);
+
+  final Book model;
 
   @override
   _DealOfWeekCardState createState() => _DealOfWeekCardState();
@@ -15,54 +17,55 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
   Widget build(BuildContext context) {
     return Container(
       width: 312,
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(8),
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(16)),
           color: Colors.white),
       child: Row(children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image(
-            image: NetworkImage(
-                "https://vcdn.tikicdn.com/media/catalog/product/i/m/img893_3.jpg"),
+            image: NetworkImage(widget.model.pictureUrl ?? ""),
+            // "https://vcdn.tikicdn.com/media/catalog/product/i/m/img893_3.jpg"),
             height: 102,
             width: 66,
             fit: BoxFit.fitHeight,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 8,
         ),
-        Container(
+        SizedBox(
           width: 203,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "paperback".toUpperCase(),
+                widget.model.attributeName!.toUpperCase(),
                 style: AppTextStyles.attribute,
               ),
               Text(
-                "Harry Potter and the Philosopher's Stone",
+                widget.model.name,
                 style: AppTextStyles.title,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Text(
-                "J.K.Rowling",
+                widget.model.attributeName ?? "",
                 style: AppTextStyles.caption,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
-              Text("\$200", style: AppTextStyles.price),
-              SizedBox(
+              Text("\$" + widget.model.price.toString(),
+                  style: AppTextStyles.price),
+              const SizedBox(
                 height: 8,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text(
                     "Already sold: 14",
                     style: AppTextStyles.caption,
@@ -73,7 +76,7 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               SliderTheme(
@@ -81,14 +84,15 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
                       overlayShape: SliderComponentShape.noOverlay,
                       trackHeight: 3,
                       thumbShape: SliderComponentShape.noThumb,
-                      trackShape: RoundedRectSliderTrackShape()),
+                      trackShape: const RoundedRectSliderTrackShape()),
                   child: Slider(
                       activeColor: AppColors.kPrimary,
                       inactiveColor: AppColors.kGrayE5,
                       value: 15,
                       max: 100,
-                      onChanged: (double) {
-                        print(double);
+                      onChanged: (double x) {
+                        // ignore: avoid_print
+                        print(x);
                       }))
             ],
           ),

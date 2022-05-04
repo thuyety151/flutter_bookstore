@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Rate extends StatefulWidget {
@@ -13,8 +12,7 @@ class Rate extends StatefulWidget {
 class _RateState extends State<Rate> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Wrap(
+    return Wrap(
       direction: Axis.horizontal,
       children: List.generate(
           5,
@@ -25,6 +23,6 @@ class _RateState extends State<Rate> {
                 color: Colors.amber[300],
                 size: widget.size ?? 12,
               )),
-    ));
+    );
   }
 }

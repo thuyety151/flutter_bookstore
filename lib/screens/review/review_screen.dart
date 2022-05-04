@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/button/primary_button.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
@@ -12,7 +11,7 @@ class ReviewScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: AppColors.kBgGgrey,
         bottomNavigationBar: Container(
-          margin: EdgeInsets.all(16),
+          margin: const EdgeInsets.all(16),
           child: PrimaryButton(
             buttonText: 'Submit Review',
             buttonColor: AppColors.kPrimary,
@@ -22,8 +21,8 @@ class ReviewScreen extends StatelessWidget {
         ),
         body: SafeArea(
             child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(children: [ReviewForm()]),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(children: const [ReviewForm()]),
         )));
   }
 }

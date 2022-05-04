@@ -1,9 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 
 class PrimaryButton extends StatelessWidget {
-  PrimaryButton({
-    required this.onTap,
+  const PrimaryButton({
+    this.onTap,
     this.borderRadius,
     this.buttonColor,
     this.textColor,
@@ -18,7 +20,7 @@ class PrimaryButton extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Color? buttonColor;
   final double? borderRadius;
   final Color? textColor;
@@ -41,11 +43,11 @@ class PrimaryButton extends StatelessWidget {
         height: buttonHeight,
         decoration: BoxDecoration(
             color: filled ?? false ? AppColors.kPrimary : buttonColor,
-            borderRadius: BorderRadius.all(Radius.circular(50))),
+            borderRadius: const BorderRadius.all(Radius.circular(50))),
         child: FlatButton(
           onPressed: onTap,
           child: loading == true
-              ? CircularProgressIndicator(
+              ? const CircularProgressIndicator(
                   color: Colors.white,
                 )
               : Text(buttonText,

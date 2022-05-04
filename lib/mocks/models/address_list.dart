@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class AddressModel {
   String id;
   String firstName;
@@ -34,12 +32,12 @@ class AddressModel {
       "streetAddress",
       "districtName",
       "provinceName"
-    ].map((e) => this.toJson()[e]);
+    ].map((e) => toJson()[e]);
     return data.where((element) => element != null).join(", ");
   }
 
   String fullName() {
-    return this.firstName + " " + this.lastName;
+    return firstName + " " + lastName;
   }
 
   Map toJson() => {

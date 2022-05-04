@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import '../../../components/custom_text_style.dart';
 
 class CheckoutPayment extends StatelessWidget {
+  const CheckoutPayment({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(4)),
+          borderRadius:const BorderRadius.all(Radius.circular(4)),
           border:
               Border.all(color: Colors.orange.withOpacity(0.4), width: 1),
           color: Colors.orange.withOpacity(0.2),
           ),
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       child: Column(
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [

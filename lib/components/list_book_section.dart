@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/routes/index.dart';
 
@@ -18,18 +17,18 @@ class ListBookSession extends StatelessWidget {
 
   Widget _title(String title, BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 16, bottom: 10),
+      padding: const EdgeInsets.only(top: 16, bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: TextStyle(
+            style:const TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 20, letterSpacing: 1),
           ),
           InkWell(
             onTap: () => _viewAll(context),
-            child: Image(
+            child:const Image(
               image: AssetImage("assets/icons/icon-view-all.png"),
             ),
           )
@@ -50,6 +49,7 @@ class ListBookSession extends StatelessWidget {
         ],
         SizedBox(
             child: Container(
+                alignment: Alignment.topLeft,
                 child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal, child: child))),
       ],

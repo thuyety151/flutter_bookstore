@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/routes/index.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../enums.dart';
 
@@ -12,21 +13,31 @@ class CustomBottomNavBar extends StatelessWidget {
 
   final MenuState selectedMenu;
 
+  void navWithPermission(BuildContext context, String routeName) async {
+    const storage = FlutterSecureStorage();
+    var token = await storage.read(key: "token");
+    if (token == null) {
+      Navigator.of(context).pushNamed(RouteManager.ROUTE_LOGIN);
+    } else {
+      Navigator.of(context).pushNamed(routeName);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Color inActiveIconColor = Color(0xFFB6B6B6);
+    const Color inActiveIconColor = Color(0xFFB6B6B6);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 14),
+      padding: const EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, -15),
+            offset: const Offset(0, -15),
             blurRadius: 20,
-            color: Color(0xFFDADADA).withOpacity(0.15),
+            color: const Color(0xFFDADADA).withOpacity(0.15),
           ),
         ],
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(40),
           topRight: Radius.circular(40),
         ),
@@ -51,19 +62,18 @@ class CustomBottomNavBar extends StatelessWidget {
                 onPressed: () {},
               ),
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
-                onPressed: () => Navigator.of(context).pushNamed(RouteManager.ROUTE_CHAT),
-              ),
+                  icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
+                  onPressed: () =>
+                      navWithPermission(context, RouteManager.ROUTE_CHAT)),
               IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/User Icon.svg",
-                  color: MenuState.profile == selectedMenu
-                      ? AppColors.kPrimary
-                      : inActiveIconColor,
-                ),
-                onPressed: () =>
-                    Navigator.of(context).pushNamed(RouteManager.ROUTE_PROFILE),
-              ),
+                  icon: SvgPicture.asset(
+                    "assets/icons/User Icon.svg",
+                    color: MenuState.profile == selectedMenu
+                        ? AppColors.kPrimary
+                        : inActiveIconColor,
+                  ),
+                  onPressed: () =>
+                      navWithPermission(context, RouteManager.ROUTE_PROFILE)),
             ],
           )),
     );

@@ -12,6 +12,10 @@ class Account {
       required this.lastName,
       required this.email});
 
+  Account.empty() {
+    email = "";
+  }
+
   Account.fromAuthen(AuthenResponse auth) {
     id = "1";
     email = auth.email;

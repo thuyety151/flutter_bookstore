@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/button/primary_button.dart';
 
@@ -7,6 +9,8 @@ import '../../../configs/size_config.dart';
 import '../../../routes/index.dart';
 
 class RegisterForm extends StatefulWidget {
+  const RegisterForm({Key? key}) : super(key: key);
+
   @override
   _RegisterFormState createState() => _RegisterFormState();
 }
@@ -38,11 +42,10 @@ class _RegisterFormState extends State<RegisterForm> {
       _formKey.currentState!.save();
 
       Navigator.of(context).pushNamed(RouteManager.ROUTE_HOME_PAGE);
-    }
-    else {
+    } else {
       setState(() {
-      isLoading = false;
-    });
+        isLoading = false;
+      });
     }
   }
 
@@ -85,7 +88,7 @@ class _RegisterFormState extends State<RegisterForm> {
             PrimaryButton(
               onTap: onRegister,
               buttonText: "Continue",
-              buttonColor: Color.fromARGB(255, 249, 82, 69),
+              buttonColor: const Color.fromARGB(255, 249, 82, 69),
               textColor: Colors.white,
               buttonWidth: double.infinity,
               loading: isLoading,
@@ -101,16 +104,16 @@ class _RegisterFormState extends State<RegisterForm> {
         if (value.isNotEmpty) {
           removeError(error: kFirstNameNullError);
         }
-        return null;
+        return;
       },
-       validator: (value) {
+      validator: (value) {
         if (value!.isEmpty) {
           addError(error: kFirstNameNullError);
           return "";
-        } 
+        }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           labelText: "First name",
           hintText: "First name",
           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -125,16 +128,16 @@ class _RegisterFormState extends State<RegisterForm> {
         if (value.isNotEmpty) {
           removeError(error: kLastNameNullError);
         }
-        return null;
+        return;
       },
       validator: (value) {
         if (value!.isEmpty) {
           addError(error: kLastNameNullError);
           return "";
-        } 
+        }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           labelText: "Last name",
           hintText: "Last name",
           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -152,7 +155,7 @@ class _RegisterFormState extends State<RegisterForm> {
         } else if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
         }
-        return null;
+        return;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -164,7 +167,7 @@ class _RegisterFormState extends State<RegisterForm> {
         }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Email",
         hintText: "Enter your email",
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -196,7 +199,7 @@ class _RegisterFormState extends State<RegisterForm> {
         }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           labelText: "Password",
           hintText: "Enter your password",
           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -226,7 +229,7 @@ class _RegisterFormState extends State<RegisterForm> {
         }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Confirm Password",
         hintText: "Re-enter your password",
         floatingLabelBehavior: FloatingLabelBehavior.always,
