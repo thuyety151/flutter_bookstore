@@ -4,15 +4,28 @@ import '../../../components/custom_text_style.dart';
 import '../../../mocks/models/cart_item.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({Key? key, required this.cartItem}) : super(key: key);
-
-  final CartItemModel cartItem;
+  final String id;
+  final String productId;
+  final double price;
+  final int quantity;
+  final String title;
+  final String imageUrl;
+  final String attribute;
+  CartItem(
+    this.id,
+    this.productId,
+    this.price,
+    this.quantity,
+    this.title,
+    this.imageUrl,
+    this.attribute
+  );
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
-          margin:const  EdgeInsets.only(left: 16, right: 16, top: 16),
+          margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
           decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(
@@ -20,14 +33,15 @@ class CartItem extends StatelessWidget {
               ))),
           child: Row(children: [
             Container(
-              margin: const EdgeInsets.only(right: 8, left: 8, top: 8, bottom: 8),
+              margin:
+                  const EdgeInsets.only(right: 8, left: 8, top: 8, bottom: 8),
               width: 80,
               height: 80,
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(14)),
                   color: Colors.blue.shade200,
                   image: DecorationImage(
-                    image: NetworkImage(cartItem.book.imgUrl),
+                    image: NetworkImage(imageUrl),
                   )),
             ),
             Expanded(
@@ -40,16 +54,16 @@ class CartItem extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.only(right: 8, top: 4),
                       child: Text(
-                        cartItem.book.name,
+                        title,
                         maxLines: 2,
                         softWrap: true,
                         style: CustomTextStyle.textFormFieldSemiBold
                             .copyWith(fontSize: 14),
                       ),
                     ),
-                 const    SizedBox(height: 6),
+                    const SizedBox(height: 6),
                     Text(
-                      "Paperpack",
+                      attribute,
                       style: CustomTextStyle.textFormFieldRegular
                           .copyWith(color: Colors.grey, fontSize: 14),
                     ),
@@ -57,7 +71,7 @@ class CartItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "\$ " + cartItem.book.price.toString(),
+                          "\$ " + price.toString(),
                           style: CustomTextStyle.textFormFieldBlack
                               .copyWith(color: Colors.red),
                         ),
@@ -67,7 +81,7 @@ class CartItem extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                              const   Icon(
+                                const Icon(
                                   Icons.remove,
                                 ),
                                 Container(
@@ -75,12 +89,12 @@ class CartItem extends StatelessWidget {
                                   padding: const EdgeInsets.only(
                                       top: 5, bottom: 3, right: 12, left: 12),
                                   child: Text(
-                                    "1",
+                                    quantity.toString(),
                                     style:
                                         CustomTextStyle.textFormFieldSemiBold,
                                   ),
                                 ),
-                              const   Icon(Icons.add)
+                                const Icon(Icons.add)
                               ],
                             ))
                       ],

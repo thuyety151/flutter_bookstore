@@ -43,7 +43,7 @@ class HomePageHeader extends StatelessWidget {
   Widget _search() {
     return Container(
         height: 38,
-        width: 360,
+        width: 330,
         padding: const EdgeInsets.only(left: 8),
         child: TextField(
             decoration: InputDecoration(

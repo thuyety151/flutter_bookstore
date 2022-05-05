@@ -13,18 +13,7 @@ class ChatProvider with ChangeNotifier {
 
   //ChatProvider();
 
-  List<ChatMessage> _messages = [
-    ChatMessage(
-      id: 1,
-      message: 'This is a message',
-      type: 'text',
-      fromId: 1,
-      toId: 2,
-      createdAt: '30/04/2022',
-      fromUserName: 'Truong Nguyen',
-      toUserName: 'Lich Ngo',
-    ),
-  ];
+  List<ChatMessage> _messages = [];
   List<ChatMessage> getMessages() => _messages;
   late HubConnection _connection;
   String token = "";
@@ -40,8 +29,8 @@ class ChatProvider with ChangeNotifier {
   void sendChatMessage(Map<String, dynamic> outgoingMessage) {
     try {
       _connection.invoke("SendMessage", args: [outgoingMessage]);
-       print("success");
-       _messages.add(
+      print("success");
+      _messages.add(
         ChatMessage(
           id: 1,
           message: outgoingMessage["message"],

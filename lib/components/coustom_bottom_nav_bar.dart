@@ -13,13 +13,13 @@ class CustomBottomNavBar extends StatelessWidget {
 
   final MenuState selectedMenu;
 
-  void navProfile(BuildContext context) async {
+  void navWithPermission(BuildContext context, String routeName) async {
     const storage = FlutterSecureStorage();
     var token = await storage.read(key: "token");
     if (token == null) {
       Navigator.of(context).pushNamed(RouteManager.ROUTE_LOGIN);
     } else {
-      Navigator.of(context).pushNamed(RouteManager.ROUTE_PROFILE);
+      Navigator.of(context).pushNamed(routeName);
     }
   }
 
@@ -62,9 +62,9 @@ class CustomBottomNavBar extends StatelessWidget {
                 onPressed: () {},
               ),
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
-                onPressed: () => Navigator.of(context).pushNamed(RouteManager.ROUTE_CHAT),
-              ),
+                  icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
+                  onPressed: () =>
+                      navWithPermission(context, RouteManager.ROUTE_CHAT)),
               IconButton(
                   icon: SvgPicture.asset(
                     "assets/icons/User Icon.svg",
@@ -72,7 +72,8 @@ class CustomBottomNavBar extends StatelessWidget {
                         ? AppColors.kPrimary
                         : inActiveIconColor,
                   ),
-                  onPressed: () => navProfile(context)),
+                  onPressed: () =>
+                      navWithPermission(context, RouteManager.ROUTE_PROFILE)),
             ],
           )),
     );
