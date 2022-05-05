@@ -8,6 +8,7 @@ import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/provider/cart_model.dart';
 import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/provider/chat_provider.dart';
+import 'package:flutter_folder/provider/ghn_model.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,8 +44,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CategoryModel()),
         ChangeNotifierProvider(create: (context) => CartModel()),
         ChangeNotifierProvider(create: (context) => AttributeModel()),
-        ChangeNotifierProvider(create: (context) => ChatProvider())
+        ChangeNotifierProvider(create: (context) => ChatProvider()),
         // ChangeNotifierProvider(create: (context) => ProfileState())
+        ChangeNotifierProvider(create: (context) => GHNModel())
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

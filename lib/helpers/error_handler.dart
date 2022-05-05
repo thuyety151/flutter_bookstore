@@ -67,3 +67,19 @@ Future withRestApiResponse(String url) async {
     rethrow;
   }
 }
+
+Future withGHNApiResponse(String url) async {
+  try {
+    // showLoading();
+    final Api _api = Api();
+    
+    var request = await _api.getGHN(url);
+    var response = await http.Response.fromStream(await request.send());
+    // Navigator.pop(navigatorKey.currentState!.overlay!.context);
+    return response.body;
+  } catch (e) {
+    catchErrAndNotify(
+        AlertDialogParams(title: "Login Error", content: e.toString()), e);
+    rethrow;
+  }
+}
