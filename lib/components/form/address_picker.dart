@@ -15,7 +15,8 @@ class AddressFormValue {
 }
 
 class AddressPicker extends StatefulWidget {
-  const AddressPicker({Key? key}) : super(key: key);
+  const AddressPicker({Key? key, required this.emitValue}) : super(key: key);
+  final Function(AddressFormValue) emitValue;
 
   @override
   _AddressPickerState createState() => _AddressPickerState();
@@ -55,6 +56,7 @@ class _AddressPickerState extends State<AddressPicker> {
     setState(() {
       formValue.ward = value;
     });
+    widget.emitValue(formValue);
   }
 
   @override

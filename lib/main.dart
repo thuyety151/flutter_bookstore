@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/provider/account_model.dart';
+import 'package:flutter_folder/provider/address_model.dart';
 import 'package:flutter_folder/provider/attribute_model.dart';
 import 'package:flutter_folder/provider/author_model.dart';
 import 'package:flutter_folder/provider/book_model.dart';
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AttributeModel()),
         ChangeNotifierProvider(create: (context) => ChatProvider()),
         // ChangeNotifierProvider(create: (context) => ProfileState())
-        ChangeNotifierProvider(create: (context) => GHNModel())
+        ChangeNotifierProvider(create: (context) => GHNModel()),
+        ChangeNotifierProvider(create: (context) => AddressModel()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

@@ -1,12 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:flutter_folder/components/button/primary_button.dart';
-import 'package:flutter_folder/components/form/address_picker.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/mocks/models/address_list.dart';
+import 'package:flutter_folder/models/address.dart';
+import 'package:flutter_folder/provider/address_model.dart' as provider;
+import 'package:flutter_folder/screens/address/components/address_form.dart';
 import 'package:flutter_folder/screens/address/components/card_address.dart';
+import 'package:provider/provider.dart';
 
 class AddressScreen extends StatefulWidget {
   const AddressScreen({Key? key}) : super(key: key);
@@ -38,10 +40,16 @@ class _AddressScreenState extends State<AddressScreen> {
         });
   }
 
+  void createAddress(Address value) {
+    Provider.of<provider.AddressModel>(context, listen: false)
+        .createAddress(value);
+  }
+
   void showDialog() {
     showModalBottomSheet<void>(
       context: context,
-      backgroundColor: Colors.transparent,
+      backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+      isScrollControlled: true,
       builder: (BuildContext context) {
         return Container(
           height: 800,
@@ -53,19 +61,23 @@ class _AddressScreenState extends State<AddressScreen> {
               color: Colors.white),
           child: Padding(
             padding: const EdgeInsets.only(top: 26, left: 8, right: 8),
-            child: Column(children: [
-              const AddressPicker(),
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: PrimaryButton(
-                  onTap: () {},
-                  buttonText: "Create",
-                  buttonColor: AppColors.kPrimary,
-                  fullWidth: true,
-                  textColor: Colors.white,
+            child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: AddressForm(
+                  submit: createAddress,
+                )
+                // const AddressPicker(),
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 16),
+                //   child: PrimaryButton(
+                //     onTap: () {},
+                //     buttonText: "Create",
+                //     buttonColor: AppColors.kPrimary,
+                //     fullWidth: true,
+                //     textColor: Colors.white,
+                //   ),
+                // )
                 ),
-              )
-            ]),
           ),
         );
       },

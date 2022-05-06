@@ -40,7 +40,7 @@ class Api {
   }
 
   Future<http.Request> getGHN(String requestUrl, {String body = ""}) async {
-     Uri url = Uri.parse(ghnEnpoint + requestUrl);
+    Uri url = Uri.parse(ghnEnpoint + requestUrl);
     http.Request request = http.Request("get", url);
     request.headers.addAll({
       "content-type": "application/json; charset=utf-8",

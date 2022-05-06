@@ -44,11 +44,14 @@ void catchErrAndNotify(AlertDialogParams params, dynamic error) {
           ));
 }
 
-Future withRestApiResponse(String url) async {
+Future withRestApiResponse(String url,
+    {String method = "get", String body = ""}) async {
   try {
     // showLoading();
     final Api _api = Api();
-    var request = await _api.get(url);
+    var request = method == "get"
+        ? await _api.get(url)
+        : await _api.post(url, body: body);
     var response = await http.Response.fromStream(await request.send());
     // Navigator.pop(navigatorKey.currentState!.overlay!.context);
     if (response.statusCode != 401) {
@@ -72,7 +75,7 @@ Future withGHNApiResponse(String url) async {
   try {
     // showLoading();
     final Api _api = Api();
-    
+
     var request = await _api.getGHN(url);
     var response = await http.Response.fromStream(await request.send());
     // Navigator.pop(navigatorKey.currentState!.overlay!.context);

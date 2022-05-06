@@ -25,7 +25,9 @@ class EditProfileForm extends StatelessWidget {
         label: "birthday",
         onUpdateValue: (value) {},
       ),
-      const AddressPicker(),
+      AddressPicker(
+        emitValue: (value) {},
+      ),
       const Padding(
         padding: EdgeInsets.symmetric(vertical: 16),
         child: PrimaryButton(
