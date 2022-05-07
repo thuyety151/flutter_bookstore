@@ -92,12 +92,18 @@ class BookCard extends StatelessWidget {
                   ],
                 ),
                 IconButton(
-                  onPressed: () {cart.addItem(book.id, book.price, book.name);},
+                  onPressed: () {
+                    cart.addOrUpdateItem(
+                        'itemId', book.id, book.attributeId!, 1);
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("Add item to cart successfully!"),
+                      duration: Duration(seconds: 2),
+                    ));
+                  },
                   icon: Image(
-                  image: AssetImage("assets/icons/icon-cart-primary.png")
-                  ),
+                      image: AssetImage("assets/icons/icon-cart-primary.png")),
                 ),
-                
               ],
             ),
             const SizedBox(

@@ -6,7 +6,6 @@ import 'package:flutter_folder/provider/attribute_model.dart';
 import 'package:flutter_folder/provider/author_model.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/provider/cart.dart';
-import 'package:flutter_folder/provider/cart_model.dart';
 import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/provider/chat_provider.dart';
 import 'package:flutter_folder/routes/index.dart';
@@ -42,7 +41,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => BookModel()),
         ChangeNotifierProvider(create: (context) => AuthorModel()),
         ChangeNotifierProvider(create: (context) => CategoryModel()),
-        ChangeNotifierProvider(create: (context) => CartModel()),
         ChangeNotifierProvider(create: (context) => AttributeModel()),
         ChangeNotifierProvider(create: (context) => ChatProvider()),
         ChangeNotifierProvider(create: (context) => Cart())

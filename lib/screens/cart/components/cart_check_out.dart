@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../../components/button/primary_button.dart';
 import '../../../configs/size_config.dart';
+import '../../../provider/cart.dart';
 import '../../../routes/index.dart';
 
 class CartCheckOut extends StatefulWidget {
@@ -34,6 +35,7 @@ class _CartCheckOutState extends State<CartCheckOut> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    final cart = Provider.of<Cart>(context);
     return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,14 +78,16 @@ class _CartCheckOutState extends State<CartCheckOut> {
                       .copyWith(fontSize: 16),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(right: 30),
-                child: Text(
-                  "\$299.00",
-                  style: CustomTextStyle.textFormFieldBlack
-                      .copyWith(color: Colors.red, fontSize: 16),
+              Consumer<Cart>(
+                builder: (context, value, child) => Container(
+                  margin: const EdgeInsets.only(right: 30),
+                  child: Text(
+                    "\$${cart.totalAmount.toStringAsFixed(2)}",
+                    style: CustomTextStyle.textFormFieldBlack
+                        .copyWith(color: Colors.red, fontSize: 16),
+                  ),
                 ),
-              ),
+              )
             ],
           ),
           const SizedBox(height: 20),

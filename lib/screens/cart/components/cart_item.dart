@@ -1,25 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/custom_text_style.dart';
-import '../../../mocks/models/cart_item.dart';
+import '../../../models/item.dart';
+import '../../../provider/cart.dart';
 
 class CartItem extends StatelessWidget {
-  final String id;
-  final String productId;
-  final double price;
-  final int quantity;
-  final String title;
-  final String imageUrl;
-  final String attribute;
-  CartItem(
-    this.id,
-    this.productId,
-    this.price,
-    this.quantity,
-    this.title,
-    this.imageUrl,
-    this.attribute
-  );
+  final Item item;
+  CartItem(this.item);
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -41,7 +29,7 @@ class CartItem extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(14)),
                   color: Colors.blue.shade200,
                   image: DecorationImage(
-                    image: NetworkImage(imageUrl),
+                    image: NetworkImage(item.pictureUrl ?? ""),
                   )),
             ),
             Expanded(
@@ -54,7 +42,7 @@ class CartItem extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.only(right: 8, top: 4),
                       child: Text(
-                        title,
+                        item.productName ?? "",
                         maxLines: 2,
                         softWrap: true,
                         style: CustomTextStyle.textFormFieldSemiBold
@@ -63,7 +51,7 @@ class CartItem extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      attribute,
+                      item.attributeName ?? "",
                       style: CustomTextStyle.textFormFieldRegular
                           .copyWith(color: Colors.grey, fontSize: 14),
                     ),
@@ -71,32 +59,57 @@ class CartItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "\$ " + price.toString(),
+                          "\$ " + item.price!.toString(),
                           style: CustomTextStyle.textFormFieldBlack
                               .copyWith(color: Colors.red),
                         ),
-                        Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                const Icon(
-                                  Icons.remove,
-                                ),
-                                Container(
-                                  color: Colors.grey.shade200,
-                                  padding: const EdgeInsets.only(
-                                      top: 5, bottom: 3, right: 12, left: 12),
-                                  child: Text(
-                                    quantity.toString(),
-                                    style:
-                                        CustomTextStyle.textFormFieldSemiBold,
-                                  ),
-                                ),
-                                const Icon(Icons.add)
-                              ],
-                            ))
+                        Consumer<Cart>(
+                          builder: (context, cart, child) {
+                            return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    InkWell(
+                                      child: Icon(Icons.remove),
+                                      onTap: () {
+                                        print("decrease item");
+                                        cart.addOrUpdateItem(
+                                            item.id!,
+                                            item.productId!,
+                                            item.attributeId!,
+                                            item.quantity! - 1);
+                                      },
+                                    ),
+                                    Container(
+                                      color: Colors.grey.shade200,
+                                      padding: const EdgeInsets.only(
+                                          top: 5,
+                                          bottom: 3,
+                                          right: 12,
+                                          left: 12),
+                                      child: Text(
+                                        item.quantity.toString(),
+                                        style: CustomTextStyle
+                                            .textFormFieldSemiBold,
+                                      ),
+                                    ),
+                                    InkWell(
+                                      child: Icon(Icons.add),
+                                      onTap: () {
+                                        print("add item");
+                                        cart.addOrUpdateItem(
+                                            item.id!,
+                                            item.productId!,
+                                            item.attributeId!,
+                                            item.quantity! + 1);
+                                      },
+                                    ),
+                                  ],
+                                ));
+                          },
+                        ),
                       ],
                     )
                   ]),

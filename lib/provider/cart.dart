@@ -1,28 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter_folder/models/item.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class CartItem {
-  final String id;
-  final String title;
-  final int quantity;
-  final double price;
-  final String imageUrl;
-  final String attribute;
+import '../models/constants.dart';
+import 'package:http/http.dart' as http;
 
-  CartItem({
-    required this.id,
-    required this.quantity,
-    required this.price,
-    required this.title,
-    required this.imageUrl,
-    required this.attribute
-  });
-}
+import '../models/http_exception.dart';
 
 class Cart with ChangeNotifier {
-  Map<String, CartItem> _items = {};
+  List<Item> _items = [];
+  static const storage = FlutterSecureStorage();
 
-  Map<String, CartItem> get items {
-    return {..._items};
+  List<Item> get items {
+    return [..._items];
   }
 
   int get itemCount {
@@ -31,52 +23,108 @@ class Cart with ChangeNotifier {
 
   double get totalAmount {
     var total = 0.0;
-    _items.forEach((key, cartItem) {
-      total += cartItem.price + cartItem.quantity;
+    _items.forEach((item) {
+      total += item.price! * item.quantity!;
     });
     return total;
   }
 
-  void addItem(
-    String productId,
-    double price,
-    String title,
-    String imageUrl,
-    String attribute
-  ) {
-    if (_items.containsKey(productId)) {
-      //change quantity
-      _items.update(
-        productId,
-        (existingCartitem) => CartItem(
-            id: existingCartitem.id,
-            imageUrl: existingCartitem.imageUrl,
-            attribute: existingCartitem.attribute,
-            title: existingCartitem.title,
-            price: existingCartitem.price,
-            quantity: existingCartitem.quantity + 1),
-      );
-    } else {
-      _items.putIfAbsent(
-          productId,
-          () => CartItem(
-              id: DateTime.now().toString(),
-              title: title,
-              price: price,
-              imageUrl: imageUrl,
-              attribute: attribute,
-              quantity: 1));
+  Future<void> fetchAndSetCart() async {
+    var token = await storage.read(key: "token");
+    print(token);
+    final url = Uri.parse(apiEndpoint + '/cart');
+    final response = await http.get(url, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+
+    final List<Item> loadedItems = [];
+    List<dynamic>? extractedData;
+    print("response body:" + response.body);
+    if (response.body.isNotEmpty) {
+      extractedData = json.decode(response.body)["value"] as List<dynamic>;
     }
+    // ignore: unnecessary_null_comparison
+    if (extractedData == null) {
+      return;
+    }
+
+    extractedData.forEach((item) {
+      loadedItems.add(Item.fromJson(item));
+    });
+
+    _items = loadedItems.reversed.toList();
     notifyListeners();
   }
 
-  void removeItem(String productId) {
-    _items.remove(productId);
-    notifyListeners();
+  Future<void> addOrUpdateItem(
+      String id, String productId, String attributeId, int quantity) async {
+    print("pro:" +
+        productId +
+        " attr:" +
+        attributeId +
+        " qua:" +
+        quantity.toString());
+    final url = Uri.parse(apiEndpoint + '/cart/item');
+    var token = await storage.read(key: "token");
+    print(token);
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: json.encode({
+          'productId': productId,
+          'attributeId': attributeId,
+          'quantity': quantity
+        }),
+      );
+      int index = _items.indexWhere((element) => element.id == id);
+
+      if (index  == -1) {
+        fetchAndSetCart();
+      } else {
+        Item existingItem = _items[index];
+        existingItem.quantity = quantity;
+        if (existingItem.quantity! <= 0) {
+          deleteItem(id);
+        } else {
+          _items[index] = existingItem;
+        }
+
+        notifyListeners();
+      }
+    } catch (error) {
+      print(error);
+      throw error;
+    }
   }
 
-  void clear() {
-    _items = {};
+  Future<void> deleteItem(String id) async {
+    var token = await storage.read(key: "token");
+    print('token:' + token!);
+    final url = Uri.parse(apiEndpoint + '/cart/item?id=$id');
+    final existingitemIndex = _items.indexWhere((item) => item.id == id);
+    Item? existingItem = _items[existingitemIndex];
+    _items.removeAt(existingitemIndex);
     notifyListeners();
+    final response = await http.delete(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode >= 400) {
+      _items.insert(existingitemIndex, existingItem);
+      notifyListeners();
+      throw HttpException('Could not delete item.');
+    }
+    existingItem = null;
   }
 }
