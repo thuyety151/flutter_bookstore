@@ -21,7 +21,7 @@ class _CardAddressState extends State<CardAddress> {
         builder: (BuildContext context) {
           return Container(
             height: 800,
-            decoration:const  BoxDecoration(
+            decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16),
                   topRight: Radius.circular(16),
@@ -30,9 +30,11 @@ class _CardAddressState extends State<CardAddress> {
             child: Padding(
               padding: const EdgeInsets.only(top: 26, left: 8, right: 8),
               child: Column(children: [
-       const          AddressPicker(),
+                AddressPicker(
+                  emitValue: (value) {},
+                ),
                 Padding(
-                  padding:const  EdgeInsets.only(top: 16),
+                  padding: const EdgeInsets.only(top: 16),
                   child: PrimaryButton(
                     onTap: () {},
                     buttonText: "Update",
@@ -53,35 +55,36 @@ class _CardAddressState extends State<CardAddress> {
       height: 86,
       decoration: BoxDecoration(
           border: Border.all(color: AppColors.kBgGgrey),
-          borderRadius:const  BorderRadius.all(Radius.circular(8))),
-      padding:const  EdgeInsets.symmetric(horizontal: 16),
+          borderRadius: const BorderRadius.all(Radius.circular(8))),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Row(children: [
           if (widget.data.isMain == true) ...[
-        const       Image(
+            const Image(
                 image: AssetImage("assets/icons/icon-check.png"), height: 20),
           ] else ...[
-           const  SizedBox(
+            const SizedBox(
               height: 20,
               width: 20,
             )
           ],
-         const    SizedBox(width: 20),
+          const SizedBox(width: 20),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-          const     Text(
+              const Text(
                 "Home",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
               Text(
                 widget.data.phone,
-                style:const  TextStyle(color: AppColors.kTextGrey),
+                style: const TextStyle(color: AppColors.kTextGrey),
               ),
               Text(
                 widget.data.fullAddress(),
-                style:const  TextStyle(color: AppColors.kTextGrey, fontSize: 13),
+                style:
+                    const TextStyle(color: AppColors.kTextGrey, fontSize: 13),
               )
             ],
           ),
