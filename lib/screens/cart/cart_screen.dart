@@ -22,17 +22,15 @@ class CartScreen extends StatelessWidget {
                 'Your Cart',
                 style: TextStyle(fontSize: 16),
               ),
-              Text(
-                "${cartItems.length} items",
-                style: const TextStyle(fontSize: 14),
-              ),
             ],
           )),
-      body: Column(
-        children: const [
-          CartList(),
-          CartCheckOut(),
-        ],
+      body: SingleChildScrollView(
+              child: Column(
+          children: const [
+            CartList(),
+            CartCheckOut(),
+          ],
+        ),
       ),
     );
   }

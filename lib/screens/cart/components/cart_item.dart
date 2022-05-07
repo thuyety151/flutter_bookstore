@@ -59,7 +59,7 @@ class CartItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "\$ " + item.price!.toString(),
+                          "\$ " + item.price.toString() ?? "",
                           style: CustomTextStyle.textFormFieldBlack
                               .copyWith(color: Colors.red),
                         ),

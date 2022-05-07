@@ -7,7 +7,7 @@ class Item {
   String? attributeId;
   String? attributeName;
   String? pictureUrl;
-  double? price;
+  num? price;
   int? quantity;
   String? stockStatus;
   Null? orderId;

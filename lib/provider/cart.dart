@@ -60,12 +60,6 @@ class Cart with ChangeNotifier {
 
   Future<void> addOrUpdateItem(
       String id, String productId, String attributeId, int quantity) async {
-    print("pro:" +
-        productId +
-        " attr:" +
-        attributeId +
-        " qua:" +
-        quantity.toString());
     final url = Uri.parse(apiEndpoint + '/cart/item');
     var token = await storage.read(key: "token");
     print(token);
@@ -85,8 +79,9 @@ class Cart with ChangeNotifier {
       );
       int index = _items.indexWhere((element) => element.id == id);
 
-      if (index  == -1) {
-        fetchAndSetCart();
+      if (index == -1) {
+        final newItem = Item(id: 'tempItem');
+        _items.add(newItem);
       } else {
         Item existingItem = _items[index];
         existingItem.quantity = quantity;
@@ -95,9 +90,8 @@ class Cart with ChangeNotifier {
         } else {
           _items[index] = existingItem;
         }
-
-        notifyListeners();
       }
+      notifyListeners();
     } catch (error) {
       print(error);
       throw error;

@@ -98,7 +98,7 @@ class BookCard extends StatelessWidget {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text("Add item to cart successfully!"),
-                      duration: Duration(seconds: 2),
+                      duration: Duration(seconds: 1),
                     ));
                   },
                   icon: Image(

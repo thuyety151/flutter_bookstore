@@ -30,6 +30,7 @@ class AccountModel extends ChangeNotifier {
   }
 
   Account getUserLoginDetails() => _account;
+  
   bool getisUserLogedIn() {
     return _userLogedIn;
   }

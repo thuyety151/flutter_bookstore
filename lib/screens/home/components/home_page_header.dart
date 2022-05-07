@@ -9,6 +9,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 import '../../../components/badge.dart';
+import '../../../provider/account_model.dart';
 import '../../../provider/cart.dart';
 import '../../../routes/index.dart';
 
@@ -23,8 +24,6 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   var _isInit = true;
   var _isLoading = false;
   static const storage = FlutterSecureStorage();
-  var token = storage.read(key: "token");
-
   @override
   void initState() {
     super.initState();
@@ -32,7 +31,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
 
   @override
   void didChangeDependencies() {
-    if (_isInit && token != null) {
+    if (_isInit && Provider.of<AccountModel>(context).getisUserLogedIn()) {
       setState(() {
         _isLoading = true;
       });

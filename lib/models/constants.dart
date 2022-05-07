@@ -1,1 +1,1 @@
-const apiEndpoint = 'https://localhost:5001/api';
+const apiEndpoint = 'https://bookwormmm.herokuapp.com/api';

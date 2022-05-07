@@ -33,12 +33,10 @@ class _CartListState extends State<CartList> {
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Dismissible(
-                      key: Key(cart.items[index].id!),
+                      key: Key(cart.items[index].id ?? ""),
                       direction: DismissDirection.endToStart,
                       onDismissed: (direction) {
-                        setState(() {
-                          cart.deleteItem(cart.items[index].id!);
-                        });
+                        cart.deleteItem(cart.items[index].id ?? "");
                       },
                       background: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
