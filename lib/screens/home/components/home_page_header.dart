@@ -23,6 +23,7 @@ class HomePageHeader extends StatefulWidget {
 class _HomePageHeaderState extends State<HomePageHeader> {
   var _isInit = true;
   var _isLoading = false;
+  var _isLogin = false;
   static const storage = FlutterSecureStorage();
   @override
   void initState() {
@@ -31,7 +32,8 @@ class _HomePageHeaderState extends State<HomePageHeader> {
 
   @override
   void didChangeDependencies() {
-    if (_isInit && Provider.of<AccountModel>(context).getisUserLogedIn()) {
+    _isLogin = Provider.of<AccountModel>(context).getisUserLogedIn();
+    if (_isInit && _isLogin ) {
       setState(() {
         _isLoading = true;
       });
@@ -131,8 +133,11 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                             ),
                             child: FlatButton(
                               onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed(RouteManager.ROUTE_CART);
+                                _isLogin
+                                    ? Navigator.of(context)
+                                        .pushNamed(RouteManager.ROUTE_CART)
+                                    : Navigator.of(context)
+                                        .pushNamed(RouteManager.ROUTE_LOGIN);
                               },
                               color: AppColors.kPrimary,
                               height: 38,
