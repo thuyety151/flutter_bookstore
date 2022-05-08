@@ -148,6 +148,7 @@ class _FilterFormState extends State<FilterForm> {
                       _title("Attributes"),
                       Consumer<AttributeModel>(
                         builder: (context, value, child) => ListButtonOptions(
+                          width: MediaQuery.of(context).size.width - 2 * 21,
                           key: Key(formValue.attributeId ?? ""),
                           listLabel:
                               value.attributes.map((e) => e.name).toList(),
