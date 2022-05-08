@@ -17,8 +17,8 @@ class _CheckoutListState extends State<CheckoutList> {
     return ListView.builder(
       shrinkWrap: true,
       primary: false,
-      itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
+      itemBuilder: (context, index) => Container(
+        padding: const EdgeInsets.symmetric(vertical: 1),
           child: CheckoutItem(checkoutItem: cart.items[index])),
       itemCount: cart.itemCount,
     );

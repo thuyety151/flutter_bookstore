@@ -11,8 +11,8 @@ class CheckoutPayment extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius:const BorderRadius.all(Radius.circular(4)),
           border:
-              Border.all(color: Colors.orange.withOpacity(0.4), width: 1),
-          color: Colors.orange.withOpacity(0.2),
+              Border.all(color: Colors.white, width: 1),
+          color: Colors.white,
           ),
       margin: const EdgeInsets.all(8),
       child: Column(
@@ -22,7 +22,7 @@ class CheckoutPayment extends StatelessWidget {
               value: 1,
               groupValue: 1,
               onChanged: (isChecked) {},
-              activeColor: Colors.tealAccent.shade400,
+              activeColor: Colors.orange.shade400,
             ),
             Text(
               "Cash on delivery",
@@ -32,10 +32,10 @@ class CheckoutPayment extends StatelessWidget {
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             Radio(
-              value: 1,
+              value: 0,
               groupValue: 1,
               onChanged: (isChecked) {},
-              activeColor: Colors.tealAccent.shade400,
+              activeColor: Colors.orange.shade400,
             ),
             Text(
               "MoMo",

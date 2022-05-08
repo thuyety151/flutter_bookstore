@@ -5,6 +5,7 @@ import 'package:flutter_folder/screens/checkout/components/checkout_list_item.da
 import 'package:flutter_folder/screens/checkout/components/checkout_payment_method.dart';
 
 import '../../components/button/primary_button.dart';
+import '../../configs/app_colors.dart';
 import '../../routes/index.dart';
 import 'components/checkout_address.dart';
 import 'components/checkout_price_section.dart';
@@ -37,6 +38,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Check out"),
+          backgroundColor: AppColors.kPrimary
         ),
         body: Container(
           margin: const EdgeInsets.only(left: 10),
@@ -70,6 +72,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     fontWeight: FontWeight.w600),
               ),
               const CheckoutList(),
+              Text(
+                "Price",
+                style: CustomTextStyle.textFormFieldMedium.copyWith(
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600),
+              ),
               const CheckoutPriceSection(),
               const SizedBox(height: 10),
               Text(

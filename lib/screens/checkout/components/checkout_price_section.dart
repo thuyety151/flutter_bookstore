@@ -27,8 +27,7 @@ class CheckoutPriceSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-             
-              createPriceItem("Sub total", "\$${cart.totalAmount}",
+              createPriceItem("Subtotal", "\$${cart.totalAmount.toStringAsFixed(2)}",
                   Colors.grey.shade700),
               createPriceItem("Shipping", "\$6.74",
                   Colors.teal.shade300),
@@ -53,12 +52,12 @@ class CheckoutPriceSection extends StatelessWidget {
                   Text(
                     "Total",
                     style: CustomTextStyle.textFormFieldSemiBold
-                        .copyWith(color: Colors.black, fontSize: 16),
+                        .copyWith(color: Colors.black, fontSize: 18),
                   ),
                   Text(
-                    "\$${cart.totalAmount}",
+                    "\$${cart.totalAmount.toStringAsFixed(2)}",
                     style: CustomTextStyle.textFormFieldSemiBold
-                        .copyWith(color: Colors.black, fontSize: 16),
+                        .copyWith(color: Colors.black, fontSize: 18),
                   )
                 ],
               )
@@ -84,7 +83,7 @@ createPriceItem(String key, String value, Color color) {
         Text(
           value,
           style: CustomTextStyle.textFormFieldMedium
-              .copyWith(color: color, fontSize: 14),
+              .copyWith(color: color, fontSize: 16),
         )
       ],
     ),
