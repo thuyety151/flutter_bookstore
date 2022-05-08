@@ -66,4 +66,30 @@ class Address {
     };
     return json.encode(map);
   }
+
+  Map mapToJson() => {
+        'id': id,
+        "firstName": firstName,
+        "lastName": lastName,
+        "phone": phone,
+        "apartmentNumber": apartmentNumber,
+        "streetAddress": streetAddress,
+        "districtID": districtID,
+        "districtName": districtName,
+        "provinceName": provinceName,
+      };
+
+  String get fullAddress {
+    var data = [
+      "appartmentNumber",
+      "streetAddress",
+      "districtName",
+      "provinceName"
+    ].map((e) => mapToJson()[e]);
+    return data.where((element) => element != null).join(", ");
+  }
+
+  String get fullName {
+    return "$firstName $lastName";
+  }
 }
