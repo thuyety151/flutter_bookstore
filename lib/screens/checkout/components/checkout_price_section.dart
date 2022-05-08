@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/custom_text_style.dart';
+import '../../../provider/cart.dart';
 
 class CheckoutPriceSection extends StatelessWidget {
   const CheckoutPriceSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context);
     return Container(
       margin:const EdgeInsets.all(4),
       decoration:const BoxDecoration(
@@ -24,8 +27,7 @@ class CheckoutPriceSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-             
-              createPriceItem("Sub total", "\$22.58",
+              createPriceItem("Subtotal", "\$${cart.totalAmount.toStringAsFixed(2)}",
                   Colors.grey.shade700),
               createPriceItem("Shipping", "\$6.74",
                   Colors.teal.shade300),
@@ -50,12 +52,12 @@ class CheckoutPriceSection extends StatelessWidget {
                   Text(
                     "Total",
                     style: CustomTextStyle.textFormFieldSemiBold
-                        .copyWith(color: Colors.black, fontSize: 16),
+                        .copyWith(color: Colors.black, fontSize: 18),
                   ),
                   Text(
-                    "\$29.32",
+                    "\$${cart.totalAmount.toStringAsFixed(2)}",
                     style: CustomTextStyle.textFormFieldSemiBold
-                        .copyWith(color: Colors.black, fontSize: 16),
+                        .copyWith(color: Colors.black, fontSize: 18),
                   )
                 ],
               )
@@ -81,7 +83,7 @@ createPriceItem(String key, String value, Color color) {
         Text(
           value,
           style: CustomTextStyle.textFormFieldMedium
-              .copyWith(color: color, fontSize: 14),
+              .copyWith(color: color, fontSize: 16),
         )
       ],
     ),

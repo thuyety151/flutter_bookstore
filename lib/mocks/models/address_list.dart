@@ -30,6 +30,7 @@ class AddressModel {
     var data = [
       "appartmentNumber",
       "streetAddress",
+      "wardName",
       "districtName",
       "provinceName"
     ].map((e) => toJson()[e]);

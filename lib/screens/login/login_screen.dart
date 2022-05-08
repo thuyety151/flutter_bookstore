@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onTap: () => Navigator.of(buildContext)
                 .pushNamed(RouteManager.ROUTE_HOME_PAGE),
             child: Container(
-              padding: const EdgeInsets.only(top: 32, right: 28),
+              padding: const EdgeInsets.only(top: 40, right: 28),
               alignment: Alignment.topRight,
               child: const Text("Skip", style: AppTextStyles.title),
             ),

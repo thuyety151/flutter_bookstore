@@ -17,10 +17,10 @@ class CheckoutDelivery extends StatelessWidget {
         margin:const EdgeInsets.all(4),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Radio(
-            value: 1,
+            value: 0,
             groupValue: 1,
             onChanged: (isChecked) {},
-            activeColor: Colors.tealAccent.shade400,
+            activeColor: Colors.orange.shade400,
           ),
           Text(
             "Giao hang nhanh",
@@ -32,7 +32,7 @@ class CheckoutDelivery extends StatelessWidget {
               value: 1,
               groupValue: 1,
               onChanged: (isChecked) {},
-              activeColor: Colors.tealAccent.shade400,
+              activeColor: Colors.orange.shade400,
             ),
             Text(
               "Shopee Express",

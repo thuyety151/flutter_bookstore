@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/custom_text_style.dart';
-import '../../../mocks/models/cart_item.dart';
+import '../../../models/item.dart';
+import '../../../provider/cart.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({Key? key, required this.cartItem}) : super(key: key);
-
-  final CartItemModel cartItem;
+  final Item item;
+  CartItem(this.item);
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
-          margin:const  EdgeInsets.only(left: 16, right: 16, top: 16),
+          margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
           decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(
@@ -20,14 +21,15 @@ class CartItem extends StatelessWidget {
               ))),
           child: Row(children: [
             Container(
-              margin: const EdgeInsets.only(right: 8, left: 8, top: 8, bottom: 8),
+              margin:
+                  const EdgeInsets.only(right: 8, left: 8, top: 8, bottom: 8),
               width: 80,
               height: 80,
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(14)),
                   color: Colors.blue.shade200,
                   image: DecorationImage(
-                    image: NetworkImage(cartItem.book.imgUrl),
+                    image: NetworkImage(item.pictureUrl ?? ""),
                   )),
             ),
             Expanded(
@@ -40,16 +42,16 @@ class CartItem extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.only(right: 8, top: 4),
                       child: Text(
-                        cartItem.book.name,
+                        item.productName ?? "",
                         maxLines: 2,
                         softWrap: true,
                         style: CustomTextStyle.textFormFieldSemiBold
                             .copyWith(fontSize: 14),
                       ),
                     ),
-                 const    SizedBox(height: 6),
+                    const SizedBox(height: 6),
                     Text(
-                      "Paperpack",
+                      item.attributeName ?? "",
                       style: CustomTextStyle.textFormFieldRegular
                           .copyWith(color: Colors.grey, fontSize: 14),
                     ),
@@ -57,32 +59,57 @@ class CartItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "\$ " + cartItem.book.price.toString(),
+                          "\$ " + item.price.toString() ?? "",
                           style: CustomTextStyle.textFormFieldBlack
                               .copyWith(color: Colors.red),
                         ),
-                        Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                              const   Icon(
-                                  Icons.remove,
-                                ),
-                                Container(
-                                  color: Colors.grey.shade200,
-                                  padding: const EdgeInsets.only(
-                                      top: 5, bottom: 3, right: 12, left: 12),
-                                  child: Text(
-                                    "1",
-                                    style:
-                                        CustomTextStyle.textFormFieldSemiBold,
-                                  ),
-                                ),
-                              const   Icon(Icons.add)
-                              ],
-                            ))
+                        Consumer<Cart>(
+                          builder: (context, cart, child) {
+                            return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    InkWell(
+                                      child: Icon(Icons.remove),
+                                      onTap: () {
+                                        print("decrease item");
+                                        cart.addOrUpdateItem(
+                                            item.id!,
+                                            item.productId!,
+                                            item.attributeId!,
+                                            item.quantity! - 1);
+                                      },
+                                    ),
+                                    Container(
+                                      color: Colors.grey.shade200,
+                                      padding: const EdgeInsets.only(
+                                          top: 5,
+                                          bottom: 3,
+                                          right: 12,
+                                          left: 12),
+                                      child: Text(
+                                        item.quantity.toString(),
+                                        style: CustomTextStyle
+                                            .textFormFieldSemiBold,
+                                      ),
+                                    ),
+                                    InkWell(
+                                      child: Icon(Icons.add),
+                                      onTap: () {
+                                        print("add item");
+                                        cart.addOrUpdateItem(
+                                            item.id!,
+                                            item.productId!,
+                                            item.attributeId!,
+                                            item.quantity! + 1);
+                                      },
+                                    ),
+                                  ],
+                                ));
+                          },
+                        ),
                       ],
                     )
                   ]),

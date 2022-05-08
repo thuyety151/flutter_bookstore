@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../mocks/models/cart_item.dart';
+import 'package:provider/provider.dart';
+import '../../../provider/cart.dart';
 import 'checkout_item.dart';
-class CheckoutList  extends StatefulWidget {
+
+class CheckoutList extends StatefulWidget {
   const CheckoutList({Key? key}) : super(key: key);
 
   @override
@@ -11,40 +13,14 @@ class CheckoutList  extends StatefulWidget {
 class _CheckoutListState extends State<CheckoutList> {
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context);
     return ListView.builder(
       shrinkWrap: true,
       primary: false,
-      itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Dismissible(
-            key: Key(cartItems[index].book.id.toString()),
-            direction: DismissDirection.endToStart,
-            onDismissed: (direction) {
-              setState(() {
-                cartItems.removeAt(index);
-              });
-            },
-            background: Container(
-              padding:const EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color:const Color(0xFFFFE6E6),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                children: [
-                 const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.restore_from_trash),
-                  ),
-                ],
-              ),
-            ),
-            child: CheckoutItem(checkoutItem: cartItems[index]),
-          ),
-        ),
-      itemCount: cartItems.length,
-      
+      itemBuilder: (context, index) => Container(
+        padding: const EdgeInsets.symmetric(vertical: 1),
+          child: CheckoutItem(checkoutItem: cart.items[index])),
+      itemCount: cart.itemCount,
     );
   }
 }
