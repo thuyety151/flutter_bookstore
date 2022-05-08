@@ -73,8 +73,8 @@ class _CardAddressState extends State<CardAddress> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Home",
+              Text(
+                widget.data.fullName(),
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
               Text(

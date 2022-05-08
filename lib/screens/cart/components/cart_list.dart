@@ -49,7 +49,10 @@ class _CartListState extends State<CartList> {
                             const Spacer(),
                             IconButton(
                               onPressed: () {},
-                              icon: const Icon(Icons.restore_from_trash),
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              ),
                             ),
                           ],
                         ),
