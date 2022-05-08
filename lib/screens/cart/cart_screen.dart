@@ -13,14 +13,14 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.white,
-          foregroundColor: AppColors.kGrey,
+          backgroundColor: AppColors.kPrimary,
+          foregroundColor: Colors.white,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 'Your Cart',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ],
           )),
