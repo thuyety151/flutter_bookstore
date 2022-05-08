@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
-import 'package:flutter_folder/mocks/models/address_list.dart';
 import 'package:flutter_folder/models/address.dart';
 import 'package:flutter_folder/provider/address_model.dart' as provider;
 import 'package:flutter_folder/screens/address/components/address_form.dart';
@@ -18,26 +17,28 @@ class AddressScreen extends StatefulWidget {
 }
 
 class _AddressScreenState extends State<AddressScreen> {
-  Widget _listAddress() {
-    return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: listAddress.length,
-        itemBuilder: (_, index) {
-          return Dismissible(
-              key: Key(listAddress[index].id),
-              background: Container(
-                  color: Colors.red,
-                  alignment: Alignment.centerRight,
-                  child: FlatButton(
-                    child: const Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
-                  )),
-              child: CardAddress(data: listAddress[index]));
-        });
+  Widget _listAddress(BuildContext context) {
+    return Consumer<provider.AddressModel>(
+        builder: (context, value, child) => ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: value.listAddresses.length,
+            itemBuilder: (_, index) {
+              return Dismissible(
+                  key: Key(value.listAddresses.elementAt(index).id ?? ""),
+                  background: Container(
+                      color: Colors.red,
+                      alignment: Alignment.centerRight,
+                      child: FlatButton(
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {},
+                      )),
+                  child:
+                      CardAddress(data: value.listAddresses.elementAt(index)));
+            }));
   }
 
   void createAddress(Address value) {
@@ -86,6 +87,8 @@ class _AddressScreenState extends State<AddressScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<provider.AddressModel>(context).getListAddresses();
+
     return Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
@@ -117,7 +120,7 @@ class _AddressScreenState extends State<AddressScreen> {
                         borderRadius: BorderRadius.circular(8)),
                   ),
                 ),
-                _listAddress()
+                _listAddress(context)
               ]),
             ),
           ),

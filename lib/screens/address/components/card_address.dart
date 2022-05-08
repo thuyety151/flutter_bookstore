@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/button/primary_button.dart';
 import 'package:flutter_folder/components/form/address_picker.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
-import 'package:flutter_folder/mocks/models/address_list.dart';
+import 'package:flutter_folder/models/address.dart';
 
 class CardAddress extends StatefulWidget {
   const CardAddress({Key? key, required this.data}) : super(key: key);
 
-  final AddressModel data;
+  final Address data;
 
   @override
   _CardAddressState createState() => _CardAddressState();
@@ -73,18 +73,22 @@ class _CardAddressState extends State<CardAddress> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Home",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              Text(
+                widget.data.fullName,
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
               Text(
-                widget.data.phone,
+                widget.data.phone.toString(),
                 style: const TextStyle(color: AppColors.kTextGrey),
               ),
-              Text(
-                widget.data.fullAddress(),
-                style:
-                    const TextStyle(color: AppColors.kTextGrey, fontSize: 13),
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 128,
+                child: Text(
+                  widget.data.fullAddress,
+                  style:
+                      const TextStyle(color: AppColors.kTextGrey, fontSize: 13),
+                ),
               )
             ],
           ),
