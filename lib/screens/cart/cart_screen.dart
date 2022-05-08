@@ -19,20 +19,18 @@ class CartScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Your cart 2',
+                'Your Cart',
                 style: TextStyle(fontSize: 16),
-              ),
-              Text(
-                "${cartItems.length} items",
-                style: const TextStyle(fontSize: 14),
               ),
             ],
           )),
-      body: Column(
-        children: const [
-          CartList(),
-          CartCheckOut(),
-        ],
+      body: SingleChildScrollView(
+              child: Column(
+          children: const [
+            CartList(),
+            CartCheckOut(),
+          ],
+        ),
       ),
     );
   }

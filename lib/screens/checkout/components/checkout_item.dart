@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../components/custom_text_style.dart';
-import '../../../mocks/models/cart_item.dart';
+import '../../../models/item.dart';
 
 class CheckoutItem extends StatelessWidget {
   const CheckoutItem({Key? key, required this.checkoutItem}) : super(key: key);
 
-  final CartItemModel checkoutItem;
+  final Item checkoutItem;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,7 +27,7 @@ class CheckoutItem extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(14)),
                   color: Colors.blue.shade200,
                   image: DecorationImage(
-                    image: NetworkImage(checkoutItem.book.imgUrl),
+                    image: NetworkImage(checkoutItem.pictureUrl ?? ""),
                   )),
             ),
             Expanded(
@@ -40,7 +40,7 @@ class CheckoutItem extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.only(right: 8, top: 4),
                       child: Text(
-                        checkoutItem.book.name,
+                        checkoutItem.productName ?? "",
                         maxLines: 2,
                         softWrap: true,
                         style: CustomTextStyle.textFormFieldSemiBold
@@ -49,7 +49,7 @@ class CheckoutItem extends StatelessWidget {
                     ),
                    const SizedBox(height: 6),
                     Text(
-                      "Paperpack",
+                      checkoutItem.attributeName ?? "",
                       style: CustomTextStyle.textFormFieldRegular
                           .copyWith(color: Colors.grey, fontSize: 14),
                     ),
@@ -57,7 +57,7 @@ class CheckoutItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "\$ " + checkoutItem.book.price.toString(),
+                          "\$ " + checkoutItem.price.toString(),
                           style: CustomTextStyle.textFormFieldBlack
                               .copyWith(color: Colors.red),
                         ),
@@ -73,7 +73,7 @@ class CheckoutItem extends StatelessWidget {
                                   padding: const EdgeInsets.only(
                                       top: 5, bottom: 3, right: 12, left: 12),
                                   child: Text(
-                                    "x 1",
+                                    "x ${checkoutItem.quantity}",
                                     style:
                                         CustomTextStyle.textFormFieldSemiBold,
                                   ),

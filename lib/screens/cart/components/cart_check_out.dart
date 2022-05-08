@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/custom_text_style.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/button/primary_button.dart';
 import '../../../configs/size_config.dart';
+import '../../../provider/cart.dart';
 import '../../../routes/index.dart';
 
 class CartCheckOut extends StatefulWidget {
@@ -33,6 +35,7 @@ class _CartCheckOutState extends State<CartCheckOut> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    final cart = Provider.of<Cart>(context);
     return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,18 +43,18 @@ class _CartCheckOutState extends State<CartCheckOut> {
           Row(
             children: [
               Container(
-                margin:const  EdgeInsets.only(left: 20),
+                margin: const EdgeInsets.only(left: 20),
                 padding: const EdgeInsets.all(10),
                 height: getProportionateScreenWidth(40),
                 width: getProportionateScreenWidth(40),
                 decoration: BoxDecoration(
-                  color:const  Color(0xFFF5F6F9),
+                  color: const Color(0xFFF5F6F9),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: SvgPicture.asset("assets/icons/receipt.svg"),
               ),
-           const    Spacer(),
-            const   Text("Add voucher code"),
+              const Spacer(),
+              const Text("Add voucher code"),
               const SizedBox(width: 10),
               Container(
                 margin: const EdgeInsets.only(right: 20),
@@ -63,33 +66,35 @@ class _CartCheckOutState extends State<CartCheckOut> {
               )
             ],
           ),
-         const  SizedBox(height: 8),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                margin:const  EdgeInsets.only(left: 30),
+                margin: const EdgeInsets.only(left: 30),
                 child: Text(
                   "Total:",
                   style: CustomTextStyle.textFormFieldSemiBold
                       .copyWith(fontSize: 16),
                 ),
               ),
-              Container(
-                margin:const  EdgeInsets.only(right: 30),
-                child: Text(
-                  "\$299.00",
-                  style: CustomTextStyle.textFormFieldBlack
-                      .copyWith(color: Colors.red, fontSize: 16),
+              Consumer<Cart>(
+                builder: (context, value, child) => Container(
+                  margin: const EdgeInsets.only(right: 30),
+                  child: Text(
+                    "\$${cart.totalAmount.toStringAsFixed(2)}",
+                    style: CustomTextStyle.textFormFieldBlack
+                        .copyWith(color: Colors.red, fontSize: 16),
+                  ),
                 ),
-              ),
+              )
             ],
           ),
-        const   SizedBox(height: 20),
+          const SizedBox(height: 20),
           PrimaryButton(
             onTap: onCheckout,
             buttonText: "Check Out",
-            buttonColor:const  Color.fromARGB(255, 249, 82, 69),
+            buttonColor: const Color.fromARGB(255, 249, 82, 69),
             textColor: Colors.white,
             buttonWidth: 200,
             loading: isLoading,

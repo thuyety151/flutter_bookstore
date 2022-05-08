@@ -3,13 +3,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/category/category_circle.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
-import 'package:flutter_folder/provider/cart_model.dart';
 import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/screens/home/components/app_banner.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
-class HomePageHeader extends StatelessWidget {
+import '../../../components/badge.dart';
+import '../../../provider/account_model.dart';
+import '../../../provider/cart.dart';
+import '../../../routes/index.dart';
+
+class HomePageHeader extends StatefulWidget {
   const HomePageHeader({Key? key}) : super(key: key);
+
+  @override
+  State<HomePageHeader> createState() => _HomePageHeaderState();
+}
+
+class _HomePageHeaderState extends State<HomePageHeader> {
+  var _isInit = true;
+  var _isLoading = false;
+  static const storage = FlutterSecureStorage();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit && Provider.of<AccountModel>(context).getisUserLogedIn()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      Provider.of<Cart>(context).fetchAndSetCart().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   Widget _listCategory() {
     return Scrollbar(
@@ -39,7 +74,7 @@ class HomePageHeader extends StatelessWidget {
   Widget _search() {
     return Container(
         height: 38,
-        width: 360,
+        width: 330,
         padding: const EdgeInsets.only(left: 8),
         child: TextField(
             decoration: InputDecoration(
@@ -85,27 +120,38 @@ class HomePageHeader extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _search(),
-                    FlatButton(
-                      onPressed: () {
-                        Provider.of<CartModel>(context, listen: false)
-                            .getCart();
-                        // Navigator.of(context).pushNamed(RouteManager.ROUTE_CART);
-                      },
-                      color: AppColors.kPrimary,
-                      height: 38,
-                      minWidth: 38,
-                      padding: const EdgeInsets.symmetric(horizontal: 0),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                      child: const Image(
-                        image: AssetImage(
-                          "assets/icons/icon-add-cart.png",
-                        ),
-                        height: 32,
-                        width: 32,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                    _isLoading
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Consumer<Cart>(
+                            builder: (_, cart, ch) => Badge(
+                              child: ch!,
+                              value: cart.itemCount.toString(),
+                            ),
+                            child: FlatButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushNamed(RouteManager.ROUTE_CART);
+                              },
+                              color: AppColors.kPrimary,
+                              height: 38,
+                              minWidth: 38,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 0),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8))),
+                              child: const Image(
+                                image: AssetImage(
+                                  "assets/icons/icon-add-cart.png",
+                                ),
+                                height: 32,
+                                width: 32,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               ),
