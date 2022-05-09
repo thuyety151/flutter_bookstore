@@ -33,7 +33,6 @@ class BookModel extends ChangeNotifier {
 
   Future<void> getDetail(String id) async {
     var response = await _api.getBookDetail(id);
-
     detail = response;
     notifyListeners();
   }

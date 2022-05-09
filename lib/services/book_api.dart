@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/models/newrelease.dart';
 import 'package:flutter_folder/services/api_base.dart';
@@ -42,12 +44,10 @@ class BookApi {
     }
   }
 
-  Future<Book> getBookDetail(String id) async {
+  FutureOr<Book> getBookDetail(String id) async {
     try {
-      var request = await _api.get("/books?id=$id");
-
-      var response = await http.Response.fromStream(await request.send());
-      return Book.detailFromJson(json.decode(response.body)["value"]);
+      var res = await withRestApiResponse("/books?id=$id");
+      return Book.detailFromJson(json.decode(res)["value"]);
     } catch (e) {
       rethrow;
     }
