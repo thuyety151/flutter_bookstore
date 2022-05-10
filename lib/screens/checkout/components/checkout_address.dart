@@ -5,7 +5,6 @@ import 'package:flutter_folder/components/custom_text_style.dart';
 import 'package:flutter_folder/provider/address_model.dart' as provider;
 import 'package:provider/provider.dart';
 
-import '../../../mocks/models/address_list.dart';
 import '../../../models/address.dart';
 import '../../address/components/address_form.dart';
 import '../../address/components/card_address.dart';
@@ -18,32 +17,34 @@ class CheckoutAddress extends StatefulWidget {
 }
 
 class _CheckoutAddressState extends State<CheckoutAddress> {
-  var mainAddressIndex =
-      listAddress.indexWhere((element) => element.isMain == true);
-  Widget _listAddress() {
-    return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: listAddress.length,
-        itemBuilder: (_, index) {
-          return Dismissible(
-              key: Key(listAddress[index].id),
-              background: Container(
-                  color: Colors.red,
-                  alignment: Alignment.centerRight,
-                  child: FlatButton(
-                    child: const Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
-                  )),
-              child: CardAddress(data: listAddress[index]));
-        });
+  
+  Widget _listAddress(BuildContext context) {
+    return Consumer<provider.AddressModel>(
+        builder: (context, value, child) => ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: value.listAddresses.length,
+            itemBuilder: (_, index) {
+              return Dismissible(
+                  key: Key(value.listAddresses.elementAt(index).id ?? ""),
+                  background: Container(
+                      color: Colors.red,
+                      alignment: Alignment.centerRight,
+                      child: FlatButton(
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {},
+                      )),
+                  child:
+                      CardAddress(data: value.listAddresses.elementAt(index)));
+            }));
   }
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<provider.AddressModel>(context).getListAddresses();
     void createAddress(Address value) {
       Provider.of<provider.AddressModel>(context, listen: false)
           .createAddress(value);
@@ -105,7 +106,7 @@ class _CheckoutAddressState extends State<CheckoutAddress> {
             child: Padding(
               padding: const EdgeInsets.only(top: 26, left: 8, right: 8),
               child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical, child: _listAddress()
+                  scrollDirection: Axis.vertical, child: _listAddress(context)
                   // const AddressPicker(),
                   // Padding(
                   //   padding: const EdgeInsets.only(top: 16),
@@ -138,95 +139,97 @@ class _CheckoutAddressState extends State<CheckoutAddress> {
               borderRadius: const BorderRadius.all(Radius.circular(4)),
               border: Border.all(color: Colors.grey.shade200)),
           padding: const EdgeInsets.only(left: 12, top: 8, right: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 6,
-              ),
-              mainAddressIndex != -1
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                          Text(
-                            listAddress[mainAddressIndex].fullName(),
-                            style: CustomTextStyle.textFormFieldSemiBold
-                                .copyWith(fontSize: 14),
-                          ),
-                          Container(
-                              margin: const EdgeInsets.only(top: 16),
-                              child: Text(
-                                listAddress[mainAddressIndex].fullAddress(),
-                                style: CustomTextStyle.textFormFieldMedium
-                                    .copyWith(
-                                        fontSize: 13,
-                                        color: Colors.grey.shade800),
-                              )),
-                          const SizedBox(
-                            height: 6,
-                          ),
-                          RichText(
-                            text: TextSpan(children: [
-                              TextSpan(
-                                  text: "Mobile : ",
+          child: Consumer<provider.AddressModel>(
+            builder: (context, value, child) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 6,
+                ),
+                value.listAddresses.indexWhere((element) => element.isMain == true) != -1
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                            Text(
+                              value.listAddresses.firstWhere((element) => element.isMain == true).fullName,
+                              style: CustomTextStyle.textFormFieldSemiBold
+                                  .copyWith(fontSize: 14),
+                            ),
+                            Container(
+                                margin: const EdgeInsets.only(top: 16),
+                                child: Text(
+                                 value.listAddresses.firstWhere((element) => element.isMain == true).fullAddress,
                                   style: CustomTextStyle.textFormFieldMedium
                                       .copyWith(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade800)),
-                              TextSpan(
-                                  text: listAddress[mainAddressIndex].phone,
-                                  style: CustomTextStyle.textFormFieldBold
-                                      .copyWith(
-                                          fontSize: 12, color: Colors.black)),
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Container(
-                            color: Colors.grey.shade300,
-                            height: 1,
-                            width: double.infinity,
-                          ),
-                        ])
-                  : Text(
-                      "No address available",
-                      style: CustomTextStyle.textFormFieldSemiBold
-                          .copyWith(fontSize: 14),
-                      textAlign: TextAlign.center,
-                    ),
-              Row(children: [
-                const Spacer(
-                  flex: 2,
-                ),
-                FlatButton(
-                  onPressed: showDialogEdit,
-                  child: Text(
-                    "Edit Address",
-                    style: CustomTextStyle.textFormFieldSemiBold
-                        .copyWith(fontSize: 12, color: Colors.indigo.shade700),
+                                          fontSize: 13,
+                                          color: Colors.grey.shade800),
+                                )),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            RichText(
+                              text: TextSpan(children: [
+                                TextSpan(
+                                    text: "Mobile : ",
+                                    style: CustomTextStyle.textFormFieldMedium
+                                        .copyWith(
+                                            fontSize: 12,
+                                            color: Colors.grey.shade800)),
+                                TextSpan(
+                                    text: value.listAddresses.firstWhere((element) => element.isMain == true).phone,
+                                    style: CustomTextStyle.textFormFieldBold
+                                        .copyWith(
+                                            fontSize: 12, color: Colors.black)),
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Container(
+                              color: Colors.grey.shade300,
+                              height: 1,
+                              width: double.infinity,
+                            ),
+                          ])
+                    : Text(
+                        "No address available",
+                        style: CustomTextStyle.textFormFieldSemiBold
+                            .copyWith(fontSize: 14),
+                        textAlign: TextAlign.center,
+                      ),
+                Row(children: [
+                  const Spacer(
+                    flex: 2,
                   ),
-                ),
-                const Spacer(flex: 3),
-                Container(
-                  height: 20,
-                  width: 1,
-                  color: Colors.grey,
-                ),
-                const Spacer(
-                  flex: 3,
-                ),
-                FlatButton(
-                  onPressed: showDialogCreate,
-                  child: Text("Add New Address",
+                  FlatButton(
+                    onPressed: showDialogEdit,
+                    child: Text(
+                      "Edit Address",
                       style: CustomTextStyle.textFormFieldSemiBold.copyWith(
-                          fontSize: 12, color: Colors.indigo.shade700)),
-                ),
-                const Spacer(
-                  flex: 2,
-                ),
-              ])
-            ],
+                          fontSize: 12, color: Colors.indigo.shade700),
+                    ),
+                  ),
+                  const Spacer(flex: 3),
+                  Container(
+                    height: 20,
+                    width: 1,
+                    color: Colors.grey,
+                  ),
+                  const Spacer(
+                    flex: 3,
+                  ),
+                  FlatButton(
+                    onPressed: showDialogCreate,
+                    child: Text("Add New Address",
+                        style: CustomTextStyle.textFormFieldSemiBold.copyWith(
+                            fontSize: 12, color: Colors.indigo.shade700)),
+                  ),
+                  const Spacer(
+                    flex: 2,
+                  ),
+                ])
+              ],
+            ),
           ),
         ),
       ),
