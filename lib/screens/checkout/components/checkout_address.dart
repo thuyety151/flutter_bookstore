@@ -21,25 +21,27 @@ class _CheckoutAddressState extends State<CheckoutAddress> {
   var mainAddressIndex =
       listAddress.indexWhere((element) => element.isMain == true);
   Widget _listAddress() {
-    return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: listAddress.length,
-        itemBuilder: (_, index) {
-          return Dismissible(
-              key: Key(listAddress[index].id),
-              background: Container(
-                  color: Colors.red,
-                  alignment: Alignment.centerRight,
-                  child: FlatButton(
-                    child: const Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
-                  )),
-              child: CardAddress(data: listAddress[index]));
-        });
+    return Consumer<provider.AddressModel>(
+        builder: (context, value, child) => ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: value.listAddresses.length,
+            itemBuilder: (_, index) {
+              return Dismissible(
+                  key: Key(value.listAddresses.elementAt(index).id ?? ""),
+                  background: Container(
+                      color: Colors.red,
+                      alignment: Alignment.centerRight,
+                      child: FlatButton(
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {},
+                      )),
+                  child:
+                      CardAddress(data: value.listAddresses.elementAt(index)));
+            }));
   }
 
   @override

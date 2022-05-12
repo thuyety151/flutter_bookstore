@@ -5,10 +5,14 @@ import 'package:flutter_folder/components/form/outlined_input.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/helpers/validation.dart';
 import 'package:flutter_folder/models/address.dart';
+import 'package:flutter_folder/provider/address_model.dart';
+import 'package:provider/provider.dart';
 
 class AddressForm extends StatefulWidget {
-  const AddressForm({Key? key, required this.submit}) : super(key: key);
+  const AddressForm({Key? key, required this.submit, this.modelValue})
+      : super(key: key);
   final Function(Address) submit;
+  final Address? modelValue;
 
   @override
   _AddressFormState createState() => _AddressFormState();
@@ -19,13 +23,25 @@ class _AddressFormState extends State<AddressForm> {
   final _formKey = GlobalKey<FormState>();
   late bool isLoading = false;
 
+  @override
+  void initState() {
+    super.initState();
+    if (widget.modelValue?.id != null) {
+      setState(() {
+        formValue = widget.modelValue as Address;
+      });
+    }
+  }
+
   void onSubmit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       setState(() {
         isLoading = true;
       });
-      widget.submit(formValue);
+      Provider.of<AddressModel>(context, listen: false)
+          .createAddress(formValue);
+      // widget.submit(formValue);
 
       setState(() {
         isLoading = false;
@@ -35,11 +51,12 @@ class _AddressFormState extends State<AddressForm> {
 
   void getAddressPickerData(AddressFormValue value) {
     setState(() {
-      formValue.districtID = value.district?.districtID.toString();
+      formValue.districtID = value.district?.districtID;
       formValue.districtName = value.district?.districtName;
-      formValue.provinceID = value.province?.provinceId.toString();
+      formValue.provinceID = value.province?.provinceId;
       formValue.provinceName = value.province?.provinceName;
       formValue.wardName = value.ward?.wardName;
+      formValue.wardCode = value.ward?.wardCode;
     });
   }
 
@@ -68,6 +85,7 @@ class _AddressFormState extends State<AddressForm> {
                     formValue.lastName = value;
                   });
                 },
+                modelValue: formValue.lastName,
                 ruleNames: const [ValidationName.required],
                 label: "Last name",
               ),
@@ -78,10 +96,12 @@ class _AddressFormState extends State<AddressForm> {
                     formValue.phone = value;
                   });
                 },
+                modelValue: formValue.phone,
                 ruleNames: const [ValidationName.required],
                 label: "Phone number",
               ),
               AddressPicker(
+                modelValue: formValue,
                 emitValue: getAddressPickerData,
               ),
               OutlinedInput(
@@ -91,6 +111,7 @@ class _AddressFormState extends State<AddressForm> {
                     formValue.streetAddress = value;
                   });
                 },
+                modelValue: formValue.streetAddress,
                 ruleNames: const [ValidationName.required],
                 label: "Street",
               ),
@@ -101,6 +122,7 @@ class _AddressFormState extends State<AddressForm> {
                     formValue.apartmentNumber = value;
                   });
                 },
+                modelValue: formValue.apartmentNumber,
                 ruleNames: const [ValidationName.required],
                 label: "Apartment number",
               ),
@@ -121,7 +143,7 @@ class _AddressFormState extends State<AddressForm> {
                 padding: const EdgeInsets.only(top: 16),
                 child: PrimaryButton(
                   onTap: onSubmit,
-                  buttonText: "Create",
+                  buttonText: formValue.id == null ? "Create" : "Update",
                   buttonColor: AppColors.kPrimary,
                   fullWidth: true,
                   textColor: Colors.white,

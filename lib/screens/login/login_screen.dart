@@ -10,8 +10,6 @@ import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/services/authentication_service.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/chat_provider.dart';
-
 class Temp {
   String email;
   String password;

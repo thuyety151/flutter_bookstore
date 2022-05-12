@@ -83,6 +83,7 @@ class _OutlinedInputState extends State<OutlinedInput> {
               )
             ],
             TextFormField(
+              initialValue: value,
               maxLines: widget.maxLines ?? 1,
               onChanged: (input) {
                 widget.onUpdateValue(input);

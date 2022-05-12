@@ -22,7 +22,7 @@ class OutlinedSelect<T> extends StatefulWidget {
   final List<DropdownMenuItem<T>>? items;
   final T? modelValue;
   final String hint;
-  final Function(dynamic?) onChange;
+  final Function(dynamic) onChange;
   final List<SelectOption<T>> options;
 
   @override
@@ -32,7 +32,10 @@ class OutlinedSelect<T> extends StatefulWidget {
 class _OutlinedSelectState<T> extends State<OutlinedSelect<T>> {
   @override
   Widget build(BuildContext context) {
+
     return Column(
+        key: widget.key,
+        // key: Key(widget.options.length.toString()),
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,6 +56,9 @@ class _OutlinedSelectState<T> extends State<OutlinedSelect<T>> {
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               child: DropdownButton(
                 value: widget.modelValue,
+                // value: widget.options
+                //     .where((element) => element.value == widget.modelValue)
+                //     .first,
                 hint: Text(widget.hint),
                 items: widget.options.isEmpty
                     ? []

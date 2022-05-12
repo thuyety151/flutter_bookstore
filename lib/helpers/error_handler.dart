@@ -51,7 +51,9 @@ Future withRestApiResponse(String url,
     final Api _api = Api();
     var request = method == "get"
         ? await _api.get(url)
-        : await _api.post(url, body: body);
+        : method == "delete"
+            ? await _api.delete(url)
+            : await _api.post(url, body: body);
     var response = await http.Response.fromStream(await request.send());
     // Navigator.pop(navigatorKey.currentState!.overlay!.context);
     if (response.statusCode != 401) {

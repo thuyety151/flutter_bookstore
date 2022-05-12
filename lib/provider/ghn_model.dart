@@ -13,8 +13,11 @@ class GHNModel extends ChangeNotifier {
   final AddressPickerApi _api = AddressPickerApi();
 
   Future<void> getListProvince() async {
-    var response = await _api.getListProvince();
-    listProvince = response.data as List<Province>;
+    if (listProvince.isEmpty) {
+      var response = await _api.getListProvince();
+      listProvince = response.data as List<Province>;
+    }
+
     notifyListeners();
   }
 

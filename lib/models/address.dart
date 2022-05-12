@@ -7,8 +7,9 @@ class Address {
   String? phone;
   String? apartmentNumber;
   String? streetAddress;
-  String? districtID;
-  String? provinceID;
+  int? districtID;
+  int? provinceID;
+  int? wardCode;
   String? wardName;
   String? districtName;
   String? provinceName;
@@ -23,6 +24,7 @@ class Address {
       this.streetAddress,
       this.districtID,
       this.provinceID,
+      this.wardCode,
       this.districtName,
       this.isMain,
       this.provinceName,
@@ -38,10 +40,11 @@ class Address {
       phone: json["phone"],
       apartmentNumber: json["apartmentNumber"],
       streetAddress: json["streetAddress"],
-      districtID: json["districtID"],
+      districtID: json["districtId"],
       districtName: json["districtName"],
-      provinceID: json["provinceID"],
-      isMain: json["isMain"],
+      provinceID: json["provinceId"],
+      wardCode: int.parse(json["wardCode"] ?? "0"),
+      isMain: json["isMain"].toString().toLowerCase() == "true",
       provinceName: json["provinceName"],
       wardName: json["wardName"],
     );
@@ -52,18 +55,22 @@ class Address {
 
   String toJson() {
     Map<String, dynamic> map = {
+      "id": id,
       "firstName": firstName,
       "lastName": lastName,
       "phone": phone,
       "apartmentNumber": apartmentNumber,
       "streetAddress": streetAddress,
-      "districtID": int.parse(districtID ?? "0"),
-      "provinceID": int.parse(provinceID ?? "0"),
+      "districtID": districtID,
+      "provinceID": provinceID,
       "isMain": isMain,
       "provinceName": provinceName,
       "districtName": districtName,
       "wardName": wardName,
     };
+    if (id == null) {
+      map.remove("id");
+    }
     return json.encode(map);
   }
 
