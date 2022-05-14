@@ -56,8 +56,10 @@ Future withRestApiResponse(String url,
             : await _api.post(url, body: body);
     var response = await http.Response.fromStream(await request.send());
     // Navigator.pop(navigatorKey.currentState!.overlay!.context);
-    if (response.statusCode != 401) {
+    if (response.statusCode == 500) {
       return response.body;
+    } else if (response.statusCode == 400) {
+      throw response.body;
     }
     if (url.contains("login")) {
       throw kLoginFailed;

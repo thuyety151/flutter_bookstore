@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/account.dart';
+import 'package:flutter_folder/screens/profile/components/form_change_password.dart';
 import 'package:flutter_folder/services/authentication_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -54,5 +55,21 @@ class AccountModel extends ChangeNotifier {
   void setImagePath(String path) {
     imagePickerPath = path;
     notifyListeners();
+  }
+
+  Future<void> changePassword(
+      ChangePWValue value, VoidCallback onSuccess) async {
+    try {
+      var res = await withRestApiResponse("/account/update-account-password",
+          method: "post", body: value.toUpdateBodyJson());
+      if (json.decode(res)["isSuccess"] != null) {
+        onSuccess();
+      }
+    } catch (e) {
+      // catchErrAndNotify(
+      //     AlertDialogParams(title: "Change Password", content: e.toString()),
+      //     e);
+      rethrow;
+    }
   }
 }
