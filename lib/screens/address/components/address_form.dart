@@ -35,9 +35,9 @@ class _AddressFormState extends State<AddressForm> {
 
   void getAddressPickerData(AddressFormValue value) {
     setState(() {
-      formValue.districtID = value.district?.districtID.toString();
+      formValue.districtID = value.district?.districtID;
       formValue.districtName = value.district?.districtName;
-      formValue.provinceID = value.province?.provinceId.toString();
+      formValue.provinceID = value.province?.provinceId;
       formValue.provinceName = value.province?.provinceName;
       formValue.wardName = value.ward?.wardName;
     });

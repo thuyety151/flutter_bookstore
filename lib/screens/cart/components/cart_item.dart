@@ -59,7 +59,7 @@ class CartItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "\$ " + item.price.toString() ?? "",
+                          "\$ " + item.price.toString(),
                           style: CustomTextStyle.textFormFieldBlack
                               .copyWith(color: Colors.red),
                         ),
@@ -76,7 +76,6 @@ class CartItem extends StatelessWidget {
                                       onTap: () {
                                         print("decrease item");
                                         cart.addOrUpdateItem(
-                                            item.id!,
                                             item.productId!,
                                             item.attributeId!,
                                             item.quantity! - 1);
@@ -100,7 +99,6 @@ class CartItem extends StatelessWidget {
                                       onTap: () {
                                         print("add item");
                                         cart.addOrUpdateItem(
-                                            item.id!,
                                             item.productId!,
                                             item.attributeId!,
                                             item.quantity! + 1);

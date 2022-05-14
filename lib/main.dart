@@ -10,6 +10,8 @@ import 'package:flutter_folder/provider/cart.dart';
 import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/provider/chat_provider.dart';
 import 'package:flutter_folder/provider/ghn_model.dart';
+import 'package:flutter_folder/provider/shipping.dart';
+import 'package:flutter_folder/provider/shipping_fee.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,6 +51,8 @@ class MyApp extends StatelessWidget {
         // ChangeNotifierProvider(create: (context) => ProfileState())
         ChangeNotifierProvider(create: (context) => GHNModel()),
         ChangeNotifierProvider(create: (context) => AddressModel()),
+        ChangeNotifierProvider(create: (context) => Shipping()),
+        ChangeNotifierProvider(create: (context) => ShippingFee()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
