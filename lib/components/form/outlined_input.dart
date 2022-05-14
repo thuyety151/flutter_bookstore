@@ -98,6 +98,7 @@ class _OutlinedInputState extends State<OutlinedInput> {
                   border: InputBorder.none,
                   prefixIcon: widget.prefixIcon,
                   enabledBorder: outlineInputBorder(),
+                  disabledBorder: outlineInputBorder(),
                   focusedBorder: outlineInputBorder(),
                   focusedErrorBorder: errorInputBorder(),
                   errorBorder: errorInputBorder(),

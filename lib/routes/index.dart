@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/image/view_full_screen.dart';
+import 'package:flutter_folder/components/image_picker.dart';
 import 'package:flutter_folder/screens/address/address_screen.dart';
 import 'package:flutter_folder/screens/book_detail/book_detail_screen.dart';
 import 'package:flutter_folder/screens/books_for_sale/books_for_sale_screen.dart';
@@ -41,6 +42,7 @@ class RouteManager {
   static const String ROUTE_MANAGE_ORDER = "/manage-order";
   static const String ROUTE_REVIEW = "/review";
   static const String ROUTE_CHAT = "/chat";
+  static const String ROUTE_IMAGE_PICKER = "/image-picker";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -88,6 +90,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => ReviewScreen());
       case ROUTE_CHAT:
         return MaterialPageRoute(builder: (context) => ChatScreen());
+      case ROUTE_IMAGE_PICKER:
+        return MaterialPageRoute(builder: (context) => const ImagePicker());
       default:
         throw FormatException("Route not found! Check routes again");
     }
