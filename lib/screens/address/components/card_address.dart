@@ -3,6 +3,7 @@ import 'package:flutter_folder/components/button/primary_button.dart';
 import 'package:flutter_folder/components/form/address_picker.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/models/address.dart';
+import 'package:flutter_folder/screens/address/components/address_form.dart';
 
 class CardAddress extends StatefulWidget {
   const CardAddress({Key? key, required this.data}) : super(key: key);
@@ -28,23 +29,29 @@ class _CardAddressState extends State<CardAddress> {
                 ),
                 color: Colors.white),
             child: Padding(
-              padding: const EdgeInsets.only(top: 26, left: 8, right: 8),
-              child: Column(children: [
-                AddressPicker(
-                  emitValue: (value) {},
+                padding: const EdgeInsets.only(top: 26, left: 8, right: 8),
+                child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: AddressForm(
+                      modelValue: widget.data,
+                      submit: (value) {},
+                    ))
+                // child: Column(children: [
+                //   AddressPicker(
+                //     emitValue: (value) {},
+                //   ),
+                //   Padding(
+                //     padding: const EdgeInsets.only(top: 16),
+                //     child: PrimaryButton(
+                //       onTap: () {},
+                //       buttonText: "Update",
+                //       buttonColor: AppColors.kPrimary,
+                //       fullWidth: true,
+                //       textColor: Colors.white,
+                //     ),
+                //   )
+                // ]),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: PrimaryButton(
-                    onTap: () {},
-                    buttonText: "Update",
-                    buttonColor: AppColors.kPrimary,
-                    fullWidth: true,
-                    textColor: Colors.white,
-                  ),
-                )
-              ]),
-            ),
           );
         });
   }

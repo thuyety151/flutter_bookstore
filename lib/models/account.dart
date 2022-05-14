@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter_folder/services/api_response_model.dart';
+import 'package:path/path.dart';
 
 class Account {
   late String id;
@@ -14,6 +17,8 @@ class Account {
 
   Account.empty() {
     email = "";
+    firstName = "";
+    lastName = "";
   }
 
   Account.fromAuthen(AuthenResponse auth) {
@@ -33,4 +38,12 @@ class Account {
 
   static Account fromJsonModel(Map<String, dynamic> json) =>
       Account.fromJson(json);
+
+  String toBodyJson() {
+    Map<String, dynamic> map = {
+      "firstName": firstName,
+      "lastName": lastName,
+    };
+    return json.encode(map);
+  }
 }

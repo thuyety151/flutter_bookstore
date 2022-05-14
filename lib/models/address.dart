@@ -9,6 +9,7 @@ class Address {
   String? streetAddress;
   int? districtID;
   int? provinceID;
+  int? wardCode;
   String? wardName;
   String? districtName;
   String? provinceName;
@@ -23,6 +24,7 @@ class Address {
       this.streetAddress,
       this.districtID,
       this.provinceID,
+      this.wardCode,
       this.districtName,
       this.isMain,
       this.provinceName,
@@ -41,7 +43,8 @@ class Address {
       districtID: json["districtId"],
       districtName: json["districtName"],
       provinceID: json["provinceId"],
-      isMain: json["isMain"],
+      wardCode: int.parse(json["wardCode"] ?? "0"),
+      isMain: json["isMain"].toString().toLowerCase() == "true",
       provinceName: json["provinceName"],
       wardName: json["wardName"],
     );
@@ -52,6 +55,7 @@ class Address {
 
   String toJson() {
     Map<String, dynamic> map = {
+      "id": id,
       "firstName": firstName,
       "lastName": lastName,
       "phone": phone,
@@ -64,6 +68,9 @@ class Address {
       "districtName": districtName,
       "wardName": wardName,
     };
+    if (id == null) {
+      map.remove("id");
+    }
     return json.encode(map);
   }
 

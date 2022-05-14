@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/form/outlined_select.dart';
+import 'package:flutter_folder/models/address.dart';
 import 'package:flutter_folder/models/ghn/district.dart';
 import 'package:flutter_folder/models/ghn/province.dart';
 import 'package:flutter_folder/models/ghn/ward.dart';
@@ -7,16 +8,19 @@ import 'package:flutter_folder/provider/ghn_model.dart';
 import 'package:provider/provider.dart';
 
 class AddressFormValue {
+  String? id;
   Province? province;
   District? district;
   Ward? ward;
 
-  AddressFormValue({this.province, this.district, this.ward});
+  AddressFormValue({this.province, this.district, this.ward, this.id});
 }
 
 class AddressPicker extends StatefulWidget {
-  const AddressPicker({Key? key, required this.emitValue}) : super(key: key);
+  const AddressPicker({Key? key, required this.emitValue, this.modelValue})
+      : super(key: key);
   final Function(AddressFormValue) emitValue;
+  final Address? modelValue;
 
   @override
   _AddressPickerState createState() => _AddressPickerState();
@@ -25,15 +29,36 @@ class AddressPicker extends StatefulWidget {
 class _AddressPickerState extends State<AddressPicker> {
   late AddressFormValue formValue = AddressFormValue();
 
+  Future<void> getInit() async {
+    final optionsGHNState = Provider.of<GHNModel>(context, listen: false);
+    await Provider.of<GHNModel>(context, listen: false)
+        .getListDistrict(widget.modelValue!.provinceID.toString());
+    await Provider.of<GHNModel>(context, listen: false)
+        .getListWard(widget.modelValue!.districtID.toString());
+    setState(() {
+      formValue = AddressFormValue(
+          id: widget.modelValue!.id,
+          province: optionsGHNState.listProvince.firstWhere(
+              (element) => element.provinceId == widget.modelValue!.provinceID),
+          district: optionsGHNState.listDistrict.firstWhere(
+              (element) => element.districtID == widget.modelValue!.districtID),
+          ward: optionsGHNState.listWard.firstWhere(
+              (element) => element.wardCode == widget.modelValue!.wardCode));
+    });
+  }
+
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
     Provider.of<GHNModel>(context, listen: false).getListProvince();
+
+    super.initState();
+    if (widget.modelValue?.id != null) {
+      getInit();
+    }
   }
 
   void getNewProvince(dynamic value) {
     setState(() {
-      // formValue.provinceId = value;
       formValue.province = value as Province;
     });
 
@@ -62,14 +87,15 @@ class _AddressPickerState extends State<AddressPicker> {
   @override
   Widget build(BuildContext context) {
     return Consumer<GHNModel>(
-        builder: (context, value, child) => Column(children: [
+        builder: (context, value, child) =>
+            Column(key: Key(formValue.id ?? ""), children: [
               OutlinedSelect<Province>(
                 label: "Province",
                 hint: "Choose province",
-                modelValue: formValue.province,
                 onChange: (value) {
                   getNewProvince(value);
                 },
+                modelValue: formValue.province,
                 options: value.listProvince
                     .map((e) =>
                         SelectOption<Province>(label: e.provinceName, value: e))

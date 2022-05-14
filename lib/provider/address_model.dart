@@ -1,7 +1,8 @@
+import 'dart:convert';
+import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/main.dart';
 import 'package:flutter_folder/models/address.dart';
-import 'package:flutter_folder/models/ghn/ghn_address.dart';
 import 'package:flutter_folder/services/address_api.dart';
 
 class AddressModel extends ChangeNotifier {
@@ -28,8 +29,22 @@ class AddressModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteAddress(String id) async {
+    try {
+      var res =
+          await withRestApiResponse("/addresses?id=$id", method: "delete");
+      if (json.decode(res)["isSuccess"]) {
+        listAddresses =
+            listAddresses.where((element) => element.id != id).toList();
+      } else {
+        throw "false";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Address getDefaultAddresses() {
     return listAddresses.firstWhere((element) => element.isMain == true);
   }
-
 }

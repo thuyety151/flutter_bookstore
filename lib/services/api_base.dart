@@ -6,7 +6,7 @@ class Api {
       'https://dev-online-gateway.ghn.vn/shiip/public-api/master-data';
   static const storage = FlutterSecureStorage();
   static const bookstoreEnpoint = "https://bookwormmm.herokuapp.com/api";
-  //static const bookstoreEnpoint = "https://localhost:5001/api";
+  // static const bookstoreEnpoint = "https://localhost:5001/api";
   // static const bookstoreEnpoint = "https://10.0.2.2:5001/api";
 
   Uri apiUri(String requestUrl) {
@@ -31,6 +31,19 @@ class Api {
 
     Uri url = Uri.parse(bookstoreEnpoint + requestUrl);
     http.Request request = http.Request("post", url);
+    request.headers.addAll({
+      "content-type": "application/json; charset=utf-8",
+      "authorization": res != null ? "Bearer $res" : ""
+    });
+    request.body = body;
+    return request;
+  }
+
+  Future<http.Request> delete(String requestUrl, {String body = ""}) async {
+    var res = await storage.read(key: "token");
+
+    Uri url = Uri.parse(bookstoreEnpoint + requestUrl);
+    http.Request request = http.Request("delete", url);
     request.headers.addAll({
       "content-type": "application/json; charset=utf-8",
       "authorization": res != null ? "Bearer $res" : ""

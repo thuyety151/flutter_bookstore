@@ -17,6 +17,11 @@ class AddressScreen extends StatefulWidget {
 }
 
 class _AddressScreenState extends State<AddressScreen> {
+  void _deleteAddress(String? id) {
+    Provider.of<provider.AddressModel>(context, listen: false)
+        .deleteAddress(id ?? "");
+  }
+
   Widget _listAddress(BuildContext context) {
     return Consumer<provider.AddressModel>(
         builder: (context, value, child) => ListView.builder(
@@ -25,7 +30,12 @@ class _AddressScreenState extends State<AddressScreen> {
             itemCount: value.listAddresses.length,
             itemBuilder: (_, index) {
               return Dismissible(
-                  key: Key(value.listAddresses.elementAt(index).id ?? ""),
+                  key: UniqueKey(),
+                  onDismissed: (DismissDirection direction) {
+                    if (direction == DismissDirection.endToStart) {
+                      _deleteAddress(value.listAddresses.elementAt(index).id);
+                    }
+                  },
                   background: Container(
                       color: Colors.red,
                       alignment: Alignment.centerRight,
@@ -93,36 +103,37 @@ class _AddressScreenState extends State<AddressScreen> {
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         appBar: customAppBar("Addresses"),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: FlatButton(
-                    height: 58,
-                    color: AppColors.kBgPrimary,
-                    onPressed: showDialog,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: const SizedBox(
-                      width: double.infinity,
-                      child: Icon(
-                        Icons.add,
-                        color: AppColors.kPrimary,
-                      ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Column(children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: FlatButton(
+                  height: 58,
+                  color: AppColors.kBgPrimary,
+                  onPressed: showDialog,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: const SizedBox(
+                    width: double.infinity,
+                    child: Icon(
+                      Icons.add,
+                      color: AppColors.kPrimary,
                     ),
-                    shape: RoundedRectangleBorder(
-                        side: const BorderSide(
-                            color: AppColors.kPrimary,
-                            width: 1,
-                            style: BorderStyle.solid),
-                        borderRadius: BorderRadius.circular(8)),
                   ),
+                  shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                          color: AppColors.kPrimary,
+                          width: 1,
+                          style: BorderStyle.solid),
+                      borderRadius: BorderRadius.circular(8)),
                 ),
-                _listAddress(context)
-              ]),
-            ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height - 2 * 58 - 16 * 4,
+                child: _listAddress(context),
+              )
+            ]),
           ),
         ));
   }

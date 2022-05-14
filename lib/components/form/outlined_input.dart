@@ -83,6 +83,7 @@ class _OutlinedInputState extends State<OutlinedInput> {
               )
             ],
             TextFormField(
+              initialValue: value,
               maxLines: widget.maxLines ?? 1,
               onChanged: (input) {
                 widget.onUpdateValue(input);
@@ -97,6 +98,7 @@ class _OutlinedInputState extends State<OutlinedInput> {
                   border: InputBorder.none,
                   prefixIcon: widget.prefixIcon,
                   enabledBorder: outlineInputBorder(),
+                  disabledBorder: outlineInputBorder(),
                   focusedBorder: outlineInputBorder(),
                   focusedErrorBorder: errorInputBorder(),
                   errorBorder: errorInputBorder(),

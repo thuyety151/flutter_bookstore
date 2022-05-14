@@ -1,5 +1,7 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/avatar.dart';
+import 'package:flutter_folder/components/image_picker.dart';
 import 'package:flutter_folder/screens/profile/components/form_edit_profile.dart';
 
 class EditProfile extends StatefulWidget {
@@ -21,7 +23,9 @@ class _EditProfileState extends State<EditProfile> {
             fit: BoxFit.cover,
           )),
           alignment: Alignment.center,
-          child: const Avatar(),
+          child: const Avatar(
+            icon: true,
+          ),
         ),
         const Text(
           "thuyet15",

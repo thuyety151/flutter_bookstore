@@ -17,7 +17,6 @@ class CheckoutAddress extends StatefulWidget {
 }
 
 class _CheckoutAddressState extends State<CheckoutAddress> {
-  
   Widget _listAddress(BuildContext context) {
     return Consumer<provider.AddressModel>(
         builder: (context, value, child) => ListView.builder(
@@ -146,19 +145,27 @@ class _CheckoutAddressState extends State<CheckoutAddress> {
                 const SizedBox(
                   height: 6,
                 ),
-                value.listAddresses.indexWhere((element) => element.isMain == true) != -1
+                value.listAddresses
+                            .indexWhere((element) => element.isMain == true) !=
+                        -1
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                             Text(
-                              value.listAddresses.firstWhere((element) => element.isMain == true).fullName,
+                              value.listAddresses
+                                  .firstWhere(
+                                      (element) => element.isMain == true)
+                                  .fullName,
                               style: CustomTextStyle.textFormFieldSemiBold
                                   .copyWith(fontSize: 14),
                             ),
                             Container(
                                 margin: const EdgeInsets.only(top: 16),
                                 child: Text(
-                                 value.listAddresses.firstWhere((element) => element.isMain == true).fullAddress,
+                                  value.listAddresses
+                                      .firstWhere(
+                                          (element) => element.isMain == true)
+                                      .fullAddress,
                                   style: CustomTextStyle.textFormFieldMedium
                                       .copyWith(
                                           fontSize: 13,
@@ -176,7 +183,10 @@ class _CheckoutAddressState extends State<CheckoutAddress> {
                                             fontSize: 12,
                                             color: Colors.grey.shade800)),
                                 TextSpan(
-                                    text: value.listAddresses.firstWhere((element) => element.isMain == true).phone,
+                                    text: value.listAddresses
+                                        .firstWhere(
+                                            (element) => element.isMain == true)
+                                        .phone,
                                     style: CustomTextStyle.textFormFieldBold
                                         .copyWith(
                                             fontSize: 12, color: Colors.black)),
