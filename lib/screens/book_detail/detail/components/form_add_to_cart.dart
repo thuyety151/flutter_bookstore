@@ -4,6 +4,10 @@ import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../provider/account_model.dart';
+import '../../../../provider/cart.dart';
+import '../../../../routes/index.dart';
+
 class FormAddToCartValue {
   String? attributeId;
   int? quantity;
@@ -22,10 +26,13 @@ class _FormAddToCartState extends State<FormAddToCart> {
   late FormAddToCartValue formValue = FormAddToCartValue();
   late double? price =
       Provider.of<BookModel>(context).detail!.attributes!.elementAt(0).price;
+
   late int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context);
+    final isLogin = Provider.of<AccountModel>(context).getisUserLogedIn();
     return Container(
       height: 300,
       padding: const EdgeInsets.all(16),
@@ -105,7 +112,28 @@ class _FormAddToCartState extends State<FormAddToCart> {
                           children: [
                             Expanded(
                               child: OutlinedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (isLogin) {
+                                    cart.addOrUpdateItem(
+                                        value.detail?.id ?? "1",
+                                        value.detail?.attributes
+                                                ?.elementAt(selectedIndex)
+                                                .id ??
+                                            "1",
+                                        1);
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(
+                                          "Add item to cart successfully!"),
+                                      duration: Duration(seconds: 1),
+                                    ));
+                                  } else {
+                                    Navigator.of(context)
+                                        .pushNamed(RouteManager.ROUTE_LOGIN);
+                                  }
+                                },
                                 child: const Text(
                                   "ADD TO CART",
                                   style: TextStyle(color: AppColors.kPrimary),

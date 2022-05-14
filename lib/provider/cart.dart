@@ -41,7 +41,6 @@ class Cart with ChangeNotifier {
 
     final List<Item> loadedItems = [];
     List<dynamic>? extractedData;
-    print("response body:" + response.body);
     if (response.body.isNotEmpty) {
       extractedData = json.decode(response.body)["value"] as List<dynamic>;
     }
@@ -59,7 +58,7 @@ class Cart with ChangeNotifier {
   }
 
   Future<void> addOrUpdateItem(
-      String id, String productId, String attributeId, int quantity) async {
+      String productId, String attributeId, int quantity) async {
     final url = Uri.parse(apiEndpoint + '/cart/item');
     var token = await storage.read(key: "token");
     print(token);
@@ -77,7 +76,7 @@ class Cart with ChangeNotifier {
           'quantity': quantity
         }),
       );
-      int index = _items.indexWhere((element) => element.id == id);
+      int index = _items.indexWhere((element) => element.productId == productId && element.attributeId == attributeId);
 
       if (index == -1) {
         final newItem = Item(id: 'tempItem');
@@ -86,7 +85,7 @@ class Cart with ChangeNotifier {
         Item existingItem = _items[index];
         existingItem.quantity = quantity;
         if (existingItem.quantity! <= 0) {
-          deleteItem(id);
+          deleteItem(existingItem.id ?? "1");
         } else {
           _items[index] = existingItem;
         }

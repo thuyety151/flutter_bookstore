@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../components/custom_text_style.dart';
 
 class CheckoutPayment extends StatelessWidget {
-  const CheckoutPayment({Key? key}) : super(key: key);
+  const CheckoutPayment({Key? key, this.districtId}) : super(key: key);
+  final districtId;
 
   @override
   Widget build(BuildContext context) {

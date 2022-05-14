@@ -7,8 +7,8 @@ class Address {
   String? phone;
   String? apartmentNumber;
   String? streetAddress;
-  String? districtID;
-  String? provinceID;
+  int? districtID;
+  int? provinceID;
   String? wardName;
   String? districtName;
   String? provinceName;
@@ -38,9 +38,9 @@ class Address {
       phone: json["phone"],
       apartmentNumber: json["apartmentNumber"],
       streetAddress: json["streetAddress"],
-      districtID: json["districtID"],
+      districtID: json["districtId"],
       districtName: json["districtName"],
-      provinceID: json["provinceID"],
+      provinceID: json["provinceId"],
       isMain: json["isMain"],
       provinceName: json["provinceName"],
       wardName: json["wardName"],
@@ -57,8 +57,8 @@ class Address {
       "phone": phone,
       "apartmentNumber": apartmentNumber,
       "streetAddress": streetAddress,
-      "districtID": int.parse(districtID ?? "0"),
-      "provinceID": int.parse(provinceID ?? "0"),
+      "districtId": districtID,
+      "provinceId": provinceID,
       "isMain": isMain,
       "provinceName": provinceName,
       "districtName": districtName,
@@ -84,7 +84,8 @@ class Address {
       "appartmentNumber",
       "streetAddress",
       "districtName",
-      "provinceName"
+      "provinceName",
+      "districtID"
     ].map((e) => mapToJson()[e]);
     return data.where((element) => element != null).join(", ");
   }
