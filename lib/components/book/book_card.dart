@@ -94,7 +94,7 @@ class BookCard extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     cart.addOrUpdateItem(
-                        'itemId', book.id, book.attributeId!, 1);
+                       book.id, book.attributeId!, 1);
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text("Add item to cart successfully!"),

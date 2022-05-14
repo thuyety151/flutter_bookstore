@@ -61,8 +61,8 @@ class Address {
       "phone": phone,
       "apartmentNumber": apartmentNumber,
       "streetAddress": streetAddress,
-      "districtID": districtID,
-      "provinceID": provinceID,
+      "districtId": districtID,
+      "provinceId": provinceID,
       "isMain": isMain,
       "provinceName": provinceName,
       "districtName": districtName,
@@ -91,7 +91,8 @@ class Address {
       "appartmentNumber",
       "streetAddress",
       "districtName",
-      "provinceName"
+      "provinceName",
+      "districtID"
     ].map((e) => mapToJson()[e]);
     return data.where((element) => element != null).join(", ");
   }

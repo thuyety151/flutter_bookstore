@@ -86,7 +86,7 @@ class Book {
   factory Book.detailFromJson(Map<String, dynamic> json) {
     final listAttrs = json["attributes"].cast<Map<String, dynamic>>() ?? [];
     final listMedia = json["media"].cast<Map<String, dynamic>>() ?? [];
-
+    
     return Book.detail(
         id: json["id"],
         name: json["name"],
