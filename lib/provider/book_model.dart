@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/models/filter.dart';
 import 'package:flutter_folder/models/newrelease.dart';
+import 'package:flutter_folder/models/review.dart';
 import 'package:flutter_folder/services/book_api.dart';
 
 class BookModel extends ChangeNotifier {
@@ -32,8 +36,12 @@ class BookModel extends ChangeNotifier {
   }
 
   Future<void> getDetail(String id) async {
+    if (detail?.id == id) {
+      return;
+    }
     var response = await _api.getBookDetail(id);
     detail = response;
+    getListReviews(id);
     notifyListeners();
   }
 
@@ -45,5 +53,16 @@ class BookModel extends ChangeNotifier {
   void clearFilterData() {
     filterData = Filter.empty();
     notifyListeners();
+  }
+
+  Future<void> getListReviews(String id) async {
+    try {
+      var res = await withRestApiResponse("/reviews?bookId=$id");
+      var value = json.decode(res)["value"] as List<dynamic>;
+      detail?.reviews = value.map((e) => Review.fromJson(e)).toList();
+      notifyListeners();
+    } catch (e) {
+      rethrow;
+    }
   }
 }

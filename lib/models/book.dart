@@ -1,6 +1,7 @@
 import 'package:flutter_folder/mocks/book_list.dart';
 import 'package:flutter_folder/models/attribute.dart';
 import 'package:flutter_folder/models/media.dart';
+import 'package:flutter_folder/models/review.dart';
 
 class Book {
   String id;
@@ -28,6 +29,7 @@ class Book {
   bool? isPublic;
   String? updateDate;
   List<String>? categoryIds;
+  List<Review>? reviews;
 
   Book({
     required this.id,
@@ -86,7 +88,7 @@ class Book {
   factory Book.detailFromJson(Map<String, dynamic> json) {
     final listAttrs = json["attributes"].cast<Map<String, dynamic>>() ?? [];
     final listMedia = json["media"].cast<Map<String, dynamic>>() ?? [];
-    
+
     return Book.detail(
         id: json["id"],
         name: json["name"],

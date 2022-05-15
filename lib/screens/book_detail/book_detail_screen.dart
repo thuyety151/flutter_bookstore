@@ -241,7 +241,7 @@ class BookDetailScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          BookListImage(listMedia: value.detail!.media ?? []),
+                          BookListImage(listMedia: value.detail?.media ?? []),
                           _header(),
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),

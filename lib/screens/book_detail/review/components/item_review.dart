@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/avatar.dart';
+import 'package:flutter_folder/components/rate.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
+import 'package:flutter_folder/helpers/format.dart';
+import 'package:flutter_folder/models/review.dart';
 import 'package:readmore/readmore.dart';
 
 import 'list_images_review.dart';
 
 class ItemReview extends StatefulWidget {
-  const ItemReview({Key? key}) : super(key: key);
+  const ItemReview({Key? key, this.value}) : super(key: key);
+
+  final Review? value;
 
   @override
   _ItemReviewState createState() => _ItemReviewState();
@@ -26,52 +31,58 @@ class _ItemReviewState extends State<ItemReview> {
         width: 320,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "thuyety15",
                 style: TextStyle(
                     color: AppColors.kTextGrey, fontWeight: FontWeight.w600),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 16,
               ),
               Text(
-                "1 hour ago",
-                style: TextStyle(color: AppColors.kTextGrey),
+                calculateTimeDifferenceBetween(widget.value!.createDate),
+                style: const TextStyle(color: AppColors.kTextGrey),
               ),
             ],
           ),
           const SizedBox(
             height: 6,
           ),
-          const ReadMoreText(
-            "These Illustrated edition’s are my first time ever reading the Harry Potter series, and I am so happy to be reading the series through these editions",
+          ReadMoreText(
+            widget.value?.content ?? "",
             trimLines: 2,
             colorClickableText: Colors.pink,
             trimMode: TrimMode.Line,
             trimCollapsedText: 'Show more',
             trimExpandedText: 'Show less',
-            moreStyle: TextStyle(
+            moreStyle: const TextStyle(
                 fontSize: 14, fontWeight: FontWeight.bold, color: Colors.pink),
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
           ),
           const SizedBox(
             height: 8,
           ),
-          const ListImagesReview(),
+          ListImagesReview(value: widget.value!.media),
           Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.favorite,
                 color: AppColors.kPrimary,
                 size: 16,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 4,
               ),
-              Text("127",
+              const Text("127",
                   style: TextStyle(
-                      color: AppColors.kTextGrey, fontWeight: FontWeight.w600))
+                      color: AppColors.kTextGrey, fontWeight: FontWeight.w600)),
+              const SizedBox(
+                width: 28,
+              ),
+              Rate(
+                rate: widget.value!.rate,
+              )
             ],
           )
         ]),
