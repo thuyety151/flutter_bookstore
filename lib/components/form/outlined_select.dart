@@ -32,7 +32,6 @@ class OutlinedSelect<T> extends StatefulWidget {
 class _OutlinedSelectState<T> extends State<OutlinedSelect<T>> {
   @override
   Widget build(BuildContext context) {
-
     return Column(
         key: widget.key,
         // key: Key(widget.options.length.toString()),
