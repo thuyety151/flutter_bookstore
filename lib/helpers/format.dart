@@ -1,4 +1,7 @@
-String calculateTimeDifferenceBetween(String startDate) {
+import 'package:intl/intl.dart';
+
+String calculateTimeDifferenceBetween(String startDate,
+    [String format = "dd/MM/yyyy HH:mm"]) {
   Duration diff = DateTime.now().difference(DateTime.parse(startDate));
   if (diff.inSeconds < 60) {
     return '${diff.inSeconds} second';
@@ -9,6 +12,10 @@ String calculateTimeDifferenceBetween(String startDate) {
   } else if (diff.inDays < 99) {
     return '${diff.inDays} day';
   } else {
-    return startDate;
+    return DateFormat(format).format(DateTime.parse(startDate));
   }
+}
+
+String format(DateTime value, [String? pattern]) {
+  return DateFormat(pattern).format(value);
 }

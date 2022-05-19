@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/provider/account_model.dart';
 import 'package:flutter_folder/provider/address_model.dart';
@@ -11,6 +9,7 @@ import 'package:flutter_folder/provider/cart.dart';
 import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/provider/chat_provider.dart';
 import 'package:flutter_folder/provider/ghn_model.dart';
+import 'package:flutter_folder/provider/order.dart';
 import 'package:flutter_folder/provider/shipping.dart';
 import 'package:flutter_folder/provider/shipping_fee.dart';
 import 'package:flutter_folder/routes/index.dart';
@@ -61,6 +60,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AddressModel()),
         ChangeNotifierProvider(create: (context) => Shipping()),
         ChangeNotifierProvider(create: (context) => ShippingFee()),
+        ChangeNotifierProvider(create: (context) => Order()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
