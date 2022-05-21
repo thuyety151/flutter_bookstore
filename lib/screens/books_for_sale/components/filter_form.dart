@@ -44,7 +44,7 @@ class _FilterFormState extends State<FilterForm> {
               setState(() {
                 formValue = Filter.empty();
               });
-              Navigator.pop(context);
+              
               Provider.of<BookModel>(context, listen: false).clearFilterData();
             },
             child: const Text(

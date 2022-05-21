@@ -5,12 +5,58 @@ import 'package:flutter_folder/components/book/book_card.dart';
 import 'package:flutter_folder/components/coustom_bottom_nav_bar.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/enums.dart';
+import 'package:flutter_folder/models/filter.dart';
 import 'package:flutter_folder/provider/book_model.dart';
+import 'package:flutter_folder/screens/books_for_sale/components/empty_result.dart';
 import 'package:flutter_folder/screens/books_for_sale/components/filter_form.dart';
 import 'package:provider/provider.dart';
 
-class BooksForSaleScreen extends StatelessWidget {
+import '../../routes/index.dart';
+
+class BooksForSaleScreen extends StatefulWidget {
   const BooksForSaleScreen({Key? key}) : super(key: key);
+
+  @override
+  State<BooksForSaleScreen> createState() => _BooksForSaleScreenState();
+}
+
+class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
+  var _isInit = true;
+  var _isLoading = false;
+  var scrollcontroller = ScrollController();
+  late Filter formValue;
+
+  @override
+  void initState() {
+    scrollcontroller.addListener(_scrollListener);
+    super.initState();
+    formValue = Provider.of<BookModel>(context, listen: false).filterData;
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<BookModel>(context).fetchAndSetBooks().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
+  void _scrollListener() {
+    print(scrollcontroller.position.extentAfter);
+    if (scrollcontroller.position.extentAfter < 300) {
+      formValue.pageIndex += 1;
+      print('page inex: ' + formValue.toJson().toString());
+      Provider.of<BookModel>(context, listen: false).setFilterData(formValue);
+    }
+  }
 
   OutlineInputBorder searchBorder() {
     return const OutlineInputBorder(
@@ -95,23 +141,27 @@ class BooksForSaleScreen extends StatelessWidget {
               child: _stickySearch(context),
             ),
             Expanded(
-                child: Container(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Consumer<BookModel>(
-                          builder: (context, value, child) => Wrap(
-                              spacing: 24,
-                              // TODO: Implement load more and hot reload
-                              children: List.generate(
-                                  value.listBestSelling.length,
-                                  (index) => Container(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 16),
-                                        child: BookCard(
-                                            book: value.listBestSelling[index]),
-                                      )))),
-                    )))
+                child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Container(
+                height: 600,
+                padding: const EdgeInsets.only(top: 16),
+                child: Consumer<BookModel>(
+                    builder: (context, value, child) => value.books.length > 0
+                        ? Scrollbar(
+                            child: ListView.builder(
+                            controller: scrollcontroller,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: BookCard(book: value.books[index]),
+                              );
+                            },
+                            itemCount: value.books.length,
+                          ))
+                        : const EmptyResult()),
+              ),
+            ))
           ],
         )));
   }
