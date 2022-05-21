@@ -90,6 +90,7 @@ class Address {
     var data = [
       "appartmentNumber",
       "streetAddress",
+      "wardName",
       "districtName",
       "provinceName",
       "districtID"
