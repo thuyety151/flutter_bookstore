@@ -5,7 +5,9 @@ class Filter {
   String? languageId;
   late double minPrice;
   late double maxPrice;
-  int? rate;
+  late int rate;
+  late int pageIndex;
+  late int pageSize;
 
   Filter(
       {this.categoryId,
@@ -14,7 +16,10 @@ class Filter {
       this.authorId,
       required this.maxPrice,
       required this.minPrice,
-      this.rate});
+      required this.rate,
+      required this.pageIndex,
+      required this.pageSize
+      });
 
   Filter.empty() {
     attributeId = null;
@@ -22,6 +27,21 @@ class Filter {
     languageId = null;
     maxPrice = 0;
     minPrice = 0;
-    rate = null;
+    rate = 0;
+    pageIndex = 1;
+    pageSize = 10;
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['categoryId'] = this.categoryId;
+    data['attributeId'] = this.attributeId;
+    data['authorId'] = this.authorId;
+    data['languageId'] = this.languageId;
+    data['minPrice'] = this.minPrice;
+    data['maxPrice'] = this.maxPrice;
+    data['rate'] = this.rate;
+    data['pageIndex'] = this.pageIndex;
+    data['pageSize'] = this.pageSize;
+    return data;
   }
 }

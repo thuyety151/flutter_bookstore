@@ -61,8 +61,8 @@ class Address {
       "phone": phone,
       "apartmentNumber": apartmentNumber,
       "streetAddress": streetAddress,
-      "districtId": districtID,
-      "provinceId": provinceID,
+      "districtID": districtID,
+      "provinceID": provinceID,
       "isMain": isMain,
       "provinceName": provinceName,
       "districtName": districtName,
@@ -90,6 +90,7 @@ class Address {
     var data = [
       "appartmentNumber",
       "streetAddress",
+      "wardName",
       "districtName",
       "provinceName",
       "districtID"

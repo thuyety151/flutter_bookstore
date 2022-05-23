@@ -16,7 +16,7 @@ class Authors extends StatelessWidget {
           builder: (context, value, child) => Wrap(
                 spacing: 12,
                 children: List.generate(
-                    value.listAuthor.length,
+                    value.authors.length,
                     (index) => Container(
                           height: 100,
                           padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -26,14 +26,14 @@ class Authors extends StatelessWidget {
                                   const BorderRadius.all(Radius.circular(50)),
                               child: Image(
                                 image: NetworkImage(
-                                    value.listAuthor[index].imageUrl),
+                                    value.authors[index].imageUrl),
                                 height: 50,
                                 width: 50,
                               ),
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              value.listAuthor[index].name,
+                              value.authors[index].name,
                               style: const TextStyle(
                                   fontSize: 12, fontWeight: FontWeight.bold),
                             )

@@ -23,7 +23,7 @@ class _AuthorSelectState extends State<AuthorSelect> {
       child: Consumer<AuthorModel>(
           builder: (context, value, child) => DropdownButton<String>(
                 value: currentValue,
-                items: value.listAuthor
+                items: value.authors
                     .map((e) => DropdownMenuItem(
                           child: Text(e.name),
                           value: e.id,

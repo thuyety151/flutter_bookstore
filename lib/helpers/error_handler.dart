@@ -47,7 +47,7 @@ void catchErrAndNotify(AlertDialogParams params, dynamic error) {
 Future withRestApiResponse(String url,
     {String method = "get", String body = "", bool hasLoading = false}) async {
   try {
-     //   showLoading();
+    //   showLoading();
     final Api _api = Api();
     var request = method == "get"
         ? await _api.get(url)
@@ -55,11 +55,7 @@ Future withRestApiResponse(String url,
             ? await _api.delete(url)
             : await _api.post(url, body: body);
     var response = await http.Response.fromStream(await request.send());
-    // if (hasLoading == true) {
-    //   Navigator.of(navigatorKey.currentState!.overlay!.context)
-    //       .pop(navigatorKey.currentState!.overlay!.context);
-    // }
-
+    // Navigator.pop(navigatorKey.currentState!.overlay!.context);
     if (response.statusCode == 200) {
       return response.body;
     } else if (response.statusCode == 400) {
