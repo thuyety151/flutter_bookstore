@@ -9,6 +9,8 @@ class Api {
   // static const bookstoreEnpoint = "https://localhost:5001/api";
   // static const bookstoreEnpoint = "https://10.0.2.2:5001/api";
 
+  String get bsEndpoint => bookstoreEnpoint;
+
   Uri apiUri(String requestUrl) {
     return Uri.parse(bookstoreEnpoint + requestUrl);
   }
@@ -61,13 +63,27 @@ class Api {
     });
     request.body = body;
     return request;
-  } 
-   Future<http.Request> postGHN(String requestUrl, {String body = ""}) async {
+  }
+
+  Future<http.Request> postGHN(String requestUrl, {String body = ""}) async {
     Uri url = Uri.parse(ghnEnpoint + requestUrl);
     http.Request request = http.Request("post", url);
     request.headers.addAll({
       "content-type": "application/json; charset=utf-8",
       "Token": "a907bd6b-3508-11ec-b514-aeb9e8b0c5e3"
+    });
+    request.body = body;
+    return request;
+  }
+
+  Future<http.Request> postFile(String requestUrl, {String body = ""}) async {
+    var res = await storage.read(key: "token");
+
+    Uri url = Uri.parse(bookstoreEnpoint + requestUrl);
+    http.Request request = http.Request("post", url);
+    request.headers.addAll({
+      "content-type": "multipart/form-data",
+      "authorization": res != null ? "Bearer $res" : ""
     });
     request.body = body;
     return request;

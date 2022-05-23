@@ -15,6 +15,7 @@ class ManageOrderScreen extends StatelessWidget {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
+          backgroundColor: AppColors.kBgGgrey,
           appBar: AppBar(
             backgroundColor: Colors.white,
             foregroundColor: AppColors.kGrey,
@@ -39,13 +40,7 @@ class ManageOrderScreen extends StatelessWidget {
           body: TabBarView(
               children: TabValues.map((e) => ManageOrderListCard(
                     status: e,
-                  )).toList()
-              //  ,
-              //   ManageOrderListCard(status: "Cancel"),
-              //   ManageOrderListCard(
-              //     status: "",
-              //   ),
-              ),
+                  )).toList()),
         ));
   }
 }

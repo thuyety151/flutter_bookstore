@@ -82,18 +82,19 @@ class RouteManager {
       case ROUTE_CHECKOUT:
         return MaterialPageRoute(builder: (context) => const CheckoutScreen());
       case ROUTE_ORDER_SUCCESS:
-        return CupertinoPageRoute(builder: (context) => OrderSuccess());
+        return CupertinoPageRoute(builder: (context) => const OrderSuccess());
       case ROUTE_MANAGE_ORDER:
         return MaterialPageRoute(
             builder: (context) => const ManageOrderScreen());
       case ROUTE_REVIEW:
-        return MaterialPageRoute(builder: (context) => ReviewScreen());
+        return MaterialPageRoute(
+            builder: (context) => const ReviewScreen(), settings: settings);
       case ROUTE_CHAT:
-        return MaterialPageRoute(builder: (context) => ChatScreen());
+        return MaterialPageRoute(builder: (context) => const ChatScreen());
       case ROUTE_IMAGE_PICKER:
         return MaterialPageRoute(builder: (context) => const ImagePicker());
       default:
-        throw FormatException("Route not found! Check routes again");
+        throw const FormatException("Route not found! Check routes again");
     }
   }
 }

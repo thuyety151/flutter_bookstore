@@ -3,11 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/custom_text_style.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
+import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/helpers/format.dart';
 import 'package:flutter_folder/models/order.dart';
 import 'package:flutter_folder/provider/order.dart' as provider;
+import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/screens/manage_order/components/manage_order_list_item.dart';
+import 'package:flutter_folder/screens/review/review_screen.dart';
 import 'package:provider/provider.dart';
 
 class ManageOrderCard extends StatefulWidget {
@@ -31,6 +34,11 @@ class _ManageOrderCardState extends State<ManageOrderCard> {
             "");
       });
     });
+  }
+
+  void review() {
+    Navigator.of(context).pushNamed(RouteManager.ROUTE_REVIEW,
+        arguments: ReviewArgs(id: widget.value.id));
   }
 
   @override
@@ -77,24 +85,74 @@ class _ManageOrderCardState extends State<ManageOrderCard> {
                 margin: const EdgeInsets.symmetric(vertical: 4),
                 color: Colors.grey.shade400,
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "${widget.value.items.length} item${widget.value.items.length > 1 ? "s" : ""}",
+                      style: AppTextStyles.caption,
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          "Total : ",
+                          style: AppTextStyles.caption,
+                        ),
+                        Text(
+                          "\$${widget.value.total}",
+                          style: CustomTextStyle.textFormFieldSemiBold
+                              .copyWith(fontSize: 20, color: Colors.red),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 0.5,
+                margin: const EdgeInsets.symmetric(vertical: 4),
+                color: Colors.grey.shade400,
+              ),
+              const SizedBox(
+                height: 8,
+              ),
               Row(
                 children: [
                   if (widget.value.status != "Cancel") ...[
-                    RaisedButton(
-                      onPressed: cancelOrder,
-                      child: const Text(
-                        "Cancle Order",
-                        style: TextStyle(color: Colors.white),
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: cancelOrder,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: const Text(
+                            "Cancel Order",
+                            style: TextStyle(color: AppColors.kPrimary),
+                          ),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                            ),
                       ),
-                      color: AppColors.kPrimary,
-                    ),
+                    )
                   ],
-                  const Spacer(),
-                  Text(
-                    "\$${widget.value.total}",
-                    style: CustomTextStyle.textFormFieldSemiBold
-                        .copyWith(fontSize: 20, color: Colors.red),
+                  const SizedBox(
+                    width: 8,
                   ),
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: review,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        child: const Text(
+                          "Review",
+                          style: TextStyle(color: AppColors.kPrimary),
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(),
+                    ),
+                  )
                 ],
               ),
             ]),
