@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/custom_text_style.dart';
 import 'package:flutter_folder/components/form/outlined_input.dart';
@@ -7,7 +5,6 @@ import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/models/item.dart';
 import 'package:flutter_folder/models/review.dart';
-import 'package:flutter_folder/provider/account_model.dart';
 import 'package:flutter_folder/provider/review_provider.dart';
 import 'package:flutter_folder/screens/review/components/rating.dart';
 import 'dart:io';
@@ -74,11 +71,6 @@ class _ReviewFormState extends State<ReviewForm> {
   final BoxDecoration _containerStyles = const BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(8)), color: Colors.white);
 
-  @override
-  void didChangeDependencies() {
-    print("watch  ... ${widget.isSubmit}");
-    super.didChangeDependencies();
-  }
 
   Future getImagefromGallery() async {
     var _imagePicker = ImagePicker();
