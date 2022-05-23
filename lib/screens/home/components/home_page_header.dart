@@ -131,6 +131,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                             builder: (_, cart, ch) => Badge(
                               child: ch!,
                               value: cart.itemCount.toString(),
+                              textColor: Colors.white,
                             ),
                             child: FlatButton(
                               onPressed: () {
