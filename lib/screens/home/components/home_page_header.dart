@@ -33,7 +33,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   @override
   void didChangeDependencies() {
     _isLogin = Provider.of<AccountModel>(context).getisUserLogedIn();
-    if (_isInit && _isLogin ) {
+    if (_isInit && _isLogin) {
       setState(() {
         _isLoading = true;
       });
@@ -76,7 +76,8 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   Widget _search() {
     return Container(
         height: 38,
-        width: 330,
+        width: MediaQuery.of(context).size.width * 92 / 100 - 2 * 16,
+        margin: const EdgeInsets.only(left: 8),
         padding: const EdgeInsets.only(left: 8),
         child: TextField(
             decoration: InputDecoration(
@@ -123,7 +124,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                   children: [
                     _search(),
                     _isLoading
-                        ? Center(
+                        ? const Center(
                             child: CircularProgressIndicator(),
                           )
                         : Consumer<Cart>(
@@ -139,7 +140,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                                     : Navigator.of(context)
                                         .pushNamed(RouteManager.ROUTE_LOGIN);
                               },
-                              color: AppColors.kPrimary,
+                              color: Colors.white,
                               height: 38,
                               minWidth: 38,
                               padding:
@@ -149,10 +150,10 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                                       BorderRadius.all(Radius.circular(8))),
                               child: const Image(
                                 image: AssetImage(
-                                  "assets/icons/icon-add-cart.png",
+                                  "assets/icons/o-icon-cart.png",
                                 ),
-                                height: 32,
-                                width: 32,
+                                height: 24,
+                                width: 24,
                                 fit: BoxFit.fill,
                               ),
                             ),
