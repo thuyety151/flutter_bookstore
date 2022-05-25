@@ -16,6 +16,7 @@ import 'package:flutter_folder/screens/profile/profile_detail_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_edit_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_screen.dart';
 import 'package:flutter_folder/screens/checkout/checkout_screen.dart';
+import 'package:flutter_folder/screens/wishlist/wishlist_screen.dart';
 
 import '../screens/chat/chat_screen.dart';
 import '../screens/manage_order/manage_order_screen.dart';
@@ -70,8 +71,8 @@ class RouteManager {
       case ROUTE_IMAGES_DETAIL:
         return MaterialPageRoute(
             builder: (context) => const ViewImageFullScreen());
-      // case ROUTE_WISH_LIST:
-      //   return MaterialPageRoute(builder: (context) => WishListScreen());
+      case ROUTE_WISH_LIST:
+        return MaterialPageRoute(builder: (context) => const WishlistScreen());
       case ROUTE_BOOKS_FOR_SALE:
         return MaterialPageRoute(
             builder: (context) => const BooksForSaleScreen());

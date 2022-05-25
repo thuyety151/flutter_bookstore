@@ -13,6 +13,7 @@ import 'package:flutter_folder/provider/order.dart';
 import 'package:flutter_folder/provider/review_provider.dart';
 import 'package:flutter_folder/provider/shipping.dart';
 import 'package:flutter_folder/provider/shipping_fee.dart';
+import 'package:flutter_folder/provider/wishlist_provider.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ShippingFee()),
         ChangeNotifierProvider(create: (context) => Order()),
         ChangeNotifierProvider(create: (context) => ReviewProvider()),
+        ChangeNotifierProvider(create: (context) => WishlistProvider()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

@@ -117,7 +117,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                 child: AppBanner(),
               ),
               Positioned(
-                top: 8,
+                top: 16,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
