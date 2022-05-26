@@ -9,7 +9,7 @@ class Address {
   String? streetAddress;
   int? districtID;
   int? provinceID;
-  int? wardCode;
+  String? wardCode;
   String? wardName;
   String? districtName;
   String? provinceName;
@@ -43,7 +43,7 @@ class Address {
       districtID: json["districtId"],
       districtName: json["districtName"],
       provinceID: json["provinceId"],
-      wardCode: int.parse(json["wardCode"] ?? "0"),
+      wardCode: json["wardCode"] ?? "0",
       isMain: json["isMain"].toString().toLowerCase() == "true",
       provinceName: json["provinceName"],
       wardName: json["wardName"],
@@ -61,12 +61,13 @@ class Address {
       "phone": phone,
       "apartmentNumber": apartmentNumber,
       "streetAddress": streetAddress,
-      "districtID": districtID,
-      "provinceID": provinceID,
+      "districtId": districtID,
+      "provinceId": provinceID,
       "isMain": isMain,
       "provinceName": provinceName,
       "districtName": districtName,
       "wardName": wardName,
+      "wardCode" : wardCode
     };
     if (id == null) {
       map.remove("id");
