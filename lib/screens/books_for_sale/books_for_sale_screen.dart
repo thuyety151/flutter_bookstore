@@ -39,7 +39,9 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<BookModel>(context).fetchAndSetBooks().then((_) {
+      Provider.of<BookModel>(context, listen: false)
+          .fetchAndSetBooks()
+          .then((_) {
         setState(() {
           _isLoading = false;
         });

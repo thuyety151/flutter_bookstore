@@ -58,16 +58,18 @@ class BookModel extends ChangeNotifier {
     }
 
     print("query params: " + queryParams);
-    final url = Uri.parse(apiEndpoint + queryParams);
-    final response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    });
+    // final url = Uri.parse(apiEndpoint + queryParams);
+    // final response = await http.get(url, headers: {
+    //   'Content-Type': 'application/json',
+    //   'Accept': 'application/json',
+    // });
+
+    var response = await withRestApiResponse(queryParams);
 
     final List<Book> loadedItems = [];
     List<dynamic>? extractedData;
-    if (response.body.isNotEmpty) {
-      extractedData = json.decode(response.body)["value"] as List<dynamic>;
+    if (response.isNotEmpty) {
+      extractedData = json.decode(response)["value"] as List<dynamic>;
     }
     // ignore: unnecessary_null_comparison
     if (extractedData == null) {

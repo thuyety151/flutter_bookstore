@@ -20,7 +20,7 @@ class Attribute {
     return Attribute(
       id: json["id"],
       name: json["name"],
-      price: json["price"].toDouble(),
+      price: (json["price"] ?? "0").toDouble(),
       // salePrice: json["salePrice"].toDouble(),
       // salePriceEndDate: json["salePriceEndDate"],
       // salePriceStartDate: json["salePriceStartDate"],
