@@ -134,5 +134,4 @@ class BookModel extends ChangeNotifier {
       rethrow;
     }
   }
-
 }

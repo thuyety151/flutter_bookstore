@@ -80,6 +80,10 @@ class _HomePageHeaderState extends State<HomePageHeader> {
         margin: const EdgeInsets.only(left: 8),
         padding: const EdgeInsets.only(left: 8),
         child: TextField(
+            onTap: () {
+              Navigator.of(context).pushNamed(RouteManager.ROUTE_BOOKS_FOR_SALE,
+                  arguments: true as dynamic);
+            },
             decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,

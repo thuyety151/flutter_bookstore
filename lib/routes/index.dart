@@ -75,7 +75,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const WishlistScreen());
       case ROUTE_BOOKS_FOR_SALE:
         return MaterialPageRoute(
-            builder: (context) => const BooksForSaleScreen());
+            builder: (context) => const BooksForSaleScreen(),
+            settings: settings);
       case ROUTE_CART:
         return MaterialPageRoute(builder: (context) => const CartScreen());
       case ROUTE_REGISTER:

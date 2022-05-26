@@ -11,7 +11,6 @@ class Storage {
 
   Future<List<String>> get getKeywords async {
     var data = await storage.read(key: "keywords");
-    print("data$data");
     if (data != null) {
       keywords = (json.decode(data) as List<dynamic>)
           .map((e) => e.toString())
@@ -24,5 +23,14 @@ class Storage {
   void setKeywords(String input) {
     keywords!.add(input);
     storage.write(key: "keywords", value: json.encode(keywords));
+  }
+
+  void removeKeyword(String? keyword) {
+    if (keyword == null) {
+      storage.delete(key: "keywords");
+    } else {
+      keywords = keywords!.where((element) => element != keyword).toList();
+      storage.write(key: "keywords", value: json.encode(keywords));
+    }
   }
 }

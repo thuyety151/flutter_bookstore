@@ -23,13 +23,38 @@ class _SearchState extends State<Search> {
   late List<String> keywords = [];
   late bool isSearching = false;
 
-  Future<List<String>> getKeywords() => storage.getKeywords;
+  Future<List<String>> getKeywords() async {
+    if (keywords.isNotEmpty) {
+      return keywords;
+    }
+    var data = await storage.getKeywords;
+    if (data.isNotEmpty) {
+      setState(() {
+        keywords = data;
+      });
+    }
+
+    return data;
+  }
 
   OutlineInputBorder searchBorder() {
     return const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)),
       borderSide: BorderSide(color: Colors.transparent, width: 1),
     );
+  }
+
+  void removeKeyword(String? keyword) {
+    storage.removeKeyword(keyword);
+    if (keyword == null) {
+      setState(() {
+        keywords = [];
+      });
+      return;
+    }
+    setState(() {
+      keywords = keywords.where((element) => element != keyword).toList();
+    });
   }
 
   Widget contents(BuildContext context) {
@@ -47,20 +72,25 @@ class _SearchState extends State<Search> {
                   padding: const EdgeInsets.symmetric(vertical: 6),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text("History", style: AppTextStyles.caption),
-                      Text("Remove", style: AppTextStyles.price),
+                    children: [
+                      const Text("History", style: AppTextStyles.caption),
+                      GestureDetector(
+                        onTap: () => removeKeyword(null),
+                        child: const Text("Remove", style: AppTextStyles.price),
+                      ),
                     ],
                   ),
                 ),
                 ...List.generate(
-                    snapshot.data!.length,
+                    keywords.length,
                     (index) => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(snapshot.data!.elementAt(index)),
+                            Text(keywords.elementAt(index)),
                             IconButton(
-                                onPressed: () {}, icon: Icon(Icons.close))
+                                onPressed: () =>
+                                    removeKeyword(keywords.elementAt(index)),
+                                icon: const Icon(Icons.close))
                           ],
                         ))
               ]),
@@ -76,6 +106,17 @@ class _SearchState extends State<Search> {
       return;
     }
     storage.setKeywords(value);
+  }
+
+  @override
+  void didChangeDependencies() {
+    final args = ModalRoute.of(context)!.settings.arguments as dynamic;
+    if (args != null) {
+      setState(() {
+        isSearching = args;
+      });
+    }
+    super.didChangeDependencies();
   }
 
   @override
@@ -95,7 +136,6 @@ class _SearchState extends State<Search> {
                         child: Focus(
                       onFocusChange: (focus) => setState(() {
                         isSearching = focus;
-                        print(focus);
                       }),
                       child: TextField(
                           onSubmitted: submit,
