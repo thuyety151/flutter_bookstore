@@ -86,7 +86,10 @@ class _SearchState extends State<Search> {
                     (index) => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(keywords.elementAt(index)),
+                            GestureDetector(
+                              onTap: () => submit(keywords.elementAt(index)),
+                              child: Text(keywords.elementAt(index)),
+                            ),
                             IconButton(
                                 onPressed: () =>
                                     removeKeyword(keywords.elementAt(index)),
@@ -106,6 +109,7 @@ class _SearchState extends State<Search> {
       return;
     }
     storage.setKeywords(value);
+    widget.setKeywords(value);
   }
 
   @override

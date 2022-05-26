@@ -147,7 +147,10 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
           children: [
             Container(
                 child: Search(
-              setKeywords: (String) {},
+              setKeywords: (value) {
+                Provider.of<BookModel>(context, listen: false)
+                    .setKeyword(value);
+              },
               btnFilter: SizedBox(
                 width: 48,
                 child: Expanded(
@@ -178,14 +181,38 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
                 height: 600,
                 padding: const EdgeInsets.only(top: 16),
                 child: Consumer<BookModel>(
-                    builder: (context, value, child) => value.books.length > 0
+                    builder: (context, value, child) => value.books.isNotEmpty
                         ? Scrollbar(
                             child: ListView.builder(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             controller: scrollcontroller,
                             itemBuilder: (context, index) {
-                              return Container(
-                                padding: const EdgeInsets.only(bottom: 16),
-                                child: BookCard(book: value.books[index]),
+                              if (index % 2 == 0) {
+                                return const SizedBox();
+                              }
+                              return Wrap(
+                                direction: Axis.horizontal,
+                                spacing: 16,
+                                children: [
+                                  Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        44 /
+                                        100,
+                                    padding: const EdgeInsets.only(bottom: 16),
+                                    child: BookCard(book: value.books[index]),
+                                  ),
+                                  if (index + 1 < value.books.length - 1) ...[
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          44 /
+                                          100,
+                                      padding:
+                                          const EdgeInsets.only(bottom: 16),
+                                      child: BookCard(
+                                          book: value.books[index + 1]),
+                                    )
+                                  ]
+                                ],
                               );
                             },
                             itemCount: value.books.length,

@@ -28,6 +28,11 @@ class BookModel extends ChangeNotifier {
   Future<void> fetchAndSetBooks() async {
     print("fetchAndSetBooks: " + filterData.toJson().toString());
     String queryParams = '/books/books-for-sale?predicate=newest';
+    if (filterData.keywords!.isNotEmpty) {
+      queryParams += '&keywords=${filterData.keywords}';
+      //TODO: Reset pagination
+      filterData.pageIndex = 1;
+    }
     if (filterData.categoryId != null) {
       queryParams += '&categoryId=${filterData.categoryId}';
     }
@@ -79,8 +84,12 @@ class BookModel extends ChangeNotifier {
     extractedData.forEach((item) {
       loadedItems.add(Book.fromJson(item));
     });
+    if (filterData.keywords!.isEmpty) {
+      _books.addAll(loadedItems.reversed.toList());
+    } else {
+      _books = loadedItems.toList();
+    }
 
-    _books.addAll(loadedItems.reversed.toList());
     notifyListeners();
   }
 
@@ -115,6 +124,12 @@ class BookModel extends ChangeNotifier {
   void setFilterData(Filter data) {
     filterData = data;
     print("setFilterData: " + filterData.toJson().toString());
+    fetchAndSetBooks();
+    notifyListeners();
+  }
+
+  void setKeyword(String keyword) {
+    filterData.keywords = keyword;
     fetchAndSetBooks();
     notifyListeners();
   }
