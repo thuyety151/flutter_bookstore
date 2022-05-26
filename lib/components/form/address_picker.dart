@@ -43,7 +43,7 @@ class _AddressPickerState extends State<AddressPicker> {
           district: optionsGHNState.listDistrict.firstWhere(
               (element) => element.districtID == widget.modelValue!.districtID),
           ward: optionsGHNState.listWard.firstWhere(
-              (element) => element.wardCode == widget.modelValue!.wardCode));
+              (element) => element.wardName == widget.modelValue!.wardName));
     });
   }
 

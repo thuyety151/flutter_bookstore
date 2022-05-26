@@ -4,6 +4,7 @@ import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../components/custom_text_style.dart';
 import '../../../../provider/account_model.dart';
 import '../../../../provider/cart.dart';
 import '../../../../routes/index.dart';
@@ -29,10 +30,15 @@ class _FormAddToCartState extends State<FormAddToCart> {
 
   late int selectedIndex = 0;
 
+  var quantity = 1;
+  late int available =
+      Provider.of<BookModel>(context, listen: false).detail!.totalStock ?? 0;
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
     final isLogin = Provider.of<AccountModel>(context).getisUserLogedIn();
+
     return Container(
       height: 300,
       padding: const EdgeInsets.all(16),
@@ -96,15 +102,101 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                           ),
                                         )),
                               )),
-                          Text("\$${price.toString()}",
-                              style: AppTextStyles.price)
+                          SizedBox(height: 10),
+                          Text(
+                            'Available: ' + available.toString(),
+                            style: CustomTextStyle.textFormFieldLight
+                                .copyWith(fontSize: 14),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            width: 250,
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("\$${price.toString()}",
+                                      style: CustomTextStyle.textFormFieldBold
+                                          .copyWith(
+                                              color: Colors.red, fontSize: 22)),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Consumer<Cart>(
+                                        builder: (context, cart, child) {
+                                          return Container(
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10))),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  InkWell(
+                                                    child: Icon(Icons.remove),
+                                                    onTap: () {
+                                                      print("decrease item");
+                                                      if (quantity > 1) {
+                                                        setState(() {
+                                                          quantity -= 1;
+                                                          available += 1;
+                                                        });
+                                                      }
+                                                    },
+                                                  ),
+                                                  Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 5,
+                                                            bottom: 3,
+                                                            right: 12,
+                                                            left: 12),
+                                                    child: Text(
+                                                      quantity.toString(),
+                                                      style: CustomTextStyle
+                                                          .textFormFieldSemiBold,
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                      child: Icon(Icons.add),
+                                                      onTap: () {
+                                                        print("add item");
+                                                        if (quantity <
+                                                            available) {
+                                                          setState(() {
+                                                            quantity += 1;
+                                                            available -= 1;
+                                                          });
+                                                        }
+
+                                                        //   cart.addOrUpdateItem(
+                                                        //       item.productId!,
+                                                        //       item.attributeId!,
+                                                        //       item.quantity! + 1);
+                                                        // },
+                                                      }),
+                                                ],
+                                              ));
+                                        },
+                                      ),
+                                    ],
+                                  )
+                                ]),
+                          ),
                         ],
                       ),
                     ],
                   ),
                   const Spacer(),
                   SizedBox(
-                    height: 38,
+                    height: 50,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Row(
@@ -120,7 +212,7 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                                 ?.elementAt(selectedIndex)
                                                 .id ??
                                             "1",
-                                        1);
+                                        quantity);
                                     ScaffoldMessenger.of(context)
                                         .hideCurrentSnackBar();
                                     ScaffoldMessenger.of(context)
@@ -149,7 +241,15 @@ class _FormAddToCartState extends State<FormAddToCart> {
                             ),
                             Expanded(
                                 child: FlatButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      if (isLogin) {
+                                        Navigator.of(context)
+                                            .pushNamed(RouteManager.ROUTE_CART);
+                                      } else {
+                                        Navigator.of(context).pushNamed(
+                                            RouteManager.ROUTE_LOGIN);
+                                      }
+                                    },
                                     color: AppColors.kPrimary,
                                     child: const Text(
                                       "BUY NOW",

@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 
 import '../../../components/button/primary_button.dart';
 import '../../../configs/size_config.dart';
+import '../../../models/coupon.dart';
 import '../../../provider/cart.dart';
+import '../../../provider/coupons.dart';
 import '../../../routes/index.dart';
 
 class CartCheckOut extends StatefulWidget {
@@ -18,6 +20,7 @@ class CartCheckOut extends StatefulWidget {
 
 class _CartCheckOutState extends State<CartCheckOut> {
   late bool isLoading;
+  late double totalAmount;
 
   @override
   void initState() {
@@ -35,7 +38,25 @@ class _CartCheckOutState extends State<CartCheckOut> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final cart = Provider.of<Cart>(context);
+    // discountType:  0.FixedCart, 1.Percentage,
+    String formatCoupon(Coupon coupon, double total) {
+      if (coupon.discountType == 0) {
+          totalAmount = (total - coupon.couponAmount) > 0
+              ? (total - coupon.couponAmount)
+              : 0;
+        return "- ${coupon.couponAmount} \$";
+      } else {
+        if (coupon.discountType == 1) {
+             totalAmount =
+                (total - total * (coupon.couponAmount / 100)) > 0
+                    ? total - total * (coupon.couponAmount / 100)
+                    : 0;
+          return "Discount ${coupon.couponAmount}%";
+        }
+      }
+      return "Add voucher code";
+    }
+
     return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,16 +75,29 @@ class _CartCheckOutState extends State<CartCheckOut> {
                 child: SvgPicture.asset("assets/icons/receipt.svg"),
               ),
               const Spacer(),
-              const Text("Add voucher code"),
-              const SizedBox(width: 10),
-              Container(
-                margin: const EdgeInsets.only(right: 20),
-                child: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: kTextColor,
-                ),
-              )
+              GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(RouteManager.ROUTE_USER_COUPONS);
+                  },
+                  child: Container(
+                    child: Row(children: [
+                           Consumer2<Cart, Coupons>(
+                              builder: (context, cart, coupons, child) => Text(
+                                  formatCoupon(coupons.selectedCoupon,
+                                      cart.totalAmount)),
+                            ),
+                      const SizedBox(width: 10),
+                      Container(
+                        margin: const EdgeInsets.only(right: 20),
+                        child: const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 12,
+                          color: kTextColor,
+                        ),
+                      )
+                    ]),
+                  )),
             ],
           ),
           const SizedBox(height: 8),
@@ -82,7 +116,7 @@ class _CartCheckOutState extends State<CartCheckOut> {
                 builder: (context, value, child) => Container(
                   margin: const EdgeInsets.only(right: 30),
                   child: Text(
-                    "\$${cart.totalAmount.toStringAsFixed(2)}",
+                    "\$${totalAmount.toStringAsFixed(2)}",
                     style: CustomTextStyle.textFormFieldBlack
                         .copyWith(color: Colors.red, fontSize: 16),
                   ),
