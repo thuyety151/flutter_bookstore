@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/components/book/price.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/models/book.dart';
@@ -110,22 +111,23 @@ class BookCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      "\$${book.price}",
-                      style: AppTextStyles.price,
-                    ),
-                    const SizedBox(width: 4),
-                    const Text(
-                      "\$201",
-                      style: TextStyle(
-                          color: AppColors.kTextGrey,
-                          fontSize: 12,
-                          decoration: TextDecoration.lineThrough),
-                    ),
-                  ],
-                ),
+                Price(book: book),
+                // Row(
+                //   children: [
+                //     Text(
+                //       "\$${book.price}",
+                //       style: AppTextStyles.price,
+                //     ),
+                //     const SizedBox(width: 4),
+                //     const Text(
+                //       "\$201",
+                //       style: TextStyle(
+                //           color: AppColors.kTextGrey,
+                //           fontSize: 12,
+                //           decoration: TextDecoration.lineThrough),
+                //     ),
+                //   ],
+                // ),
                 IconButton(
                   onPressed: () {
                     cart.addOrUpdateItem(book.id, book.attributeId!, 1);

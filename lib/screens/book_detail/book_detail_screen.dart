@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/components/book/price.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/provider/book_model.dart';
@@ -124,21 +125,22 @@ class BookDetailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(children: [
-                      Text(
-                        '\$${value.detail?.salePrice}',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: AppColors.kPrimary),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        '\$${value.detail?.price}',
-                        style: const TextStyle(
-                            fontSize: 14,
-                            color: AppColors.kTextGrey,
-                            decoration: TextDecoration.lineThrough),
-                      ),
+                      Price(book: value.detail),
+                      // Text(
+                      //   '\$${value.detail?.salePrice}',
+                      //   style: const TextStyle(
+                      //       fontWeight: FontWeight.w600,
+                      //       fontSize: 18,
+                      //       color: AppColors.kPrimary),
+                      // ),
+                      // const SizedBox(width: 6),
+                      // Text(
+                      //   '\$${value.detail?.price}',
+                      //   style: const TextStyle(
+                      //       fontSize: 14,
+                      //       color: AppColors.kTextGrey,
+                      //       decoration: TextDecoration.lineThrough),
+                      // ),
                       const SizedBox(width: 6),
                       const Text(
                         "50% off",
@@ -241,7 +243,10 @@ class BookDetailScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          BookListImage(listMedia: value.detail?.media ?? []),
+                          BookListImage(
+                            listMedia: value.detail?.media ?? [],
+                            isOutOfStock: value.detail?.totalStock == 0,
+                          ),
                           _header(),
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),

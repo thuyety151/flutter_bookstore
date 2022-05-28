@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_folder/screens/book_detail/detail/components/book_list_image.dart';
-import 'package:flutter_folder/screens/book_detail/review/components/list_images_review.dart';
+import 'package:flutter_folder/provider/book_model.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:provider/provider.dart';
 
 class ViewImageFullScreen extends StatefulWidget {
   const ViewImageFullScreen({Key? key}) : super(key: key);
@@ -26,61 +26,65 @@ class _ViewImageFullScreenState extends State<ViewImageFullScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        alignment: Alignment.center,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            PhotoViewGallery.builder(
-                itemCount: sampleData.length,
-                onPageChanged: (value) => setState(() {
-                      currentIndex = value;
-                    }),
-                builder: (context, index) {
-                  return PhotoViewGalleryPageOptions(
-                    imageProvider: NetworkImage(sampleData[index]),
-                    minScale: PhotoViewComputedScale.contained * 0.8,
-                    maxScale: PhotoViewComputedScale.covered * 2,
-                  );
-                },
-                scrollPhysics: const BouncingScrollPhysics(),
-                backgroundDecoration: const BoxDecoration(
-                  color: Colors.black,
-                )),
-            Positioned(
-                bottom: 8,
-                right: 16,
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                    color: Colors.black26,
-                  ),
-                  child: Text(
-                    (currentIndex + 1).toString() + "/${imgUrls.length}",
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
-                  ),
-                )),
-            Positioned(
-                top: 58,
-                right: 8,
-                child: GestureDetector(
-                  onTap: _onClose,
-                  child: Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(100)),
-                        color: Colors.white.withOpacity(0.5),
+    return Consumer<BookModel>(
+        builder: (context, value, child) => Container(
+            alignment: Alignment.center,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                PhotoViewGallery.builder(
+                    itemCount: value.detail!.media!.length,
+                    onPageChanged: (value) => setState(() {
+                          currentIndex = value;
+                        }),
+                    builder: (context, index) {
+                      return PhotoViewGalleryPageOptions(
+                        imageProvider: NetworkImage(
+                            value.detail!.media!.elementAt(index).url),
+                        minScale: PhotoViewComputedScale.contained * 0.8,
+                        maxScale: PhotoViewComputedScale.covered * 2,
+                      );
+                    },
+                    scrollPhysics: const BouncingScrollPhysics(),
+                    backgroundDecoration: const BoxDecoration(
+                      color: Colors.black,
+                    )),
+                Positioned(
+                    bottom: 8,
+                    right: 16,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                        color: Colors.black26,
                       ),
-                      child: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 22,
-                      )),
-                )),
-          ],
-        ));
+                      child: Text(
+                        (currentIndex + 1).toString() +
+                            "/${value.detail!.media!.length}",
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    )),
+                Positioned(
+                    top: 58,
+                    right: 8,
+                    child: GestureDetector(
+                      onTap: _onClose,
+                      child: Container(
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(100)),
+                            color: Colors.white.withOpacity(0.5),
+                          ),
+                          child: const Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 22,
+                          )),
+                    )),
+              ],
+            )));
   }
 }
