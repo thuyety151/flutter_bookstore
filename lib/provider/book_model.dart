@@ -84,10 +84,10 @@ class BookModel extends ChangeNotifier {
     extractedData.forEach((item) {
       loadedItems.add(Book.fromJson(item));
     });
-    if (filterData.keywords!.isEmpty) {
-      _books.addAll(loadedItems.reversed.toList());
-    } else {
+    if (filterData.pageIndex == 1) {
       _books = loadedItems.toList();
+    } else {
+      _books.addAll(loadedItems.reversed.toList());
     }
 
     notifyListeners();
