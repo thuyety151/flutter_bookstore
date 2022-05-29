@@ -132,8 +132,7 @@ class _ManageOrderCardState extends State<ManageOrderCard> {
                             style: TextStyle(color: AppColors.kPrimary),
                           ),
                         ),
-                        style: OutlinedButton.styleFrom(
-                            ),
+                        style: OutlinedButton.styleFrom(),
                       ),
                     )
                   ],

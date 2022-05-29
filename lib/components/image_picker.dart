@@ -71,7 +71,7 @@ class _ImagePickerState extends State<ImagePicker> {
     setState(() {
       if (image != null) {
         Provider.of<AccountModel>(context, listen: false)
-            .setImagePath(image.path);
+            .setImage(image);
         Navigator.pop(context);
       }
     });
@@ -104,7 +104,7 @@ class _ImagePickerState extends State<ImagePicker> {
                         onPressed: () async {
                           final image = await _controller.takePicture();
                           Provider.of<AccountModel>(context, listen: false)
-                              .setImagePath(image.path);
+                              .setImage(image);
                           Navigator.pop(context);
                         },
                         icon: const Icon(

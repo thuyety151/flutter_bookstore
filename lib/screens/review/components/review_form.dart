@@ -71,7 +71,6 @@ class _ReviewFormState extends State<ReviewForm> {
   final BoxDecoration _containerStyles = const BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(8)), color: Colors.white);
 
-
   Future getImagefromGallery() async {
     var _imagePicker = ImagePicker();
 
