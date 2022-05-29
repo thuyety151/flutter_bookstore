@@ -3,6 +3,7 @@ import 'package:flutter_folder/components/coustom_bottom_nav_bar.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/enums.dart';
 import 'package:flutter_folder/mocks/models/best_selling.dart';
+import 'package:flutter_folder/screens/coupon/components/coupons_homepage.dart';
 import 'package:flutter_folder/screens/home/components/authors.dart';
 import 'package:flutter_folder/screens/home/components/bestselling.dart';
 import 'package:flutter_folder/screens/home/components/deal_of_week.dart';
@@ -40,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
+                CouponHomepage(),
                 BestSelling(),
                 DealOfWeek(),
                 NewRelease(),

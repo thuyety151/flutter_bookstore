@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/custom_text_style.dart';
+import 'package:flutter_folder/provider/shipping.dart';
 import 'package:flutter_folder/screens/checkout/components/checkout_delivery.dart';
 import 'package:flutter_folder/screens/checkout/components/checkout_list_item.dart';
 import 'package:flutter_folder/screens/checkout/components/checkout_payment_method.dart';
@@ -8,6 +9,8 @@ import 'package:provider/provider.dart';
 import '../../components/button/primary_button.dart';
 import '../../configs/app_colors.dart';
 import '../../models/address.dart';
+import '../../provider/cart.dart';
+import '../../provider/order.dart';
 import '../../routes/index.dart';
 import 'components/checkout_address.dart';
 import 'components/checkout_price_section.dart';
@@ -23,7 +26,6 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends State<CheckoutScreen> {
   var _isInit = true;
   var _isLoading = false;
-  late Address currentAddress;
 
   @override
   void initState() {
@@ -49,9 +51,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   void onPlaceOrder() {
-    // setState(() {
-    //   isLoading = true;
-    // });
+    final itemIds = Provider.of<Cart>(context, listen: false).items.map((item) => item.id as String).toList();
+    final currentAddress = Provider.of<provider.AddressModel>(context, listen: false).getDefaultAddresses();
+    final cart = Provider.of<Cart>(context, listen: false);
+    final serviceType = Provider.of<Shipping>(context, listen: false).getDefaultServiceType();
+    const paymentMethod = 'Cash';
+  
+    Provider.of<Order>(context, listen: false).createOrder(itemIds, currentAddress.id as String, currentAddress, cart.totalAmount, serviceType, paymentMethod, cart.items);
     Navigator.of(context).pushNamed(RouteManager.ROUTE_ORDER_SUCCESS);
   }
 

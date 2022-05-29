@@ -1,5 +1,5 @@
 class Ward {
-  int wardCode;
+  String wardCode;
   int districtId;
   String wardName;
 
@@ -10,7 +10,7 @@ class Ward {
 
   factory Ward.fromJson(Map<String, dynamic> json) {
     return Ward(
-        wardCode: int.parse(json["WardCode"]),
+        wardCode: json["WardCode"],
         districtId: json["DistrictID"].toInt(),
         wardName: json["WardName"]);
   }

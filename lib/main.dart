@@ -8,6 +8,7 @@ import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/provider/cart.dart';
 import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/provider/chat_provider.dart';
+import 'package:flutter_folder/provider/coupons.dart';
 import 'package:flutter_folder/provider/ghn_model.dart';
 import 'package:flutter_folder/provider/order.dart';
 import 'package:flutter_folder/provider/review_provider.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Order()),
         ChangeNotifierProvider(create: (context) => ReviewProvider()),
         ChangeNotifierProvider(create: (context) => WishlistProvider()),
+        ChangeNotifierProvider(create: (context) => Coupons()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

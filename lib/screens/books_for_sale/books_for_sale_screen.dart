@@ -186,6 +186,7 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
                             child: ListView.builder(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             controller: scrollcontroller,
+                            
                             itemBuilder: (context, index) {
                               if (index % 2 == 0) {
                                 return const SizedBox();

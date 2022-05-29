@@ -4,7 +4,9 @@ import 'package:flutter_folder/provider/address_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../components/custom_text_style.dart';
+import '../../../models/coupon.dart';
 import '../../../provider/cart.dart';
+import '../../../provider/coupons.dart';
 import '../../../provider/shipping.dart';
 import '../../../provider/shipping_fee.dart';
 
@@ -13,18 +15,32 @@ class CheckoutPriceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("1");
     final cart = Provider.of<Cart>(context);
     final currentAddress =
         Provider.of<AddressModel>(context, listen: false).getDefaultAddresses();
-    print("2 :" + currentAddress.fullAddress);
+
     final serviceType =
         Provider.of<Shipping>(context, listen: false).serviceTypes.firstWhere(
               (element) => element.isMain == true,
               orElse: () => ServiceType(isMain: false),
             );
+
     Provider.of<ShippingFee>(context, listen: false)
         .getFee(currentAddress, serviceType);
+
+    var coupon = Provider.of<Coupons>(context, listen: false).selectedCoupon;
+
+    double calculateCouponMoney(double subtotal, Coupon coupon){
+      // discountType:  0.FixedCart, 1.Percentage
+      if (coupon.discountType == 0) {
+          return coupon.couponAmount.toDouble();
+      } else {
+        if (coupon.discountType == 1) {
+          return subtotal * (coupon.couponAmount / 100);
+        }
+      }
+      return 0;
+    }
     return Consumer<ShippingFee>(
         builder: (context, value, child) => Container(
               margin: const EdgeInsets.all(4),
@@ -52,7 +68,7 @@ class CheckoutPriceSection extends StatelessWidget {
                           "Shipping",
                           "\$${formatVNDtoUSD(value.serviceFee)}",
                           Colors.teal.shade300),
-                      createPriceItem("Discount", "0", Colors.red.shade300),
+                      createPriceItem("Discount", "- \$${calculateCouponMoney(cart.totalAmount, coupon).toStringAsFixed(2)}", Colors.red.shade300),
                       const SizedBox(
                         height: 8,
                       ),
@@ -75,9 +91,9 @@ class CheckoutPriceSection extends StatelessWidget {
                                 .copyWith(color: Colors.black, fontSize: 18),
                           ),
                           Text(
-                            "\$${calTotal(cart.totalAmount, (value.serviceFee / 23000), 0)}",
+                            "\$${calTotal(cart.totalAmount, (value.serviceFee / 23000), calculateCouponMoney(cart.totalAmount, coupon))}",
                             style: CustomTextStyle.textFormFieldSemiBold
-                                .copyWith(color: Colors.black, fontSize: 18),
+                                .copyWith(color: Colors.red, fontSize: 18),
                           )
                         ],
                       )
@@ -98,7 +114,7 @@ createPriceItem(String key, String value, Color color) {
         Text(
           key,
           style: CustomTextStyle.textFormFieldMedium
-              .copyWith(color: Colors.grey.shade700, fontSize: 14),
+              .copyWith(color: Colors.black, fontSize: 14),
         ),
         Text(
           value,
@@ -115,5 +131,5 @@ formatVNDtoUSD (num money){
 }
 
 calTotal (num subtotal, num shippingFee, num coupon){
-  return (subtotal + shippingFee + coupon).toStringAsFixed(2);
+  return (subtotal + shippingFee - coupon).toStringAsFixed(2);
 }

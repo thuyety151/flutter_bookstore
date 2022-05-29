@@ -32,9 +32,11 @@ class Order with ChangeNotifier {
       ServiceType serviceType,
       String paymentMethod,
       List<Item> items) async {
-    final url = Uri.parse(apiEndpoint + '"/orders/create"');
+    final url = Uri.parse(apiEndpoint + '/orders/create');
     var token = await storage.read(key: "token");
     try {
+      print('save order db');
+      currentAddress.id = null;
       final response = await http.post(
         url,
         headers: {
@@ -49,11 +51,12 @@ class Order with ChangeNotifier {
           'coupon': null,
           'address': currentAddress,
           'orderFee': orderFee,
-          'paymentMethod': "1",
+          'paymentMethod': 1,
         }),
       );
-
-      if (response.body.isNotEmpty && response.body.contains("true")) {
+      print('save order db done');
+      if (response.body.contains("true")) {
+        print('save order ghn');
         String orderId = json.decode(response.body)["value"] as String;
         final order = {
           'payment_type_id': 2,
@@ -108,9 +111,10 @@ class Order with ChangeNotifier {
             },
             body: json.encode(order),
           );
-
+          print('save order ghn done');
           if (responseCreateOrderGNH.body.isNotEmpty &&
               responseCreateOrderGNH.statusCode == 200) {
+            print('save update order code');
             String orderCode = json.decode(responseCreateOrderGNH.body)["data"]
                 ["order_code"] as String;
             // Integrate API UPDATE ORDER CODE
@@ -127,6 +131,7 @@ class Order with ChangeNotifier {
               }),
             );
           }
+          print('save update order code');
         } catch (error) {
           // Delete order when create GHN fail
           final id = orderId;
