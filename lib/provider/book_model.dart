@@ -7,8 +7,6 @@ import 'package:flutter_folder/models/filter.dart';
 import 'package:flutter_folder/models/newrelease.dart';
 import 'package:flutter_folder/models/review.dart';
 import 'package:flutter_folder/services/book_api.dart';
-import 'package:http/http.dart' as http;
-import '../models/constants.dart';
 
 class BookModel extends ChangeNotifier {
   final BookApi _api = BookApi();
@@ -73,7 +71,7 @@ class BookModel extends ChangeNotifier {
 
     final List<Book> loadedItems = [];
     List<dynamic>? extractedData;
-    if (response.isNotEmpty) {
+    if (response != null) {
       extractedData = json.decode(response)["value"] as List<dynamic>;
     }
     // ignore: unnecessary_null_comparison
@@ -84,6 +82,7 @@ class BookModel extends ChangeNotifier {
     extractedData.forEach((item) {
       loadedItems.add(Book.fromJson(item));
     });
+
     if (filterData.pageIndex == 1) {
       _books = loadedItems.toList();
     } else {
@@ -148,5 +147,21 @@ class BookModel extends ChangeNotifier {
     } catch (e) {
       rethrow;
     }
+  }
+
+  void setCategoryId(String id) {
+    filterData.categoryId = id;
+    notifyListeners();
+  }
+
+  void setAuthorId(String id) {
+    filterData.authorId = id;
+    notifyListeners();
+  }
+
+  void setInit(String? categoryId, String? authorId) {
+    filterData.categoryId = categoryId;
+    filterData.authorId = authorId;
+    notifyListeners();
   }
 }

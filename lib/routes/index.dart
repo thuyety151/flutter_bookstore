@@ -8,7 +8,6 @@ import 'package:flutter_folder/screens/address/address_screen.dart';
 import 'package:flutter_folder/screens/book_detail/book_detail_screen.dart';
 import 'package:flutter_folder/screens/books_for_sale/books_for_sale_screen.dart';
 import 'package:flutter_folder/screens/cart/cart_screen.dart';
-import 'package:flutter_folder/screens/coupon/components/coupon_list.dart';
 import 'package:flutter_folder/screens/coupon/coupon_screen.dart';
 import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:flutter_folder/screens/login/login_screen.dart';
@@ -98,7 +97,7 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const ChatScreen());
       case ROUTE_IMAGE_PICKER:
         return MaterialPageRoute(builder: (context) => const ImagePicker());
-        case ROUTE_USER_COUPONS:
+      case ROUTE_USER_COUPONS:
         return MaterialPageRoute(builder: (context) => const CouponScreen());
       default:
         throw const FormatException("Route not found! Check routes again");

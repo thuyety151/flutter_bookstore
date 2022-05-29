@@ -117,7 +117,7 @@ class _SearchState extends State<Search> {
     final args = ModalRoute.of(context)!.settings.arguments as dynamic;
     if (args != null) {
       setState(() {
-        isSearching = args;
+        isSearching = args.isSeaching ?? false;
       });
     }
     super.didChangeDependencies();

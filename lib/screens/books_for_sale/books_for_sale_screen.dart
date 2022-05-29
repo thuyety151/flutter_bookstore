@@ -13,6 +13,14 @@ import 'package:flutter_folder/screens/books_for_sale/components/filter_form.dar
 import 'package:flutter_folder/screens/books_for_sale/components/search.dart';
 import 'package:provider/provider.dart';
 
+class BFSArguments {
+  String? categoryId;
+  String? authorId;
+  bool? isSeaching;
+
+  BFSArguments({this.categoryId, this.authorId, this.isSeaching});
+}
+
 class BooksForSaleScreen extends StatefulWidget {
   const BooksForSaleScreen({Key? key}) : super(key: key);
 
@@ -36,6 +44,12 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
+      final argsCate = ModalRoute.of(context)!.settings.arguments as dynamic;
+      if (argsCate != null) {
+        Provider.of<BookModel>(context, listen: false)
+            .setInit(argsCate!.categoryId, argsCate!.authorId);
+      }
+
       setState(() {
         _isLoading = true;
       });
@@ -186,7 +200,6 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
                             child: ListView.builder(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             controller: scrollcontroller,
-                            
                             itemBuilder: (context, index) {
                               if (index % 2 == 0) {
                                 return const SizedBox();
