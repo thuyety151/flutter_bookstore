@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/models/item.dart';
 import 'package:flutter_folder/screens/manage_order/components/manage_order_item.dart';
-import '../../../mocks/models/cart_item.dart';
 
 class ManageOrderListItem extends StatefulWidget {
-  const ManageOrderListItem({Key? key}) : super(key: key);
+  const ManageOrderListItem({Key? key, required this.items}) : super(key: key);
+  final List<Item> items;
 
   @override
   State<ManageOrderListItem> createState() => _ManageOrderListItemState();
@@ -18,11 +19,11 @@ class _ManageOrderListItemState extends State<ManageOrderListItem> {
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: Dismissible(
-          key: Key(cartItems[index].book.id.toString()),
+          key: Key(widget.items[index].productId.toString()),
           direction: DismissDirection.endToStart,
           onDismissed: (direction) {
             setState(() {
-              cartItems.removeAt(index);
+              widget.items.removeAt(index);
             });
           },
           background: Container(
@@ -41,10 +42,10 @@ class _ManageOrderListItemState extends State<ManageOrderListItem> {
               ],
             ),
           ),
-          child: ManageOrderItem(checkoutItem: cartItems[index]),
+          child: ManageOrderItem(checkoutItem: widget.items[index]),
         ),
       ),
-      itemCount: cartItems.length,
+      itemCount: widget.items.length,
     );
   }
 }

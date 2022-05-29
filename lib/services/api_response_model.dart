@@ -24,13 +24,15 @@ class AuthenResponse {
   final String token;
   final String email;
   final String role;
+  final String photoUrl;
 
   AuthenResponse(
       {this.firstName,
       this.lastName,
       required this.token,
       required this.email,
-      required this.role});
+      required this.role,
+      required this.photoUrl});
 
   factory AuthenResponse.fromJson(
       Map<String, dynamic> json, Function fromJsonModel) {
@@ -40,6 +42,7 @@ class AuthenResponse {
       token: json["token"],
       email: json["email"],
       role: json["role"],
+      photoUrl: json["photoUrl"],
     );
   }
   static int getStatusCode(Map<String, dynamic> json) {

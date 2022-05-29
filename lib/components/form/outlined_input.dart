@@ -37,6 +37,7 @@ class _OutlinedInputState extends State<OutlinedInput> {
   late String? value;
   final Validation validator = Validation(value: "");
   late List<String?> errors = [];
+  late bool isShowPW = false;
 
   @override
   void initState() {
@@ -91,12 +92,24 @@ class _OutlinedInputState extends State<OutlinedInput> {
                   value = input;
                 });
               },
-              obscureText: widget.obscureText ?? false,
+              obscureText: !isShowPW && (widget.obscureText ?? false),
               enabled: widget.enabled ?? true,
               decoration: InputDecoration(
                   hintText: widget.placeholder ?? "",
                   border: InputBorder.none,
                   prefixIcon: widget.prefixIcon,
+                  suffixIcon: widget.obscureText == true
+                      ? IconButton(
+                          icon: Icon(isShowPW
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined),
+                          onPressed: () {
+                            setState(() {
+                              isShowPW = !isShowPW;
+                            });
+                          },
+                        )
+                      : null,
                   enabledBorder: outlineInputBorder(),
                   disabledBorder: outlineInputBorder(),
                   focusedBorder: outlineInputBorder(),

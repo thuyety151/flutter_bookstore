@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/provider/account_model.dart';
 import 'package:flutter_folder/provider/address_model.dart';
@@ -13,8 +11,13 @@ import 'package:flutter_folder/provider/chat_provider.dart';
 import 'package:flutter_folder/provider/coupons.dart';
 import 'package:flutter_folder/provider/ghn_model.dart';
 import 'package:flutter_folder/provider/order.dart';
+<<<<<<< HEAD
+=======
+import 'package:flutter_folder/provider/review_provider.dart';
+>>>>>>> feature/review
 import 'package:flutter_folder/provider/shipping.dart';
 import 'package:flutter_folder/provider/shipping_fee.dart';
+import 'package:flutter_folder/provider/wishlist_provider.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,6 +68,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ShippingFee()),
         ChangeNotifierProvider(create: (context) => Order()),
         ChangeNotifierProvider(create: (context) => Coupons()),
+        ChangeNotifierProvider(create: (context) => ReviewProvider()),
+        ChangeNotifierProvider(create: (context) => WishlistProvider()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

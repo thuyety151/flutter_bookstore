@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/models/filter.dart';
 import 'package:flutter_folder/models/newrelease.dart';
+import 'package:flutter_folder/models/review.dart';
 import 'package:flutter_folder/services/book_api.dart';
 import 'package:http/http.dart' as http;
 import '../models/constants.dart';
@@ -26,6 +28,11 @@ class BookModel extends ChangeNotifier {
   Future<void> fetchAndSetBooks() async {
     print("fetchAndSetBooks: " + filterData.toJson().toString());
     String queryParams = '/books/books-for-sale?predicate=newest';
+    if (filterData.keywords!.isNotEmpty) {
+      queryParams += '&keywords=${filterData.keywords}';
+      //TODO: Reset pagination
+      filterData.pageIndex = 1;
+    }
     if (filterData.categoryId != null) {
       queryParams += '&categoryId=${filterData.categoryId}';
     }
@@ -56,16 +63,18 @@ class BookModel extends ChangeNotifier {
     }
 
     print("query params: " + queryParams);
-    final url = Uri.parse(apiEndpoint + queryParams);
-    final response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    });
+    // final url = Uri.parse(apiEndpoint + queryParams);
+    // final response = await http.get(url, headers: {
+    //   'Content-Type': 'application/json',
+    //   'Accept': 'application/json',
+    // });
+
+    var response = await withRestApiResponse(queryParams);
 
     final List<Book> loadedItems = [];
     List<dynamic>? extractedData;
-    if (response.body.isNotEmpty) {
-      extractedData = json.decode(response.body)["value"] as List<dynamic>;
+    if (response.isNotEmpty) {
+      extractedData = json.decode(response)["value"] as List<dynamic>;
     }
     // ignore: unnecessary_null_comparison
     if (extractedData == null) {
@@ -75,8 +84,12 @@ class BookModel extends ChangeNotifier {
     extractedData.forEach((item) {
       loadedItems.add(Book.fromJson(item));
     });
+    if (filterData.keywords!.isEmpty) {
+      _books.addAll(loadedItems.reversed.toList());
+    } else {
+      _books = loadedItems.toList();
+    }
 
-    _books.addAll(loadedItems.reversed.toList());
     notifyListeners();
   }
 
@@ -99,8 +112,12 @@ class BookModel extends ChangeNotifier {
   }
 
   Future<void> getDetail(String id) async {
+    if (detail?.id == id) {
+      return;
+    }
     var response = await _api.getBookDetail(id);
     detail = response;
+    getListReviews(id);
     notifyListeners();
   }
 
@@ -111,8 +128,25 @@ class BookModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setKeyword(String keyword) {
+    filterData.keywords = keyword;
+    fetchAndSetBooks();
+    notifyListeners();
+  }
+
   void clearFilterData() {
     filterData = Filter.empty();
     notifyListeners();
+  }
+
+  Future<void> getListReviews(String id) async {
+    try {
+      var res = await withRestApiResponse("/reviews?bookId=$id");
+      var value = json.decode(res)["value"] as List<dynamic>;
+      detail?.reviews = value.map((e) => Review.fromJson(e)).toList();
+      notifyListeners();
+    } catch (e) {
+      rethrow;
+    }
   }
 }

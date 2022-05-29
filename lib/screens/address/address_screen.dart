@@ -102,7 +102,7 @@ class _AddressScreenState extends State<AddressScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
-        appBar: customAppBar("Addresses"),
+        appBar: customAppBar("Ship Addresses"),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
