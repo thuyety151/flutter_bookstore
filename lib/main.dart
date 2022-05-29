@@ -11,10 +11,7 @@ import 'package:flutter_folder/provider/chat_provider.dart';
 import 'package:flutter_folder/provider/coupons.dart';
 import 'package:flutter_folder/provider/ghn_model.dart';
 import 'package:flutter_folder/provider/order.dart';
-<<<<<<< HEAD
-=======
 import 'package:flutter_folder/provider/review_provider.dart';
->>>>>>> feature/review
 import 'package:flutter_folder/provider/shipping.dart';
 import 'package:flutter_folder/provider/shipping_fee.dart';
 import 'package:flutter_folder/provider/wishlist_provider.dart';
