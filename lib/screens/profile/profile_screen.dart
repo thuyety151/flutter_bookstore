@@ -61,10 +61,6 @@ class ProfileScreen extends StatelessWidget {
             iconAssetUrl: "assets/icons/icon-location.png",
             onPress: () => onPress("address")),
         ProfileMenu(
-            text: "Wishlist",
-            iconAssetUrl: "assets/icons/icon-wish-list.png",
-            onPress: () => onPress("wishlist")),
-        ProfileMenu(
             text: "Logout",
             iconAssetUrl: "assets/icons/icon-logout.png",
             onPress: () => onPress("login"))

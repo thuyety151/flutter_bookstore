@@ -14,7 +14,7 @@ class EditProfileForm extends StatefulWidget {
 
 class _EditProfileFormState extends State<EditProfileForm> {
   late Account formValue = Account.empty();
-  
+
   late bool loading = false;
   @override
   void initState() {
@@ -60,7 +60,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
           label: "email",
           onUpdateValue: (value) {},
           modelValue: formValue.email,
-          enabled: false),
+          readOnly: true),
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: PrimaryButton(

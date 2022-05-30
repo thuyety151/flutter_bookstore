@@ -12,15 +12,16 @@ class AccountModel extends ChangeNotifier {
   final Authentication _auth = Authentication();
   bool fetching = false;
   bool _userLogedIn = false;
-  String imagePickerPath = "";
   late Account _account = Account.empty();
   static const storage = FlutterSecureStorage();
   late XFile _file;
   String get email => _account.email;
   Account get account => _account;
+  String get imagePickerPath => _file.path;
 
   AccountModel() {
     getUserLoginDetails();
+    _file = XFile("");
   }
 
   Future<bool> login(LoginRequestModel data) async {
@@ -63,7 +64,7 @@ class AccountModel extends ChangeNotifier {
 
   Future<void> updateProfile(Account value, VoidCallback onSuccess) async {
     try {
-      var media = _file != null ? MediaModel().createMedia(_file) : null;
+      var media = await MediaModel().createMedia(_file);
 
       var res = await withRestApiResponse("/account/update-account-information",
           method: "post",
@@ -79,6 +80,15 @@ class AccountModel extends ChangeNotifier {
       }));
       if (json.decode(res)["firstName"] != null) {
         onSuccess();
+        print(json.decode(res));
+        // reset storage
+        await storage.write(
+            key: "firstName", value: json.decode(res)["firstName"]);
+        await storage.write(
+            key: "lastName", value: json.decode(res)["lastName"]);
+        await storage.write(
+            key: "photoUrl", value: json.decode(res)["photoUrl"]);
+        await getUserLoginDetails();
       }
     } catch (e) {
       rethrow;

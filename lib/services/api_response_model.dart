@@ -24,7 +24,7 @@ class AuthenResponse {
   final String token;
   final String email;
   final String role;
-  final String photoUrl;
+  final String? photoUrl;
 
   AuthenResponse(
       {this.firstName,

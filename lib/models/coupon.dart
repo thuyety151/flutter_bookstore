@@ -25,8 +25,8 @@ class Coupon {
     couponAmount = json['couponAmount'];
     discountType = json['discountType'];
     expireDate = json['expireDate'];
-    imageUrl = json['imageUrl'];
-    minSpend = json['minSpend'];
+    imageUrl = json['imageUrl'] ?? "";
+    minSpend = json['minSpend'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
