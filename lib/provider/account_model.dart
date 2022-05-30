@@ -76,14 +76,15 @@ class AccountModel extends ChangeNotifier {
           }));
       if (json.decode(res)["firstName"] != null) {
         onSuccess();
-        print(json.decode(res));
         // reset storage
         await storage.write(
             key: "firstName", value: json.decode(res)["firstName"]);
         await storage.write(
             key: "lastName", value: json.decode(res)["lastName"]);
-        await storage.write(
-            key: "photoUrl", value: json.decode(res)["photoUrl"]);
+        if (json.decode(res)["photoUrl"] != "") {
+          await storage.write(
+              key: "photoUrl", value: json.decode(res)["photoUrl"]);
+        }
         await getUserLoginDetails();
       }
     } catch (e) {

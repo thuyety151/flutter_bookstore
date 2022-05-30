@@ -18,7 +18,6 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void deactivate() {
     Provider.of<AccountModel>(context, listen: false).setImage(XFile(""));
-    Provider.of<AccountModel>(context, listen: false).dispose();
     super.deactivate();
   }
 

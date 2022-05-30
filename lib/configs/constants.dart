@@ -1,6 +1,13 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/components/badge.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/size_config.dart';
+import 'package:flutter_folder/main.dart';
+import 'package:flutter_folder/provider/cart.dart';
+import 'package:flutter_folder/routes/index.dart';
+import 'package:provider/provider.dart';
 
 const kPrimaryColor = Color(0xFFFF7643);
 const kPrimaryLightColor = Color(0xFFFFECDF);
@@ -85,12 +92,43 @@ BoxDecoration showBottomSheetStyle() {
 }
 
 AppBar customAppBar(String title,
-    [double elevation = 1, Color bg = Colors.white]) {
+    [double elevation = 1, Color bg = Colors.white, bool includeCart = false]) {
   return AppBar(
-    title: Text(
-      title,
-      style: const TextStyle(color: AppColors.kGrey, fontSize: 16),
-    ),
+    title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Text(
+        title,
+        style: const TextStyle(color: AppColors.kGrey, fontSize: 16),
+      ),
+      if (includeCart == true) ...[
+        Consumer<Cart>(
+          builder: (_, cart, ch) => Badge(
+            child: ch!,
+            value: cart.itemCount.toString(),
+            textColor: Colors.white,
+          ),
+          child: FlatButton(
+            onPressed: () {
+              Navigator.of(navigatorKey.currentState!.overlay!.context)
+                  .pushNamed(RouteManager.ROUTE_CART);
+            },
+            color: Colors.white,
+            height: 38,
+            minWidth: 38,
+            padding: const EdgeInsets.symmetric(horizontal: 0),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8))),
+            child: const Image(
+              image: AssetImage(
+                "assets/icons/o-icon-cart.png",
+              ),
+              height: 24,
+              width: 24,
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+      ]
+    ]),
     centerTitle: true,
     backgroundColor: bg,
     foregroundColor: AppColors.kGrey,

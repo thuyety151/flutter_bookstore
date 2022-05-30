@@ -58,7 +58,12 @@ class CustomBottomNavBar extends StatelessWidget {
                     .pushNamed(RouteManager.ROUTE_HOME_PAGE),
               ),
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
+                icon: SvgPicture.asset(
+                  "assets/icons/Heart Icon.svg",
+                  color: MenuState.favourite == selectedMenu
+                      ? AppColors.kPrimary
+                      : inActiveIconColor,
+                ),
                 onPressed: () => Navigator.of(context)
                     .pushNamed(RouteManager.ROUTE_WISH_LIST),
               ),
