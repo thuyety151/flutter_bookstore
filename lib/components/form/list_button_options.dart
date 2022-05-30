@@ -26,7 +26,6 @@ class _ListButtonOptionsState extends State<ListButtonOptions> {
   Widget build(BuildContext context) {
     return SizedBox(
         key: widget.key,
-        height: 42,
         width: MediaQuery.of(context).size.width - 2 * 21,
         child: widget.canScroll != null && widget.canScroll == true
             ? ListView.builder(

@@ -18,6 +18,7 @@ import 'package:flutter_folder/screens/profile/profile_detail_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_edit_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_screen.dart';
 import 'package:flutter_folder/screens/checkout/checkout_screen.dart';
+import 'package:flutter_folder/screens/wishlist/wishlist_screen.dart';
 
 import '../screens/chat/chat_screen.dart';
 import '../screens/manage_order/manage_order_screen.dart';
@@ -73,11 +74,12 @@ class RouteManager {
       case ROUTE_IMAGES_DETAIL:
         return MaterialPageRoute(
             builder: (context) => const ViewImageFullScreen());
-      // case ROUTE_WISH_LIST:
-      //   return MaterialPageRoute(builder: (context) => WishListScreen());
+      case ROUTE_WISH_LIST:
+        return MaterialPageRoute(builder: (context) => const WishlistScreen());
       case ROUTE_BOOKS_FOR_SALE:
         return MaterialPageRoute(
-            builder: (context) => const BooksForSaleScreen());
+            builder: (context) => const BooksForSaleScreen(),
+            settings: settings);
       case ROUTE_CART:
         return MaterialPageRoute(builder: (context) => const CartScreen());
       case ROUTE_REGISTER:
@@ -85,20 +87,21 @@ class RouteManager {
       case ROUTE_CHECKOUT:
         return MaterialPageRoute(builder: (context) => const CheckoutScreen());
       case ROUTE_ORDER_SUCCESS:
-        return CupertinoPageRoute(builder: (context) => OrderSuccess());
+        return CupertinoPageRoute(builder: (context) => const OrderSuccess());
       case ROUTE_MANAGE_ORDER:
         return MaterialPageRoute(
             builder: (context) => const ManageOrderScreen());
       case ROUTE_REVIEW:
-        return MaterialPageRoute(builder: (context) => ReviewScreen());
+        return MaterialPageRoute(
+            builder: (context) => const ReviewScreen(), settings: settings);
       case ROUTE_CHAT:
-        return MaterialPageRoute(builder: (context) => ChatScreen());
+        return MaterialPageRoute(builder: (context) => const ChatScreen());
       case ROUTE_IMAGE_PICKER:
         return MaterialPageRoute(builder: (context) => const ImagePicker());
         case ROUTE_USER_COUPONS:
         return MaterialPageRoute(builder: (context) => const CouponScreen());
       default:
-        throw FormatException("Route not found! Check routes again");
+        throw const FormatException("Route not found! Check routes again");
     }
   }
 }

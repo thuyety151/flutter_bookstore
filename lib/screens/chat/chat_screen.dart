@@ -71,7 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
     final chatStte = Provider.of<ChatProvider>(context);
     final authstate = Provider.of<AccountModel>(context);
     if (authstate.getisUserLogedIn() == true) {
-      chatStte.createSignalRConnection(authstate.getUserLoginDetails());
+      // chatStte.createSignalRConnection(authstate.getUserLoginDetails());
     }
 
     final filtredMessages = chatStte.getMessages();

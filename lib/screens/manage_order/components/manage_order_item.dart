@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/models/item.dart';
+import 'package:flutter_folder/provider/wishlist_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/custom_text_style.dart';
-import '../../../mocks/models/cart_item.dart';
 
 class ManageOrderItem extends StatelessWidget {
-  const ManageOrderItem({Key? key, required this.checkoutItem})
+  const ManageOrderItem(
+      {Key? key, required this.checkoutItem, this.isWishlistItem})
       : super(key: key);
 
-  final CartItemModel checkoutItem;
+  final Item checkoutItem;
+  final bool? isWishlistItem;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -29,7 +34,7 @@ class ManageOrderItem extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(14)),
                   color: Colors.blue.shade200,
                   image: DecorationImage(
-                    image: NetworkImage(checkoutItem.book.imgUrl),
+                    image: NetworkImage(checkoutItem.pictureUrl ?? ""),
                   )),
             ),
             Expanded(
@@ -42,7 +47,7 @@ class ManageOrderItem extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.only(right: 8, top: 4),
                       child: Text(
-                        checkoutItem.book.name,
+                        checkoutItem.productName ?? "",
                         maxLines: 2,
                         softWrap: true,
                         style: CustomTextStyle.textFormFieldSemiBold
@@ -51,18 +56,20 @@ class ManageOrderItem extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      "Paperpack",
+                      "${checkoutItem.attributeName}",
                       style: CustomTextStyle.textFormFieldRegular
                           .copyWith(color: Colors.grey, fontSize: 14),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "x1",
-                          style: CustomTextStyle.textFormFieldRegular
-                              .copyWith(color: Colors.grey),
-                        ),
+                        if (isWishlistItem == false) ...[
+                          Text(
+                            "x${checkoutItem.quantity}",
+                            style: CustomTextStyle.textFormFieldRegular
+                                .copyWith(color: Colors.grey),
+                          )
+                        ],
                         Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
@@ -70,11 +77,33 @@ class ManageOrderItem extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  "\$ " + checkoutItem.book.price.toString(),
+                                  "\$ " +
+                                      checkoutItem.price!.toStringAsFixed(2),
                                   style: CustomTextStyle.textFormFieldSemiBold,
                                 ),
                               ],
-                            ))
+                            )),
+                        if (isWishlistItem == true) ...[
+                          IconButton(
+                            onPressed: () {
+                              Provider.of<WishlistProvider>(context,
+                                      listen: false)
+                                  .addToCart(checkoutItem.id, () {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content:
+                                      Text("Add item to cart successfully!"),
+                                  duration: Duration(seconds: 1),
+                                ));
+                              }, () {});
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar();
+                            },
+                            icon: const Image(
+                                image: AssetImage(
+                                    "assets/icons/icon-cart-primary.png")),
+                          ),
+                        ]
                       ],
                     )
                   ]),

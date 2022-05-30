@@ -8,7 +8,7 @@ class Authors extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<AuthorModel>(context).getListAuthor();
+    Provider.of<AuthorModel>(context,listen: false).getListAuthor();
 
     return ListBookSession(
       title: "Authors",

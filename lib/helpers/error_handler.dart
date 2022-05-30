@@ -45,9 +45,9 @@ void catchErrAndNotify(AlertDialogParams params, dynamic error) {
 }
 
 Future withRestApiResponse(String url,
-    {String method = "get", String body = ""}) async {
+    {String method = "get", String body = "", bool hasLoading = false}) async {
   try {
-    // showLoading();
+    //   showLoading();
     final Api _api = Api();
     var request = method == "get"
         ? await _api.get(url)
@@ -75,12 +75,15 @@ Future withRestApiResponse(String url,
   }
 }
 
-Future withGHNApiResponse(String url) async {
+Future withGHNApiResponse(String url,
+    {String method = "get", String body = ""}) async {
   try {
     // showLoading();
     final Api _api = Api();
 
-    var request = await _api.getGHN(url);
+    var request = method == "get"
+        ? await _api.getGHN(url)
+        : await _api.postGHN(url, body: body);
     var response = await http.Response.fromStream(await request.send());
     // Navigator.pop(navigatorKey.currentState!.overlay!.context);
     return response.body;

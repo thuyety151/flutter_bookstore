@@ -66,6 +66,10 @@ OutlineInputBorder errorInputBorder() {
 class AppTextStyles {
   static const title = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
   static const caption = TextStyle(fontSize: 12, color: AppColors.kTextGrey);
+  static const oldPrice = TextStyle(
+      fontSize: 12,
+      color: AppColors.kTextGrey,
+      decoration: TextDecoration.lineThrough);
   static const price = TextStyle(
       fontSize: 14, color: AppColors.kPrimary, fontWeight: FontWeight.bold);
   static const attribute = TextStyle(fontSize: 12, color: AppColors.kPrimary);
