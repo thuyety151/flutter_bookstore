@@ -2,10 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/button/primary_button.dart';
+import 'package:flutter_folder/services/authentication_service.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/custom_surfix_icon.dart';
+import '../../../components/form/form_error.dart';
 import '../../../configs/constants.dart';
 import '../../../configs/size_config.dart';
+import '../../../provider/account_model.dart';
 import '../../../routes/index.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -26,6 +30,7 @@ class _RegisterFormState extends State<RegisterForm> {
   bool remember = false;
   final List<String?> errors = [];
   late bool isLoading;
+  late RegisterRequestModel formValue = RegisterRequestModel(firstName: "", lastName: "", email: "", password: "");
 
   @override
   void initState() {
@@ -33,20 +38,29 @@ class _RegisterFormState extends State<RegisterForm> {
     isLoading = false;
   }
 
-  void onRegister() {
-    setState(() {
-      isLoading = true;
-    });
-
+  Future<void> onRegister() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+       setState(() {
+        isLoading = true;
+      });
+      formValue.firstName = first_name.toString();
+      formValue.lastName = last_name.toString();
+      formValue.email = email.toString();
+      formValue.password = password.toString();
 
-      Navigator.of(context).pushNamed(RouteManager.ROUTE_HOME_PAGE);
-    } else {
+      AccountModel accountModel =
+          Provider.of<AccountModel>(context, listen: false);
+      var success = await accountModel.register(formValue);
+
+      if (success == true) {
+        Navigator.of(context).pushNamed(RouteManager.ROUTE_HOME_PAGE);
+      }
       setState(() {
         isLoading = false;
       });
-    }
+
+    } 
   }
 
   void addError({String? error}) {
@@ -84,6 +98,7 @@ class _RegisterFormState extends State<RegisterForm> {
             buildPasswordFormField(),
             SizedBox(height: getProportionateScreenHeight(20)),
             buildConfirmPasswordField(),
+            FormError(errors: errors),
             SizedBox(height: getProportionateScreenWidth(35)),
             PrimaryButton(
               onTap: onRegister,
@@ -155,7 +170,7 @@ class _RegisterFormState extends State<RegisterForm> {
         } else if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
         }
-        return;
+        return null;
       },
       validator: (value) {
         if (value!.isEmpty) {

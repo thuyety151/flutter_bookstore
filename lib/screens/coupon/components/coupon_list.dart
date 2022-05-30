@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/screens/coupon/components/coupon_item.dart';
 import 'package:provider/provider.dart';
-import '../../../provider/cart.dart';
 import '../../../provider/coupons.dart';
 
 class CouponList extends StatefulWidget {
