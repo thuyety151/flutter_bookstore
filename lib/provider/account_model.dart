@@ -64,7 +64,8 @@ class AccountModel extends ChangeNotifier {
 
   Future<void> updateProfile(Account value, VoidCallback onSuccess) async {
     try {
-      var media = await MediaModel().createMedia(_file);
+      var media =
+          _file.path.isNotEmpty ? await MediaModel().createMedia(_file) : null;
 
       var res = await withRestApiResponse("/account/update-account-information",
           method: "post",
@@ -73,11 +74,6 @@ class AccountModel extends ChangeNotifier {
             "lastName": _account.lastName,
             "photo": media
           }));
-      print(json.encode({
-        "firstName": _account.firstName,
-        "lastName": _account.lastName,
-        "photo": media
-      }));
       if (json.decode(res)["firstName"] != null) {
         onSuccess();
         print(json.decode(res));

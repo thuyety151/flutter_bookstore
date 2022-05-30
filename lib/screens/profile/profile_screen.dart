@@ -68,19 +68,6 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _statsCard() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        StatsCard(),
-        SizedBox(width: 8),
-        StatsCard(),
-        SizedBox(width: 8),
-        StatsCard(),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,10 +97,6 @@ class ProfileScreen extends StatelessWidget {
                           fontSize: 22,
                           letterSpacing: 2),
                     )),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: _statsCard(),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: _menus(context),
