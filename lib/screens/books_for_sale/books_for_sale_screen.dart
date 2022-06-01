@@ -45,10 +45,8 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
   void didChangeDependencies() {
     if (_isInit) {
       final argsCate = ModalRoute.of(context)!.settings.arguments as dynamic;
-      if (argsCate != null) {
-        Provider.of<BookModel>(context, listen: false)
-            .setInit(argsCate!.categoryId, argsCate!.authorId);
-      }
+      Provider.of<BookModel>(context, listen: false)
+          .setInit(argsCate?.categoryId, argsCate?.authorId);
 
       setState(() {
         _isLoading = true;

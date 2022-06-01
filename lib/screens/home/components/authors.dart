@@ -14,6 +14,7 @@ class Authors extends StatelessWidget {
 
     return ListBookSession(
       title: "Authors",
+      hideViewAll: true,
       child: Consumer<AuthorModel>(
           builder: (context, value, child) => Wrap(
                 spacing: 12,

@@ -6,8 +6,15 @@ import 'package:flutter_folder/models/newrelease.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:provider/provider.dart';
 
-class NewRelease extends StatelessWidget {
+class NewRelease extends StatefulWidget {
   const NewRelease({Key? key}) : super(key: key);
+
+  @override
+  _NewReleaseState createState() => _NewReleaseState();
+}
+
+class _NewReleaseState extends State<NewRelease> {
+  late int selectedIndex = 0;
 
   Widget _newReCategories(List<NewReleaseModel> model) {
     return Container(
@@ -21,17 +28,23 @@ class NewRelease extends StatelessWidget {
                     style: OutlinedButton.styleFrom(
                         side: BorderSide(
                             width: 1.0,
-                            color: index == 0
+                            color: index == selectedIndex
                                 ? AppColors.kPrimary
                                 : Colors.black38),
-                        backgroundColor:
-                            index == 0 ? AppColors.kPrimary : Colors.white),
-                    onPressed: () {},
+                        backgroundColor: index == selectedIndex
+                            ? AppColors.kPrimary
+                            : Colors.white),
+                    onPressed: () {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                    },
                     child: Text(
                       model[index].categoryName,
                       style: TextStyle(
-                          color:
-                              index == 0 ? Colors.white : AppColors.kTextGrey),
+                          color: index == selectedIndex
+                              ? Colors.white
+                              : AppColors.kTextGrey),
                     ),
                   )),
         ));
@@ -56,9 +69,10 @@ class NewRelease extends StatelessWidget {
                     spacing: 12,
                     children: value.listNewRelease.isNotEmpty
                         ? List.generate(
-                            value.listNewRelease[0].books.length,
+                            value.listNewRelease[selectedIndex].books.length,
                             (index) => BookCard(
-                                book: value.listNewRelease[0].books[index]))
+                                book: value.listNewRelease[selectedIndex]
+                                    .books[index]))
                         : []),
               ),
             ));

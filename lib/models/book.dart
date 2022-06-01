@@ -19,7 +19,7 @@ class Book {
   String? description;
   int? viewCount;
   List<Media>? media;
-  List<Attribute>? attributes;
+  List<Attribute> attributes;
   String? dimensions;
   String? publicationDate;
   String? publisher;
@@ -43,6 +43,7 @@ class Book {
     required this.languageName,
     required this.attributeId,
     required this.attributeName,
+    required this.attributes,
   });
 
   Book.detail({
@@ -82,6 +83,7 @@ class Book {
         languageId: json["languageId"],
         languageName: json["languageName"],
         attributeId: json["attributeId"],
+        attributes: [],
         attributeName: json["attributeName"]);
   }
 

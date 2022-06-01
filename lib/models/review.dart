@@ -34,6 +34,8 @@ class Review {
   }
 
   factory Review.fromJson(Map<String, dynamic> json) {
+    final listMedia = json["media"].cast<Map<String, dynamic>>() ?? [];
+
     return Review(
         id: json["id"],
         title: json["title"],
@@ -41,7 +43,7 @@ class Review {
         rate: json["rate"],
         createDate: json["createDate"],
         updateDate: json["updateDate"],
-        media: json["media"],
+        media: List<Media>.from(listMedia.map((e) => Media.fromJson(e))),
         bookId: '',
         files: []);
   }
@@ -56,4 +58,7 @@ class Review {
         "createDate": DateTime.now().toIso8601String(),
         "updateDate": DateTime.now().toIso8601String()
       };
+
+  static Review fromJsonModel(Map<String, dynamic> json) =>
+      Review.fromJson(json);
 }

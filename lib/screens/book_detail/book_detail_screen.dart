@@ -15,8 +15,15 @@ import 'package:readmore/readmore.dart';
 
 List<String> attributeNames = ["Paperback", "Hardcover", "Kindle", "Audio"];
 
-class BookDetailScreen extends StatelessWidget {
+class BookDetailScreen extends StatefulWidget {
   const BookDetailScreen({Key? key}) : super(key: key);
+
+  @override
+  _BookDetailScreenState createState() => _BookDetailScreenState();
+}
+
+class _BookDetailScreenState extends State<BookDetailScreen> {
+  late int selectedAttrIndex = 0;
 
   Widget _tagCategory() {
     return Container(
@@ -69,21 +76,26 @@ class BookDetailScreen extends StatelessWidget {
             direction: Axis.horizontal,
             spacing: 4,
             children: List.generate(
-                value.detail?.attributes?.length ?? 0,
+                value.detail?.attributes.length ?? 0,
                 (index) => OutlinedButton(
                       style: OutlinedButton.styleFrom(
                           side: BorderSide(
                               width: 1.0,
-                              color: index == 0
+                              color: index == selectedAttrIndex
                                   ? AppColors.kPrimary
                                   : Colors.black38),
-                          backgroundColor:
-                              index == 0 ? AppColors.kBgPrimary : Colors.white),
-                      onPressed: () {},
+                          backgroundColor: index == selectedAttrIndex
+                              ? AppColors.kBgPrimary
+                              : Colors.white),
+                      onPressed: () {
+                        setState(() {
+                          selectedAttrIndex = index;
+                        });
+                      },
                       child: Text(
-                        value.detail?.attributes?[index].name ?? "",
+                        value.detail?.attributes[index].name ?? "",
                         style: TextStyle(
-                            color: index == 0
+                            color: index == selectedAttrIndex
                                 ? AppColors.kPrimary
                                 : AppColors.kTextGrey),
                       ),
@@ -126,30 +138,9 @@ class BookDetailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(children: [
-                      Price(book: value.detail),
-                      // Text(
-                      //   '\$${value.detail?.salePrice}',
-                      //   style: const TextStyle(
-                      //       fontWeight: FontWeight.w600,
-                      //       fontSize: 18,
-                      //       color: AppColors.kPrimary),
-                      // ),
-                      // const SizedBox(width: 6),
-                      // Text(
-                      //   '\$${value.detail?.price}',
-                      //   style: const TextStyle(
-                      //       fontSize: 14,
-                      //       color: AppColors.kTextGrey,
-                      //       decoration: TextDecoration.lineThrough),
-                      // ),
-                      const SizedBox(width: 6),
-                      const Text(
-                        "50% off",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: AppColors.kPrimary,
-                            fontWeight: FontWeight.w600),
-                      )
+                      Price(
+                          attr: value.detail!.attributes
+                              .elementAt(selectedAttrIndex)),
                     ]),
                     Row(
                       children: [

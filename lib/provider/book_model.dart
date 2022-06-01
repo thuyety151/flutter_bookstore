@@ -6,6 +6,7 @@ import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/models/filter.dart';
 import 'package:flutter_folder/models/newrelease.dart';
 import 'package:flutter_folder/models/review.dart';
+import 'package:flutter_folder/services/api_response_model.dart';
 import 'package:flutter_folder/services/book_api.dart';
 
 class BookModel extends ChangeNotifier {
@@ -141,8 +142,9 @@ class BookModel extends ChangeNotifier {
   Future<void> getListReviews(String id) async {
     try {
       var res = await withRestApiResponse("/reviews?bookId=$id");
-      var value = json.decode(res)["value"] as List<dynamic>;
-      detail?.reviews = value.map((e) => Review.fromJson(e)).toList();
+      detail?.reviews =
+          ApiResponse<Review>.fromJson(json.decode(res), Review.fromJsonModel)
+              .data;
       notifyListeners();
     } catch (e) {
       rethrow;
@@ -160,8 +162,12 @@ class BookModel extends ChangeNotifier {
   }
 
   void setInit(String? categoryId, String? authorId) {
-    filterData.categoryId = categoryId;
-    filterData.authorId = authorId;
+    if (categoryId != null) {
+      filterData.categoryId = categoryId;
+    }
+    if (authorId != null) {
+      filterData.authorId = authorId;
+    }
     filterData.keywords = "";
     notifyListeners();
   }
