@@ -146,7 +146,6 @@ class Order with ChangeNotifier {
           );
         }
       }
-      ;
     } catch (error) {
       print(error);
       throw error;

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/book/price.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
+import 'package:flutter_folder/helpers/show_dialog.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_detail_bottom.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_list_image.dart';
@@ -225,50 +226,67 @@ class BookDetailScreen extends StatelessWidget {
     );
   }
 
+  Future<void> fetchData(BuildContext context) async {
+    Future.delayed(Duration.zero, () {
+      showLoading(context);
+    });
+    final args = ModalRoute.of(context)!.settings.arguments as BookDetailArgs;
+
+    await Provider.of<BookModel>(context, listen: false).getDetail(args.id);
+    Future.delayed(Duration.zero, () {
+      Navigator.pop(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as BookDetailArgs;
-    Provider.of<BookModel>(context).getDetail(args.id);
-
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: customAppBar("Book Detail", 0),
+      appBar: customAppBar("Book Detail", 0, Colors.white, true),
       bottomNavigationBar: const BookDetailBottom(),
-      body: SafeArea(
-          child: SingleChildScrollView(
-              child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Consumer<BookModel>(
-                    builder: (context, value, child) => Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          BookListImage(
-                            listMedia: value.detail?.media ?? [],
-                            isOutOfStock: value.detail?.totalStock == 0,
-                          ),
-                          _header(),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Divider(
-                              thickness: 1,
-                              color: Colors.black12,
-                            ),
-                          ),
-                          _attributes(),
-                          _shortDescription(),
-                          _detail(),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            child: Divider(
-                              thickness: 1,
-                              color: Colors.black12,
-                            ),
-                          ),
-                          const ReviewContainer(),
-                          _releatedSection()
-                        ]),
-                  )))),
+      body: SingleChildScrollView(
+          padding: const EdgeInsets.only(top: 86),
+          child: FutureBuilder(
+              future: fetchData(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Container();
+                } else {
+                  return Container(
+                      padding: const EdgeInsets.all(10),
+                      child: Consumer<BookModel>(
+                        builder: (context, value, child) => Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              BookListImage(
+                                listMedia: value.detail?.media ?? [],
+                                isOutOfStock: value.detail?.totalStock == 0,
+                              ),
+                              _header(),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10),
+                                child: Divider(
+                                  thickness: 1,
+                                  color: Colors.black12,
+                                ),
+                              ),
+                              _attributes(),
+                              _shortDescription(),
+                              _detail(),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 16),
+                                child: Divider(
+                                  thickness: 1,
+                                  color: Colors.black12,
+                                ),
+                              ),
+                              const ReviewContainer(),
+                              _releatedSection()
+                            ]),
+                      ));
+                }
+              })),
     );
   }
 }

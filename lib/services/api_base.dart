@@ -6,7 +6,7 @@ class Api {
       'https://dev-online-gateway.ghn.vn/shiip/public-api';
   static const storage = FlutterSecureStorage();
   // static const bookstoreEnpoint = "https://bookwormmm.herokuapp.com/api";
-  //  static const bookstoreEnpoint = "https://localhost:5001/api";
+  // static const bookstoreEnpoint = "https://localhost:5001/api";
   static const bookstoreEnpoint = "https://10.0.2.2:5001/api";
 
   String get bsEndpoint => bookstoreEnpoint;

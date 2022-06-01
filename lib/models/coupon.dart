@@ -8,6 +8,17 @@ class Coupon {
   late String imageUrl;
   late int minSpend;
 
+  Coupon.empty() {
+    id = "";
+    code = "";
+    description = "";
+    couponAmount = 0;
+    discountType = 0;
+    expireDate = "";
+    imageUrl = "";
+    minSpend = 0;
+  }
+
   Coupon(
       {required this.id,
       required this.code,

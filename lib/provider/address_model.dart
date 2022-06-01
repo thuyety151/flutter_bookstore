@@ -15,11 +15,10 @@ class AddressModel extends ChangeNotifier {
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
           .hideCurrentSnackBar();
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
-          .showSnackBar(SnackBar(
+          .showSnackBar(const SnackBar(
         content: Text("Create address successfully!"),
         duration: Duration(seconds: 1),
       ));
-      //Navigator.pop(navigatorKey.currentState!.overlay!.context);
     }
   }
 

@@ -3,18 +3,15 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/coupon.dart';
-import 'package:flutter_folder/models/item.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
 import '../models/constants.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/http_exception.dart';
 
 class Coupons with ChangeNotifier {
   List<Coupon> _coupons = [];
   List<Coupon> _userCoupons = [];
-  late Coupon _selectedCoupon;
+  late Coupon _selectedCoupon = Coupon.empty();
   static const storage = FlutterSecureStorage();
 
   List<Coupon> get coupons {

@@ -54,7 +54,9 @@ class AccountModel extends ChangeNotifier {
     _account.firstName = allValues["firstName"].toString();
     _account.lastName = allValues["lastName"].toString();
     _account.photoUrl = allValues["photoUrl"].toString();
-
+    if (_account.email.isNotEmpty) {
+      _userLogedIn = true;
+    }
     return _account;
   }
 

@@ -1,6 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
-import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:provider/provider.dart';
 
@@ -25,8 +26,11 @@ class FormAddToCart extends StatefulWidget {
 
 class _FormAddToCartState extends State<FormAddToCart> {
   late FormAddToCartValue formValue = FormAddToCartValue();
-  late double? price =
-      Provider.of<BookModel>(context).detail!.attributes!.elementAt(0).price;
+  late double? price = Provider.of<BookModel>(context, listen: false)
+      .detail!
+      .attributes!
+      .elementAt(0)
+      .price;
 
   late int selectedIndex = 0;
 
@@ -36,8 +40,9 @@ class _FormAddToCartState extends State<FormAddToCart> {
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<Cart>(context);
-    final isLogin = Provider.of<AccountModel>(context).getisUserLogedIn();
+    final cart = Provider.of<Cart>(context, listen: false);
+    final isLogin =
+        Provider.of<AccountModel>(context, listen: false).getisUserLogedIn();
 
     return Container(
       height: 300,
@@ -82,9 +87,6 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                                       : Colors.white),
                                           onPressed: () {
                                             setState(() {
-                                              print(value.detail!.attributes!
-                                                  .elementAt(index)
-                                                  .price);
                                               selectedIndex = index;
                                               price = value.detail!.attributes!
                                                   .elementAt(index)
@@ -102,14 +104,14 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                           ),
                                         )),
                               )),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             'Available: ' + available.toString(),
                             style: CustomTextStyle.textFormFieldLight
                                 .copyWith(fontSize: 14),
                           ),
-                          SizedBox(height: 10),
-                          Container(
+                          const SizedBox(height: 10),
+                          SizedBox(
                             width: 250,
                             child: Row(
                                 mainAxisAlignment:
@@ -129,7 +131,7 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                               decoration: BoxDecoration(
                                                   border: Border.all(),
                                                   borderRadius:
-                                                      BorderRadius.all(
+                                                      const BorderRadius.all(
                                                           Radius.circular(10))),
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -140,9 +142,9 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                                     CrossAxisAlignment.end,
                                                 children: [
                                                   InkWell(
-                                                    child: Icon(Icons.remove),
+                                                    child: const Icon(
+                                                        Icons.remove),
                                                     onTap: () {
-                                                      print("decrease item");
                                                       if (quantity > 1) {
                                                         setState(() {
                                                           quantity -= 1;
@@ -165,9 +167,9 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                                     ),
                                                   ),
                                                   InkWell(
-                                                      child: Icon(Icons.add),
+                                                      child:
+                                                          const Icon(Icons.add),
                                                       onTap: () {
-                                                        print("add item");
                                                         if (quantity <
                                                             available) {
                                                           setState(() {
@@ -175,12 +177,6 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                                             available -= 1;
                                                           });
                                                         }
-
-                                                        //   cart.addOrUpdateItem(
-                                                        //       item.productId!,
-                                                        //       item.attributeId!,
-                                                        //       item.quantity! + 1);
-                                                        // },
                                                       }),
                                                 ],
                                               ));
@@ -204,19 +200,19 @@ class _FormAddToCartState extends State<FormAddToCart> {
                           children: [
                             Expanded(
                               child: OutlinedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   if (isLogin) {
-                                    cart.addOrUpdateItem(
+                                    await cart.addOrUpdateItem(
                                         value.detail?.id ?? "1",
                                         value.detail?.attributes
                                                 ?.elementAt(selectedIndex)
                                                 .id ??
                                             "1",
                                         quantity);
+                                    Navigator.pop(context);
+
                                     ScaffoldMessenger.of(context)
-                                        .hideCurrentSnackBar();
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
+                                        .showSnackBar(const SnackBar(
                                       content: Text(
                                           "Add item to cart successfully!"),
                                       duration: Duration(seconds: 1),
