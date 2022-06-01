@@ -162,6 +162,7 @@ class BookModel extends ChangeNotifier {
   void setInit(String? categoryId, String? authorId) {
     filterData.categoryId = categoryId;
     filterData.authorId = authorId;
+    filterData.keywords = "";
     notifyListeners();
   }
 }

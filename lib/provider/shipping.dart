@@ -19,23 +19,8 @@ class Shipping with ChangeNotifier {
     try {
       print('start');
       print(currentAddress);
-      const ghnEnpoint = 'https://dev-online-gateway.ghn.vn/shiip/public-api';
-      final url =
-          Uri.parse(ghnEnpoint + "/v2/shipping-order/available-services");
-      // final response = await http.post(
-      //   url,
-      //   headers: {
-      //     "content-type": "application/json; charset=utf-8",
-      //     "Token": "a907bd6b-3508-11ec-b514-aeb9e8b0c5e3"
-      //   },
-      //   body: json.encode({
-      //     "shop_id": shopAddress.shopId,
-      //     "from_district": shopAddress.districtId,
-      //     "to_district": currentAddress
-      //   }),
-      // );
 
-      final response =
+      var response =
           await withGHNApiResponse("/v2/shipping-order/available-services",
               method: "post",
               body: json.encode({
@@ -47,7 +32,7 @@ class Shipping with ChangeNotifier {
       final List<ServiceType> loadedServiceTypes = [];
       List<dynamic>? extractedData;
       if (response.isNotEmpty) {
-        print(response.body);
+        print(response);
         extractedData = json.decode(response)["data"] as List<dynamic>;
       }
       if (extractedData == null) {

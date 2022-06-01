@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/main.dart';
 import 'package:flutter_folder/models/address.dart';
 import 'package:flutter_folder/services/address_api.dart';
+import 'package:flutter_folder/services/api_response_model.dart';
 
 class AddressModel extends ChangeNotifier {
   final AddressApi _api = AddressApi();
@@ -23,8 +24,11 @@ class AddressModel extends ChangeNotifier {
   }
 
   Future<void> getListAddresses() async {
-    var res = await _api.getList();
-    listAddresses = res.data ?? [];
+    var res = await withRestApiResponse("/addresses");
+    json.decode(res)["value"].cast<Map<String, dynamic>>();
+    listAddresses =
+        ApiResponse<Address>.fromJson(json.decode(res), Address.fromJsonModel)
+            .data as List<Address>;
     notifyListeners();
   }
 

@@ -139,9 +139,11 @@ class _SearchState extends State<Search> {
                     child: FocusScope(
                         child: Focus(
                       onFocusChange: (focus) => setState(() {
+                        print("*****************$focus");
                         isSearching = focus;
                       }),
                       child: TextField(
+                          autofocus: isSearching,
                           onSubmitted: submit,
                           decoration: InputDecoration(
                               fillColor: Colors.white,

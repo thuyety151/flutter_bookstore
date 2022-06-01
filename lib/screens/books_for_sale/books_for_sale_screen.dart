@@ -145,8 +145,9 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
                                 spacing: 16,
                                 children: [
                                   Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        44 /
+                                    width: (MediaQuery.of(context).size.width -
+                                            3 * 16) *
+                                        50 /
                                         100,
                                     padding: const EdgeInsets.only(bottom: 16),
                                     child: BookCard(book: value.books[index]),

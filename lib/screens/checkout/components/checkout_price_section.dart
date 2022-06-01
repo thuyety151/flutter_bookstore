@@ -13,6 +13,8 @@ import '../../../provider/shipping_fee.dart';
 class CheckoutPriceSection extends StatelessWidget {
   const CheckoutPriceSection({Key? key}) : super(key: key);
 
+
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
