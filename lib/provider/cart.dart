@@ -33,15 +33,12 @@ class Cart with ChangeNotifier {
 
   Future<void> fetchAndSetCart() async {
     var token = await storage.read(key: "token");
-    // final url = Uri.parse(apiEndpoint + '/cart');
-    // final response = await http.get(url, headers: {
-    //   'Content-Type': 'application/json',
-    //   'Accept': 'application/json',
-    //   'Authorization': 'Bearer $token',
-    // });
-    final Api _api = Api();
-    var request = await _api.get("/cart");
-    var response = await http.Response.fromStream(await request.send());
+    final url = Uri.parse(apiEndpoint + '/cart');
+    final response = await http.get(url, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
 
     final List<Item> loadedItems = [];
     List<dynamic>? extractedData;

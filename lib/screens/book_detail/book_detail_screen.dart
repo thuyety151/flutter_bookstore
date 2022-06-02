@@ -142,24 +142,35 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                           attr: value.detail!.attributes
                               .elementAt(selectedAttrIndex)),
                     ]),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber[300],
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        const Text("4.5"),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        const Text(
-                          "(128 Reviews)",
-                          style: TextStyle(color: AppColors.kTextGrey),
-                        ),
-                      ],
+                    Consumer<BookModel>(
+                      builder: ((context, value, child) => Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: Colors.amber[300],
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text((value.detail?.reviews
+                                          ?.map((m) => m.rate)
+                                          .reduce((a, b) => a + b) ??
+                                      1 /
+                                          num.parse(value
+                                                  .detail?.reviews?.length
+                                                  .toString() ??
+                                              "1"))
+                                  .toString()),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                "(${value.detail?.reviews?.length.toString() ?? 0} reviews)",
+                                style:
+                                    const TextStyle(color: AppColors.kTextGrey),
+                              ),
+                            ],
+                          )),
                     )
                   ],
                 ),

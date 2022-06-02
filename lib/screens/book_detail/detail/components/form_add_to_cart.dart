@@ -28,7 +28,7 @@ class _FormAddToCartState extends State<FormAddToCart> {
   late FormAddToCartValue formValue = FormAddToCartValue();
   late double? price = Provider.of<BookModel>(context, listen: false)
       .detail!
-      .attributes!
+      .attributes
       .elementAt(0)
       .price;
 
@@ -73,7 +73,7 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                 direction: Axis.horizontal,
                                 spacing: 8,
                                 children: List.generate(
-                                    value.detail!.attributes!.length,
+                                    value.detail!.attributes.length,
                                     (index) => OutlinedButton(
                                           style: OutlinedButton.styleFrom(
                                               side: BorderSide(
@@ -88,13 +88,13 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                           onPressed: () {
                                             setState(() {
                                               selectedIndex = index;
-                                              price = value.detail!.attributes!
+                                              price = value.detail!.attributes
                                                   .elementAt(index)
                                                   .price;
                                             });
                                           },
                                           child: Text(
-                                            value.detail!.attributes!
+                                            value.detail!.attributes
                                                 .elementAt(index)
                                                 .name,
                                             style: TextStyle(
@@ -205,7 +205,7 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                     await cart.addOrUpdateItem(
                                         value.detail?.id ?? "1",
                                         value.detail?.attributes
-                                                ?.elementAt(selectedIndex)
+                                                .elementAt(selectedIndex)
                                                 .id ??
                                             "1",
                                         quantity);
