@@ -25,7 +25,8 @@ class Order with ChangeNotifier {
     var token = await storage.read(key: "token");
     try {
       print('save order db');
-      currentAddress.id = null;
+
+      //currentAddress.id = null;
       final response = await http.post(
         url,
         headers: {
@@ -38,7 +39,20 @@ class Order with ChangeNotifier {
           'addressId': addressId,
           'orderNote': 'flutter note',
           'coupon': null,
-          'address': currentAddress,
+          'address': {
+            "firstName": currentAddress.firstName,
+            "lastName": currentAddress.lastName,
+            "phone": currentAddress.phone,
+            "apartmentNumber": currentAddress.apartmentNumber,
+            "streetAddress": currentAddress.streetAddress,
+            "districtId": currentAddress.districtID,
+            "provinceId": currentAddress.provinceID,
+            "isMain": currentAddress.isMain,
+            "provinceName": currentAddress.provinceName,
+            "districtName": currentAddress.districtName,
+            "wardName": currentAddress.wardName,
+            "wardCode": currentAddress.wardCode
+          },
           'orderFee': orderFee,
           'paymentMethod': 1,
         }),
@@ -136,6 +150,28 @@ class Order with ChangeNotifier {
         }
       }
       ;
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
+
+  Future<void> momoPayment(String orderId) async {
+    final url = Uri.parse(apiEndpoint + '/momo');
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode({
+          'orderId': orderId,
+        }),
+      );
+
+      print(response.body);
+      // notifyListeners();
     } catch (error) {
       print(error);
       throw error;

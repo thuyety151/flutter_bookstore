@@ -54,7 +54,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final cart = Provider.of<Cart>(context, listen: false);
     final serviceType = Provider.of<Shipping>(context, listen: false).getDefaultServiceType();
     const paymentMethod = 'Cash';
-  
+
+  // Provider.of<Order>(context, listen: false).momoPayment('EE63D001-8E92-4227-839D-08DA42607413');
+
     Provider.of<Order>(context, listen: false).createOrder(itemIds, currentAddress.id as String, currentAddress, cart.totalAmount, serviceType, paymentMethod, cart.items);
     Navigator.of(context).pushNamed(RouteManager.ROUTE_ORDER_SUCCESS);
   }

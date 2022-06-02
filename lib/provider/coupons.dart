@@ -13,7 +13,7 @@ import '../models/http_exception.dart';
 class Coupons with ChangeNotifier {
   List<Coupon> _coupons = [];
   List<Coupon> _userCoupons = [];
-  late Coupon _selectedCoupon;
+  late Coupon _selectedCoupon = Coupon.empty();
   static const storage = FlutterSecureStorage();
 
   List<Coupon> get coupons {
