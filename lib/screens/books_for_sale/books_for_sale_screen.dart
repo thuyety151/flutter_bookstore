@@ -135,7 +135,7 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             controller: scrollcontroller,
                             itemBuilder: (context, index) {
-                              if (index % 2 == 0) {
+                              if (index % 2 != 0) {
                                 return const SizedBox();
                               }
                               return Wrap(
@@ -150,11 +150,13 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
                                     padding: const EdgeInsets.only(bottom: 16),
                                     child: BookCard(book: value.books[index]),
                                   ),
-                                  if (index + 1 < value.books.length - 1) ...[
+                                  if (index + 1 < value.books.length) ...[
                                     Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          44 /
-                                          100,
+                                      width:
+                                          (MediaQuery.of(context).size.width -
+                                                  3 * 16) *
+                                              50 /
+                                              100,
                                       padding:
                                           const EdgeInsets.only(bottom: 16),
                                       child: BookCard(
