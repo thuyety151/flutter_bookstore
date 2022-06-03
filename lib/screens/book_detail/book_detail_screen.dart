@@ -120,10 +120,12 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Consumer<BookModel>(
-                        builder: (context, value, child) => Text(
-                              value.detail?.name ?? "--",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 18),
+                        builder: (context, value, child) => Flexible(
+                              child: Text(
+                                value.detail?.name ?? "--",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 18),
+                              ),
                             )),
                     FlatButton(
                         minWidth: 28,
@@ -152,23 +154,23 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                               const SizedBox(
                                 width: 4,
                               ),
-                              Text((value.detail?.reviews
-                                          ?.map((m) => m.rate)
-                                          .reduce((a, b) => a + b) ??
-                                      1 /
-                                          num.parse(value
-                                                  .detail?.reviews?.length
-                                                  .toString() ??
-                                              "1"))
-                                  .toString()),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                "(${value.detail?.reviews?.length.toString() ?? 0} reviews)",
-                                style:
-                                    const TextStyle(color: AppColors.kTextGrey),
-                              ),
+                              if (value.detail!.reviews.isNotEmpty) ...[
+                                Text(((value.detail!.reviews
+                                                .map((m) => m.rate)
+                                                .reduce((a, b) => a + b) ??
+                                            1) /
+                                        value.detail!.reviews.length)
+                                    .toStringAsFixed(2)
+                                    .toString()),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  "(${value.detail?.reviews?.length.toString() ?? 0} reviews)",
+                                  style: const TextStyle(
+                                      color: AppColors.kTextGrey),
+                                ),
+                              ]
                             ],
                           )),
                     )

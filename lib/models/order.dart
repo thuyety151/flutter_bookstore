@@ -50,7 +50,7 @@ class Order {
     orderNote = json['orderNote'] ?? "";
     paymentMethod = json['paymentMethod'];
     status = json['status'];
-    subTotal = json['subTotal'];
+    subTotal = double.parse(json['subTotal'].toString());
     total = double.parse(json['total'].toString());
     userId = json['userId'];
   }

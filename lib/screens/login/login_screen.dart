@@ -56,7 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext buildContext) {
     return Scaffold(
-      body: Column(
+        body: Container(
+      child: Column(
         children: [
           GestureDetector(
             onTap: () => Navigator.of(buildContext)
@@ -212,6 +213,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ))
         ],
       ),
-    );
+    ));
   }
 }

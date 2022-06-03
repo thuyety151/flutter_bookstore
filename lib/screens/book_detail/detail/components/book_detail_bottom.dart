@@ -13,7 +13,6 @@ class BookDetailBottom extends StatefulWidget {
 
   @override
   _BookDetailBottomState createState() => _BookDetailBottomState();
-
 }
 
 class _BookDetailBottomState extends State<BookDetailBottom> {
@@ -32,10 +31,10 @@ class _BookDetailBottomState extends State<BookDetailBottom> {
 
   @override
   Widget build(BuildContext context) {
-     final isLogin = Provider.of<AccountModel>(context).getisUserLogedIn();
+    final isLogin = Provider.of<AccountModel>(context).getisUserLogedIn();
 
     return Container(
-       padding: EdgeInsets.only(top: 8, bottom: 20),
+      padding: EdgeInsets.only(top: 8, bottom: 20),
       //margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -69,14 +68,12 @@ class _BookDetailBottomState extends State<BookDetailBottom> {
           Expanded(
               child: FlatButton(
                   onPressed: () {
-                                      if (isLogin) {
-                                        Navigator.of(context)
-                                            .pushNamed(RouteManager.ROUTE_CART);
-                                      } else {
-                                        Navigator.of(context).pushNamed(
-                                            RouteManager.ROUTE_LOGIN);
-                                      }
-                                    },
+                    if (isLogin) {
+                      Navigator.of(context).pushNamed(RouteManager.ROUTE_CART);
+                    } else {
+                      Navigator.of(context).pushNamed(RouteManager.ROUTE_LOGIN);
+                    }
+                  },
                   color: AppColors.kPrimary,
                   child: const Text(
                     "BUY NOW",

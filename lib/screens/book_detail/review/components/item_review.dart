@@ -66,20 +66,6 @@ class _ItemReviewState extends State<ItemReview> {
           ListImagesReview(value: widget.value!.media),
           Row(
             children: [
-              const Icon(
-                Icons.favorite,
-                color: AppColors.kPrimary,
-                size: 16,
-              ),
-              const SizedBox(
-                width: 4,
-              ),
-              const Text("127",
-                  style: TextStyle(
-                      color: AppColors.kTextGrey, fontWeight: FontWeight.w600)),
-              const SizedBox(
-                width: 28,
-              ),
               Rate(
                 rate: widget.value!.rate,
               )

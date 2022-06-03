@@ -78,23 +78,6 @@ class Authentication {
         rethrow;
       }
 
-      // try {
-      //   //TODO
-      //   UserCredential authResult;
-      //   authResult = await _auth.createUserWithEmailAndPassword(
-      //     email: data.email,
-      //     password: data.password,
-      //   );
-      // } on PlatformException catch (err) {
-      //   var message = 'An error occurred, pelase check your credentials!';
-
-      //   if (err.message != null) {
-      //     message = err.message.toString();
-      //   }
-      //   catchErrAndNotify(
-      //       AlertDialogParams(title: "Register Error", content: message), err);
-      //   rethrow;
-      // }
       return AuthenResponse.fromJson(
           json.decode(response.body), Account.fromJsonModel);
     } on FormatException catch (e) {

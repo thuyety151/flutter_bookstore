@@ -13,7 +13,6 @@ import 'media_model.dart';
 class AccountModel extends ChangeNotifier {
   final Authentication _auth = Authentication();
   bool fetching = false;
-  bool _userLogedIn = false;
 
   late Account _account = Account.empty();
   static const storage = FlutterSecureStorage();
@@ -23,7 +22,7 @@ class AccountModel extends ChangeNotifier {
 
   String get email => _account.email;
 
-    AccountModel() {
+  AccountModel() {
     getUserLoginDetails();
     _file = XFile("");
   }
@@ -35,14 +34,12 @@ class AccountModel extends ChangeNotifier {
 
       fetching = false;
       _account = Account.fromAuthen(response);
-      const storage = FlutterSecureStorage();
       storage.deleteAll();
       storage.write(key: "token", value: response.token);
-       storage.write(key: "firstName", value: response.firstName);
+      storage.write(key: "firstName", value: response.firstName);
       storage.write(key: "lastName", value: response.lastName);
       storage.write(key: "email", value: response.email);
       storage.write(key: "photoUrl", value: response.photoUrl);
-      _userLogedIn = true;
       notifyListeners();
       return true;
     } catch (e) {
@@ -59,7 +56,7 @@ class AccountModel extends ChangeNotifier {
       _account = Account.fromAuthen(response);
       const storage = FlutterSecureStorage();
       storage.write(key: "token", value: response.token);
-      _userLogedIn = true;
+      getUserLoginDetails();
       notifyListeners();
       return true;
     } catch (e) {
@@ -67,20 +64,20 @@ class AccountModel extends ChangeNotifier {
     }
   }
 
-Future<Account> getUserLoginDetails() async {
+  Future<Account> getUserLoginDetails() async {
     Map<String, String> allValues = await storage.readAll();
 
-    _account.email = allValues["email"].toString();
-    _account.firstName = allValues["firstName"].toString();
-    _account.lastName = allValues["lastName"].toString();
-    _account.photoUrl = allValues["photoUrl"].toString();
-    if (_account.email.isNotEmpty) {
-      _userLogedIn = true;
-    }
+    _account.email = allValues["email"] ?? "";
+    _account.firstName = allValues["firstName"] ?? "";
+    _account.lastName = allValues["lastName"] ?? "";
+    _account.photoUrl = allValues["photoUrl"] ?? "";
+    notifyListeners();
+
     return _account;
   }
+
   bool getisUserLogedIn() {
-    return _userLogedIn;
+    return _account.email.isNotEmpty;
   }
 
   Future<void> updateProfile(Account value, VoidCallback onSuccess) async {
@@ -112,10 +109,12 @@ Future<Account> getUserLoginDetails() async {
       rethrow;
     }
   }
-   void setImage(XFile file) {
+
+  void setImage(XFile file) {
     _file = file;
     notifyListeners();
   }
+
   Future<void> changePassword(
       ChangePWValue value, VoidCallback onSuccess) async {
     try {
@@ -131,7 +130,8 @@ Future<Account> getUserLoginDetails() async {
       rethrow;
     }
   }
-   void resetAvatarState() {
+
+  void resetAvatarState() {
     // imagePickerPath = "";
   }
 }

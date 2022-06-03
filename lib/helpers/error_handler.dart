@@ -64,13 +64,14 @@ Future withRestApiResponse(String url,
     if (url.contains("login")) {
       throw kLoginFailed;
     } else {
+      Navigator.pop(navigatorKey.currentState!.overlay!.context);
       Navigator.of(navigatorKey.currentState!.overlay!.context)
           .pushNamed(RouteManager.ROUTE_LOGIN);
     }
     return ApiResponse();
   } catch (e) {
     catchErrAndNotify(
-        AlertDialogParams(title: "Login Error", content: e.toString()), e);
+        AlertDialogParams(title: "Error", content: e.toString()), e);
     rethrow;
   }
 }
@@ -87,7 +88,7 @@ Future withGHNApiResponse(String url,
     return response.body;
   } catch (e) {
     catchErrAndNotify(
-        AlertDialogParams(title: "Login Error", content: e.toString()), e);
+        AlertDialogParams(title: "Error", content: e.toString()), e);
     rethrow;
   }
 }

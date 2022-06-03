@@ -21,7 +21,7 @@ class Attribute {
       id: json["id"],
       name: json["name"],
       price: json["price"] != null ? json["price"].toDouble() : 0,
-      // salePrice: json["salePrice"].toDouble(),
+      salePrice: json["salePrice"] != null ? json["salePrice"].toDouble() : 0,
       // salePriceEndDate: json["salePriceEndDate"],
       // salePriceStartDate: json["salePriceStartDate"],
       // totalStock: json["totalStock"]

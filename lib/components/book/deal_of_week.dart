@@ -4,6 +4,7 @@ import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:flutter_folder/screens/book_detail/book_detail_screen.dart';
+import 'package:readmore/readmore.dart';
 
 class DealOfWeekCard extends StatefulWidget {
   const DealOfWeekCard({Key? key, required this.model}) : super(key: key);
@@ -49,9 +50,15 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
                   widget.model.attributeName!.toUpperCase(),
                   style: AppTextStyles.attribute,
                 ),
-                Text(
-                  widget.model.name,
-                  style: AppTextStyles.title,
+                SizedBox(
+                  height: 32,
+                  child: ReadMoreText(
+                    widget.model.name,
+                    trimLines: 2,
+                    trimMode: TrimMode.Line,
+                    trimCollapsedText: " ",
+                    style: AppTextStyles.title,
+                  ),
                 ),
                 const SizedBox(
                   width: 8,
@@ -70,13 +77,13 @@ class _DealOfWeekCardState extends State<DealOfWeekCard> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       "Already sold: 14",
                       style: AppTextStyles.caption,
                     ),
                     Text(
-                      "Available: 90",
+                      "Available: ${widget.model.totalStock ?? 0}",
                       style: AppTextStyles.caption,
                     ),
                   ],
