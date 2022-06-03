@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/category/category_circle.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/provider/category_model.dart';
+import 'package:flutter_folder/screens/books_for_sale/books_for_sale_screen.dart';
 import 'package:flutter_folder/screens/home/components/app_banner.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
@@ -82,7 +83,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
         child: TextField(
             onTap: () {
               Navigator.of(context).pushNamed(RouteManager.ROUTE_BOOKS_FOR_SALE,
-                  arguments: true as dynamic);
+                  arguments: BFSArguments(isSeaching: true));
             },
             decoration: InputDecoration(
                 fillColor: Colors.white,

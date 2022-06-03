@@ -54,6 +54,7 @@ class Order with ChangeNotifier {
           'paymentMethod': 1,
         }),
       );
+
       print('save order db done');
       if (response.body.contains("true")) {
         print('save order ghn');
@@ -146,7 +147,6 @@ class Order with ChangeNotifier {
           );
         }
       }
-      ;
     } catch (error) {
       print(error);
       throw error;
@@ -215,4 +215,16 @@ class Order with ChangeNotifier {
     ]; // Creates growable list.
     return addressList.join(', ');
   }
+
+  Map<String, dynamic> createOrderToJson(List<String> itemIds, String addressId,
+          Address currentAddress, num orderFee) =>
+      {
+        'itemIds': itemIds,
+        'addressId': addressId,
+        'orderNote': 'flutter note',
+        'coupon': null,
+        'address': currentAddress,
+        'orderFee': orderFee,
+        'paymentMethod': 1,
+      };
 }

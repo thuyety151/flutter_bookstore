@@ -8,14 +8,15 @@ class Account {
   late String firstName;
   late String lastName;
   late String email;
-  late String photoUrl;
+  late String? photoUrl;
   static const storage = FlutterSecureStorage();
 
   Account(
       {required this.id,
       required this.firstName,
       required this.lastName,
-      required this.email});
+      required this.email,
+      this.photoUrl});
 
   Account.empty() {
     email = "";
@@ -29,6 +30,7 @@ class Account {
     email = auth.email;
     firstName = auth.firstName ?? "";
     lastName = auth.lastName ?? "";
+    photoUrl = auth.photoUrl ?? "";
   }
 
   factory Account.fromJson(Map<String, dynamic> json) {
@@ -36,6 +38,7 @@ class Account {
         id: json["id"] ?? "",
         firstName: json["firstName"] ?? "",
         lastName: json["lastName"] ?? "",
+        photoUrl: json["photoUrl"] ?? "",
         email: json["email"] ?? "");
   }
 

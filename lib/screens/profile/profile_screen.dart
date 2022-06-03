@@ -61,26 +61,9 @@ class ProfileScreen extends StatelessWidget {
             iconAssetUrl: "assets/icons/icon-location.png",
             onPress: () => onPress("address")),
         ProfileMenu(
-            text: "Wishlist",
-            iconAssetUrl: "assets/icons/icon-wish-list.png",
-            onPress: () => onPress("wishlist")),
-        ProfileMenu(
             text: "Logout",
             iconAssetUrl: "assets/icons/icon-logout.png",
             onPress: () => onPress("login"))
-      ],
-    );
-  }
-
-  Widget _statsCard() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        StatsCard(),
-        SizedBox(width: 8),
-        StatsCard(),
-        SizedBox(width: 8),
-        StatsCard(),
       ],
     );
   }
@@ -114,10 +97,6 @@ class ProfileScreen extends StatelessWidget {
                           fontSize: 22,
                           letterSpacing: 2),
                     )),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: _statsCard(),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: _menus(context),

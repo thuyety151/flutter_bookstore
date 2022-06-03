@@ -40,6 +40,7 @@ class BookCard extends StatelessWidget {
     }
 
     return GestureDetector(
+        key: Key(book.id),
         onTap: () => Navigator.of(context).pushNamed(
             RouteManager.ROUTE_PRODUCT_DETAIL,
             arguments: BookDetailArgs(id: book.id)),

@@ -51,20 +51,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {  
+  Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.kBgGgrey,
         bottomNavigationBar: const CustomBottomNavBar(
           selectedMenu: MenuState.home,
         ),
-        body: SafeArea(
-            child: SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
+              padding: const EdgeInsets.only(top: 56),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [const HomePageHeader(), _body()])),
-        )));
+        ));
   }
 }

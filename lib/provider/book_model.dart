@@ -6,9 +6,8 @@ import 'package:flutter_folder/models/book.dart';
 import 'package:flutter_folder/models/filter.dart';
 import 'package:flutter_folder/models/newrelease.dart';
 import 'package:flutter_folder/models/review.dart';
+import 'package:flutter_folder/services/api_response_model.dart';
 import 'package:flutter_folder/services/book_api.dart';
-import 'package:http/http.dart' as http;
-import '../models/constants.dart';
 
 class BookModel extends ChangeNotifier {
   final BookApi _api = BookApi();
@@ -73,7 +72,7 @@ class BookModel extends ChangeNotifier {
 
     final List<Book> loadedItems = [];
     List<dynamic>? extractedData;
-    if (response.isNotEmpty) {
+    if (response != null) {
       extractedData = json.decode(response)["value"] as List<dynamic>;
     }
     // ignore: unnecessary_null_comparison
@@ -84,6 +83,7 @@ class BookModel extends ChangeNotifier {
     extractedData.forEach((item) {
       loadedItems.add(Book.fromJson(item));
     });
+
     if (filterData.pageIndex == 1) {
       _books = loadedItems.toList();
     } else {
@@ -142,11 +142,33 @@ class BookModel extends ChangeNotifier {
   Future<void> getListReviews(String id) async {
     try {
       var res = await withRestApiResponse("/reviews?bookId=$id");
-      var value = json.decode(res)["value"] as List<dynamic>;
-      detail?.reviews = value.map((e) => Review.fromJson(e)).toList();
+      detail?.reviews =
+          ApiResponse<Review>.fromJson(json.decode(res), Review.fromJsonModel)
+              .data;
       notifyListeners();
     } catch (e) {
       rethrow;
     }
+  }
+
+  void setCategoryId(String id) {
+    filterData.categoryId = id;
+    notifyListeners();
+  }
+
+  void setAuthorId(String id) {
+    filterData.authorId = id;
+    notifyListeners();
+  }
+
+  void setInit(String? categoryId, String? authorId) {
+    if (categoryId != null) {
+      filterData.categoryId = categoryId;
+    }
+    if (authorId != null) {
+      filterData.authorId = authorId;
+    }
+    filterData.keywords = "";
+    notifyListeners();
   }
 }

@@ -63,8 +63,7 @@ class WishlistProvider extends ChangeNotifier {
 
   Future<void> getList() async {
     try {
-      var res = await withRestApiResponse("/wishlist", hasLoading: true);
-      // print(value);
+      var res = await withRestApiResponse("/wishlist");
       var value = json.decode(res)["value"] as List<dynamic>;
       listWishlist = value.map((e) => Item.fromJson(e)).toList();
 

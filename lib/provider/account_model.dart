@@ -12,15 +12,16 @@ class AccountModel extends ChangeNotifier {
   final Authentication _auth = Authentication();
   bool fetching = false;
   bool _userLogedIn = false;
-  String imagePickerPath = "";
   late Account _account = Account.empty();
   static const storage = FlutterSecureStorage();
   late XFile _file;
   String get email => _account.email;
   Account get account => _account;
+  String get imagePickerPath => _file.path;
 
   AccountModel() {
     getUserLoginDetails();
+    _file = XFile("");
   }
 
   Future<bool> login(LoginRequestModel data) async {
@@ -53,7 +54,9 @@ class AccountModel extends ChangeNotifier {
     _account.firstName = allValues["firstName"].toString();
     _account.lastName = allValues["lastName"].toString();
     _account.photoUrl = allValues["photoUrl"].toString();
-
+    if (_account.email.isNotEmpty) {
+      _userLogedIn = true;
+    }
     return _account;
   }
 
@@ -63,7 +66,8 @@ class AccountModel extends ChangeNotifier {
 
   Future<void> updateProfile(Account value, VoidCallback onSuccess) async {
     try {
-      var media = _file != null ? MediaModel().createMedia(_file) : null;
+      var media =
+          _file.path.isNotEmpty ? await MediaModel().createMedia(_file) : null;
 
       var res = await withRestApiResponse("/account/update-account-information",
           method: "post",
@@ -72,13 +76,18 @@ class AccountModel extends ChangeNotifier {
             "lastName": _account.lastName,
             "photo": media
           }));
-      print(json.encode({
-        "firstName": _account.firstName,
-        "lastName": _account.lastName,
-        "photo": media
-      }));
       if (json.decode(res)["firstName"] != null) {
         onSuccess();
+        // reset storage
+        await storage.write(
+            key: "firstName", value: json.decode(res)["firstName"]);
+        await storage.write(
+            key: "lastName", value: json.decode(res)["lastName"]);
+        if (json.decode(res)["photoUrl"] != "") {
+          await storage.write(
+              key: "photoUrl", value: json.decode(res)["photoUrl"]);
+        }
+        await getUserLoginDetails();
       }
     } catch (e) {
       rethrow;

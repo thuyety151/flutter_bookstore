@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/helpers/show_dialog.dart';
 import './cart_item.dart' as CartItemChild;
 import 'package:provider/provider.dart';
 import '../../../provider/cart.dart';
@@ -11,18 +12,28 @@ class CartList extends StatefulWidget {
 }
 
 class _CartListState extends State<CartList> {
+  Future<void> fetchData(BuildContext context) async {
+    Future.delayed(Duration.zero, () {
+      showLoading(context);
+    });
+    await Provider.of<Cart>(context, listen: false).fetchAndSetCart();
+    Future.delayed(Duration.zero, () {
+      Navigator.pop(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Provider.of<Cart>(context, listen: false).fetchAndSetCart(),
+      future: fetchData(context),
       builder: (ctx, dataSnapshot) {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return Container();
         } else {
           if (dataSnapshot.error != null) {
             // ...
             // Do error handling stuff
-            return Center(
+            return const Center(
               child: Text('An error occurred!'),
             );
           } else {

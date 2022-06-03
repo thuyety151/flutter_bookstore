@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/item.dart';
+import 'package:flutter_folder/services/api_base.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../models/constants.dart';
@@ -31,7 +33,6 @@ class Cart with ChangeNotifier {
 
   Future<void> fetchAndSetCart() async {
     var token = await storage.read(key: "token");
-    print(token);
     final url = Uri.parse(apiEndpoint + '/cart');
     final response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -41,9 +42,7 @@ class Cart with ChangeNotifier {
 
     final List<Item> loadedItems = [];
     List<dynamic>? extractedData;
-    if (response.body.isNotEmpty) {
-      extractedData = json.decode(response.body)["value"] as List<dynamic>;
-    }
+    extractedData = json.decode(response.body)["value"] as List<dynamic>;
     // ignore: unnecessary_null_comparison
     if (extractedData == null) {
       return;
@@ -63,20 +62,29 @@ class Cart with ChangeNotifier {
     var token = await storage.read(key: "token");
     print(token);
     try {
-      final response = await http.post(
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-        body: json.encode({
-          'productId': productId,
-          'attributeId': attributeId,
-          'quantity': quantity
-        }),
-      );
-      int index = _items.indexWhere((element) => element.productId == productId && element.attributeId == attributeId);
+      await withRestApiResponse("/cart/item",
+          method: "post",
+          body: json.encode({
+            'productId': productId,
+            'attributeId': attributeId,
+            'quantity': quantity
+          }));
+
+      // final response = await http.post(
+      //   url,
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Accept': 'application/json',
+      //     'Authorization': 'Bearer $token',
+      //   },
+      //   body: json.encode({
+      //     'productId': productId,
+      //     'attributeId': attributeId,
+      //     'quantity': quantity
+      //   }),
+      // );
+      int index = _items.indexWhere((element) =>
+          element.productId == productId && element.attributeId == attributeId);
 
       if (index == -1) {
         final newItem = Item(id: 'tempItem');
@@ -92,7 +100,6 @@ class Cart with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error);
       throw error;
     }
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/screens/book_detail/review/components/item_review.dart';
 import 'package:flutter_folder/screens/book_detail/review/components/session_title.dart';
@@ -20,17 +21,22 @@ class _ReviewContainerState extends State<ReviewContainer> {
         padding: EdgeInsets.only(bottom: 16),
       ),
       Consumer<BookModel>(
-          builder: (context, value, child) => value.detail != null
-              ? Wrap(
-                  direction: Axis.vertical,
-                  spacing: 20,
-                  children: List.generate(
-                    value.detail?.reviews?.length ?? 0,
-                    (index) => ItemReview(
-                      value: value.detail!.reviews!.elementAt(index),
-                    ),
-                  ))
-              : const SizedBox())
+          builder: (context, value, child) =>
+              value.detail != null && value.detail!.reviews!.isNotEmpty
+                  ? Wrap(
+                      direction: Axis.vertical,
+                      spacing: 20,
+                      children: List.generate(
+                        value.detail?.reviews?.length ?? 0,
+                        (index) => ItemReview(
+                          value: value.detail!.reviews!.elementAt(index),
+                        ),
+                      ))
+                  : const Center(
+                      child: Text(
+                      "Empty",
+                      style: AppTextStyles.caption,
+                    )))
     ]);
   }
 }

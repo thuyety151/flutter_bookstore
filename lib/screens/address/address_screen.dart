@@ -97,7 +97,7 @@ class _AddressScreenState extends State<AddressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<provider.AddressModel>(context).getListAddresses();
+    Provider.of<provider.AddressModel>(context,listen: false).getListAddresses();
 
     return Scaffold(
         backgroundColor: Colors.white,

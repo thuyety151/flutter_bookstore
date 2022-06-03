@@ -70,8 +70,7 @@ class _ImagePickerState extends State<ImagePicker> {
 
     setState(() {
       if (image != null) {
-        Provider.of<AccountModel>(context, listen: false)
-            .setImage(image);
+        Provider.of<AccountModel>(context, listen: false).setImage(image);
         Navigator.pop(context);
       }
     });

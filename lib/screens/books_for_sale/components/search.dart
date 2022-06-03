@@ -22,6 +22,7 @@ class _SearchState extends State<Search> {
   final Storage storage = Storage();
   late List<String> keywords = [];
   late bool isSearching = false;
+  late TextEditingController txt = TextEditingController();
 
   Future<List<String>> getKeywords() async {
     if (keywords.isNotEmpty) {
@@ -84,11 +85,16 @@ class _SearchState extends State<Search> {
                 ...List.generate(
                     keywords.length,
                     (index) => Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GestureDetector(
-                              onTap: () => submit(keywords.elementAt(index)),
-                              child: Text(keywords.elementAt(index)),
+                            Expanded(
+                              child: GestureDetector(
+                                  onTap: () {
+                                    widget
+                                        .setKeywords(keywords.elementAt(index));
+                                    txt.text = keywords.elementAt(index);
+                                    submit(keywords.elementAt(index));
+                                  },
+                                  child: Text(keywords.elementAt(index))),
                             ),
                             IconButton(
                                 onPressed: () =>
@@ -105,11 +111,15 @@ class _SearchState extends State<Search> {
   }
 
   void submit(String value) {
+    setState(() {
+      isSearching = false;
+    });
+    widget.setKeywords(value);
+    txt.text = value;
     if (value.isEmpty) {
       return;
     }
     storage.setKeywords(value);
-    widget.setKeywords(value);
   }
 
   @override
@@ -117,7 +127,7 @@ class _SearchState extends State<Search> {
     final args = ModalRoute.of(context)!.settings.arguments as dynamic;
     if (args != null) {
       setState(() {
-        isSearching = args;
+        isSearching = args.isSeaching ?? false;
       });
     }
     super.didChangeDependencies();
@@ -139,10 +149,19 @@ class _SearchState extends State<Search> {
                     child: FocusScope(
                         child: Focus(
                       onFocusChange: (focus) => setState(() {
-                        isSearching = focus;
+                        setState(() {
+                          isSearching = focus;
+                        });
                       }),
-                      child: TextField(
-                          onSubmitted: submit,
+                      child: TextFormField(
+                          controller: txt,
+                          autofocus: isSearching,
+                          onFieldSubmitted: submit,
+                          onChanged: (value) {
+                            setState(() {
+                              isSearching = true;
+                            });
+                          },
                           decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,

@@ -21,6 +21,16 @@ class Storage {
   }
 
   void setKeywords(String input) {
+    if (input.isEmpty) {
+      return;
+    }
+    var data = input.split(" ").join().toLowerCase();
+    if (keywords!
+        .where(
+            (element) => element.split(" ").join().toLowerCase().contains(data))
+        .isNotEmpty) {
+      return;
+    }
     keywords!.add(input);
     storage.write(key: "keywords", value: json.encode(keywords));
   }

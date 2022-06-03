@@ -1,26 +1,24 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/coupon.dart';
-import 'package:flutter_folder/models/item.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
 import '../models/constants.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/http_exception.dart';
 
 class Coupons with ChangeNotifier {
   List<Coupon> _coupons = [];
   List<Coupon> _userCoupons = [];
-  late Coupon _selectedCoupon;
+  late Coupon _selectedCoupon = Coupon.empty();
   static const storage = FlutterSecureStorage();
 
   List<Coupon> get coupons {
     return [..._coupons];
   }
 
-  Coupon get selectedCoupon{
+  Coupon get selectedCoupon {
     return _selectedCoupon;
   }
 
@@ -29,16 +27,19 @@ class Coupons with ChangeNotifier {
   }
 
   Future<void> fetchCoupons() async {
-    final url = Uri.parse(apiEndpoint + '/coupons');
-    final response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    });
+    // final url = Uri.parse(apiEndpoint + '/coupons');
+    // final response = await http.get(url, headers: {
+    //   'Content-Type': 'application/json',
+    //   'Accept': 'application/json',
+    // });
+
+    var res = await withRestApiResponse("/coupons");
+    var value = json.decode(res)["value"] as List<dynamic>;
 
     final List<Coupon> loadedItems = [];
     List<dynamic>? extractedData;
-    if (response.body.isNotEmpty) {
-      extractedData = json.decode(response.body)["value"] as List<dynamic>;
+    if (res.isNotEmpty) {
+      extractedData = value;
     }
     // ignore: unnecessary_null_comparison
     if (extractedData == null) {

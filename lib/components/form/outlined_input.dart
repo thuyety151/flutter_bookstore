@@ -15,7 +15,8 @@ class OutlinedInput extends StatefulWidget {
       this.ruleNames,
       this.modelValue,
       required this.onUpdateValue,
-      this.padding})
+      this.padding,
+      this.readOnly})
       : super(key: key);
 
   final String? label;
@@ -23,6 +24,7 @@ class OutlinedInput extends StatefulWidget {
   final String? placeholder;
   final bool? obscureText;
   final bool? enabled;
+  final bool? readOnly;
   final int? maxLines;
   final List<ValidationName>? ruleNames;
   final String? modelValue;
@@ -94,6 +96,7 @@ class _OutlinedInputState extends State<OutlinedInput> {
               },
               obscureText: !isShowPW && (widget.obscureText ?? false),
               enabled: widget.enabled ?? true,
+              readOnly: widget.readOnly ?? false,
               decoration: InputDecoration(
                   hintText: widget.placeholder ?? "",
                   border: InputBorder.none,

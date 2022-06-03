@@ -8,6 +8,7 @@ import "package:http/http.dart" as http;
 
 class ReviewProvider extends ChangeNotifier {
   late int countSubmission = 0;
+  late List<Review> reviews = [];
 
   Future<void> submitSingleReview(
       Review data, int itemsLength, Function onSuccess) async {

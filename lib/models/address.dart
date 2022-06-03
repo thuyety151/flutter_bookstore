@@ -53,27 +53,58 @@ class Address {
   static Address fromJsonModel(Map<String, dynamic> json) =>
       Address.fromJson(json);
 
-  String toJson() {
-    Map<String, dynamic> map = {
-      "id": id,
-      "firstName": firstName,
-      "lastName": lastName,
-      "phone": phone,
-      "apartmentNumber": apartmentNumber,
-      "streetAddress": streetAddress,
-      "districtId": districtID,
-      "provinceId": provinceID,
-      "isMain": isMain,
-      "provinceName": provinceName,
-      "districtName": districtName,
-      "wardName": wardName,
-      "wardCode" : wardCode
-    };
-    if (id == null) {
-      map.remove("id");
-    }
-    return json.encode(map);
-  }
+  // String toJson() {
+  //   Map<String, dynamic> map = {
+  //     "id": id,
+  //     "firstName": firstName,
+  //     "lastName": lastName,
+  //     "phone": phone,
+  //     "apartmentNumber": apartmentNumber,
+  //     "streetAddress": streetAddress,
+  //     "districtId": districtID,
+  //     "provinceId": provinceID,
+  //     "isMain": isMain,
+  //     "provinceName": provinceName,
+  //     "districtName": districtName,
+  //     "wardName": wardName,
+  //     "wardCode" : wardCode
+  //   };
+  //   if (id == null) {
+  //     map.remove("id");
+  //   }
+  //   return json.encode(map);
+  // }
+
+  Map<String, dynamic> toJson() => id == null
+      ? {
+          "firstName": firstName,
+          "lastName": lastName,
+          "phone": phone,
+          "apartmentNumber": apartmentNumber,
+          "streetAddress": streetAddress,
+          "districtId": districtID,
+          "provinceId": provinceID,
+          "isMain": isMain,
+          "provinceName": provinceName,
+          "districtName": districtName,
+          "wardName": wardName,
+          "wardCode": wardCode
+        }
+      : {
+          "id": id,
+          "firstName": firstName,
+          "lastName": lastName,
+          "phone": phone,
+          "apartmentNumber": apartmentNumber,
+          "streetAddress": streetAddress,
+          "districtId": districtID,
+          "provinceId": provinceID,
+          "isMain": isMain,
+          "provinceName": provinceName,
+          "districtName": districtName,
+          "wardName": wardName,
+          "wardCode": wardCode
+        };
 
   Map mapToJson() => {
         'id': id,
