@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/helpers/error_handler.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_folder/models/account.dart';
 import 'package:flutter_folder/services/api_response_model.dart';
 import 'package:flutter_folder/services/api_base.dart';
 import 'package:http/http.dart' as http;
-import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginRequestModel {
   String email;
@@ -49,6 +49,7 @@ class RegisterRequestModel {
 
 class Authentication {
   final Api _api = Api();
+  //TODO
   final _auth = FirebaseAuth.instance;
 
   Future<AuthenResponse> login(LoginRequestModel data) async {
@@ -60,26 +61,9 @@ class Authentication {
         throw kLoginFailed;
       }
 
-      // try {
-      //   UserCredential authResult;
-      //   authResult = await _auth.signInWithEmailAndPassword(
-      //     email: data.email,
-      //     password: data.password,
-      //   );
-      // } on PlatformException catch (err) {
-      //   var message = 'An error occurred, pelase check your credentials!';
-
-      //   if (err.message != null) {
-      //     message = err.message.toString();
-      //   }
-      //   catchErrAndNotify(
-      //       AlertDialogParams(title: "Login Error", content: message), err);
-      //   rethrow;
-      // }
-
-try {
+      try {
         UserCredential authResult;
-        authResult = await _auth.createUserWithEmailAndPassword(
+        authResult = await _auth.signInWithEmailAndPassword(
           email: data.email,
           password: data.password,
         );
@@ -90,9 +74,27 @@ try {
           message = err.message.toString();
         }
         catchErrAndNotify(
-            AlertDialogParams(title: "Register Error", content: message), err);
+            AlertDialogParams(title: "Login Error", content: message), err);
         rethrow;
       }
+
+      // try {
+      //   //TODO
+      //   UserCredential authResult;
+      //   authResult = await _auth.createUserWithEmailAndPassword(
+      //     email: data.email,
+      //     password: data.password,
+      //   );
+      // } on PlatformException catch (err) {
+      //   var message = 'An error occurred, pelase check your credentials!';
+
+      //   if (err.message != null) {
+      //     message = err.message.toString();
+      //   }
+      //   catchErrAndNotify(
+      //       AlertDialogParams(title: "Register Error", content: message), err);
+      //   rethrow;
+      // }
       return AuthenResponse.fromJson(
           json.decode(response.body), Account.fromJsonModel);
     } on FormatException catch (e) {
@@ -111,7 +113,8 @@ try {
         throw kRegisterFailed;
       }
 
-       try {
+      try {
+        //TODO
         UserCredential authResult;
         authResult = await _auth.createUserWithEmailAndPassword(
           email: data.email,

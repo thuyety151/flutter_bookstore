@@ -35,6 +35,7 @@ class MyHttpOverrides extends HttpOverrides {
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
 // // Obtain a list of the available cameras on the device.
 //   final cameras = await availableCameras();
@@ -50,12 +51,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-    return FutureBuilder(
-        // Initialize FlutterFire:
-        future: _initialization,
-        builder: (context, appSnapshot) {
-          return MultiProvider(
+     return MultiProvider(
             providers: [
               ChangeNotifierProvider(create: (context) => AccountModel()),
               ChangeNotifierProvider(create: (context) => BookModel()),
@@ -91,6 +87,5 @@ class MyApp extends StatelessWidget {
                     navigatorKey, // to get current context at anywhere
                 home: const HomeScreen()),
           );
-        });
   }
 }

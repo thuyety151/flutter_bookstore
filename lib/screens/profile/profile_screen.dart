@@ -31,6 +31,7 @@ class ProfileScreen extends StatelessWidget {
         case "login":
           const storage = FlutterSecureStorage();
           storage.deleteAll();
+          //TODO
           FirebaseAuth.instance.signOut();
           Navigator.of(context).pushNamed(RouteManager.ROUTE_LOGIN);
           break;

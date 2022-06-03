@@ -4,17 +4,20 @@ import 'package:flutter_folder/configs/constants.dart';
 class MessageBubble extends StatelessWidget {
   MessageBubble(
     this.message,
-    this.userName,
-    this.userImage,
-    this.isMe, {
+  //   this.userName,
+  //   this.userImage,
+  //   this.isMe,
+  {
     required this.key,
-  });
+  }
+  )
+  ;
 
   final Key key;
   final String message;
-  final String userName;
-  final String userImage;
-  final bool isMe;
+  // final String userName;
+  // final String userImage;
+  final bool isMe = true;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,8 @@ class MessageBubble extends StatelessWidget {
                     isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    userName,
+                   // userName,
+                   'hi',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: isMe
@@ -70,16 +74,16 @@ class MessageBubble extends StatelessWidget {
             ),
           ],
         ),
-        Positioned(
-          top: 0,
-          left: isMe ? null : 120,
-          right: isMe ? 120 : null,
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(
-              userImage,
-            ),
-          ),
-        ),
+        // Positioned(
+        //   top: 0,
+        //   left: isMe ? null : 120,
+        //   right: isMe ? 120 : null,
+        //   child: CircleAvatar(
+        //     backgroundImage: NetworkImage(
+        //       userImage,
+        //     ),
+        //   ),
+        // ),
       ],
       overflow: Overflow.visible,
     );
