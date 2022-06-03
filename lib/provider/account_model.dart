@@ -1,25 +1,29 @@
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/account.dart';
-import 'package:flutter_folder/provider/media_model.dart';
 import 'package:flutter_folder/screens/profile/components/form_change_password.dart';
 import 'package:flutter_folder/services/authentication_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'media_model.dart';
+
 class AccountModel extends ChangeNotifier {
   final Authentication _auth = Authentication();
   bool fetching = false;
   bool _userLogedIn = false;
+
   late Account _account = Account.empty();
   static const storage = FlutterSecureStorage();
   late XFile _file;
-  String get email => _account.email;
   Account get account => _account;
   String get imagePickerPath => _file.path;
 
-  AccountModel() {
+  String get email => _account.email;
+
+    AccountModel() {
     getUserLoginDetails();
     _file = XFile("");
   }
@@ -34,11 +38,10 @@ class AccountModel extends ChangeNotifier {
       const storage = FlutterSecureStorage();
       storage.deleteAll();
       storage.write(key: "token", value: response.token);
-      storage.write(key: "firstName", value: response.firstName);
+       storage.write(key: "firstName", value: response.firstName);
       storage.write(key: "lastName", value: response.lastName);
       storage.write(key: "email", value: response.email);
       storage.write(key: "photoUrl", value: response.photoUrl);
-
       _userLogedIn = true;
       notifyListeners();
       return true;
@@ -47,7 +50,6 @@ class AccountModel extends ChangeNotifier {
     }
   }
 
-<<<<<<< HEAD
   Future<bool> register(RegisterRequestModel data) async {
     fetching = true;
     try {
@@ -65,9 +67,7 @@ class AccountModel extends ChangeNotifier {
     }
   }
 
-  Account getUserLoginDetails() => _account;
-=======
-  Future<Account> getUserLoginDetails() async {
+Future<Account> getUserLoginDetails() async {
     Map<String, String> allValues = await storage.readAll();
 
     _account.email = allValues["email"].toString();
@@ -79,8 +79,6 @@ class AccountModel extends ChangeNotifier {
     }
     return _account;
   }
->>>>>>> dev
-
   bool getisUserLogedIn() {
     return _userLogedIn;
   }
@@ -114,12 +112,10 @@ class AccountModel extends ChangeNotifier {
       rethrow;
     }
   }
-
-  void setImage(XFile file) {
+   void setImage(XFile file) {
     _file = file;
     notifyListeners();
   }
-
   Future<void> changePassword(
       ChangePWValue value, VoidCallback onSuccess) async {
     try {
@@ -135,8 +131,7 @@ class AccountModel extends ChangeNotifier {
       rethrow;
     }
   }
-
-  void resetAvatarState() {
+   void resetAvatarState() {
     // imagePickerPath = "";
   }
 }

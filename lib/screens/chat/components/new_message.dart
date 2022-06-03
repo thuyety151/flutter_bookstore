@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider/account_model.dart';
 
 class NewMessage extends StatefulWidget {
   @override
@@ -14,13 +17,13 @@ class _NewMessageState extends State<NewMessage> {
   void _sendMessage() async {
     FocusScope.of(context).unfocus();
     final user = FirebaseAuth.instance.currentUser;
-    final userData = await FirebaseFirestore.instance.collection('users').doc(user!.uid).get();
+    final accountModel = Provider.of<AccountModel>(context, listen: false).account;
     FirebaseFirestore.instance.collection('chat').add({
       'text': _enteredMessage,
       'createdAt': Timestamp.now(),
-      'userId': user.uid,
-     // 'username': userData.data()['username'],
-     // 'userImage': userData.data()['image_url']
+      'userId': user!.uid,
+      'username': accountModel.firstName + ' ' + accountModel.lastName,
+      'userImage': accountModel.photoUrl
     });
     _controller.clear();
   }

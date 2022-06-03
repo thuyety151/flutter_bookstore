@@ -29,16 +29,6 @@ class Coupon {
       required this.imageUrl,
       required this.minSpend});
 
-    Coupon.empty() {
-    id = "";
-    code = "";
-    description = "";
-    couponAmount = 0;
-    discountType = 0;
-    expireDate = "";
-    imageUrl = "";
-    minSpend = 0;
-  }
 
   Coupon.fromJson(Map<String, dynamic> json) {
     id = json['id'];
