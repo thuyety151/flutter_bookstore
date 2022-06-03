@@ -14,15 +14,22 @@ class _RateState extends State<Rate> {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      children: List.generate(
-          5,
-          (index) => Icon(
-                index + 1 > (widget.rate ?? 5)
-                    ? Icons.star_outline
-                    : Icons.star,
-                color: Colors.amber[300],
-                size: widget.size ?? 12,
-              )),
+      children: [
+        ...List.generate(
+            widget.rate ?? 5,
+            (index) => Icon(
+                  Icons.star,
+                  color: Colors.amber[300],
+                  size: widget.size ?? 12,
+                )),
+        ...List.generate(
+            5 - (widget.rate ?? 5),
+            (index) => Icon(
+                  Icons.star_outline,
+                  color: Colors.amber[300],
+                  size: widget.size ?? 12,
+                ))
+      ],
     );
   }
 }

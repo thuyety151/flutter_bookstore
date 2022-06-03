@@ -20,7 +20,7 @@ class CartCheckOut extends StatefulWidget {
 
 class _CartCheckOutState extends State<CartCheckOut> {
   late bool isLoading;
-  double totalAmount = 0;
+  late double totalAmount = 0;
 
   @override
   void initState() {

@@ -8,7 +8,6 @@ import 'package:flutter_folder/screens/address/address_screen.dart';
 import 'package:flutter_folder/screens/book_detail/book_detail_screen.dart';
 import 'package:flutter_folder/screens/books_for_sale/books_for_sale_screen.dart';
 import 'package:flutter_folder/screens/cart/cart_screen.dart';
-import 'package:flutter_folder/screens/coupon/components/coupon_list.dart';
 import 'package:flutter_folder/screens/coupon/coupon_screen.dart';
 import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:flutter_folder/screens/login/login_screen.dart';
@@ -18,6 +17,7 @@ import 'package:flutter_folder/screens/profile/profile_detail_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_edit_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_screen.dart';
 import 'package:flutter_folder/screens/checkout/checkout_screen.dart';
+import 'package:flutter_folder/screens/wishlist/wishlist_screen.dart';
 
 import '../screens/chat/chat_screen.dart';
 import '../screens/manage_order/manage_order_screen.dart';
@@ -73,11 +73,12 @@ class RouteManager {
       case ROUTE_IMAGES_DETAIL:
         return MaterialPageRoute(
             builder: (context) => const ViewImageFullScreen());
-      // case ROUTE_WISH_LIST:
-      //   return MaterialPageRoute(builder: (context) => WishListScreen());
+      case ROUTE_WISH_LIST:
+        return MaterialPageRoute(builder: (context) => const WishlistScreen());
       case ROUTE_BOOKS_FOR_SALE:
         return MaterialPageRoute(
-            builder: (context) => const BooksForSaleScreen());
+            builder: (context) => const BooksForSaleScreen(),
+            settings: settings);
       case ROUTE_CART:
         return MaterialPageRoute(builder: (context) => const CartScreen());
       case ROUTE_REGISTER:
@@ -85,21 +86,22 @@ class RouteManager {
       case ROUTE_CHECKOUT:
         return MaterialPageRoute(builder: (context) => const CheckoutScreen());
       case ROUTE_ORDER_SUCCESS:
-        return CupertinoPageRoute(builder: (context) => OrderSuccess());
+        return CupertinoPageRoute(builder: (context) => const OrderSuccess());
       case ROUTE_MANAGE_ORDER:
         return MaterialPageRoute(
             builder: (context) => const ManageOrderScreen());
       case ROUTE_REVIEW:
-        return MaterialPageRoute(builder: (context) => ReviewScreen());
+        return MaterialPageRoute(
+            builder: (context) => const ReviewScreen(), settings: settings);
       case ROUTE_CHAT:
       //TODO
         return MaterialPageRoute(builder: (context) => ChatScreen());
       case ROUTE_IMAGE_PICKER:
         return MaterialPageRoute(builder: (context) => const ImagePicker());
-        case ROUTE_USER_COUPONS:
+      case ROUTE_USER_COUPONS:
         return MaterialPageRoute(builder: (context) => const CouponScreen());
       default:
-        throw FormatException("Route not found! Check routes again");
+        throw const FormatException("Route not found! Check routes again");
     }
   }
 }

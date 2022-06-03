@@ -43,7 +43,8 @@ class _CheckoutAddressState extends State<CheckoutAddress> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<provider.AddressModel>(context).getListAddresses();
+    Provider.of<provider.AddressModel>(context, listen: false)
+        .getListAddresses();
     void createAddress(Address value) {
       Provider.of<provider.AddressModel>(context, listen: false)
           .createAddress(value);

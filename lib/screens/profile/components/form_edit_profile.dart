@@ -14,13 +14,14 @@ class EditProfileForm extends StatefulWidget {
 
 class _EditProfileFormState extends State<EditProfileForm> {
   late Account formValue = Account.empty();
+
   late bool loading = false;
   @override
   void initState() {
     super.initState();
-
-    formValue =
-        Provider.of<AccountModel>(context, listen: false).getUserLoginDetails();
+    setState(() {
+      formValue = Provider.of<AccountModel>(context, listen: false).account;
+    });
   }
 
   void updateProfile() {
@@ -38,7 +39,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return Column(key: Key(formValue.email.toString()), children: [
       OutlinedInput(
         onUpdateValue: (value) {
           setState(() {
@@ -59,7 +60,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
           label: "email",
           onUpdateValue: (value) {},
           modelValue: formValue.email,
-          enabled: false),
+          readOnly: true),
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: PrimaryButton(

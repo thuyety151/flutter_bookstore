@@ -13,6 +13,8 @@ import '../../../provider/shipping_fee.dart';
 class CheckoutPriceSection extends StatelessWidget {
   const CheckoutPriceSection({Key? key}) : super(key: key);
 
+
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
@@ -30,10 +32,10 @@ class CheckoutPriceSection extends StatelessWidget {
 
     var coupon = Provider.of<Coupons>(context, listen: false).selectedCoupon;
 
-    double calculateCouponMoney(double subtotal, Coupon coupon){
+    double calculateCouponMoney(double subtotal, Coupon coupon) {
       // discountType:  0.FixedCart, 1.Percentage
       if (coupon.discountType == 0) {
-          return coupon.couponAmount.toDouble();
+        return coupon.couponAmount.toDouble();
       } else {
         if (coupon.discountType == 1) {
           return subtotal * (coupon.couponAmount / 100);
@@ -41,6 +43,7 @@ class CheckoutPriceSection extends StatelessWidget {
       }
       return 0;
     }
+
     return Consumer<ShippingFee>(
         builder: (context, value, child) => Container(
               margin: const EdgeInsets.all(4),
@@ -68,7 +71,10 @@ class CheckoutPriceSection extends StatelessWidget {
                           "Shipping",
                           "\$${formatVNDtoUSD(value.serviceFee)}",
                           Colors.teal.shade300),
-                      createPriceItem("Discount", "- \$${calculateCouponMoney(cart.totalAmount, coupon).toStringAsFixed(2)}", Colors.red.shade300),
+                      createPriceItem(
+                          "Discount",
+                          "- \$${calculateCouponMoney(cart.totalAmount, coupon).toStringAsFixed(2)}",
+                          Colors.red.shade300),
                       const SizedBox(
                         height: 8,
                       ),
@@ -126,10 +132,10 @@ createPriceItem(String key, String value, Color color) {
   );
 }
 
-formatVNDtoUSD (num money){
+formatVNDtoUSD(num money) {
   return (money / 23000).toStringAsFixed(2);
 }
 
-calTotal (num subtotal, num shippingFee, num coupon){
+calTotal(num subtotal, num shippingFee, num coupon) {
   return (subtotal + shippingFee - coupon).toStringAsFixed(2);
 }

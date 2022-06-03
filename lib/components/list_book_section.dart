@@ -4,12 +4,17 @@ import 'package:flutter_folder/routes/index.dart';
 // includes title, icon view all and list book with horizontal scroll bar
 class ListBookSession extends StatelessWidget {
   const ListBookSession(
-      {Key? key, required this.title, required this.child, this.header})
+      {Key? key,
+      required this.title,
+      required this.child,
+      this.header,
+      this.hideViewAll = false})
       : super(key: key);
 
   final String title;
   final Widget child;
   final Widget? header;
+  final bool? hideViewAll;
 
   void _viewAll(BuildContext context) {
     Navigator.of(context).pushNamed(RouteManager.ROUTE_BOOKS_FOR_SALE);
@@ -23,15 +28,17 @@ class ListBookSession extends StatelessWidget {
         children: [
           Text(
             title,
-            style:const TextStyle(
+            style: const TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 20, letterSpacing: 1),
           ),
-          InkWell(
-            onTap: () => _viewAll(context),
-            child:const Image(
-              image: AssetImage("assets/icons/icon-view-all.png"),
-            ),
-          )
+          if (hideViewAll == false) ...[
+            InkWell(
+              onTap: () => _viewAll(context),
+              child: const Image(
+                image: AssetImage("assets/icons/icon-view-all.png"),
+              ),
+            )
+          ]
         ],
       ),
     );

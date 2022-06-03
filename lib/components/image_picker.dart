@@ -2,6 +2,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/provider/account_model.dart';
+import 'package:image_picker/image_picker.dart' as lib;
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ImagePicker extends StatefulWidget {
@@ -16,6 +18,7 @@ class _ImagePickerState extends State<ImagePicker> {
   late Future<void> _initializeControllerFuture;
   late List<CameraDescription> cameras;
   late bool _isReady = false;
+  late bool _isFront = false;
 
   @override
   void initState() {
@@ -40,7 +43,8 @@ class _ImagePickerState extends State<ImagePicker> {
       // initialize cameras.
       cameras = await availableCameras();
       // initialize camera controllers.
-      _controller = new CameraController(cameras[0], ResolutionPreset.medium);
+      _controller =
+          CameraController(cameras[_isFront ? 0 : 1], ResolutionPreset.medium);
       await _controller.initialize();
       _initializeControllerFuture = _controller.initialize();
     } on CameraException catch (_) {
@@ -59,6 +63,19 @@ class _ImagePickerState extends State<ImagePicker> {
     super.dispose();
   }
 
+  Future getImagefromGallery() async {
+    var _imagePicker = lib.ImagePicker();
+
+    var image = await _imagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (image != null) {
+        Provider.of<AccountModel>(context, listen: false).setImage(image);
+        Navigator.pop(context);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // Fill this out in the next steps.
@@ -71,21 +88,43 @@ class _ImagePickerState extends State<ImagePicker> {
           // If the Future is complete, display the preview.
           return Scaffold(
             bottomNavigationBar: Container(
-                decoration: BoxDecoration(color: Colors.black38),
-                child: IconButton(
-                    onPressed: () async {
-                      // Navigator.of(context)
-                      //     .pushNamed(RouteManager.ROUTE_IMAGE_PICKER);
-                      final image = await _controller.takePicture();
-                      Provider.of<AccountModel>(context, listen: false)
-                          .setImagePath(image.path);
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.camera_alt,
-                      size: 20.0,
-                      color: Color(0xFF404040),
-                    ))),
+                decoration: const BoxDecoration(color: Colors.black38),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: getImagefromGallery,
+                        icon: const Icon(
+                          Icons.perm_media_outlined,
+                          size: 20.0,
+                          color: Color(0xFF404040),
+                        )),
+                    IconButton(
+                        onPressed: () async {
+                          final image = await _controller.takePicture();
+                          Provider.of<AccountModel>(context, listen: false)
+                              .setImage(image);
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.camera_alt,
+                          size: 20.0,
+                          color: Color(0xFF404040),
+                        )),
+                    IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isFront = !_isFront;
+                          });
+                          _setupCameras();
+                        },
+                        icon: const Icon(
+                          Icons.cameraswitch_outlined,
+                          size: 20.0,
+                          color: Color(0xFF404040),
+                        ))
+                  ],
+                )),
             body: Wrap(
               direction: Axis.vertical,
               children: [

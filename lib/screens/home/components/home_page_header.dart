@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/category/category_circle.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/provider/category_model.dart';
+import 'package:flutter_folder/screens/books_for_sale/books_for_sale_screen.dart';
 import 'package:flutter_folder/screens/home/components/app_banner.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   @override
   void didChangeDependencies() {
     _isLogin = Provider.of<AccountModel>(context).getisUserLogedIn();
-    if (_isInit && _isLogin ) {
+    if (_isInit && _isLogin) {
       setState(() {
         _isLoading = true;
       });
@@ -76,9 +77,14 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   Widget _search() {
     return Container(
         height: 38,
-        width: 330,
+        width: MediaQuery.of(context).size.width * 92 / 100 - 2 * 16,
+        margin: const EdgeInsets.only(left: 8),
         padding: const EdgeInsets.only(left: 8),
         child: TextField(
+            onTap: () {
+              Navigator.of(context).pushNamed(RouteManager.ROUTE_BOOKS_FOR_SALE,
+                  arguments: BFSArguments(isSeaching: true));
+            },
             decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
@@ -116,20 +122,21 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                 child: AppBanner(),
               ),
               Positioned(
-                top: 8,
+                top: 16,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _search(),
                     _isLoading
-                        ? Center(
+                        ? const Center(
                             child: CircularProgressIndicator(),
                           )
                         : Consumer<Cart>(
                             builder: (_, cart, ch) => Badge(
                               child: ch!,
                               value: cart.itemCount.toString(),
+                              textColor: Colors.white,
                             ),
                             child: FlatButton(
                               onPressed: () {
@@ -139,7 +146,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                                     : Navigator.of(context)
                                         .pushNamed(RouteManager.ROUTE_LOGIN);
                               },
-                              color: AppColors.kPrimary,
+                              color: Colors.white,
                               height: 38,
                               minWidth: 38,
                               padding:
@@ -149,10 +156,10 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                                       BorderRadius.all(Radius.circular(8))),
                               child: const Image(
                                 image: AssetImage(
-                                  "assets/icons/icon-add-cart.png",
+                                  "assets/icons/o-icon-cart.png",
                                 ),
-                                height: 32,
-                                width: 32,
+                                height: 24,
+                                width: 24,
                                 fit: BoxFit.fill,
                               ),
                             ),

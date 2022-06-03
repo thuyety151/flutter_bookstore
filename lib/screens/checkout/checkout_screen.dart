@@ -38,7 +38,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<provider.AddressModel>(context).getListAddresses().then((_) {
+      Provider.of<provider.AddressModel>(context, listen: false)
+          .getListAddresses()
+          .then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -71,7 +73,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           margin: const EdgeInsets.only(left: 10),
           child: SingleChildScrollView(
             child: _isLoading
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : (Column(
@@ -120,8 +122,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               color: Colors.black,
                               fontWeight: FontWeight.w600),
                         ),
-                        Consumer<provider.AddressModel>(builder: (context, value, child) => CheckoutPayment(districtId: value.listAddresses.firstWhere((element) => element.isMain == true).districtID),),
-                        
+                        Consumer<provider.AddressModel>(
+                          builder: (context, value, child) => CheckoutPayment(
+                              districtId: value.listAddresses
+                                  .firstWhere(
+                                      (element) => element.isMain == true)
+                                  .districtID),
+                        ),
                         const SizedBox(height: 10),
                         Container(
                           alignment: Alignment.center,
