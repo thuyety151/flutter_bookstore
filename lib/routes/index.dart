@@ -74,7 +74,8 @@ class RouteManager {
       //   return MaterialPageRoute(builder: (context) => Layout());
       case ROUTE_IMAGES_DETAIL:
         return MaterialPageRoute(
-            builder: (context) => const ViewImageFullScreen());
+            builder: (context) => const ViewImageFullScreen(),
+            settings: settings);
       case ROUTE_WISH_LIST:
         return MaterialPageRoute(builder: (context) => const WishlistScreen());
       case ROUTE_BOOKS_FOR_SALE:
@@ -96,7 +97,7 @@ class RouteManager {
         return MaterialPageRoute(
             builder: (context) => const ReviewScreen(), settings: settings);
       case ROUTE_CHAT:
-      //TODO
+        //TODO
         return MaterialPageRoute(builder: (context) => ChatScreen());
       case ROUTE_IMAGE_PICKER:
         return MaterialPageRoute(builder: (context) => const ImagePicker());

@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/components/book/price.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:provider/provider.dart';
@@ -117,10 +118,14 @@ class _FormAddToCartState extends State<FormAddToCart> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("\$${price.toString()}",
-                                      style: CustomTextStyle.textFormFieldBold
-                                          .copyWith(
-                                              color: Colors.red, fontSize: 22)),
+                                  Price(
+                                      fontSize: 22,
+                                      attr: value.detail!.attributes
+                                          .elementAt(selectedIndex)),
+                                  // Text("\$${price.toString()}",
+                                  //     style: CustomTextStyle.textFormFieldBold
+                                  //         .copyWith(
+                                  //             color: Colors.red, fontSize: 22)),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,

@@ -20,7 +20,9 @@ class ItemReview extends StatefulWidget {
 class _ItemReviewState extends State<ItemReview> {
   @override
   Widget build(BuildContext context) {
-    return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return Row(
+       key: UniqueKey(),
+      crossAxisAlignment: CrossAxisAlignment.start, children: [
       const Avatar(
         size: 20,
       ),
@@ -66,20 +68,6 @@ class _ItemReviewState extends State<ItemReview> {
           ListImagesReview(value: widget.value!.media),
           Row(
             children: [
-              const Icon(
-                Icons.favorite,
-                color: AppColors.kPrimary,
-                size: 16,
-              ),
-              const SizedBox(
-                width: 4,
-              ),
-              const Text("127",
-                  style: TextStyle(
-                      color: AppColors.kTextGrey, fontWeight: FontWeight.w600)),
-              const SizedBox(
-                width: 28,
-              ),
               Rate(
                 rate: widget.value!.rate,
               )

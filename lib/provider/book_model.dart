@@ -144,7 +144,8 @@ class BookModel extends ChangeNotifier {
       var res = await withRestApiResponse("/reviews?bookId=$id");
       detail?.reviews =
           ApiResponse<Review>.fromJson(json.decode(res), Review.fromJsonModel)
-              .data;
+                  .data ??
+              [];
       notifyListeners();
     } catch (e) {
       rethrow;

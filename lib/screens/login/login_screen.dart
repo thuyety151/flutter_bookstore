@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/button/primary_button.dart';
 import 'package:flutter_folder/components/form/outlined_input.dart';
+import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/helpers/validation.dart';
 import 'package:flutter_folder/provider/account_model.dart';
@@ -56,7 +57,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext buildContext) {
     return Scaffold(
-      body: Column(
+        body: Container(
+      child: Column(
         children: [
           GestureDetector(
             onTap: () => Navigator.of(buildContext)
@@ -78,6 +80,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const Text(
+                        "Book Store",
+                        style: TextStyle(
+                            color: AppColors.kGrey,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 36,
+                      ),
                       Container(
                         alignment: Alignment.center,
                         margin: const EdgeInsets.only(bottom: 32),
@@ -156,35 +168,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: FlatButton(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8.0)),
-                              ),
-                              onPressed: () {},
-                              child: const Image(
-                                image: AssetImage("assets/images/google.png"),
-                                height: 30,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: FlatButton(
-                              onPressed: () {},
-                              child: const Image(
-                                image: AssetImage("assets/images/facebook.jpg"),
-                                height: 30,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       Padding(
                           padding: const EdgeInsets.only(top: 8, bottom: 8),
                           child: Row(
@@ -212,6 +195,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ))
         ],
       ),
-    );
+    ));
   }
 }

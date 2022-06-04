@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/models/attribute.dart';
 import 'package:flutter_folder/models/book.dart';
 
 class Price extends StatelessWidget {
-  const Price({Key? key, this.book, this.attr}) : super(key: key);
+  const Price({Key? key, this.book, this.attr, this.fontSize})
+      : super(key: key);
   final Book? book;
   final Attribute? attr;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +20,30 @@ class Price extends StatelessWidget {
             ? Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
                 Text(
                   model!.salePrice.toString(),
-                  style: AppTextStyles.price,
+                  style: fontSize != null
+                      ? TextStyle(
+                          fontSize: fontSize,
+                          color: AppColors.kPrimary,
+                          fontWeight: FontWeight.bold)
+                      : AppTextStyles.price,
                 ),
                 const SizedBox(width: 6),
-                Text(
-                  model!.price.toString(),
-                  style: AppTextStyles.oldPrice,
+                Container(
+                  padding: EdgeInsets.only(bottom: fontSize != null ? 4 : 0),
+                  child: Text(
+                    model!.price.toString(),
+                    style: AppTextStyles.oldPrice,
+                  ),
                 )
               ])
             : Text(
                 model!.price.toString(),
-                style: AppTextStyles.price,
+                style: fontSize != null
+                    ? TextStyle(
+                        fontSize: fontSize,
+                        color: AppColors.kPrimary,
+                        fontWeight: FontWeight.bold)
+                    : AppTextStyles.price,
               );
   }
 }

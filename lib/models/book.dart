@@ -1,3 +1,4 @@
+import 'package:flutter_folder/helpers/format.dart';
 import 'package:flutter_folder/mocks/book_list.dart';
 import 'package:flutter_folder/models/attribute.dart';
 import 'package:flutter_folder/models/media.dart';
@@ -29,7 +30,7 @@ class Book {
   bool? isPublic;
   String? updateDate;
   List<String>? categoryIds;
-  List<Review>? reviews;
+  List<Review> reviews;
 
   Book({
     required this.id,
@@ -44,32 +45,33 @@ class Book {
     required this.attributeId,
     required this.attributeName,
     required this.attributes,
+    required this.reviews,
   });
 
-  Book.detail({
-    required this.id,
-    required this.name,
-    required this.shortDescription,
-    required this.description,
-    required this.price,
-    required this.salePrice,
-    required this.viewCount,
-    required this.media,
-    required this.authorId,
-    required this.authorName,
-    required this.attributes,
-    required this.languageId,
-    required this.languageName,
-    required this.dimensions,
-    required this.publicationDate,
-    required this.publisher,
-    required this.publicationCountry,
-    required this.stockStatus,
-    required this.totalStock,
-    required this.isPublic,
-    required this.updateDate,
-    required this.categoryIds,
-  });
+  Book.detail(
+      {required this.id,
+      required this.name,
+      required this.shortDescription,
+      required this.description,
+      required this.price,
+      required this.salePrice,
+      required this.viewCount,
+      required this.media,
+      required this.authorId,
+      required this.authorName,
+      required this.attributes,
+      required this.languageId,
+      required this.languageName,
+      required this.dimensions,
+      required this.publicationDate,
+      required this.publisher,
+      required this.publicationCountry,
+      required this.stockStatus,
+      required this.totalStock,
+      required this.isPublic,
+      required this.updateDate,
+      required this.categoryIds,
+      required this.reviews});
 
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
@@ -84,6 +86,7 @@ class Book {
         languageName: json["languageName"],
         attributeId: json["attributeId"],
         attributes: [],
+        reviews: [],
         attributeName: json["attributeName"]);
   }
 
@@ -105,16 +108,18 @@ class Book {
         attributes:
             List<Attribute>.from(listAttrs.map((e) => Attribute.fromJson(e))),
         languageId: json["languageId"],
-        languageName: json["languageName"],
+        languageName: json["languageName"] ?? json["language"],
         dimensions: json["dimensions"],
-        publicationDate: json["publicationDate"],
+        publicationDate:
+            format(DateTime.parse(json["publicationDate"]), "dd/MM/yyyy"),
         publisher: json["publisher"],
         publicationCountry: json["publicationCountry"],
         stockStatus: json["stockStatus"],
         totalStock: json["totalStock"],
         isPublic: json["isPublic"],
         updateDate: json["updateDate"],
-        categoryIds: []
+        categoryIds: [],
+        reviews: []
         // List<String>.from(listCategoryId.map((e) => e.toString()))
         );
   }

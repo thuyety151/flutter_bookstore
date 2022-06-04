@@ -17,6 +17,7 @@ class ChatScreen extends StatelessWidget {
         future: _initialization,
         builder: (context, appSnapshot) {
           return Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
               title: Text('Messenger'),
               backgroundColor: kPrimaryColor,

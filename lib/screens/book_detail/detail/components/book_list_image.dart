@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/components/image/view_full_screen.dart';
 import 'package:flutter_folder/models/media.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:getwidget/components/carousel/gf_carousel.dart';
@@ -32,7 +33,7 @@ class _BookListImageState extends State<BookListImage> {
   }
 
   void _viewDetail() {
-    Navigator.of(context).pushNamed(RouteManager.ROUTE_IMAGES_DETAIL);
+    Navigator.of(context).pushNamed(RouteManager.ROUTE_IMAGES_DETAIL,arguments:ListImgArgs(urls: widget.listMedia.map((e) => e.url).toList()));
   }
 
   Widget _slider() {

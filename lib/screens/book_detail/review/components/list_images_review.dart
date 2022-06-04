@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/components/image/view_full_screen.dart';
 import 'package:flutter_folder/models/media.dart';
 import 'package:flutter_folder/routes/index.dart';
 
@@ -23,7 +24,8 @@ class ListImagesReview extends StatefulWidget {
 
 class ListImagesReviewState extends State<ListImagesReview> {
   void _viewDetail() {
-    Navigator.of(context).pushNamed(RouteManager.ROUTE_IMAGES_DETAIL);
+    Navigator.of(context).pushNamed(RouteManager.ROUTE_IMAGES_DETAIL,
+        arguments: ListImgArgs(urls: widget.value.map((e) => e.url).toList()));
   }
 
   Widget _moreImages() {
@@ -58,22 +60,26 @@ class ListImagesReviewState extends State<ListImagesReview> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(direction: Axis.horizontal, spacing: 4, children: [
-      ...List.generate(
-          widget.value.length,
-          (index) => GestureDetector(
-              onTap: _viewDetail,
-              child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.white)),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        widget.value.elementAt(index).url,
-                        height: 100,
-                      ))))),
-      if (widget.value.length > 4) ...[_moreImages()]
-    ]);
+    return Wrap(
+        key: UniqueKey(),
+        direction: Axis.horizontal,
+        spacing: 4,
+        children: [
+          ...List.generate(
+              widget.value.length,
+              (index) => GestureDetector(
+                  onTap: _viewDetail,
+                  child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.white)),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            widget.value.elementAt(index).url,
+                            height: 100,
+                          ))))),
+          if (widget.value.length > 4) ...[_moreImages()]
+        ]);
   }
 }

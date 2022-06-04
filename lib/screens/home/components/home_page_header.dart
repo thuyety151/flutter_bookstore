@@ -32,14 +32,17 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   }
 
   @override
-  void didChangeDependencies() {
-    _isLogin = Provider.of<AccountModel>(context).getisUserLogedIn();
+  Future<void> didChangeDependencies() async {
+    await Provider.of<AccountModel>(context, listen: false)
+        .getUserLoginDetails();
+    _isLogin =
+        Provider.of<AccountModel>(context, listen: false).getisUserLogedIn();
     if (_isInit && _isLogin) {
       setState(() {
         _isLoading = true;
       });
 
-      Provider.of<Cart>(context).fetchAndSetCart().then((_) {
+      Provider.of<Cart>(context, listen: false).fetchAndSetCart().then((_) {
         setState(() {
           _isLoading = false;
         });

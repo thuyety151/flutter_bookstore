@@ -11,9 +11,10 @@ import '../../../routes/index.dart';
 class CouponItem extends StatelessWidget {
   final Coupon coupon;
   final bool isUserCoupon;
-   final Function() notifyParent;
-   final bool isSelection;
-  CouponItem(this.coupon, this.isUserCoupon, this.notifyParent, this.isSelection);
+  final Function() notifyParent;
+  final bool isSelection;
+  CouponItem(
+      this.coupon, this.isUserCoupon, this.notifyParent, this.isSelection);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class CouponItem extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: isUserCoupon ? 350 : 244,
+          width: isUserCoupon ? double.infinity : 244,
           height: 174,
           margin: EdgeInsets.only(
               left: isUserCoupon ? 16 : 5, right: isUserCoupon ? 16 : 5),
@@ -34,9 +35,8 @@ class CouponItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin:
-                    const EdgeInsets.only(right: 8, left: 8, top: 8, bottom: 8),
-                width: isUserCoupon ? 316 : 220,
+                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                width: isUserCoupon ? double.infinity : 220,
                 height: 105,
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(14)),
@@ -101,7 +101,8 @@ class CouponItem extends StatelessWidget {
                         : IconButton(
                             onPressed: () async {
                               if (_isLogin) {
-                                var result = await Provider.of<Coupons>(context, listen: false)
+                                var result = await Provider.of<Coupons>(context,
+                                        listen: false)
                                     .saveUserCoupon(coupon.id);
 
                                 ScaffoldMessenger.of(context)

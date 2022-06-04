@@ -20,6 +20,29 @@ class UpdateOrderStatusParams {
   }
 }
 
+class CategoryGHN {
+  String level1;
+  CategoryGHN(this.level1);
+
+  Map<String, dynamic> toJson() => {"level1": level1};
+}
+
+class ItemGHN {
+  String name;
+  int quantity;
+  int price;
+  CategoryGHN category;
+
+  ItemGHN(this.name, this.quantity, this.price, this.category);
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "quantity": quantity,
+        "price": price,
+        "category": category
+      };
+}
+
 class Order with ChangeNotifier {
   static const storage = FlutterSecureStorage();
   late List<model.Order> listOrder = [];
@@ -107,14 +130,20 @@ class Order with ChangeNotifier {
           'cod_amount':
               paymentMethod == 'Payment with MoMo' ? 0 : (orderFee * 23000).round(),
           'pick_station_id': 1444,
-          'items': items.map((item) => {
-                'name': item.productName,
-                'quantity': item.quantity,
-                'price': (item.price! * 23000).round(),
-                'category': {
-                  'level1': "book",
-                },
-              })
+          // 'items': json.encode(items.map((e) => e.toJson())),
+
+          "items": items
+              .map((e) => ItemGHN(e.productName ?? "", e.quantity ?? 1,
+                  (e.price ?? 0 * 23000).round(), CategoryGHN("book")))
+              .toList()
+          // items.map((item) => {
+          //       'name': item.productName,
+          //       'quantity': item.quantity,
+          //       'price': (item.price! * 23000).round(),
+          //       'category': {
+          //         'level1': "book",
+          //       },
+          //     })
         };
         try {
           const ghnEnpoint =
@@ -128,7 +157,8 @@ class Order with ChangeNotifier {
             },
             body: json.encode(order),
           );
-          print('save order ghn done');
+          print(json.encode(order));
+          print('save order ghn done${responseCreateOrderGNH.body}');
           if (responseCreateOrderGNH.body.isNotEmpty &&
               responseCreateOrderGNH.statusCode == 200) {
             print('save update order code');
@@ -136,7 +166,7 @@ class Order with ChangeNotifier {
                 ["order_code"] as String;
             // Integrate API UPDATE ORDER CODE
             final response = await http.post(
-              url,
+              Uri.parse(apiEndpoint + '/orders/update-order-code'),
               headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -148,8 +178,10 @@ class Order with ChangeNotifier {
               }),
             );
           }
-          print('save update order code');
+          print('save update order code$response');
         } catch (error) {
+          print(order);
+          print(json.encode(order));
           // Delete order when create GHN fail
           final id = orderId;
           final urlDel = Uri.parse(apiEndpoint + '/cart/item?id=$id');
@@ -208,6 +240,8 @@ class Order with ChangeNotifier {
         } else {
           onFailure(json.decode(res)["error"]);
         }
+      } else {
+        onFailure();
       }
 
       notifyListeners();
