@@ -67,7 +67,7 @@ class AccountModel extends ChangeNotifier {
     }
   }
 
-Future<Account> getUserLoginDetails() async {
+  Future<Account> getUserLoginDetails() async {
     Map<String, String> allValues = await storage.readAll();
 
     _account.email = allValues["email"].toString();
@@ -79,6 +79,7 @@ Future<Account> getUserLoginDetails() async {
     }
     return _account;
   }
+
   bool getisUserLogedIn() {
     return _userLogedIn;
   }
