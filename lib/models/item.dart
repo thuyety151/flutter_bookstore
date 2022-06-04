@@ -61,4 +61,6 @@ class Item {
     data['order'] = this.order;
     return data;
   }
+
+  Item.params({this.productId, this.attributeId, this.quantity});
 }

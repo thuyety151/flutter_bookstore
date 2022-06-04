@@ -1,8 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/components/book/price.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
+import 'package:flutter_folder/helpers/show_dialog.dart';
 import 'package:flutter_folder/provider/book_model.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_detail_bottom.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_list_image.dart';
@@ -13,8 +15,15 @@ import 'package:readmore/readmore.dart';
 
 List<String> attributeNames = ["Paperback", "Hardcover", "Kindle", "Audio"];
 
-class BookDetailScreen extends StatelessWidget {
+class BookDetailScreen extends StatefulWidget {
   const BookDetailScreen({Key? key}) : super(key: key);
+
+  @override
+  _BookDetailScreenState createState() => _BookDetailScreenState();
+}
+
+class _BookDetailScreenState extends State<BookDetailScreen> {
+  late int selectedAttrIndex = 0;
 
   Widget _tagCategory() {
     return Container(
@@ -67,21 +76,26 @@ class BookDetailScreen extends StatelessWidget {
             direction: Axis.horizontal,
             spacing: 4,
             children: List.generate(
-                value.detail?.attributes?.length ?? 0,
+                value.detail?.attributes.length ?? 0,
                 (index) => OutlinedButton(
                       style: OutlinedButton.styleFrom(
                           side: BorderSide(
                               width: 1.0,
-                              color: index == 0
+                              color: index == selectedAttrIndex
                                   ? AppColors.kPrimary
                                   : Colors.black38),
-                          backgroundColor:
-                              index == 0 ? AppColors.kBgPrimary : Colors.white),
-                      onPressed: () {},
+                          backgroundColor: index == selectedAttrIndex
+                              ? AppColors.kBgPrimary
+                              : Colors.white),
+                      onPressed: () {
+                        setState(() {
+                          selectedAttrIndex = index;
+                        });
+                      },
                       child: Text(
-                        value.detail?.attributes?[index].name ?? "",
+                        value.detail?.attributes[index].name ?? "",
                         style: TextStyle(
-                            color: index == 0
+                            color: index == selectedAttrIndex
                                 ? AppColors.kPrimary
                                 : AppColors.kTextGrey),
                       ),
@@ -124,48 +138,39 @@ class BookDetailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(children: [
-                      Text(
-                        '\$${value.detail?.salePrice}',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: AppColors.kPrimary),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        '\$${value.detail?.price}',
-                        style: const TextStyle(
-                            fontSize: 14,
-                            color: AppColors.kTextGrey,
-                            decoration: TextDecoration.lineThrough),
-                      ),
-                      const SizedBox(width: 6),
-                      const Text(
-                        "50% off",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: AppColors.kPrimary,
-                            fontWeight: FontWeight.w600),
-                      )
+                      Price(
+                          attr: value.detail!.attributes
+                              .elementAt(selectedAttrIndex)),
                     ]),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber[300],
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        const Text("4.5"),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        const Text(
-                          "(128 Reviews)",
-                          style: TextStyle(color: AppColors.kTextGrey),
-                        ),
-                      ],
+                    Consumer<BookModel>(
+                      builder: ((context, value, child) => Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: Colors.amber[300],
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text((value.detail?.reviews
+                                          ?.map((m) => m.rate)
+                                          .reduce((a, b) => a + b) ??
+                                      1 /
+                                          num.parse(value
+                                                  .detail?.reviews?.length
+                                                  .toString() ??
+                                              "1"))
+                                  .toString()),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                "(${value.detail?.reviews?.length.toString() ?? 0} reviews)",
+                                style:
+                                    const TextStyle(color: AppColors.kTextGrey),
+                              ),
+                            ],
+                          )),
                     )
                   ],
                 ),
@@ -223,47 +228,67 @@ class BookDetailScreen extends StatelessWidget {
     );
   }
 
+  Future<void> fetchData(BuildContext context) async {
+    Future.delayed(Duration.zero, () {
+      showLoading(context);
+    });
+    final args = ModalRoute.of(context)!.settings.arguments as BookDetailArgs;
+
+    await Provider.of<BookModel>(context, listen: false).getDetail(args.id);
+    Future.delayed(Duration.zero, () {
+      Navigator.pop(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as BookDetailArgs;
-    Provider.of<BookModel>(context).getDetail(args.id);
-
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: customAppBar("Book Detail", 0),
+      appBar: customAppBar("Book Detail", 0, Colors.white, true),
       bottomNavigationBar: const BookDetailBottom(),
-      body: SafeArea(
-          child: SingleChildScrollView(
-              child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Consumer<BookModel>(
-                    builder: (context, value, child) => Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          BookListImage(listMedia: value.detail!.media ?? []),
-                          _header(),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Divider(
-                              thickness: 1,
-                              color: Colors.black12,
-                            ),
-                          ),
-                          _attributes(),
-                          _shortDescription(),
-                          _detail(),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            child: Divider(
-                              thickness: 1,
-                              color: Colors.black12,
-                            ),
-                          ),
-                          const ReviewContainer(),
-                          _releatedSection()
-                        ]),
-                  )))),
+      body: SingleChildScrollView(
+          padding: const EdgeInsets.only(top: 86),
+          child: FutureBuilder(
+              future: fetchData(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Container();
+                } else {
+                  return Container(
+                      padding: const EdgeInsets.all(10),
+                      child: Consumer<BookModel>(
+                        builder: (context, value, child) => Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              BookListImage(
+                                listMedia: value.detail?.media ?? [],
+                                isOutOfStock: value.detail?.totalStock == 0,
+                              ),
+                              _header(),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10),
+                                child: Divider(
+                                  thickness: 1,
+                                  color: Colors.black12,
+                                ),
+                              ),
+                              _attributes(),
+                              _shortDescription(),
+                              _detail(),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 16),
+                                child: Divider(
+                                  thickness: 1,
+                                  color: Colors.black12,
+                                ),
+                              ),
+                              const ReviewContainer(),
+                              _releatedSection()
+                            ]),
+                      ));
+                }
+              })),
     );
   }
 }

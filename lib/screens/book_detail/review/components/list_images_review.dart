@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/models/media.dart';
 import 'package:flutter_folder/routes/index.dart';
 
 List<String> sampleData = [
@@ -12,7 +13,9 @@ List<String> sampleData = [
 ];
 
 class ListImagesReview extends StatefulWidget {
-  const ListImagesReview({Key? key}) : super(key: key);
+  const ListImagesReview({Key? key, required this.value}) : super(key: key);
+
+  final List<Media> value;
 
   @override
   ListImagesReviewState createState() => ListImagesReviewState();
@@ -34,7 +37,7 @@ class ListImagesReviewState extends State<ListImagesReview> {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image(
-                image: NetworkImage(sampleData.elementAt(3)),
+                image: NetworkImage(widget.value.elementAt(3).url),
                 color: Colors.black.withOpacity(0.6),
                 colorBlendMode: BlendMode.dstATop,
                 height: 100,
@@ -57,7 +60,7 @@ class ListImagesReviewState extends State<ListImagesReview> {
   Widget build(BuildContext context) {
     return Wrap(direction: Axis.horizontal, spacing: 4, children: [
       ...List.generate(
-          sampleData.length > 4 ? 3 : 4,
+          widget.value.length,
           (index) => GestureDetector(
               onTap: _viewDetail,
               child: Container(
@@ -67,10 +70,10 @@ class ListImagesReviewState extends State<ListImagesReview> {
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
-                        sampleData.elementAt(index),
+                        widget.value.elementAt(index).url,
                         height: 100,
                       ))))),
-      if (sampleData.length > 4) ...[_moreImages()]
+      if (widget.value.length > 4) ...[_moreImages()]
     ]);
   }
 }

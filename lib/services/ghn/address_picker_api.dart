@@ -9,7 +9,7 @@ import 'package:flutter_folder/services/api_response_model.dart';
 class AddressPickerApi {
   Future<ApiResponse<Province>> getListProvince() async {
     try {
-      var res = await withGHNApiResponse("/province");
+      var res = await withGHNApiResponse("/master-data/province");
       return ApiResponse<Province>.fromJson(
           json.decode(res), Province.fromJsonModel);
     } catch (e) {
@@ -19,7 +19,7 @@ class AddressPickerApi {
 
   Future<ApiResponse<District>> getListDistrict(String provinceID) async {
     try {
-      var res = await withGHNApiResponse("/district?province_id=$provinceID");
+      var res = await withGHNApiResponse("/master-data/district?province_id=$provinceID");
       return ApiResponse<District>.fromJson(
           json.decode(res), District.fromJsonModel);
     } catch (e) {
@@ -29,7 +29,7 @@ class AddressPickerApi {
 
   Future<ApiResponse<Ward>> getListWard(String districtID) async {
     try {
-      var res = await withGHNApiResponse("/ward?district_id=$districtID");
+      var res = await withGHNApiResponse("/master-data/ward?district_id=$districtID");
       return ApiResponse<Ward>.fromJson(json.decode(res), Ward.fromJsonModel);
     } catch (e) {
       rethrow;

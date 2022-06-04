@@ -1,21 +1,28 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/account.dart';
+import 'package:flutter_folder/provider/media_model.dart';
 import 'package:flutter_folder/screens/profile/components/form_change_password.dart';
 import 'package:flutter_folder/services/authentication_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AccountModel extends ChangeNotifier {
   final Authentication _auth = Authentication();
   bool fetching = false;
   bool _userLogedIn = false;
-  String imagePickerPath = "";
-
   late Account _account = Account.empty();
-
+  static const storage = FlutterSecureStorage();
+  late XFile _file;
   String get email => _account.email;
+  Account get account => _account;
+  String get imagePickerPath => _file.path;
+
+  AccountModel() {
+    getUserLoginDetails();
+    _file = XFile("");
+  }
 
   Future<bool> login(LoginRequestModel data) async {
     fetching = true;
@@ -25,7 +32,13 @@ class AccountModel extends ChangeNotifier {
       fetching = false;
       _account = Account.fromAuthen(response);
       const storage = FlutterSecureStorage();
+      storage.deleteAll();
       storage.write(key: "token", value: response.token);
+      storage.write(key: "firstName", value: response.firstName);
+      storage.write(key: "lastName", value: response.lastName);
+      storage.write(key: "email", value: response.email);
+      storage.write(key: "photoUrl", value: response.photoUrl);
+
       _userLogedIn = true;
       notifyListeners();
       return true;
@@ -51,7 +64,18 @@ class AccountModel extends ChangeNotifier {
     }
   }
 
-  Account getUserLoginDetails() => _account;
+  Future<Account> getUserLoginDetails() async {
+    Map<String, String> allValues = await storage.readAll();
+
+    _account.email = allValues["email"].toString();
+    _account.firstName = allValues["firstName"].toString();
+    _account.lastName = allValues["lastName"].toString();
+    _account.photoUrl = allValues["photoUrl"].toString();
+    if (_account.email.isNotEmpty) {
+      _userLogedIn = true;
+    }
+    return _account;
+  }
 
   bool getisUserLogedIn() {
     return _userLogedIn;
@@ -59,18 +83,36 @@ class AccountModel extends ChangeNotifier {
 
   Future<void> updateProfile(Account value, VoidCallback onSuccess) async {
     try {
+      var media =
+          _file.path.isNotEmpty ? await MediaModel().createMedia(_file) : null;
+
       var res = await withRestApiResponse("/account/update-account-information",
-          method: "post", body: value.toBodyJson());
+          method: "post",
+          body: json.encode({
+            "firstName": _account.firstName,
+            "lastName": _account.lastName,
+            "photo": media
+          }));
       if (json.decode(res)["firstName"] != null) {
         onSuccess();
+        // reset storage
+        await storage.write(
+            key: "firstName", value: json.decode(res)["firstName"]);
+        await storage.write(
+            key: "lastName", value: json.decode(res)["lastName"]);
+        if (json.decode(res)["photoUrl"] != "") {
+          await storage.write(
+              key: "photoUrl", value: json.decode(res)["photoUrl"]);
+        }
+        await getUserLoginDetails();
       }
     } catch (e) {
       rethrow;
     }
   }
 
-  void setImagePath(String path) {
-    imagePickerPath = path;
+  void setImage(XFile file) {
+    _file = file;
     notifyListeners();
   }
 
@@ -88,5 +130,9 @@ class AccountModel extends ChangeNotifier {
       //     e);
       rethrow;
     }
+  }
+
+  void resetAvatarState() {
+    // imagePickerPath = "";
   }
 }

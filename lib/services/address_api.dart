@@ -9,7 +9,7 @@ class AddressApi {
   FutureOr<bool> createAddress(Address value) async {
     try {
       var res = await withRestApiResponse("/addresses",
-          method: "post", body: value.toJson());
+          method: "post", body: json.encode(value));
       return json.decode(res)["isSuccess"];
     } catch (e) {
       rethrow;
