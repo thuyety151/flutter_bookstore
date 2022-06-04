@@ -24,7 +24,7 @@ class Order with ChangeNotifier {
   static const storage = FlutterSecureStorage();
   late List<model.Order> listOrder = [];
 
-  Future<void> createOrder(
+  Future<String> createOrder(
       List<String> itemIds,
       String addressId,
       Address currentAddress,
@@ -36,7 +36,8 @@ class Order with ChangeNotifier {
     var token = await storage.read(key: "token");
     try {
       print('save order db');
-      currentAddress.id = null;
+
+      //currentAddress.id = null;
       final response = await http.post(
         url,
         headers: {
@@ -49,16 +50,31 @@ class Order with ChangeNotifier {
           'addressId': addressId,
           'orderNote': 'flutter note',
           'coupon': null,
-          'address': currentAddress,
+          'address': {
+            "firstName": currentAddress.firstName,
+            "lastName": currentAddress.lastName,
+            "phone": currentAddress.phone,
+            "apartmentNumber": currentAddress.apartmentNumber,
+            "streetAddress": currentAddress.streetAddress,
+            "districtId": currentAddress.districtID,
+            "provinceId": currentAddress.provinceID,
+            "isMain": currentAddress.isMain,
+            "provinceName": currentAddress.provinceName,
+            "districtName": currentAddress.districtName,
+            "wardName": currentAddress.wardName,
+            "wardCode": currentAddress.wardCode
+          },
           'orderFee': orderFee,
           'paymentMethod': 1,
         }),
       );
 
       print('save order db done');
+      print(response.body);
+      String orderId= '';
       if (response.body.contains("true")) {
         print('save order ghn');
-        String orderId = json.decode(response.body)["value"] as String;
+        orderId = json.decode(response.body)["value"] as String;
         final order = {
           'payment_type_id': 2,
           'note': 'flutter note',
@@ -89,7 +105,7 @@ class Order with ChangeNotifier {
           'service_id': serviceType.serviceId,
           'insurance_value': (orderFee * 23000).round(),
           'cod_amount':
-              paymentMethod == 'MoMo' ? 0 : (orderFee * 23000).round(),
+              paymentMethod == 'Payment with MoMo' ? 0 : (orderFee * 23000).round(),
           'pick_station_id': 1444,
           'items': items.map((item) => {
                 'name': item.productName,
@@ -147,6 +163,7 @@ class Order with ChangeNotifier {
           );
         }
       }
+      return orderId;
     } catch (error) {
       print(error);
       throw error;

@@ -10,6 +10,8 @@ import '../models/ghn/service-type.dart';
 class ShippingFee with ChangeNotifier {
   num serviceFee = 0;
 
+  num get serviceFeeData => serviceFee;
+
   Future<void> getFee(Address currentAddress, ServiceType serviceType) async {
     if (serviceType.serviceId == null) {
       return;
@@ -68,10 +70,7 @@ class ShippingFee with ChangeNotifier {
           "coupon": null
         }),
       );
-      print('end get fee');
-      print(response.body);
       if (response.body.isNotEmpty && response.body.contains("Success")) {
-        print(response.body);
         serviceFee = json.decode(response.body)["data"]["service_fee"] as num;
         notifyListeners();
       } else {

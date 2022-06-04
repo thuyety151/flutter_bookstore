@@ -29,6 +29,7 @@ class Coupon {
       required this.imageUrl,
       required this.minSpend});
 
+
   Coupon.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     code = json['code'];

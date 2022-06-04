@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/avatar.dart';
 import 'package:flutter_folder/configs/constants.dart';
@@ -30,6 +31,8 @@ class ProfileScreen extends StatelessWidget {
         case "login":
           const storage = FlutterSecureStorage();
           storage.deleteAll();
+          //TODO
+          FirebaseAuth.instance.signOut();
           Navigator.of(context).pushNamed(RouteManager.ROUTE_LOGIN);
           break;
         case "manage-order":

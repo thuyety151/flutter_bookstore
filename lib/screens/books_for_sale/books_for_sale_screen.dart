@@ -90,7 +90,7 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: customAppBar("Books for sale", 0, Colors.white, true),
+        appBar: customAppBar("Books for sale", 0, kPrimaryColor, true),
         backgroundColor: AppColors.kBgGgrey,
         bottomNavigationBar:
             const CustomBottomNavBar(selectedMenu: MenuState.home),

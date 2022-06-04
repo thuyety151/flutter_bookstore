@@ -99,7 +99,7 @@ class Coupons with ChangeNotifier {
 
       if (response.body.contains("true")) {
         fetchUserCoupons();
-        return "Success";
+        return "Save coupon successfully";
       } else {
         return json.decode(response.body)["error"];
       }
@@ -116,7 +116,7 @@ class Coupons with ChangeNotifier {
     if (indexSelectedCoupon >= 0) {
       _selectedCoupon = _userCoupons[indexSelectedCoupon];
       notifyListeners();
-      return "Success";
+      return "Apply coupon successfully";
     } else {
       return "Error when apply coupon";
     }

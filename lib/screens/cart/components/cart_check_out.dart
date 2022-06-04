@@ -25,6 +25,7 @@ class _CartCheckOutState extends State<CartCheckOut> {
   @override
   void initState() {
     super.initState();
+
     isLoading = false;
   }
 
@@ -40,20 +41,35 @@ class _CartCheckOutState extends State<CartCheckOut> {
     SizeConfig().init(context);
     // discountType:  0.FixedCart, 1.Percentage,
     String formatCoupon(Coupon coupon, double total) {
+      if (coupon.id == "") {
+        return "Add voucher code";
+      }
       if (coupon.discountType == 0) {
-        totalAmount = (total - coupon.couponAmount) > 0
-            ? (total - coupon.couponAmount)
-            : 0;
         return "- ${coupon.couponAmount} \$";
       } else {
         if (coupon.discountType == 1) {
-          totalAmount = (total - total * (coupon.couponAmount / 100)) > 0
-              ? total - total * (coupon.couponAmount / 100)
-              : 0;
           return "Discount ${coupon.couponAmount}%";
         }
       }
       return "Add voucher code";
+    }
+
+    double formatTotalAmount(Coupon coupon, double total) {
+      if (coupon.id == "") {
+        return total;
+      }
+      if (coupon.discountType == 0) {
+        return (total - coupon.couponAmount) > 0
+            ? (total - coupon.couponAmount)
+            : 0;
+      } else {
+        if (coupon.discountType == 1) {
+          return (total - total * (coupon.couponAmount / 100)) > 0
+              ? total - total * (coupon.couponAmount / 100)
+              : 0;
+        }
+      }
+      return total;
     }
 
     return Column(
@@ -79,22 +95,24 @@ class _CartCheckOutState extends State<CartCheckOut> {
                     Navigator.of(context)
                         .pushNamed(RouteManager.ROUTE_USER_COUPONS);
                   },
-                  child: Row(children: [
-                    Consumer2<Cart, Coupons>(
-                      builder: (context, cart, coupons, child) => Text(
-                          formatCoupon(
-                              coupons.selectedCoupon, cart.totalAmount)),
-                    ),
-                    const SizedBox(width: 10),
-                    Container(
-                      margin: const EdgeInsets.only(right: 20),
-                      child: const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 12,
-                        color: kTextColor,
+                  child: Container(
+                    child: Row(children: [
+                      Consumer2<Cart, Coupons>(
+                        builder: (context, cart, coupons, child) => Text(
+                            formatCoupon(
+                                coupons.selectedCoupon, cart.totalAmount)),
                       ),
-                    )
-                  ])),
+                      const SizedBox(width: 10),
+                      Container(
+                        margin: const EdgeInsets.only(right: 20),
+                        child: const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 12,
+                          color: kTextColor,
+                        ),
+                      )
+                    ]),
+                  )),
             ],
           ),
           const SizedBox(height: 8),
@@ -109,16 +127,18 @@ class _CartCheckOutState extends State<CartCheckOut> {
                       .copyWith(fontSize: 16),
                 ),
               ),
-              Consumer<Cart>(
-                builder: (context, value, child) => Container(
-                  margin: const EdgeInsets.only(right: 30),
-                  child: Text(
-                    "\$${totalAmount.toStringAsFixed(2)}",
-                    style: CustomTextStyle.textFormFieldBlack
-                        .copyWith(color: Colors.red, fontSize: 16),
-                  ),
-                ),
-              )
+              Consumer2<Cart, Coupons>(
+                  builder: (context, cart, coupons, child) => Container(
+                        margin: const EdgeInsets.only(right: 30),
+                        child: Text(
+                          '\$' +
+                              formatTotalAmount(
+                                      coupons.selectedCoupon, cart.totalAmount)
+                                  .toStringAsFixed(2),
+                          style: CustomTextStyle.textFormFieldBlack
+                              .copyWith(color: Colors.red, fontSize: 16),
+                        ),
+                      )),
             ],
           ),
           const SizedBox(height: 20),
