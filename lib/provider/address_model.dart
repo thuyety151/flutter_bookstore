@@ -9,6 +9,9 @@ import 'package:flutter_folder/services/api_response_model.dart';
 class AddressModel extends ChangeNotifier {
   final AddressApi _api = AddressApi();
   List<Address> listAddresses = [];
+  Address _defaultAddress = Address.empty();
+
+  Address get defaulAddress => _defaultAddress;
 
   Future<void> createAddress(Address value) async {
     var res = await _api.createAddress(value);
@@ -20,6 +23,7 @@ class AddressModel extends ChangeNotifier {
         content: Text("Create address successfully!"),
         duration: Duration(seconds: 1),
       ));
+      getListAddresses();
     }
   }
 
@@ -29,6 +33,9 @@ class AddressModel extends ChangeNotifier {
     listAddresses =
         ApiResponse<Address>.fromJson(json.decode(res), Address.fromJsonModel)
             .data as List<Address>;
+
+    _defaultAddress =
+        listAddresses.firstWhere((element) => element.isMain == true);
     notifyListeners();
   }
 
@@ -39,15 +46,12 @@ class AddressModel extends ChangeNotifier {
       if (json.decode(res)["isSuccess"]) {
         listAddresses =
             listAddresses.where((element) => element.id != id).toList();
+        getListAddresses();
       } else {
         throw "false";
       }
     } catch (e) {
       rethrow;
     }
-  }
-
-  Address getDefaultAddresses() {
-    return listAddresses.firstWhere((element) => element.isMain == true);
   }
 }

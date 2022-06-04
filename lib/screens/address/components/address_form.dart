@@ -33,19 +33,20 @@ class _AddressFormState extends State<AddressForm> {
     }
   }
 
-  void onSubmit() {
+  void onSubmit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       setState(() {
         isLoading = true;
       });
-      Provider.of<AddressModel>(context, listen: false)
+      await Provider.of<AddressModel>(context, listen: false)
           .createAddress(formValue);
       // widget.submit(formValue);
 
       setState(() {
         isLoading = false;
       });
+      Navigator.pop(context);
     }
   }
 

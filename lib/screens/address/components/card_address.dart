@@ -106,7 +106,7 @@ class _CardAddressState extends State<CardAddress> {
               onTap: _editAddress,
               child: const Image(
                   image: AssetImage("assets/icons/icon-edit-grey.png"),
-                  height: 24),
+                  height: 20),
             ))
       ]),
     );

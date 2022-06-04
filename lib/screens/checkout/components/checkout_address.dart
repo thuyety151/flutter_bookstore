@@ -25,7 +25,12 @@ class _CheckoutAddressState extends State<CheckoutAddress> {
             itemCount: value.listAddresses.length,
             itemBuilder: (_, index) {
               return Dismissible(
-                  key: Key(value.listAddresses.elementAt(index).id ?? ""),
+                  key: UniqueKey(),
+                  onDismissed: (DismissDirection direction) {
+                    if (direction == DismissDirection.endToStart) {
+                      _deleteAddress(value.listAddresses.elementAt(index).id);
+                    }
+                  },
                   background: Container(
                       color: Colors.red,
                       alignment: Alignment.centerRight,
@@ -41,14 +46,21 @@ class _CheckoutAddressState extends State<CheckoutAddress> {
             }));
   }
 
+  void _deleteAddress(String? id) {
+    Provider.of<provider.AddressModel>(context, listen: false)
+        .deleteAddress(id ?? "");
+  }
+
+  void createAddress(Address value) async {
+    await Provider.of<provider.AddressModel>(context, listen: false)
+        .createAddress(value);
+     Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     Provider.of<provider.AddressModel>(context, listen: false)
         .getListAddresses();
-    void createAddress(Address value) {
-      Provider.of<provider.AddressModel>(context, listen: false)
-          .createAddress(value);
-    }
 
     void showDialogCreate() {
       showModalBottomSheet<void>(
@@ -96,31 +108,29 @@ class _CheckoutAddressState extends State<CheckoutAddress> {
         isScrollControlled: true,
         builder: (BuildContext context) {
           return Container(
-            height: 800,
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
-                color: Colors.white),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 26, left: 8, right: 8),
-              child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical, child: _listAddress(context)
-                  // const AddressPicker(),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 16),
-                  //   child: PrimaryButton(
-                  //     onTap: () {},
-                  //     buttonText: "Create",
-                  //     buttonColor: AppColors.kPrimary,
-                  //     fullWidth: true,
-                  //     textColor: Colors.white,
-                  //   ),
-                  // )
+              height: 800,
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
                   ),
-            ),
-          );
+                  color: Colors.white),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 26, left: 8, right: 8),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Column(children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height -
+                            2 * 58 -
+                            16 * 4,
+                        child: _listAddress(context),
+                      )
+                    ]),
+                  ),
+                ),
+              ));
         },
       );
     }

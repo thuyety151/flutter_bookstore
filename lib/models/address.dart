@@ -32,6 +32,22 @@ class Address {
     isMain = isMain ?? false;
   }
 
+  Address.empty(){
+    this.id = "";
+  this.firstName = "";
+      this.lastName ="";
+      this.phone = "";
+      this.apartmentNumber ="";
+      this.streetAddress = "";
+      this.districtID = 0;
+      this.provinceID = 0;
+      this.wardCode = "";
+      this.districtName ="";
+      this.isMain = false;
+      this.provinceName ="";
+      this.wardName = "";
+  }
+
   factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
       id: json["id"],
