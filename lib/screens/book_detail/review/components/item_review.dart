@@ -20,7 +20,9 @@ class ItemReview extends StatefulWidget {
 class _ItemReviewState extends State<ItemReview> {
   @override
   Widget build(BuildContext context) {
-    return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return Row(
+       key: UniqueKey(),
+      crossAxisAlignment: CrossAxisAlignment.start, children: [
       const Avatar(
         size: 20,
       ),
