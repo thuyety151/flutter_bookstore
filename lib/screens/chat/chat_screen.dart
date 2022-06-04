@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_folder/configs/constants.dart';
 
 import '../login/login_screen.dart';
 import '../splash_screen.dart';
@@ -17,7 +18,8 @@ class ChatScreen extends StatelessWidget {
         builder: (context, appSnapshot) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('FlutterChat'),
+              title: Text('Messenger'),
+              backgroundColor: kPrimaryColor,
             ),
             body: StreamBuilder(
                 stream: FirebaseAuth.instance.authStateChanges(),

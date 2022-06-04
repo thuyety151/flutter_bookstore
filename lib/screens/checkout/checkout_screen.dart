@@ -9,9 +9,13 @@ import 'package:provider/provider.dart';
 import '../../components/button/primary_button.dart';
 import '../../configs/app_colors.dart';
 import '../../models/address.dart';
+import '../../models/coupon.dart';
 import '../../provider/cart.dart';
+import '../../provider/coupons.dart';
 import '../../provider/order.dart';
+import '../../provider/shipping_fee.dart';
 import '../../routes/index.dart';
+import '../momo_payment/momo_screen.dart';
 import 'components/checkout_address.dart';
 import 'components/checkout_price_section.dart';
 import 'package:flutter_folder/provider/address_model.dart' as provider;
@@ -26,6 +30,7 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends State<CheckoutScreen> {
   var _isInit = true;
   var _isLoading = false;
+  bool _isSelectedMoMo = false;
 
   @override
   void initState() {
@@ -50,17 +55,70 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     super.didChangeDependencies();
   }
 
-  void onPlaceOrder() {
-    final itemIds = Provider.of<Cart>(context, listen: false).items.map((item) => item.id as String).toList();
-    final currentAddress = Provider.of<provider.AddressModel>(context, listen: false).getDefaultAddresses();
+  num calTotal(num subtotal, num shippingFee, num coupon) {
+    return (subtotal + shippingFee - coupon);
+  }
+
+  void onChangePaymentMethod(bool isSelectedMoMo){
+    setState(() {
+      _isSelectedMoMo = isSelectedMoMo;
+    });
+  }
+
+  double calculateCouponMoney(double subtotal, Coupon coupon) {
+    // discountType:  0.FixedCart, 1.Percentage
+    if (coupon.discountType == 0) {
+      return coupon.couponAmount.toDouble();
+    } else {
+      if (coupon.discountType == 1) {
+        return subtotal * (coupon.couponAmount / 100);
+      }
+    }
+    return 0;
+  }
+
+  Future<void> onPlaceOrder() async {
+    final itemIds = Provider.of<Cart>(context, listen: false)
+        .items
+        .map((item) => item.id as String)
+        .toList();
+    final currentAddress =
+        Provider.of<provider.AddressModel>(context, listen: false)
+            .getDefaultAddresses();
     final cart = Provider.of<Cart>(context, listen: false);
-    final serviceType = Provider.of<Shipping>(context, listen: false).getDefaultServiceType();
-    const paymentMethod = 'Cash';
+    final serviceType =
+        Provider.of<Shipping>(context, listen: false).getDefaultServiceType();
+    final serviceFee =
+        Provider.of<ShippingFee>(context, listen: false).serviceFee;
+    final coupon = Provider.of<Coupons>(context, listen: false).selectedCoupon;
+    var paymentMethod = _isSelectedMoMo ? 'Payment with MoMo' : 'Cash on delivery';
+    final totalAmount = calTotal(cart.totalAmount, (serviceFee / 23000),
+        calculateCouponMoney(cart.totalAmount, coupon));
 
-  // Provider.of<Order>(context, listen: false).momoPayment('EE63D001-8E92-4227-839D-08DA42607413');
+    String orderId = await Provider.of<Order>(context, listen: false).createOrder(
+        itemIds,
+        currentAddress.id as String,
+        currentAddress,
+        totalAmount,
+        serviceType,
+        paymentMethod,
+        cart.items);
 
-    Provider.of<Order>(context, listen: false).createOrder(itemIds, currentAddress.id as String, currentAddress, cart.totalAmount, serviceType, paymentMethod, cart.items);
+    if (_isSelectedMoMo){
+      Navigator.pushNamed(
+      context,
+      MoMoPaymentScreen.routeName,
+      arguments: ScreenArguments(
+        amount: totalAmount.toInt(),
+        orderId: orderId,
+        username:currentAddress.fullName
+      ),
+    );
+    }
+    else {
     Navigator.of(context).pushNamed(RouteManager.ROUTE_ORDER_SUCCESS);
+
+    }
   }
 
   @override
@@ -127,7 +185,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               districtId: value.listAddresses
                                   .firstWhere(
                                       (element) => element.isMain == true)
-                                  .districtID),
+                                  .districtID,
+                                  onChangePaymentMethod: onChangePaymentMethod,
+                                  isSelectedMoMo: _isSelectedMoMo,
+                                  ),
                         ),
                         const SizedBox(height: 10),
                         Container(

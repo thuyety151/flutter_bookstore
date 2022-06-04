@@ -11,6 +11,7 @@ import 'package:flutter_folder/screens/cart/cart_screen.dart';
 import 'package:flutter_folder/screens/coupon/coupon_screen.dart';
 import 'package:flutter_folder/screens/home/home_screens.dart';
 import 'package:flutter_folder/screens/login/login_screen.dart';
+import 'package:flutter_folder/screens/momo_payment/momo_screen.dart' as momo;
 import 'package:flutter_folder/screens/order_success/order_success_screen.dart';
 import 'package:flutter_folder/screens/profile/change_password_screen.dart';
 import 'package:flutter_folder/screens/profile/profile_detail_screen.dart';
@@ -46,6 +47,7 @@ class RouteManager {
   static const String ROUTE_CHAT = "/chat";
   static const String ROUTE_IMAGE_PICKER = "/image-picker";
   static const String ROUTE_USER_COUPONS = "/coupons";
+  static const String ROUTE_MOMO = "/momo";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -100,6 +102,24 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const ImagePicker());
       case ROUTE_USER_COUPONS:
         return MaterialPageRoute(builder: (context) => const CouponScreen());
+      case ROUTE_MOMO:
+      // Cast the arguments to the correct
+      // type: ScreenArguments.
+      final args = settings.arguments as momo.ScreenArguments;
+
+      // Then, extract the required data from
+      // the arguments and pass the data to the
+      // correct screen.
+      return MaterialPageRoute(
+        builder: (context) {
+          return momo.MoMoPaymentScreen(
+            amount: args.amount,
+            orderId: args.orderId,
+            username: args.username
+          );
+        },
+      );
+    
       default:
         throw const FormatException("Route not found! Check routes again");
     }

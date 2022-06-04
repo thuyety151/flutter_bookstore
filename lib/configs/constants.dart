@@ -9,7 +9,7 @@ import 'package:flutter_folder/provider/cart.dart';
 import 'package:flutter_folder/routes/index.dart';
 import 'package:provider/provider.dart';
 
-const kPrimaryColor = Color(0xFFFF7643);
+const kPrimaryColor = Color.fromARGB(255, 255, 102, 74);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
