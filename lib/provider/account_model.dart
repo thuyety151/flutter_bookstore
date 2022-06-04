@@ -47,6 +47,23 @@ class AccountModel extends ChangeNotifier {
     }
   }
 
+  Future<bool> register(RegisterRequestModel data) async {
+    fetching = true;
+    try {
+      var response = await _auth.register(data);
+
+      fetching = false;
+      _account = Account.fromAuthen(response);
+      const storage = FlutterSecureStorage();
+      storage.write(key: "token", value: response.token);
+      _userLogedIn = true;
+      notifyListeners();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<Account> getUserLoginDetails() async {
     Map<String, String> allValues = await storage.readAll();
 

@@ -22,6 +22,25 @@ class LoginRequestModel {
   }
 }
 
+class RegisterRequestModel {
+  String firstName;
+  String lastName;
+  String email;
+  String password;
+
+  RegisterRequestModel({required this.firstName, required this.lastName, required this.email, required this.password});
+
+  String toJson() {
+    Map<String, dynamic> map = {
+      "firstName": firstName.trim(),
+      "lastName": lastName.trim(),
+      "email": email.trim(),
+      "password": password.trim()
+    };
+    return json.encode(map);
+  }
+}
+
 class Authentication {
   final Api _api = Api();
 
@@ -42,4 +61,25 @@ class Authentication {
       rethrow;
     }
   }
+
+  Future<AuthenResponse> register(RegisterRequestModel data) async {
+    var request = await _api.post("/account/register", body: data.toJson());
+    try {
+      var response = await http.Response.fromStream(await request.send());
+
+      if (AuthenResponse.getStatusCode(json.decode(response.body)) == 401) {
+        throw kRegisterFailed;
+      }
+
+      return AuthenResponse.fromJson(
+          json.decode(response.body), Account.fromJsonModel);
+    } catch (e){
+   //   Map<String, dynamic> error = json.decode(e.toString());
+      print(e);
+      catchErrAndNotify(
+          AlertDialogParams(title: "Register Error", content: e.toString()), e);
+      rethrow;
+    }
+  }
+
 }

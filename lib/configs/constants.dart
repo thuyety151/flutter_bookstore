@@ -47,6 +47,7 @@ const String kNotNullError = "Please fill out this field";
 
 // Dialog  Error Message
 const String kLoginFailed = "Email or Password is incorrect";
+const String kRegisterFailed = "Register failed";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:

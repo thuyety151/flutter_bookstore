@@ -25,6 +25,7 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sign Up"),
+        backgroundColor: kPrimaryColor,
       ),
       body: SafeArea(
           child: SizedBox(
