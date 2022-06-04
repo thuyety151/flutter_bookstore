@@ -19,7 +19,7 @@ class CheckoutPriceSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
     final currentAddress =
-        Provider.of<AddressModel>(context, listen: false).getDefaultAddresses();
+        Provider.of<AddressModel>(context, listen: false).defaulAddress;
 
     final serviceType =
         Provider.of<Shipping>(context, listen: false).serviceTypes.firstWhere(

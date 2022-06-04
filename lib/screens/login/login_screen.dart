@@ -80,16 +80,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        "Book Store",
-                        style: TextStyle(
-                            color: AppColors.kGrey,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 36,
-                      ),
                       Container(
                         alignment: Alignment.center,
                         margin: const EdgeInsets.only(bottom: 32),

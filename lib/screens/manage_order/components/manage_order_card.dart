@@ -101,7 +101,7 @@ class _ManageOrderCardState extends State<ManageOrderCard> {
                           style: AppTextStyles.caption,
                         ),
                         Text(
-                          "\$${widget.value.total}",
+                          "\$${widget.value.total.toStringAsFixed(2)}",
                           style: CustomTextStyle.textFormFieldSemiBold
                               .copyWith(fontSize: 20, color: Colors.red),
                         )

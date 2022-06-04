@@ -3,6 +3,10 @@ import 'package:flutter_folder/configs/constants.dart';
 import 'package:momo_vn/momo_vn.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../components/button/primary_button.dart';
+import '../../configs/size_config.dart';
+import '../../routes/index.dart';
+
 class ScreenArguments {
   final int amount;
   final String orderId;
@@ -18,7 +22,12 @@ class MoMoPaymentScreen extends StatefulWidget {
   final String orderId;
   final String username;
 
-  const MoMoPaymentScreen({Key? key, required this.amount, required this.orderId, required this.username}) : super(key: key);
+  const MoMoPaymentScreen(
+      {Key? key,
+      required this.amount,
+      required this.orderId,
+      required this.username})
+      : super(key: key);
   @override
   _MoMoPaymentState createState() => _MoMoPaymentState();
 }
@@ -46,11 +55,15 @@ class _MoMoPaymentState extends State<MoMoPaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('args'  + widget.amount.toRadixString(2) + widget.orderId + widget.username);
+    print('args' +
+        widget.amount.toRadixString(2) +
+        widget.orderId +
+        widget.username);
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('PAYMENT WITH MOMO'),
+          backgroundColor: kPrimaryColor,
         ),
         body: Center(
           child: Column(
@@ -58,7 +71,7 @@ class _MoMoPaymentState extends State<MoMoPaymentScreen> {
               Column(
                 children: [
                   FlatButton(
-                    color: Colors.blue,
+                    color: kPrimaryColor,
                     textColor: Colors.white,
                     disabledColor: Colors.grey,
                     disabledTextColor: Colors.black,
@@ -87,10 +100,34 @@ class _MoMoPaymentState extends State<MoMoPaymentScreen> {
                         debugPrint(e.toString());
                       }
                     },
-                  ),
+                  )
                 ],
               ),
-              Text(_paymentStatus.isEmpty ? "UNPAID" : _paymentStatus)
+              Text(_paymentStatus == "" ? "UNPAID" : _paymentStatus),
+              Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.only(bottom: 32),
+                child: const Image(
+                  image: AssetImage("assets/images/momo.png"),
+                  height: 250,
+                ),
+              ),
+              const Spacer(),
+              SizedBox(
+                width: SizeConfig.screenWidth * 0.6,
+                child: PrimaryButton(
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(RouteManager.ROUTE_HOME_PAGE);
+                  },
+                  buttonText: "Back to home",
+                  buttonColor: const Color.fromARGB(255, 249, 82, 69),
+                  textColor: Colors.white,
+                  buttonWidth: 200,
+                  loading: false,
+                ),
+              ),
+              const Spacer(),
             ],
           ),
         ),

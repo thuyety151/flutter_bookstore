@@ -83,8 +83,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         .map((item) => item.id as String)
         .toList();
     final currentAddress =
-        Provider.of<provider.AddressModel>(context, listen: false)
-            .getDefaultAddresses();
+        Provider.of<provider.AddressModel>(context, listen: false).defaulAddress;
     final cart = Provider.of<Cart>(context, listen: false);
     final serviceType =
         Provider.of<Shipping>(context, listen: false).getDefaultServiceType();

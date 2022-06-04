@@ -10,7 +10,7 @@ class CheckoutDelivery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentAddress =
-        Provider.of<AddressModel>(context, listen: false).getDefaultAddresses();
+        Provider.of<AddressModel>(context, listen: false).defaulAddress;
     return FutureBuilder(
       future: Provider.of<Shipping>(context, listen: false)
           .getServiceType(currentAddress.districtID ?? 0),
@@ -38,8 +38,9 @@ class CheckoutDelivery extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: value.serviceTypes
-                            .map(
-                              (serviceType) => Row(
+                           .where((element) => element.shortName != "") .map(
+                              (serviceType) => 
+                              Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Radio(
@@ -55,7 +56,8 @@ class CheckoutDelivery extends StatelessWidget {
                                       serviceType.shortName.toString() ==
                                               "Đi bộ"
                                           ? "Standard"
-                                          : "Express",
+                                          :  serviceType.shortName.toString() ==
+                                              "Bay" ? "Express" : "DHL Express",
                                       style: CustomTextStyle.textFormFieldMedium
                                           .copyWith(
                                               color: Colors.black,
