@@ -22,14 +22,14 @@ class _ReviewContainerState extends State<ReviewContainer> {
       ),
       Consumer<BookModel>(
           builder: (context, value, child) =>
-              value.detail != null && value.detail!.reviews!.isNotEmpty
+              value.detail != null && value.detail!.reviews.isNotEmpty
                   ? Wrap(
                       direction: Axis.vertical,
                       spacing: 20,
                       children: List.generate(
-                        value.detail?.reviews?.length ?? 0,
+                        value.detail?.reviews.length ?? 0,
                         (index) => ItemReview(
-                          value: value.detail!.reviews!.elementAt(index),
+                          value: value.detail!.reviews.elementAt(index),
                         ),
                       ))
                   : const Center(

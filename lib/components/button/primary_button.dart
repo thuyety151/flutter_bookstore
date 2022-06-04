@@ -35,9 +35,7 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
-        // margin: EdgeInsets.only(top: 16),
         margin: buttonMargin,
         width: fullWidth ?? false ? double.infinity : buttonWidth,
         height: buttonHeight,

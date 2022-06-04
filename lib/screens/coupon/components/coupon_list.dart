@@ -40,7 +40,6 @@ class _CouponListState extends State<CouponList> {
 
   setSelections(int index) async {
     setState(() {
-      print("click " + index.toString());
       int indexPresviousSelection =
           _selections.indexWhere((element) => element == true);
       if (indexPresviousSelection >= 0) {
@@ -57,7 +56,7 @@ class _CouponListState extends State<CouponList> {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(await result),
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     ));
   }
 
@@ -81,7 +80,6 @@ class _CouponListState extends State<CouponList> {
               key: Key(coupons.userCoupons[index].id),
               direction: DismissDirection.endToStart,
               onDismissed: (direction) {
-                //TODO: cart.deleteItem(cart.items[index].id ?? "");
               },
               background: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),

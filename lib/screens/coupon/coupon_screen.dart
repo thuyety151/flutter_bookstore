@@ -14,16 +14,15 @@ class CouponScreen extends StatelessWidget {
           foregroundColor: Colors.white,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
+            children: const [
+              Text(
                 'Your Coupons',
                 style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ],
           )),
-      body: SingleChildScrollView(
-        child:  CouponList(),
-        
+      body: const SingleChildScrollView(
+        child: CouponList(),
       ),
       backgroundColor: Colors.grey.shade300,
     );

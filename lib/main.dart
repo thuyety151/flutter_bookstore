@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/provider/account_model.dart';
 import 'package:flutter_folder/provider/address_model.dart';

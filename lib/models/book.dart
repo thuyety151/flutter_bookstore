@@ -25,7 +25,7 @@ class Book {
   String? publicationDate;
   String? publisher;
   String? publicationCountry;
-  String? stockStatus; // TODO: use Enum stock status
+  String? stockStatus; 
   int? totalStock;
   bool? isPublic;
   String? updateDate;

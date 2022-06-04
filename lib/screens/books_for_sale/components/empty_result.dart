@@ -10,11 +10,11 @@ class EmptyResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 500,
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 300,
             child: Image.asset(
               "assets/images/empty_result.png",

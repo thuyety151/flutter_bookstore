@@ -1,5 +1,4 @@
 import 'package:camera/camera.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/provider/account_model.dart';
 import 'package:image_picker/image_picker.dart' as lib;
@@ -80,7 +79,7 @@ class _ImagePickerState extends State<ImagePicker> {
   Widget build(BuildContext context) {
     // Fill this out in the next steps.
 
-    if (!_isReady) return new Container();
+    if (!_isReady) return Container();
     return FutureBuilder<void>(
       future: _initializeControllerFuture,
       builder: (context, snapshot) {

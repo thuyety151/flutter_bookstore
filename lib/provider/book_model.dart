@@ -25,11 +25,9 @@ class BookModel extends ChangeNotifier {
   }
 
   Future<void> fetchAndSetBooks() async {
-    print("fetchAndSetBooks: " + filterData.toJson().toString());
     String queryParams = '/books/books-for-sale?predicate=newest';
     if (filterData.keywords!.isNotEmpty) {
       queryParams += '&keywords=${filterData.keywords}';
-      //TODO: Reset pagination
       filterData.pageIndex = 1;
     }
     if (filterData.categoryId != null) {
@@ -61,13 +59,6 @@ class BookModel extends ChangeNotifier {
       queryParams += '&pageSize=${filterData.pageSize}';
     }
 
-    print("query params: " + queryParams);
-    // final url = Uri.parse(apiEndpoint + queryParams);
-    // final response = await http.get(url, headers: {
-    //   'Content-Type': 'application/json',
-    //   'Accept': 'application/json',
-    // });
-
     var response = await withRestApiResponse(queryParams);
 
     final List<Book> loadedItems = [];
@@ -80,6 +71,7 @@ class BookModel extends ChangeNotifier {
       return;
     }
 
+    // ignore: avoid_function_literals_in_foreach_calls
     extractedData.forEach((item) {
       loadedItems.add(Book.fromJson(item));
     });
@@ -123,7 +115,6 @@ class BookModel extends ChangeNotifier {
 
   void setFilterData(Filter data) {
     filterData = data;
-    print("setFilterData: " + filterData.toJson().toString());
     fetchAndSetBooks();
     notifyListeners();
   }

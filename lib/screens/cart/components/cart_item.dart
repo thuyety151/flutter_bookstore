@@ -7,7 +7,8 @@ import '../../../provider/cart.dart';
 
 class CartItem extends StatelessWidget {
   final Item item;
-  CartItem(this.item);
+  const CartItem(this.item, {Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -72,9 +73,8 @@ class CartItem extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     InkWell(
-                                      child: Icon(Icons.remove),
+                                      child: const Icon(Icons.remove),
                                       onTap: () {
-                                        print("decrease item");
                                         cart.addOrUpdateItem(
                                             item.productId!,
                                             item.attributeId!,
@@ -95,9 +95,8 @@ class CartItem extends StatelessWidget {
                                       ),
                                     ),
                                     InkWell(
-                                      child: Icon(Icons.add),
+                                      child: const Icon(Icons.add),
                                       onTap: () {
-                                        print("add item");
                                         cart.addOrUpdateItem(
                                             item.productId!,
                                             item.attributeId!,

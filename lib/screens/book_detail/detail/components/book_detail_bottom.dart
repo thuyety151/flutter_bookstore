@@ -34,7 +34,7 @@ class _BookDetailBottomState extends State<BookDetailBottom> {
     final isLogin = Provider.of<AccountModel>(context).getisUserLogedIn();
 
     return Container(
-      padding: EdgeInsets.only(top: 8, bottom: 20),
+      padding: const EdgeInsets.only(top: 8, bottom: 20),
       //margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white,

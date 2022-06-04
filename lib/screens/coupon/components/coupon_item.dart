@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +16,9 @@ class CouponItem extends StatelessWidget {
   final Function() notifyParent;
   final bool isSelection;
   CouponItem(
-      this.coupon, this.isUserCoupon, this.notifyParent, this.isSelection);
+      this.coupon, this.isUserCoupon, this.notifyParent, this.isSelection,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +59,7 @@ class CouponItem extends StatelessWidget {
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             width: 160,
                             child: Text(
                               coupon.description,
@@ -68,9 +72,7 @@ class CouponItem extends StatelessWidget {
                           ),
                           isUserCoupon
                               ? Text(
-                                  "Min spend: " +
-                                      "\$" +
-                                      coupon.minSpend.toString(),
+                                  "Min spend: \$" + coupon.minSpend.toString(),
                                   maxLines: 2,
                                   softWrap: true,
                                   style: CustomTextStyle.textFormFieldRegular

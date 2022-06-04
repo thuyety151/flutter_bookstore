@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, annotate_overrides, overridden_fields
+
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/constants.dart';
 
@@ -8,8 +10,7 @@ class MessageBubble extends StatelessWidget {
     this.userImage,
     this.isMe, {
     required this.key,
-  })
-  ;
+  });
 
   final Key key;
   final String message;
@@ -27,20 +28,20 @@ class MessageBubble extends StatelessWidget {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                color: isMe ? kPrimaryColor : Colors.grey[300] ,
+                color: isMe ? kPrimaryColor : Colors.grey[300],
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                  bottomLeft: !isMe ? Radius.circular(0) : Radius.circular(12),
-                  bottomRight: isMe ? Radius.circular(0) : Radius.circular(12),
+                  topLeft: const Radius.circular(12),
+                  topRight: const Radius.circular(12),
+                  bottomLeft: !isMe ? const Radius.circular(0) : const Radius.circular(12),
+                  bottomRight: isMe ? const Radius.circular(0) : const Radius.circular(12),
                 ),
               ),
               width: 140,
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 10,
                 horizontal: 16,
               ),
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 vertical: 16,
                 horizontal: 8,
               ),
@@ -51,19 +52,12 @@ class MessageBubble extends StatelessWidget {
                   Text(
                     userName,
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: isMe
-                          ? Colors.white
-                          : Colors.black
-                    ),
+                        fontWeight: FontWeight.bold,
+                        color: isMe ? Colors.white : Colors.black),
                   ),
                   Text(
                     message,
-                    style: TextStyle(
-                      color: isMe
-                          ? Colors.white
-                          : Colors.black
-                    ),
+                    style: TextStyle(color: isMe ? Colors.white : Colors.black),
                     textAlign: isMe ? TextAlign.end : TextAlign.start,
                   ),
                 ],
@@ -82,6 +76,7 @@ class MessageBubble extends StatelessWidget {
           ),
         ),
       ],
+      // ignore: deprecated_member_use
       overflow: Overflow.visible,
     );
   }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Address {
   String? id;
   String? firstName;
@@ -16,36 +14,36 @@ class Address {
   bool? isMain;
 
   Address(
-      {this.id,
-      this.firstName,
-      this.lastName,
-      this.phone,
-      this.apartmentNumber,
-      this.streetAddress,
-      this.districtID,
-      this.provinceID,
-      this.wardCode,
-      this.districtName,
-      this.isMain,
-      this.provinceName,
-      this.wardName}) {
+      {id,
+      firstName,
+      lastName,
+      phone,
+      apartmentNumber,
+      streetAddress,
+      districtID,
+      provinceID,
+      wardCode,
+      districtName,
+      isMain,
+      provinceName,
+      wardName}) {
     isMain = isMain ?? false;
   }
 
   Address.empty(){
-    this.id = "";
-  this.firstName = "";
-      this.lastName ="";
-      this.phone = "";
-      this.apartmentNumber ="";
-      this.streetAddress = "";
-      this.districtID = 0;
-      this.provinceID = 0;
-      this.wardCode = "";
-      this.districtName ="";
-      this.isMain = false;
-      this.provinceName ="";
-      this.wardName = "";
+    id = "";
+  firstName = "";
+      lastName ="";
+      phone = "";
+      apartmentNumber ="";
+      streetAddress = "";
+      districtID = 0;
+      provinceID = 0;
+      wardCode = "";
+      districtName ="";
+      isMain = false;
+      provinceName ="";
+      wardName = "";
   }
 
   factory Address.fromJson(Map<String, dynamic> json) {

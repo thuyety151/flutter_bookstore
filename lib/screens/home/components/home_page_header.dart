@@ -6,7 +6,6 @@ import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/provider/category_model.dart';
 import 'package:flutter_folder/screens/books_for_sale/books_for_sale_screen.dart';
 import 'package:flutter_folder/screens/home/components/app_banner.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 import '../../../components/badge.dart';
@@ -25,7 +24,6 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   var _isInit = true;
   var _isLoading = false;
   var _isLogin = false;
-  static const storage = FlutterSecureStorage();
   @override
   void initState() {
     super.initState();

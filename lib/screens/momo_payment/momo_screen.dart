@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:momo_vn/momo_vn.dart';
@@ -55,14 +57,11 @@ class _MoMoPaymentState extends State<MoMoPaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('args' +
-        widget.amount.toRadixString(2) +
-        widget.orderId +
-        widget.username);
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('PAYMENT WITH MOMO'),
+          title: const Text('PAYMENT WITH MOMO'),
           backgroundColor: kPrimaryColor,
         ),
         body: Center(
@@ -75,9 +74,9 @@ class _MoMoPaymentState extends State<MoMoPaymentScreen> {
                     textColor: Colors.white,
                     disabledColor: Colors.grey,
                     disabledTextColor: Colors.black,
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     splashColor: kPrimaryColor,
-                    child: Text('DIRECT TO MOMO APP'),
+                    child: const Text('DIRECT TO MOMO APP'),
                     onPressed: () async {
                       MomoPaymentInfo options = MomoPaymentInfo(
                           merchantName: "BookStore",

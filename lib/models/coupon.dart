@@ -20,14 +20,14 @@ class Coupon {
   }
 
   Coupon(
-      {required this.id,
-      required this.code,
-      required this.description,
-      required this.couponAmount,
-      required this.discountType,
-      required this.expireDate,
-      required this.imageUrl,
-      required this.minSpend});
+      {required id,
+      required code,
+      required description,
+      required couponAmount,
+      required discountType,
+      required expireDate,
+      required imageUrl,
+      required minSpend});
 
   Coupon.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -41,15 +41,15 @@ class Coupon {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['code'] = this.code;
-    data['description'] = this.description;
-    data['couponAmount'] = this.couponAmount;
-    data['discountType'] = this.discountType;
-    data['expireDate'] = this.expireDate;
-    data['imageUrl'] = this.imageUrl;
-    data['minSpend'] = this.minSpend;
+    final Map<String, dynamic> data =  <String, dynamic>{};
+    data['id'] = id;
+    data['code'] = code;
+    data['description'] = description;
+    data['couponAmount'] = couponAmount;
+    data['discountType'] = discountType;
+    data['expireDate'] = expireDate;
+    data['imageUrl'] = imageUrl;
+    data['minSpend'] = minSpend;
     return data;
   }
 }

@@ -170,6 +170,7 @@ class _RegisterFormState extends State<RegisterForm> {
         } else if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
         }
+        // ignore: avoid_returning_null_for_void
         return null;
       },
       validator: (value) {

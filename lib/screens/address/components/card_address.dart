@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_folder/components/button/primary_button.dart';
-import 'package:flutter_folder/components/form/address_picker.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/models/address.dart';
 import 'package:flutter_folder/screens/address/components/address_form.dart';
@@ -36,21 +34,6 @@ class _CardAddressState extends State<CardAddress> {
                       modelValue: widget.data,
                       submit: (value) {},
                     ))
-                // child: Column(children: [
-                //   AddressPicker(
-                //     emitValue: (value) {},
-                //   ),
-                //   Padding(
-                //     padding: const EdgeInsets.only(top: 16),
-                //     child: PrimaryButton(
-                //       onTap: () {},
-                //       buttonText: "Update",
-                //       buttonColor: AppColors.kPrimary,
-                //       fullWidth: true,
-                //       textColor: Colors.white,
-                //     ),
-                //   )
-                // ]),
                 ),
           );
         });

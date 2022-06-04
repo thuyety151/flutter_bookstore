@@ -164,22 +164,6 @@ class _FilterFormState extends State<FilterForm> {
                       ),
                       _pricing(context),
                       _title("Authors"),
-                      // TODO: change props of MultipleSelect
-                      // Consumer<AuthorModel>(
-                      //   builder: (context, value, child) => MultipleSelect(
-                      //       key: const Key("select-author"),
-                      //       title: "Author",
-                      //       placeholder: "Choose author",
-                      //       onConfirm: (values) {
-                      //         setState(() {
-                      //           formValue.authorId = values.first.id;
-                      //         });
-                      //       },
-                      //       listItem: value.listAuthor
-                      //           .map((author) => MultiSelectItem<Author>(
-                      //               author, author.name))
-                      //           .toList()),
-                      // ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 2 * 21,
                         child: AuthorSelect(

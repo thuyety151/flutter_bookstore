@@ -30,7 +30,6 @@ class BooksForSaleScreen extends StatefulWidget {
 
 class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
   var _isInit = true;
-  var _isLoading = false;
   var scrollcontroller = ScrollController();
   late Filter formValue;
 
@@ -49,13 +48,11 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
           .setInit(argsCate?.categoryId, argsCate?.authorId);
 
       setState(() {
-        _isLoading = true;
       });
       Provider.of<BookModel>(context, listen: false)
           .fetchAndSetBooks()
           .then((_) {
         setState(() {
-          _isLoading = false;
         });
       });
     }

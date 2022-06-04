@@ -156,9 +156,8 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                               ),
                               if (value.detail!.reviews.isNotEmpty) ...[
                                 Text(((value.detail!.reviews
-                                                .map((m) => m.rate)
-                                                .reduce((a, b) => a + b) ??
-                                            1) /
+                                            .map((m) => m.rate)
+                                            .reduce((a, b) => a + b)) /
                                         value.detail!.reviews.length)
                                     .toStringAsFixed(2)
                                     .toString()),
@@ -166,7 +165,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                                   width: 4,
                                 ),
                                 Text(
-                                  "(${value.detail?.reviews?.length.toString() ?? 0} reviews)",
+                                  "(${value.detail?.reviews.length.toString() ?? 0} reviews)",
                                   style: const TextStyle(
                                       color: AppColors.kTextGrey),
                                 ),
@@ -212,21 +211,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
               );
             }))
       ],
-    );
-  }
-
-  Widget _releatedSection() {
-    return Container(
-      color: AppColors.kBgGgrey,
-      // child: ListBookSession(
-      //   title: "Related Book",
-      //   child: Wrap(
-      //     spacing: 12,
-      //     // TODO: replace data
-      //     children: List.generate(listBestselling.length,
-      //         (index) => BookCard(book: listBestselling[index])),
-      //   ),
-      // ),
     );
   }
 
@@ -286,7 +270,6 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                                 ),
                               ),
                               const ReviewContainer(),
-                              _releatedSection()
                             ]),
                       ));
                 }

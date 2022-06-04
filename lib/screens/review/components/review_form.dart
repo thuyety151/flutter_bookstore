@@ -54,13 +54,13 @@ class ReviewForm extends StatefulWidget {
 }
 
 class _ReviewFormState extends State<ReviewForm> {
-  var uuid = new Uuid();
+  // ignore: prefer_const_constructors
+  var uuid = Uuid();
 
   late Review formValue = Review(
       bookId: widget.item.productId ?? "",
       content: "",
       rate: 5,
-      // TODO: replace userName by current user name after merging code wooth feature profile
       title: "userName",
       id: uuid.v4(),
       updateDate: "",

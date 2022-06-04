@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_void_to_null
+
 class Item {
   String? id;
   String? productId;
@@ -10,8 +12,8 @@ class Item {
   num? price;
   int? quantity;
   String? stockStatus;
-  Null? orderId;
-  Null? order;
+  Null orderId;
+  Null order;
 
   Item(
       {this.id,
@@ -45,20 +47,20 @@ class Item {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['productId'] = this.productId;
-    data['productName'] = this.productName;
-    data['authorId'] = this.authorId;
-    data['authorName'] = this.authorName;
-    data['attributeId'] = this.attributeId;
-    data['attributeName'] = this.attributeName;
-    data['pictureUrl'] = this.pictureUrl;
-    data['price'] = this.price;
-    data['quantity'] = this.quantity;
-    data['stockStatus'] = this.stockStatus;
-    data['orderId'] = this.orderId;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['productId'] = productId;
+    data['productName'] = productName;
+    data['authorId'] = authorId;
+    data['authorName'] = authorName;
+    data['attributeId'] = attributeId;
+    data['attributeName'] = attributeName;
+    data['pictureUrl'] = pictureUrl;
+    data['price'] = price;
+    data['quantity'] = quantity;
+    data['stockStatus'] = stockStatus;
+    data['orderId'] = orderId;
+    data['order'] = order;
     return data;
   }
 

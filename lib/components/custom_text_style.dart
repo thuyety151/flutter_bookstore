@@ -7,7 +7,6 @@ class CustomTextStyle {
       color: Colors.black,
       fontWeight: FontWeight.w400);
 
-// TODO: move global style to this file
   static var textFormFieldLight =
       textFormFieldRegular.copyWith(fontWeight: FontWeight.w200);
 

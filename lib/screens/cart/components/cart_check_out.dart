@@ -95,24 +95,22 @@ class _CartCheckOutState extends State<CartCheckOut> {
                     Navigator.of(context)
                         .pushNamed(RouteManager.ROUTE_USER_COUPONS);
                   },
-                  child: Container(
-                    child: Row(children: [
-                      Consumer2<Cart, Coupons>(
-                        builder: (context, cart, coupons, child) => Text(
-                            formatCoupon(
-                                coupons.selectedCoupon, cart.totalAmount)),
+                  child: Row(children: [
+                    Consumer2<Cart, Coupons>(
+                      builder: (context, cart, coupons, child) => Text(
+                          formatCoupon(
+                              coupons.selectedCoupon, cart.totalAmount)),
+                    ),
+                    const SizedBox(width: 10),
+                    Container(
+                      margin: const EdgeInsets.only(right: 20),
+                      child: const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 12,
+                        color: kTextColor,
                       ),
-                      const SizedBox(width: 10),
-                      Container(
-                        margin: const EdgeInsets.only(right: 20),
-                        child: const Icon(
-                          Icons.arrow_forward_ios,
-                          size: 12,
-                          color: kTextColor,
-                        ),
-                      )
-                    ]),
-                  )),
+                    )
+                  ])),
             ],
           ),
           const SizedBox(height: 8),

@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 
 import '../../components/button/primary_button.dart';
 import '../../configs/app_colors.dart';
-import '../../models/address.dart';
 import '../../models/coupon.dart';
 import '../../provider/cart.dart';
 import '../../provider/coupons.dart';

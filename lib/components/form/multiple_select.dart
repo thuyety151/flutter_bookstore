@@ -28,7 +28,6 @@ class MultipleSelect<T> extends StatefulWidget {
 class _MultipleSelectState extends State<MultipleSelect> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -47,7 +46,6 @@ class _MultipleSelectState extends State<MultipleSelect> {
               ),
               borderRadius: const BorderRadius.all(Radius.circular(8))),
           child: MultiSelectBottomSheetField(
-            // TODO: dense chips, change color of active checkbox to primary
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.white, width: 0),
                 borderRadius: const BorderRadius.all(Radius.circular(16))),

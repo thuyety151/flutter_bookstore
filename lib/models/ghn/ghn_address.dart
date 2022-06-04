@@ -6,11 +6,11 @@ class GHNAddress {
   String? wardCode;
 
   GHNAddress(
-      {this.districtId,
-      this.serviceId,
-      this.serviceTypeId,
-      this.shopId,
-      this.wardCode});
+      {districtId,
+      serviceId,
+      serviceTypeId,
+      shopId,
+      wardCode});
 
   GHNAddress.fromJson(Map<String, dynamic> json) {
     districtId = json['district_id'];
@@ -21,12 +21,12 @@ class GHNAddress {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['district_id'] = this.districtId;
-    data['service_id'] = this.serviceId;
-    data['service_type_id'] = this.serviceTypeId;
-    data['shop_id'] = this.shopId;
-    data['ward_code'] = this.wardCode;
+    final Map<String, dynamic> data =  <String, dynamic>{};
+    data['district_id'] = districtId;
+    data['service_id'] = serviceId;
+    data['service_type_id'] = serviceTypeId;
+    data['shop_id'] = shopId;
+    data['ward_code'] = wardCode;
     return data;
   }
 }
