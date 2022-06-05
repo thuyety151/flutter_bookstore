@@ -1,3 +1,4 @@
+
 class Address {
   String? id;
   String? firstName;
@@ -14,36 +15,36 @@ class Address {
   bool? isMain;
 
   Address(
-      {id,
-      firstName,
-      lastName,
-      phone,
-      apartmentNumber,
-      streetAddress,
-      districtID,
-      provinceID,
-      wardCode,
-      districtName,
-      isMain,
-      provinceName,
-      wardName}) {
+      {this.id,
+      this.firstName,
+      this.lastName,
+      this.phone,
+      this.apartmentNumber,
+      this.streetAddress,
+      this.districtID,
+      this.provinceID,
+      this.wardCode,
+      this.districtName,
+      this.isMain,
+      this.provinceName,
+      this.wardName}) {
     isMain = isMain ?? false;
   }
 
-  Address.empty(){
+  Address.empty() {
     id = "";
-  firstName = "";
-      lastName ="";
-      phone = "";
-      apartmentNumber ="";
-      streetAddress = "";
-      districtID = 0;
-      provinceID = 0;
-      wardCode = "";
-      districtName ="";
-      isMain = false;
-      provinceName ="";
-      wardName = "";
+    firstName = "";
+    lastName = "";
+    phone = "";
+    apartmentNumber = "";
+    streetAddress = "";
+    districtID = 0;
+    provinceID = 0;
+    wardCode = "";
+    districtName = "";
+    isMain = false;
+    provinceName = "";
+    wardName = "";
   }
 
   factory Address.fromJson(Map<String, dynamic> json) {
@@ -67,7 +68,7 @@ class Address {
   static Address fromJsonModel(Map<String, dynamic> json) =>
       Address.fromJson(json);
 
-  // String toJson() {
+  // String mapToJson() {
   //   Map<String, dynamic> map = {
   //     "id": id,
   //     "firstName": firstName,
@@ -81,7 +82,7 @@ class Address {
   //     "provinceName": provinceName,
   //     "districtName": districtName,
   //     "wardName": wardName,
-  //     "wardCode" : wardCode
+  //     "wardCode": wardCode
   //   };
   //   if (id == null) {
   //     map.remove("id");

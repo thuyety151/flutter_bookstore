@@ -6,7 +6,11 @@ class ServiceType {
   int? serviceTypeId;
   bool isMain = false;
 
-  ServiceType({serviceId, shortName, serviceTypeId, required isMain});
+  ServiceType(
+      {this.serviceId,
+      this.shortName,
+      this.serviceTypeId,
+      required this.isMain});
 
   ServiceType.fromJson(Map<String, dynamic> json) {
     serviceId = json['service_id'];

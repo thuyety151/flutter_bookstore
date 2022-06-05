@@ -97,38 +97,39 @@ class _AddressScreenState extends State<AddressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<provider.AddressModel>(context,listen: false).getListAddresses();
+    Provider.of<provider.AddressModel>(context, listen: false)
+        .getListAddresses();
 
     return Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         appBar: customAppBar("Ship Addresses"),
+        bottomNavigationBar: Container(
+          margin: const EdgeInsets.all(8),
+          child: FlatButton(
+            height: 58,
+            color: AppColors.kBgPrimary,
+            onPressed: showDialog,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: const SizedBox(
+              width: double.infinity,
+              child: Icon(
+                Icons.add,
+                color: AppColors.kPrimary,
+              ),
+            ),
+            shape: RoundedRectangleBorder(
+                side: const BorderSide(
+                    color: AppColors.kPrimary,
+                    width: 1,
+                    style: BorderStyle.solid),
+                borderRadius: BorderRadius.circular(8)),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Column(children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: FlatButton(
-                  height: 58,
-                  color: AppColors.kBgPrimary,
-                  onPressed: showDialog,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: const SizedBox(
-                    width: double.infinity,
-                    child: Icon(
-                      Icons.add,
-                      color: AppColors.kPrimary,
-                    ),
-                  ),
-                  shape: RoundedRectangleBorder(
-                      side: const BorderSide(
-                          color: AppColors.kPrimary,
-                          width: 1,
-                          style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(8)),
-                ),
-              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height - 2 * 58 - 16 * 4,
                 child: _listAddress(context),

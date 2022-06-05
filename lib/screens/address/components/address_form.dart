@@ -130,7 +130,7 @@ class _AddressFormState extends State<AddressForm> {
               Row(children: [
                 Checkbox(
                     activeColor: AppColors.kPrimary,
-                    value: formValue.isMain,
+                    value: formValue.isMain ?? false,
                     onChanged: (bool? value) {
                       if (value != null) {
                         setState(() {

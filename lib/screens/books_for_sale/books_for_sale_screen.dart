@@ -47,13 +47,11 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
       Provider.of<BookModel>(context, listen: false)
           .setInit(argsCate?.categoryId, argsCate?.authorId);
 
-      setState(() {
-      });
+      setState(() {});
       Provider.of<BookModel>(context, listen: false)
           .fetchAndSetBooks()
           .then((_) {
-        setState(() {
-        });
+        setState(() {});
       });
     }
     _isInit = false;
@@ -87,7 +85,8 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: customAppBar("Books for sale", 0, kPrimaryColor, true),
+        appBar: customAppBar(
+            "Books for sale", 0, kPrimaryColor, true, Colors.white),
         backgroundColor: AppColors.kBgGgrey,
         bottomNavigationBar:
             const CustomBottomNavBar(selectedMenu: MenuState.home),

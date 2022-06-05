@@ -58,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
             iconAssetUrl: "assets/icons/icon-cart.png",
             onPress: () => onPress("manage-order")),
         ProfileMenu(
-            text: "Addresses",
+            text: "Shipping Addresses",
             iconAssetUrl: "assets/icons/icon-location.png",
             onPress: () => onPress("address")),
         ProfileMenu(

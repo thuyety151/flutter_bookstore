@@ -5,7 +5,10 @@ import 'package:flutter_folder/components/book/price.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/helpers/show_dialog.dart';
+import 'package:flutter_folder/models/book.dart';
+import 'package:flutter_folder/models/item.dart';
 import 'package:flutter_folder/provider/book_model.dart';
+import 'package:flutter_folder/provider/wishlist_provider.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_detail_bottom.dart';
 import 'package:flutter_folder/screens/book_detail/detail/components/book_list_image.dart';
 import 'package:flutter_folder/screens/book_detail/review/components/session_title.dart';
@@ -24,6 +27,26 @@ class BookDetailScreen extends StatefulWidget {
 
 class _BookDetailScreenState extends State<BookDetailScreen> {
   late int selectedAttrIndex = 0;
+
+  void addToWishList(Book? book) {
+    Provider.of<WishlistProvider>(context, listen: false).addToWishlist(
+        Item.params(
+            attributeId: book!.attributes[selectedAttrIndex].id,
+            productId: book.id,
+            quantity: 1), () {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Add item to wish list successfully!"),
+        duration: Duration(seconds: 1),
+      ));
+    }, () {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        backgroundColor: Colors.red,
+        content: Text("Add item to wish list failed!"),
+        duration: Duration(seconds: 1),
+      ));
+    });
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  }
 
   Widget _tagCategory() {
     return Container(
@@ -129,7 +152,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                             )),
                     FlatButton(
                         minWidth: 28,
-                        onPressed: () {},
+                        onPressed: () => addToWishList(value.detail),
                         child: const Icon(
                           Icons.favorite_outline,
                           color: AppColors.kPrimary,
