@@ -97,8 +97,7 @@ class RouteManager {
         return MaterialPageRoute(
             builder: (context) => const ReviewScreen(), settings: settings);
       case ROUTE_CHAT:
-        //TODO
-        return MaterialPageRoute(builder: (context) => ChatScreen());
+        return MaterialPageRoute(builder: (context) => const ChatScreen());
       case ROUTE_IMAGE_PICKER:
         return MaterialPageRoute(builder: (context) => const ImagePicker());
       case ROUTE_USER_COUPONS:

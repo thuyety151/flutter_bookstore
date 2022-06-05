@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_folder/provider/book_model.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:provider/provider.dart';
 
 class ViewImageFullScreen extends StatefulWidget {
   const ViewImageFullScreen({Key? key}) : super(key: key);
@@ -15,7 +13,6 @@ class _ViewImageFullScreenState extends State<ViewImageFullScreen> {
   late int currentIndex = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     currentIndex = 0;
   }

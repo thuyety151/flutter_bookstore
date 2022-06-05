@@ -1,10 +1,16 @@
+// ignore_for_file: file_names
+
 class ServiceType {
   int? serviceId;
   String? shortName;
   int? serviceTypeId;
   bool isMain = false;
 
-  ServiceType({this.serviceId, this.shortName, this.serviceTypeId, required this.isMain});
+  ServiceType(
+      {this.serviceId,
+      this.shortName,
+      this.serviceTypeId,
+      required this.isMain});
 
   ServiceType.fromJson(Map<String, dynamic> json) {
     serviceId = json['service_id'];
@@ -14,7 +20,7 @@ class ServiceType {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['service_id'] = serviceId;
     data['short_name'] = shortName;
     data['service_type_id'] = serviceTypeId;

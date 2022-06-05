@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/screens/cart/components/cart_list.dart';
-
-import '../../mocks/models/cart_item.dart';
 import 'components/cart_check_out.dart';
 
 class CartScreen extends StatelessWidget {
@@ -17,8 +15,8 @@ class CartScreen extends StatelessWidget {
           foregroundColor: Colors.white,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
+            children: const [
+              Text(
                 'Your Cart',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),

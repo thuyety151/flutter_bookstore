@@ -56,7 +56,9 @@ class AccountModel extends ChangeNotifier {
       _account = Account.fromAuthen(response);
       const storage = FlutterSecureStorage();
       storage.write(key: "token", value: response.token);
-      getUserLoginDetails();
+
+      await login(
+          LoginRequestModel(email: data.email, password: data.password));
       notifyListeners();
       return true;
     } catch (e) {

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,6 +9,9 @@ import 'components/messages.dart';
 import 'components/new_message.dart';
 
 class ChatScreen extends StatelessWidget {
+  const ChatScreen({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     final Future<FirebaseApp> _initialization = Firebase.initializeApp();
     return FutureBuilder(
@@ -19,7 +21,7 @@ class ChatScreen extends StatelessWidget {
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: Text('Messenger'),
+              title: const Text('Messenger'),
               backgroundColor: kPrimaryColor,
             ),
             body: StreamBuilder(
@@ -29,18 +31,16 @@ class ChatScreen extends StatelessWidget {
                     return SplashScreen();
                   }
                   if (userSnapshot.hasData) {
-                    return Container(
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            child: Messages(),
-                          ),
-                          NewMessage(),
-                        ],
-                      ),
+                    return Column(
+                      children: <Widget>[
+                        Expanded(
+                          child: Messages(),
+                        ),
+                        NewMessage(),
+                      ],
                     );
                   }
-                  return LoginScreen();
+                  return const LoginScreen();
                 }),
           );
         });

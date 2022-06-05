@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folder/configs/app_colors.dart';
 
 import '../../components/button/primary_button.dart';
 import '../../configs/size_config.dart';
@@ -11,6 +12,7 @@ class OrderSuccess extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.kPrimary,
         leading: const SizedBox(),
         title: const Text("Order Success"),
       ),
@@ -38,7 +40,7 @@ class OrderSuccess extends StatelessWidget {
                 Navigator.of(context).pushNamed(RouteManager.ROUTE_HOME_PAGE);
               },
               buttonText: "Back to home",
-              buttonColor:const Color.fromARGB(255, 249, 82, 69),
+              buttonColor: const Color.fromARGB(255, 249, 82, 69),
               textColor: Colors.white,
               buttonWidth: 200,
               loading: false,

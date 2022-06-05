@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/button/primary_button.dart';
+import 'package:flutter_folder/configs/app_colors.dart';
 import 'package:flutter_folder/services/authentication_service.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,8 @@ class _RegisterFormState extends State<RegisterForm> {
   bool remember = false;
   final List<String?> errors = [];
   late bool isLoading;
-  late RegisterRequestModel formValue = RegisterRequestModel(firstName: "", lastName: "", email: "", password: "");
+  late RegisterRequestModel formValue = RegisterRequestModel(
+      firstName: "", lastName: "", email: "", password: "");
 
   @override
   void initState() {
@@ -41,7 +43,7 @@ class _RegisterFormState extends State<RegisterForm> {
   Future<void> onRegister() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-       setState(() {
+      setState(() {
         isLoading = true;
       });
       formValue.firstName = first_name.toString();
@@ -59,8 +61,7 @@ class _RegisterFormState extends State<RegisterForm> {
       setState(() {
         isLoading = false;
       });
-
-    } 
+    }
   }
 
   void addError({String? error}) {
@@ -103,7 +104,7 @@ class _RegisterFormState extends State<RegisterForm> {
             PrimaryButton(
               onTap: onRegister,
               buttonText: "Continue",
-              buttonColor: const Color.fromARGB(255, 249, 82, 69),
+              buttonColor: AppColors.kPrimary,
               textColor: Colors.white,
               buttonWidth: double.infinity,
               loading: isLoading,
@@ -170,6 +171,7 @@ class _RegisterFormState extends State<RegisterForm> {
         } else if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
         }
+        // ignore: avoid_returning_null_for_void
         return null;
       },
       validator: (value) {

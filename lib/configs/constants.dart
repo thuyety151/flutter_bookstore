@@ -93,12 +93,15 @@ BoxDecoration showBottomSheetStyle() {
 }
 
 AppBar customAppBar(String title,
-    [double elevation = 1, Color bg = Colors.white, bool includeCart = false]) {
+    [double elevation = 1,
+    Color bg = Colors.white,
+    bool includeCart = false,
+    Color textColor = AppColors.kGrey]) {
   return AppBar(
     title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Text(
         title,
-        style: const TextStyle(color: AppColors.kGrey, fontSize: 16),
+        style: TextStyle(color: textColor, fontSize: 16),
       ),
       if (includeCart == true) ...[
         Consumer<Cart>(
@@ -132,7 +135,7 @@ AppBar customAppBar(String title,
     ]),
     centerTitle: true,
     backgroundColor: bg,
-    foregroundColor: AppColors.kGrey,
+    foregroundColor: textColor,
     elevation: elevation,
   );
 }

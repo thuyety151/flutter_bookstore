@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,7 +51,6 @@ class RegisterRequestModel {
 
 class Authentication {
   final Api _api = Api();
-  //TODO
   final _auth = FirebaseAuth.instance;
 
   Future<AuthenResponse> login(LoginRequestModel data) async {
@@ -97,7 +98,6 @@ class Authentication {
       }
 
       try {
-        //TODO
         UserCredential authResult;
         authResult = await _auth.createUserWithEmailAndPassword(
           email: data.email,

@@ -134,24 +134,24 @@ class _ManageOrderCardState extends State<ManageOrderCard> {
                         ),
                         style: OutlinedButton.styleFrom(),
                       ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: review,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: const Text(
+                            "Review",
+                            style: TextStyle(color: AppColors.kPrimary),
+                          ),
+                        ),
+                        style: OutlinedButton.styleFrom(),
+                      ),
                     )
                   ],
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: review,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        child: const Text(
-                          "Review",
-                          style: TextStyle(color: AppColors.kPrimary),
-                        ),
-                      ),
-                      style: OutlinedButton.styleFrom(),
-                    ),
-                  )
                 ],
               ),
             ]),

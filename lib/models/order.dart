@@ -12,7 +12,6 @@ class Order {
   late double orderFee;
   late String userId;
   late String deliveryMethodId;
-  //TODO: replace with Coupon
   late Object? coupon;
   late List<Item> items;
   late Address? addressToShip;

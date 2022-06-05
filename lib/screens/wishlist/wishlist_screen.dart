@@ -66,7 +66,7 @@ class WishlistScreen extends StatelessWidget {
                                       context,
                                       value.listWishlist[index].id ?? ""),
                                   background: Container(
-                                      margin: EdgeInsets.only(top: 16),
+                                      margin: const EdgeInsets.only(top: 16),
                                       color: Colors.red,
                                       alignment: Alignment.centerRight,
                                       child: FlatButton(

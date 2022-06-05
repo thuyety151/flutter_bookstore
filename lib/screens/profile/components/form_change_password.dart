@@ -71,7 +71,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
         modelValue: formValue.confirmPassword,
       ),
       Padding(
-        padding: EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: PrimaryButton(
           buttonText: "Submit",
           fullWidth: true,

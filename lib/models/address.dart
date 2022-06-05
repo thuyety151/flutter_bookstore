@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class Address {
   String? id;
@@ -32,20 +31,20 @@ class Address {
     isMain = isMain ?? false;
   }
 
-  Address.empty(){
-    this.id = "";
-  this.firstName = "";
-      this.lastName ="";
-      this.phone = "";
-      this.apartmentNumber ="";
-      this.streetAddress = "";
-      this.districtID = 0;
-      this.provinceID = 0;
-      this.wardCode = "";
-      this.districtName ="";
-      this.isMain = false;
-      this.provinceName ="";
-      this.wardName = "";
+  Address.empty() {
+    id = "";
+    firstName = "";
+    lastName = "";
+    phone = "";
+    apartmentNumber = "";
+    streetAddress = "";
+    districtID = 0;
+    provinceID = 0;
+    wardCode = "";
+    districtName = "";
+    isMain = false;
+    provinceName = "";
+    wardName = "";
   }
 
   factory Address.fromJson(Map<String, dynamic> json) {
@@ -69,7 +68,7 @@ class Address {
   static Address fromJsonModel(Map<String, dynamic> json) =>
       Address.fromJson(json);
 
-  // String toJson() {
+  // String mapToJson() {
   //   Map<String, dynamic> map = {
   //     "id": id,
   //     "firstName": firstName,
@@ -83,7 +82,7 @@ class Address {
   //     "provinceName": provinceName,
   //     "districtName": districtName,
   //     "wardName": wardName,
-  //     "wardCode" : wardCode
+  //     "wardCode": wardCode
   //   };
   //   if (id == null) {
   //     map.remove("id");

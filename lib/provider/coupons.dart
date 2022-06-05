@@ -46,6 +46,7 @@ class Coupons with ChangeNotifier {
       return;
     }
 
+    // ignore: avoid_function_literals_in_foreach_calls
     extractedData.forEach((item) {
       loadedItems.add(Coupon.fromJson(item));
     });
@@ -73,6 +74,7 @@ class Coupons with ChangeNotifier {
       return;
     }
 
+    // ignore: avoid_function_literals_in_foreach_calls
     extractedData.forEach((item) {
       loadedItems.add(Coupon.fromJson(item));
     });
@@ -104,9 +106,7 @@ class Coupons with ChangeNotifier {
         return json.decode(response.body)["error"];
       }
     } catch (error) {
-      print(error);
       return error.toString();
-      throw error;
     }
   }
 

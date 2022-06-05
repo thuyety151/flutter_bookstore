@@ -41,15 +41,15 @@ class Coupon {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['code'] = this.code;
-    data['description'] = this.description;
-    data['couponAmount'] = this.couponAmount;
-    data['discountType'] = this.discountType;
-    data['expireDate'] = this.expireDate;
-    data['imageUrl'] = this.imageUrl;
-    data['minSpend'] = this.minSpend;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['code'] = code;
+    data['description'] = description;
+    data['couponAmount'] = couponAmount;
+    data['discountType'] = discountType;
+    data['expireDate'] = expireDate;
+    data['imageUrl'] = imageUrl;
+    data['minSpend'] = minSpend;
     return data;
   }
 }

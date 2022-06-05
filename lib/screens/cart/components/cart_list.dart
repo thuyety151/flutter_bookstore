@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/helpers/show_dialog.dart';
+// ignore: library_prefixes
 import './cart_item.dart' as CartItemChild;
 import 'package:provider/provider.dart';
 import '../../../provider/cart.dart';

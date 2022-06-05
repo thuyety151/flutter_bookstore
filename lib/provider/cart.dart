@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_folder/helpers/error_handler.dart';
 import 'package:flutter_folder/models/item.dart';
-import 'package:flutter_folder/services/api_base.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../models/constants.dart';
@@ -25,6 +24,7 @@ class Cart with ChangeNotifier {
 
   double get totalAmount {
     var total = 0.0;
+    // ignore: avoid_function_literals_in_foreach_calls
     _items.forEach((item) {
       total += (item.price ?? 0) * (item.quantity ?? 1);
     });
@@ -48,6 +48,7 @@ class Cart with ChangeNotifier {
       return;
     }
 
+    // ignore: avoid_function_literals_in_foreach_calls
     extractedData.forEach((item) {
       loadedItems.add(Item.fromJson(item));
     });
@@ -58,9 +59,7 @@ class Cart with ChangeNotifier {
 
   Future<void> addOrUpdateItem(
       String productId, String attributeId, int quantity) async {
-    final url = Uri.parse(apiEndpoint + '/cart/item');
-    var token = await storage.read(key: "token");
-    print(token);
+
     try {
       await withRestApiResponse("/cart/item",
           method: "post",
@@ -70,19 +69,6 @@ class Cart with ChangeNotifier {
             'quantity': quantity
           }));
 
-      // final response = await http.post(
-      //   url,
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Accept': 'application/json',
-      //     'Authorization': 'Bearer $token',
-      //   },
-      //   body: json.encode({
-      //     'productId': productId,
-      //     'attributeId': attributeId,
-      //     'quantity': quantity
-      //   }),
-      // );
       int index = _items.indexWhere((element) =>
           element.productId == productId && element.attributeId == attributeId);
 
@@ -100,13 +86,13 @@ class Cart with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
+      // ignore: use_rethrow_when_possible
       throw error;
     }
   }
 
   Future<void> deleteItem(String id) async {
     var token = await storage.read(key: "token");
-    print('token:' + token!);
     final url = Uri.parse(apiEndpoint + '/cart/item?id=$id');
     final existingitemIndex = _items.indexWhere((item) => item.id == id);
     Item? existingItem = _items[existingitemIndex];

@@ -8,7 +8,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 import '../../routes/index.dart';
-import 'components/stats_card.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -31,7 +30,6 @@ class ProfileScreen extends StatelessWidget {
         case "login":
           const storage = FlutterSecureStorage();
           storage.deleteAll();
-          //TODO
           FirebaseAuth.instance.signOut();
           Navigator.of(context).pushNamed(RouteManager.ROUTE_LOGIN);
           break;
@@ -60,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
             iconAssetUrl: "assets/icons/icon-cart.png",
             onPress: () => onPress("manage-order")),
         ProfileMenu(
-            text: "Addresses",
+            text: "Shipping Addresses",
             iconAssetUrl: "assets/icons/icon-location.png",
             onPress: () => onPress("address")),
         ProfileMenu(

@@ -17,9 +17,7 @@ class Shipping with ChangeNotifier {
 
   Future<void> getServiceType(int currentAddress) async {
     try {
-      print('start');
-      print(currentAddress);
-
+    
       var response =
           await withGHNApiResponse("/v2/shipping-order/available-services",
               method: "post",
@@ -28,11 +26,11 @@ class Shipping with ChangeNotifier {
                 "from_district": shopAddress.districtId,
                 "to_district": currentAddress
               }));
-      print('emd');
+     
       final List<ServiceType> loadedServiceTypes = [];
       List<dynamic>? extractedData;
       if (response.isNotEmpty) {
-        print(response);
+
         extractedData = json.decode(response)["data"] as List<dynamic>;
       }
       if (extractedData == null) {
@@ -40,6 +38,7 @@ class Shipping with ChangeNotifier {
       }
 
       int count = 0;
+      // ignore: avoid_function_literals_in_foreach_calls
       extractedData.forEach((item) {
         var serviceType = ServiceType.fromJson(item);
         if (serviceType.shortName != "") {
@@ -62,27 +61,21 @@ class Shipping with ChangeNotifier {
 
   Future<void> setSelectedServiceType(ServiceType newValues) async {
     try {
-      print("..start setSelectedServiceType ");
       final index = _serviceTypes.indexWhere((item) =>
           item.serviceId == newValues.serviceId &&
           item.serviceTypeId == newValues.serviceTypeId);
       if (index >= 0) {
+        // ignore: avoid_function_literals_in_foreach_calls
         _serviceTypes.forEach((element) {
           element.isMain = false;
         });
         final newProduct = _serviceTypes[index];
         newProduct.isMain = true;
         _serviceTypes[index] = newProduct;
-        _serviceTypes.forEach((element) {
-          print(element.isMain);
-        });
 
         notifyListeners();
-      } else {
-        print('...');
-      }
+      } 
     } catch (error) {
-      print("..error");
       rethrow;
     }
   }

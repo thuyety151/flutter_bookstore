@@ -25,7 +25,6 @@ class Category {
         media: json["media"] != null ? Media.fromJson(json["media"]) : null,
         parentId: json["parentId"],
         slug: json["slug"],
-        // TODO: Parse list sub category
         subCategories: [],
         subTotal: json["subTotal"] ?? 0);
   }

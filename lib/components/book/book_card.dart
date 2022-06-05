@@ -113,22 +113,6 @@ class BookCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Price(book: book),
-                // Row(
-                //   children: [
-                //     Text(
-                //       "\$${book.price}",
-                //       style: AppTextStyles.price,
-                //     ),
-                //     const SizedBox(width: 4),
-                //     const Text(
-                //       "\$201",
-                //       style: TextStyle(
-                //           color: AppColors.kTextGrey,
-                //           fontSize: 12,
-                //           decoration: TextDecoration.lineThrough),
-                //     ),
-                //   ],
-                // ),
                 IconButton(
                   onPressed: () {
                     cart.addOrUpdateItem(book.id, book.attributeId!, 1);

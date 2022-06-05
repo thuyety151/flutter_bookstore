@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folder/components/avatar.dart';
-import 'package:flutter_folder/components/image_picker.dart';
 import 'package:flutter_folder/configs/constants.dart';
 import 'package:flutter_folder/provider/account_model.dart';
 import 'package:flutter_folder/screens/profile/components/form_edit_profile.dart';

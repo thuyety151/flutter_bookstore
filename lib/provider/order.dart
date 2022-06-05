@@ -58,8 +58,6 @@ class Order with ChangeNotifier {
     final url = Uri.parse(apiEndpoint + '/orders/create');
     var token = await storage.read(key: "token");
     try {
-      print('save order db');
-
       //currentAddress.id = null;
       final response = await http.post(
         url,
@@ -92,11 +90,8 @@ class Order with ChangeNotifier {
         }),
       );
 
-      print('save order db done');
-      print(response.body);
-      String orderId= '';
+      String orderId = '';
       if (response.body.contains("true")) {
-        print('save order ghn');
         orderId = json.decode(response.body)["value"] as String;
         final order = {
           'payment_type_id': 2,
@@ -127,8 +122,9 @@ class Order with ChangeNotifier {
           'service_type_id': serviceType.serviceTypeId,
           'service_id': serviceType.serviceId,
           'insurance_value': (orderFee * 23000).round(),
-          'cod_amount':
-              paymentMethod == 'Payment with MoMo' ? 0 : (orderFee * 23000).round(),
+          'cod_amount': paymentMethod == 'Payment with MoMo'
+              ? 0
+              : (orderFee * 23000).round(),
           'pick_station_id': 1444,
           // 'items': json.encode(items.map((e) => e.toJson())),
 
@@ -157,15 +153,12 @@ class Order with ChangeNotifier {
             },
             body: json.encode(order),
           );
-          print(json.encode(order));
-          print('save order ghn done${responseCreateOrderGNH.body}');
           if (responseCreateOrderGNH.body.isNotEmpty &&
               responseCreateOrderGNH.statusCode == 200) {
-            print('save update order code');
             String orderCode = json.decode(responseCreateOrderGNH.body)["data"]
                 ["order_code"] as String;
             // Integrate API UPDATE ORDER CODE
-            final response = await http.post(
+            await http.post(
               Uri.parse(apiEndpoint + '/orders/update-order-code'),
               headers: {
                 'Content-Type': 'application/json',
@@ -178,14 +171,11 @@ class Order with ChangeNotifier {
               }),
             );
           }
-          print('save update order code$response');
         } catch (error) {
-          print(order);
-          print(json.encode(order));
           // Delete order when create GHN fail
           final id = orderId;
           final urlDel = Uri.parse(apiEndpoint + '/cart/item?id=$id');
-          final response = await http.delete(
+          await http.delete(
             urlDel,
             headers: {
               'Content-Type': 'application/json',
@@ -197,7 +187,7 @@ class Order with ChangeNotifier {
       }
       return orderId;
     } catch (error) {
-      print(error);
+      // ignore: use_rethrow_when_possible
       throw error;
     }
   }

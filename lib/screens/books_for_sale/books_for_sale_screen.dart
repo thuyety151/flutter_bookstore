@@ -30,7 +30,6 @@ class BooksForSaleScreen extends StatefulWidget {
 
 class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
   var _isInit = true;
-  var _isLoading = false;
   var scrollcontroller = ScrollController();
   late Filter formValue;
 
@@ -48,15 +47,11 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
       Provider.of<BookModel>(context, listen: false)
           .setInit(argsCate?.categoryId, argsCate?.authorId);
 
-      setState(() {
-        _isLoading = true;
-      });
+      setState(() {});
       Provider.of<BookModel>(context, listen: false)
           .fetchAndSetBooks()
           .then((_) {
-        setState(() {
-          _isLoading = false;
-        });
+        setState(() {});
       });
     }
     _isInit = false;
@@ -90,7 +85,8 @@ class _BooksForSaleScreenState extends State<BooksForSaleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: customAppBar("Books for sale", 0, kPrimaryColor, true),
+        appBar: customAppBar(
+            "Books for sale", 0, kPrimaryColor, true, Colors.white),
         backgroundColor: AppColors.kBgGgrey,
         bottomNavigationBar:
             const CustomBottomNavBar(selectedMenu: MenuState.home),
